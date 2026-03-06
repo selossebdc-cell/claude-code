@@ -1,0 +1,239 @@
+================================================================================
+BONUS & RESSOURCES - COMPLETE CONTENT EXTRACTION
+All text, links, and structural elements
+================================================================================
+
+SECTION 1: 🎓 ACADÉMIE - Tutos Vidéo
+================================================================================
+
+BLOCK 1 (Quote - Subtitle):
+"Tous les tutos dont tu as besoin pour maîtriser tes outils et processus"
+
+---
+
+HEADING 2: 📚 Module 1 : Productivité Personnelle
+
+  HEADING 3: 🎯 Setup Dashboard Notion (7 min)
+  HEADING 3: ⏰ Time-blocking & Calendrier (12 min)
+  HEADING 3: 🌅 Routines du Dirigeant (10 min)
+
+---
+
+HEADING 2: 🛠️ Module 2 : Outils & Automatisation
+
+  HEADING 3: 🔐 Dashlane - Gestionnaire de Mots de Passe (8 min)
+  HEADING 3: 📧 Filtres Email & Inbox Zero (15 min)
+  HEADING 3: 🤖 Agents IA - ChatGPT & Claude (12 min)
+  HEADING 3: 📸 Banana.io - Retouche Photos Rapide (5 min)
+    LINK: "Banana.io" → http://banana.io/
+
+---
+
+HEADING 2: 👥 Module 3 : Délégation & Process
+
+  HEADING 3: 📋 RACI & Fiches de Poste (10 min)
+  HEADING 3: 📝 SOP - Standard Operating Procedures (12 min)
+  HEADING 3: ✅ Check-lists Opérationnelles (8 min)
+
+
+SECTION 2: 📄 TEMPLATES & GUIDES
+================================================================================
+
+HEADING 2: 🎯 Templates Notion (à dupliquer)
+
+  BLOCK TEXT: "[Bouton : Dupliquer tous les templates]"
+  [This is a CTA button - text to be made clickable]
+
+---
+
+HEADING 2: 📚 Guides PDF
+
+  BULLET LIST:
+  • 📘 Guide Filtres Email (Gmail + Outlook)
+  • 📗 Guide Installation Dashlane + Import CSV
+  • 📙 Guide Time-blocking pour Dirigeants
+  • 📕 Guide Création Annonces Leboncoin
+  • 📔 Guide Agent IA - Configuration
+
+  BLOCK TEXT: "[Bouton : Télécharger le pack complet]"
+  [This is a CTA button - text to be made clickable]
+
+---
+
+HEADING 2: 🤖 Prompts IA (Copier-Coller)
+
+  HEADING 3: Annonces Leboncoin
+  HEADING 3: Agent CEO/Éclaireur
+  HEADING 3: Découpage Tâche "Everest"
+  HEADING 3: Réponse Email Rapide
+  HEADING 3: Préparation Réunion
+
+  BLOCK TEXT: "[Bouton : Télécharger les 10 prompts]"
+  [This is a CTA button - text to be made clickable]
+
+
+SECTION 3: 🏫 ACCÈS COMMUNAUTÉ SKOOL
+================================================================================
+
+HEADING 2: 🎓 Transformation Dirigeant - Académie
+
+  BLOCK TEXT WITH LINK:
+  "👉 [Rejoindre la communauté Skool]"
+  [This is a CTA link - make the text clickable]
+
+  BLOCK TEXT:
+  "Dans la communauté, tu trouveras :"
+
+  ---
+
+  HEADING 3: 🎯 Fondations (Semaines 1-6)
+    BULLET LIST:
+    • Tous les tutos vidéo Module 1
+    • Forum Q&A productivité
+    • Défis hebdomadaires
+
+  HEADING 3: 🚀 Délégation (Semaines 7-12)
+    BULLET LIST:
+    • Tous les tutos vidéo Module 3
+    • Templates avancés
+    • Études de cas
+
+  HEADING 3: 👑 Leadership (Semaines 13-18)
+    BULLET LIST:
+    • Masterclasses exclusives
+    • Groupe de pairs dirigeants
+    • Sessions bonus
+
+  HEADING 3: 🛠️ Boîte à Outils
+    BULLET LIST:
+    • Bibliothèque complète templates
+    • Base de données SOPs
+    • Prompts IA mise à jour
+
+---
+
+HEADING 2: 📞 Support
+
+  BLOCK TEXT:
+  "Questions sur les tutos ?"
+
+  BULLET LIST:
+  • 💬 Dans Skool : Forum Q&A
+  • 📧 Email : catherine@csbusiness.fr
+    LINK: "catherine@csbusiness.fr" → mailto:catherine@csbusiness.fr
+  • ⏱️ Réponse sous 48h
+
+  BLOCK QUOTE (Tip):
+  "⚡ Astuce : Épingle cette page en favori pour accéder rapidement aux tutos !"
+
+
+================================================================================
+EXTRACTED ELEMENTS BY TYPE
+================================================================================
+
+HEADING 1 (3 total):
+1. "🎓 ACADÉMIE - Tutos Vidéo"
+2. "📄 TEMPLATES & GUIDES"
+3. "🏫 ACCÈS COMMUNAUTÉ SKOOL"
+
+---
+
+HEADING 2 (8 total):
+1. "📚 Module 1 : Productivité Personnelle"
+2. "🛠️ Module 2 : Outils & Automatisation"
+3. "👥 Module 3 : Délégation & Process"
+4. "🎯 Templates Notion (à dupliquer)"
+5. "📚 Guides PDF"
+6. "🤖 Prompts IA (Copier-Coller)"
+7. "🎓 Transformation Dirigeant - Académie"
+8. "📞 Support"
+
+---
+
+HEADING 3 (18 total):
+1. "🎯 Setup Dashboard Notion (7 min)"
+2. "⏰ Time-blocking & Calendrier (12 min)"
+3. "🌅 Routines du Dirigeant (10 min)"
+4. "🔐 Dashlane - Gestionnaire de Mots de Passe (8 min)"
+5. "📧 Filtres Email & Inbox Zero (15 min)"
+6. "🤖 Agents IA - ChatGPT & Claude (12 min)"
+7. "📸 Banana.io - Retouche Photos Rapide (5 min)"
+8. "📋 RACI & Fiches de Poste (10 min)"
+9. "📝 SOP - Standard Operating Procedures (12 min)"
+10. "✅ Check-lists Opérationnelles (8 min)"
+11. "Annonces Leboncoin"
+12. "Agent CEO/Éclaireur"
+13. "Découpage Tâche "Everest""
+14. "Réponse Email Rapide"
+15. "Préparation Réunion"
+16. "🎯 Fondations (Semaines 1-6)"
+17. "🚀 Délégation (Semaines 7-12)"
+18. "👑 Leadership (Semaines 13-18)"
+19. "🛠️ Boîte à Outils"
+
+---
+
+QUOTES / CALLOUT BLOCKS (3 total):
+1. "Tous les tutos dont tu as besoin pour maîtriser tes outils et processus"
+2. "⚡ Astuce : Épingle cette page en favori pour accéder rapidement aux tutos !"
+
+---
+
+BULLET LISTS (Content Summary):
+- 10 video tutorials with durations
+- 5 PDF guide titles
+- 5 AI prompt titles
+- 4 Skool community tiers with 3 items each (12 items)
+- 3 support contact methods
+
+---
+
+LINKS (2 total):
+1. "Banana.io" → http://banana.io/
+2. "catherine@csbusiness.fr" → mailto:catherine@csbusiness.fr
+
+---
+
+CTA BUTTONS / ACTION ITEMS (4 total):
+1. "Dupliquer tous les templates"
+2. "Télécharger le pack complet"
+3. "Télécharger les 10 prompts"
+4. "Rejoindre la communauté Skool"
+
+
+================================================================================
+NOTION BLOCK TYPES NEEDED FOR RECREATION
+================================================================================
+
+1. Heading 1 - Main section titles (3 blocks)
+2. Quote - Subtitle and tip blocks (2 blocks)
+3. Heading 2 - Section headers (8 blocks)
+4. Heading 3 - Subsection and content item titles (19 blocks)
+5. Paragraph - Text content and CTA actions (6+ blocks)
+6. Bulleted List - All list items (multiple blocks or one organized block per section)
+
+Total blocks needed: Approximately 40-50 blocks depending on list organization
+
+
+================================================================================
+COLUMN-BY-COLUMN CONTENT MAPPING
+================================================================================
+
+SECTION 1 - ACADÉMIE:
+  Purpose: Showcase video tutorials by topic
+  Structure: 3 modules with 3-4 videos each
+  Duration: Total 94 minutes of content across 10 videos
+  
+SECTION 2 - TEMPLATES & GUIDES:
+  Purpose: Provide downloadable resources
+  Structure: 3 subsections (Templates, PDF Guides, AI Prompts)
+  Items: 5 guides + 5 prompts + 1 template collection
+  
+SECTION 3 - SKOOL COMMUNITY:
+  Purpose: Drive signups to external community platform
+  Structure: 2 subsections (Community benefits, Support)
+  Tiers: 4 learning tiers + 1 bonus toolkit section
+  Support: 3 contact methods with response time
+
+
+================================================================================

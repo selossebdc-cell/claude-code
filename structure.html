@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude-Code — Structure CS Consulting Strategique</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            padding: 40px;
+            line-height: 1.6;
+        }
+        h1 {
+            font-size: 28px;
+            color: #C27A5A;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .card {
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 24px;
+            transition: border-color 0.2s;
+        }
+        .card:hover { border-color: #C27A5A; }
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h2 .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .entreprise h2 .icon { background: #C27A5A33; color: #C27A5A; }
+        .clients h2 .icon { background: #5A9EC233; color: #5AC2A0; }
+        .dev h2 .icon { background: #8A5AC233; color: #B08AE0; }
+
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #666;
+            margin: 16px 0 8px;
+            padding-top: 12px;
+            border-top: 1px solid #2a2a2a;
+        }
+        .section-label:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+
+        .tree { list-style: none; }
+        .tree li {
+            padding: 4px 0 4px 20px;
+            position: relative;
+            font-size: 13px;
+        }
+        .tree li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #333;
+        }
+        .tree li::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 12px;
+            height: 1px;
+            background: #333;
+        }
+        .tree li:last-child::before { bottom: 50%; }
+
+        .folder { color: #C27A5A; font-weight: 600; }
+        .file { color: #999; }
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-weight: 400;
+        }
+        .badge-skill { background: #C27A5A33; color: #C27A5A; }
+        .badge-agent { background: #E0A05A33; color: #E0C05A; }
+        .badge-routine { background: #5AC2A033; color: #5AC2A0; }
+        .badge-client { background: #5A9EC233; color: #5A9EC2; }
+        .badge-dev { background: #8A5AC233; color: #B08AE0; }
+
+        .bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .card.full { grid-column: 1 / -1; }
+
+        .flow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .flow-item {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 12px;
+        }
+        .flow-arrow { color: #C27A5A; font-size: 18px; }
+
+        .agent-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #222;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .agent-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .agent-avatar.dg { background: #C27A5A44; }
+        .agent-avatar.commercial { background: #5AC2A044; }
+        .agent-avatar.cs { background: #5A9EC244; }
+        .agent-avatar.daf { background: #E0C05A44; }
+        .agent-info h4 { font-size: 13px; margin-bottom: 2px; }
+        .agent-info p { font-size: 11px; color: #888; }
+        .agent-info .skills-used {
+            margin-top: 4px;
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .agent-info .skill-tag {
+            font-size: 9px;
+            background: #2a2a2a;
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: #aaa;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #2a2a2a;
+            font-size: 12px;
+            color: #666;
+        }
+        .legend-item { display: flex; align-items: center; gap: 6px; }
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .legend-dot.ent { background: #C27A5A; }
+        .legend-dot.cli { background: #5AC2A0; }
+        .legend-dot.dev { background: #B08AE0; }
+
+        .cron-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 12px;
+        }
+        .cron-table th {
+            text-align: left;
+            padding: 6px 8px;
+            color: #888;
+            font-weight: 500;
+            border-bottom: 1px solid #333;
+        }
+        .cron-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #222;
+        }
+        .cron-table code {
+            font-family: 'SF Mono', Monaco, monospace;
+            background: #222;
+            padding: 1px 4px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Claude-Code</h1>
+<p class="subtitle">CS Consulting Strategique — Architecture du projet | Mars 2026</p>
+
+<!-- 3 colonnes principales -->
+<div class="grid">
+
+    <!-- ENTREPRISE -->
+    <div class="card entreprise">
+        <h2><span class="icon">B</span> 01-entreprise</h2>
+
+        <div class="section-label">Skills (execution)</div>
+        <ul class="tree">
+            <li><span class="folder">agenda-writer/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">brand-identity/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">client-onboarding/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">invoice-generator/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">linkedin-content/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">noble-ai/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">proposal-generator/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">roadmap-generator/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">session-report/</span> <span class="badge badge-skill">skill</span></li>
+            <li><span class="folder">weekly-planner/</span> <span class="badge badge-skill">skill</span></li>
+        </ul>
+
+        <div class="section-label">Agents (intelligence metier)</div>
+        <ul class="tree">
+            <li><span class="folder">dg/</span> <span class="badge badge-agent">agent</span></li>
+            <li><span class="folder">commercial/</span> <span class="badge badge-agent">agent</span></li>
+            <li><span class="folder">customer-success/</span> <span class="badge badge-agent">agent</span></li>
+            <li><span class="folder">daf/</span> <span class="badge badge-agent">agent</span></li>
+        </ul>
+
+        <div class="section-label">Infrastructure</div>
+        <ul class="tree">
+            <li><span class="folder">core/</span> <span class="file">agent.py, message_bus.py</span></li>
+            <li><span class="folder">config/</span> <span class="file">settings, notion_ids, calendar_ids</span></li>
+            <li><span class="folder">tools/</span> <span class="file">calendar, notion, memory, messaging</span></li>
+            <li><span class="folder">routines/</span> <span class="badge badge-routine">cron</span></li>
+        </ul>
+    </div>
+
+    <!-- CLIENTS -->
+    <div class="card clients">
+        <h2><span class="icon">P</span> 02-clients</h2>
+
+        <div class="section-label">Clients actifs</div>
+        <ul class="tree">
+            <li>
+                <span class="folder">fred/</span> <span class="badge badge-client">actif</span>
+                <ul class="tree">
+                    <li><span class="file">fred.md</span> — memoire client</li>
+                    <li><span class="folder">prep-sessions/</span> — prep 5, 6...</li>
+                </ul>
+            </li>
+            <li>
+                <span class="folder">face-soul-yoga/</span> <span class="badge badge-client">actif</span>
+                <ul class="tree">
+                    <li><span class="file">face-soul-yoga.md</span> — memoire client</li>
+                    <li><span class="folder">prep-sessions/</span></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="section-label">Prospects / anciens</div>
+        <ul class="tree">
+            <li>
+                <span class="folder">marion/</span>
+                <ul class="tree">
+                    <li><span class="file">marion.md</span></li>
+                </ul>
+            </li>
+            <li>
+                <span class="folder">maylis/</span>
+                <ul class="tree">
+                    <li><span class="file">maylis.md</span></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="section-label">Template</div>
+        <ul class="tree">
+            <li><span class="file">_TEMPLATE.md</span> — pour chaque nouveau client</li>
+        </ul>
+    </div>
+
+    <!-- DEV -->
+    <div class="card dev">
+        <h2><span class="icon">D</span> 03-developpement</h2>
+
+        <div class="section-label">Projets actifs</div>
+        <ul class="tree">
+            <li>
+                <span class="folder">chatbot-fsy/</span> <span class="badge badge-dev">dev</span>
+                <ul class="tree">
+                    <li><span class="file">Chatbot Telegram Aurelia</span></li>
+                    <li><span class="file">n8n + Notion + RAG</span></li>
+                </ul>
+            </li>
+            <li>
+                <span class="folder">site-csbusiness/</span> <span class="badge badge-dev">dev</span>
+                <ul class="tree">
+                    <li><span class="file">Site web CS Consulting</span></li>
+                </ul>
+            </li>
+        </ul>
+
+        <div class="section-label">Specifications</div>
+        <ul class="tree">
+            <li><span class="file">cdc-chatbot-whatsapp-fsy.md</span></li>
+            <li><span class="file">feuilles-de-route-propositions.md</span></li>
+        </ul>
+
+        <div class="section-label">Archive</div>
+        <ul class="tree">
+            <li><span class="folder">_archive/</span> <span class="file">anciens projets</span></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Agents detail -->
+<div class="bottom-row">
+    <div class="card full">
+        <h2>Agents — Vue par departement</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+
+            <div class="agent-card">
+                <div class="agent-avatar dg">C</div>
+                <div class="agent-info">
+                    <h4>DG — Direction Generale</h4>
+                    <p>Orchestrateur. Interroge les 3 departements. Challenge Catherine. Priorise (3 max/jour).</p>
+                    <div class="skills-used">
+                        <span class="skill-tag">weekly-planner</span>
+                        <span class="skill-tag">noble-ai</span>
+                        <span class="skill-tag">calendar</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-avatar commercial">V</div>
+                <div class="agent-info">
+                    <h4>Commercial — Prospection & Ventes</h4>
+                    <p>CRM Notion, Waalaxy (30j auto), LinkedIn pepites, propositions commerciales, lead magnets.</p>
+                    <div class="skills-used">
+                        <span class="skill-tag">proposal-generator</span>
+                        <span class="skill-tag">linkedin-content</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-avatar cs">S</div>
+                <div class="agent-info">
+                    <h4>Customer Success — Suivi Clients</h4>
+                    <p>Sessions, CR, feuilles de route, satisfaction, Cockpit Catherine & Christelle.</p>
+                    <div class="skills-used">
+                        <span class="skill-tag">session-report</span>
+                        <span class="skill-tag">roadmap-generator</span>
+                        <span class="skill-tag">client-onboarding</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-avatar daf">F</div>
+                <div class="agent-info">
+                    <h4>DAF — Admin & Finance</h4>
+                    <p>Facturation Shine/Stripe, echeanciers, OPCO, relances, CA vs objectif 200k.</p>
+                    <div class="skills-used">
+                        <span class="skill-tag">invoice-generator</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Routines cron -->
+<div style="margin-top: 24px;">
+    <div class="card full">
+        <h2>Routines automatiques (cron)</h2>
+        <table class="cron-table">
+            <thead>
+                <tr><th>Routine</th><th>Agent</th><th>Cron</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Briefing matinal</td>
+                    <td>DG</td>
+                    <td><code>30 7 * * 1-5</code></td>
+                    <td>Lun-Ven 7h30 — Interroge les 3 depts + agenda du jour + 3 priorites</td>
+                </tr>
+                <tr>
+                    <td>Check factures</td>
+                    <td>DAF</td>
+                    <td><code>0 9 * * 5</code></td>
+                    <td>Vendredi 9h — Etat factures, paiements, retards, CA cumule</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Flux hybride -->
+<div style="margin-top: 24px;">
+    <div class="card full">
+        <h2>Architecture hybride — Option C</h2>
+        <p style="font-size: 13px; color: #888; margin-bottom: 12px;">Les agents Python tournent en autonome (cron) ET sont appeles par Claude Code pour l'execution interactive.</p>
+        <div class="flow">
+            <div class="flow-item">Catherine demande</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-item" style="border-color: #C27A5A;">Claude Code<br><small style="color:#888">Skills + MCP</small></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-item">Notion / Calendar / Fichiers</div>
+        </div>
+        <div class="flow" style="margin-top: 16px;">
+            <div class="flow-item">Cron 7h30</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-item" style="border-color: #E0C05A;">Agents Python<br><small style="color:#888">API Anthropic</small></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-item">Briefing / Alertes</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-item">Notification macOS</div>
+        </div>
+    </div>
+</div>
+
+<div class="legend">
+    <div class="legend-item"><div class="legend-dot ent"></div> Entreprise (skills + agents)</div>
+    <div class="legend-item"><div class="legend-dot cli"></div> Clients (memoire + sessions)</div>
+    <div class="legend-item"><div class="legend-dot dev"></div> Developpement (projets tech)</div>
+    <span style="margin-left: auto; font-size: 11px;">Claude-Code v1.0 — CS Consulting Strategique — Mars 2026</span>
+</div>
+
+</body>
+</html>

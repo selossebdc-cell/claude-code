@@ -641,7 +641,7 @@
   <a href="#deroulement">Deroulement</a>
   <a href="#outlook">Outlook</a>
   <a href="#cloud">Cloud</a>
-  <a href="#protonpass">Proton Pass</a>
+  <a href="#passwords">Google Passwords</a>
   <a href="#fiche">La Fiche Fred</a>
   <a href="#suite">Suite</a>
   <a href="#prep">Prep Catherine</a>
@@ -697,7 +697,7 @@
           <li>Chrome = libere, juste pour naviguer</li>
           <li><strong>1 cloud</strong> de travail (Drive FU Solutions)</li>
           <li>Chaque fichier a SA place</li>
-          <li><strong>1 coffre-fort</strong> MDP (Proton Pass)</li>
+          <li><strong>1 coffre-fort</strong> MDP (Google Passwords)</li>
           <li>3 actions par semaine, c'est tout</li>
           <li>Fred ouvre son ordi et sait quoi faire</li>
         </ul>
@@ -738,7 +738,7 @@
       <div class="app-card mdp">
         <span class="app-num">3</span>
         <div class="app-icon">&#128272;</div>
-        <div class="app-name">Proton Pass</div>
+        <div class="app-name">Google Passwords</div>
         <div class="app-role">Tous tes mots de passe</div>
         <div class="app-rule">Plus de post-it, plus de "j'ai oublie". Tu cliques, ca remplit tout seul.</div>
       </div>
@@ -851,7 +851,7 @@
           <ul>
             <li><strong>Action 1 :</strong> Ouvre Outlook chaque matin au lieu de Chrome pour tes mails</li>
             <li><strong>Action 2 :</strong> Tout nouveau fichier → Drive FU Solutions</li>
-            <li><strong>Action 3 :</strong> Chaque mot de passe tape → enregistre-le dans Proton Pass</li>
+            <li><strong>Action 3 :</strong> Chaque mot de passe tape → Chrome propose de l'enregistrer → dis OUI</li>
           </ul>
           <p style="margin-top:12px;">Confirmer la prochaine session. Demander : <em>"Qu'est-ce qui t'a ete le plus utile ?"</em></p>
         </div>
@@ -895,8 +895,8 @@
     <div class="decision-box">
       <strong>Pre-requis a verifier AVANT la session :</strong><br>
       1. Fred est sur Windows 10 ou 11 ?<br>
-      2. fu@fusolution.fr = Google Workspace ou OVH ? (change le protocole de connexion)<br>
-      3. Gaetan a-t-il debloque l'OVH 2FA ? (sinon les boites V8 OVH ne se connecteront pas)
+      2. fu@fusolution.fr = Gmail / Google Workspace (confirme)<br>
+      3. Fred arrive-t-il a se connecter a mail.google.com avec fu@fusolution.fr ?
     </div>
 
     <h3>Comptes a ajouter dans Outlook</h3>
@@ -909,7 +909,7 @@
           <td><strong>fu@fusolution.fr</strong></td>
           <td><span class="tag tag-new">Principal</span></td>
           <td>Email de travail quotidien, admin transversal</td>
-          <td>Google / IMAP selon hebergeur</td>
+          <td>Google OAuth</td>
         </tr>
         <tr>
           <td>Gmail personnel</td>
@@ -1019,14 +1019,19 @@
   </section>
 
   <!-- ═══════════════════════════════════════════ -->
-  <!-- SECTION 6 : PROTON PASS -->
+  <!-- SECTION 6 : GOOGLE PASSWORDS -->
   <!-- ═══════════════════════════════════════════ -->
-  <section id="protonpass">
-    <h2>Proton Pass — Le coffre-fort MDP</h2>
+  <section id="passwords">
+    <h2>Google Passwords — Le coffre-fort MDP</h2>
 
-    <p style="margin-bottom:20px;">Fred n'a aucun gestionnaire de mots de passe. Ses MDP sont dans sa tete, sur des post-it, ou dans un fichier quelque part. Proton Pass est gratuit, simple, et securise.</p>
+    <p style="margin-bottom:20px;">Fred n'a aucun gestionnaire de mots de passe. Ses MDP sont dans sa tete, sur des post-it, ou dans un fichier Excel. <strong>Bonne nouvelle : il en a deja un.</strong> Google Password Manager est integre a Chrome et a son compte fu@fusolution.fr. Zero install, zero compte supplementaire.</p>
 
-    <h3>Etapes d'installation</h3>
+    <div class="decision-box">
+      <strong>Pourquoi Google Passwords et pas Proton Pass ?</strong><br>
+      Fred est sur Google Workspace (Gmail, Drive, Calendar). Google Password Manager est <strong>deja la</strong> — pas de compte a creer, pas d'extension a installer. Un outil de moins = moins de friction = plus de chances qu'il l'utilise.
+    </div>
+
+    <h3>Etapes en session</h3>
     <table class="config-table">
       <thead>
         <tr><th>#</th><th>Etape</th><th>Detail</th></tr>
@@ -1034,34 +1039,34 @@
       <tbody>
         <tr>
           <td>1</td>
-          <td>Creer un compte Proton</td>
-          <td>Avec fu@fusolution.fr — plan gratuit suffisant</td>
+          <td>Verifier que Chrome est connecte</td>
+          <td>fu@fusolution.fr doit etre le profil Chrome principal</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Installer l'extension navigateur</td>
-          <td>Firefox (navigateur principal) + Chrome (backup)</td>
+          <td>Activer la proposition d'enregistrement</td>
+          <td>Chrome > Parametres > Mots de passe > "Proposer d'enregistrer" = ON</td>
         </tr>
         <tr>
           <td>3</td>
-          <td>Installer l'app desktop</td>
-          <td>Pour avoir acces hors navigateur</td>
+          <td>Enregistrer les 3 premiers MDP en live</td>
+          <td>Se connecter a Gmail, HSBC ou Revolut, un site fournisseur → Chrome propose d'enregistrer → cliquer OUI</td>
         </tr>
         <tr>
           <td>4</td>
-          <td>Enregistrer les 3 premiers MDP</td>
-          <td>Gmail, Drive FU Solutions, un site bancaire (HSBC ou Revolut)</td>
+          <td>Montrer le remplissage auto</td>
+          <td>Fred va sur un site deja enregistre → Chrome remplit → "C'est tout con !"</td>
         </tr>
         <tr>
           <td>5</td>
-          <td>Montrer le remplissage auto</td>
-          <td>Fred va sur un site → Proton Pass remplit → "C'est tout con !"</td>
+          <td>Importer le fichier Excel de MDP</td>
+          <td>Si Fred a son Excel : le convertir en CSV → Chrome > Parametres > Mots de passe > Importer</td>
         </tr>
       </tbody>
     </table>
 
     <div class="decision-box">
-      <strong>Strategie progressive :</strong> On ne migre PAS tous les MDP d'un coup. A chaque connexion, Fred enregistre le MDP dans Proton Pass. En 2 semaines, les principaux seront dedans naturellement.
+      <strong>Strategie progressive :</strong> Meme sans import CSV, a chaque connexion Chrome propose d'enregistrer le MDP. En 2 semaines, les principaux seront dedans naturellement. Tout est synchronise sur son compte Google — meme depuis un autre ordi.
     </div>
   </section>
 
@@ -1098,8 +1103,8 @@
         <div class="step-num">3</div>
         <div class="step-icon">&#128272;</div>
         <div class="step-text">
-          <div class="step-action">Un mot de passe ? PROTON PASS</div>
-          <div class="step-detail">Je tape un MDP → je l'enregistre dans Proton Pass. Toujours.</div>
+          <div class="step-action">Un mot de passe ? GOOGLE le retient</div>
+          <div class="step-detail">Chrome me propose d'enregistrer → je dis OUI. Toujours.</div>
         </div>
       </div>
 
@@ -1202,19 +1207,17 @@
 
       <h3>A faire AVANT la session</h3>
       <ul class="checklist">
-        <li><input type="checkbox"> <span>Envoyer un WhatsApp a Fred : <strong>"Tu es sur Windows 10 ou 11 ? Et fu@fusolution.fr c'est heberge chez Google ou chez OVH ?"</strong></span></li>
-        <li><input type="checkbox"> <span>Verifier si Gaetan a repondu pour le deblocage OVH 2FA</span></li>
-        <li><input type="checkbox"> <span>Tester l'URL fu@fusolution.fr — essayer de se connecter pour savoir si c'est Google Workspace, OVH Webmail, ou autre</span></li>
-        <li><input type="checkbox"> <span>Preparer un compte Proton Pass de test (optionnel, pour connaitre les etapes)</span></li>
+        <li><input type="checkbox"> <span>Envoyer un mail a Fred : <strong>"Connecte-toi a mail.google.com avec fu@fusolution.fr — dis-moi si ca marche"</strong></span></li>
+        <li><input type="checkbox"> <span>Verifier si Fred a son fichier Excel de MDP (pour import Google Passwords en session)</span></li>
         <li><input type="checkbox"> <span>Imprimer la <strong>Fiche Fred</strong> (section "Quand j'ouvre mon ordi") — ou la preparer en partage d'ecran</span></li>
         <li><input type="checkbox"> <span>Relire cette page le vendredi matin a 9h15 (creneau buffer deja bloque)</span></li>
       </ul>
 
       <h3 style="margin-top:24px;">Pendant la session — Points de vigilance</h3>
       <ul class="checklist">
-        <li><input type="checkbox"> <span><span class="tag tag-critical">IMPORTANT</span> Ne PAS deborder sur 10 sujets. 3 blocs max faits en live. Si Outlook prend 50 min → on saute Proton Pass, c'est OK.</span></li>
+        <li><input type="checkbox"> <span><span class="tag tag-critical">IMPORTANT</span> Ne PAS deborder sur 10 sujets. 3 blocs max faits en live. Si Outlook prend 50 min → on saute Google Passwords, c'est OK.</span></li>
         <li><input type="checkbox"> <span>Si Fred part sur une tangente ("et aussi je voudrais...") → <em>"Super idee, je la note. On y revient quand les bases sont posees."</em></span></li>
-        <li><input type="checkbox"> <span>Si l'install Outlook bloque (2FA, MDP oublie, etc.) → <strong>Plan B : configurer UNE seule boite (fu@fusolution.fr)</strong>, les autres en action inter-session</span></li>
+        <li><input type="checkbox"> <span>Si l'install Outlook bloque (MDP oublie, etc.) → <strong>Plan B : configurer UNE seule boite (fu@fusolution.fr)</strong>, les autres en action inter-session</span></li>
         <li><input type="checkbox"> <span>Penser a demander a Fred : le test Firefox Containers de la session 4 → verdict ? (pour decider si on l'abandonne officiellement)</span></li>
         <li><input type="checkbox"> <span>Fin de session : noter la citation du jour pour pepite LinkedIn</span></li>
       </ul>
@@ -1235,9 +1238,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>Rechercher meilleure config Proton Pass pour Fred</td>
+            <td>Google Passwords — verifier que Chrome est connecte a fu@fusolution.fr</td>
             <td>S5</td>
-            <td><span class="tag tag-critical">A faire avant vendredi</span></td>
+            <td><span class="tag tag-ok">Simplifie : deja integre a Google</span></td>
           </tr>
           <tr>
             <td>Creer diagramme visuel structure email FU Solutions</td>

@@ -7,8 +7,9 @@ description: "Gère l'onboarding complet d'un nouveau client CS Consulting Strat
 
 Tu gères l'onboarding complet d'un nouveau client pour Catherine Selosse (CS Consulting Stratégique) : de la signature jusqu'à la Session #1.
 
-Avant de commencer, lis la checklist complète :
+Avant de commencer, lis les références :
 - `references/checklist-onboarding.md` — toutes les étapes, emails templates, et vérifications
+- `references/questionnaire-onboarding.md` — contenu complet du questionnaire (9 sections, 43 questions, mapping vers le diagnostic)
 
 ## Quand ce skill se déclenche
 
@@ -98,16 +99,16 @@ Si le fichier n'existe pas → le créer depuis `clients/_TEMPLATE.md`.
 
 1. Remplir/mettre à jour les **Notion IDs** : dashboard, meeting agendas (data source), objectifs & actions (data source), fiche client
 2. Remplir : programme, période, sessions, tutoiement/vouvoiement
-3. Quand Catherine fournit les réponses Fillout du client → remplir la section **Questionnaire Fillout** (7 sections : Vision, Stratégie, Parcours client, Productivité, Problématiques, Objectifs, Revenus)
+3. Quand Catherine fournit les réponses Fillout du client → remplir la section **Questionnaire Fillout** (9 sections + 1 bonus : Vision, Stratégie, Productivité, Parcours client, Outils, Équipe & Délégation, Pilotage, Mindset & Blocages, Engagement & Objectifs, Documentation process). Voir `references/questionnaire-onboarding.md` pour le mapping complet.
 4. Commit + push GitHub
 
 #### J+3 : Envoyer le kit de démarrage
 
 1. **Email kit de démarrage** : rédiger à partir du template dans la checklist
    - Inclure le lien Notion
-   - Inclure le lien du questionnaire Fillout : https://feuillederoute.fillout.com/csbusiness
+   - Inclure le lien du questionnaire : [URL_QUESTIONNAIRE]
    - Inclure le lien Fantastical pour réserver Session #1
-2. **Questionnaire d'onboarding** : le client remplit le formulaire Fillout (pas besoin de le créer, il existe déjà)
+2. **Questionnaire d'onboarding** : le client remplit le formulaire HTML auto-hébergé (03-developpement/questionnaire-onboarding/)
 
 ⚠️ **RÈGLE DES 5 JOURS :** Le client doit réserver sa Session #1 minimum **5 jours ouvrés (7 jours calendaires) après** avoir rempli le questionnaire. Catherine a besoin de ce temps pour analyser les réponses et préparer la feuille de route personnalisée.
 
@@ -160,6 +161,6 @@ Catherine utilise les 5 jours ouvrés pour :
 - **Les CGV doivent être signées AVANT le démarrage** — c'est non négociable
 - **Le dashboard doit être prêt AVANT d'envoyer le kit** — le client ne doit pas arriver sur un espace vide
 - **5 jours ouvrés entre questionnaire et Session #1** — Catherine a besoin de ce temps pour préparer la feuille de route (5 jours ouvrés = 7 jours calendaires)
-- **Questionnaire via Fillout uniquement** — lien : https://feuillederoute.fillout.com/csbusiness (ne pas créer de questionnaire Notion)
+- **Questionnaire via formulaire HTML auto-hébergé** — lien : [URL_QUESTIONNAIRE] (ne pas créer de questionnaire Notion ni utiliser Fillout)
 - **Ton chaleureux et rassurant** — le client ne doit jamais se sentir submergé par les outils
 - **Simplicité d'abord** — le kit de démarrage demande 3 actions max au client (ouvrir Notion, remplir questionnaire, réserver session)

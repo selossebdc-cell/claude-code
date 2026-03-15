@@ -20,8 +20,8 @@ Tu es le DAF (Directeur Administratif et Financier) de CS Consulting Strategique
 
 ## Sources de verite
 - Facturation globale Notion : {FACTURATION_GLOBAL}
-- Factures Fred : {CLIENT_MAP.get('fred', {{}}).get('factures', 'N/A')}
-- Factures Aurelia : {CLIENT_MAP.get('face-soul-yoga', {{}}).get('factures', 'N/A')}
+- Factures Fred : {CLIENT_MAP.get('fred', {}).get('factures', 'N/A')}
+- Factures Aurelia : {CLIENT_MAP.get('face-soul-yoga', {}).get('factures', 'N/A')}
 - Skill : invoice-generator (regles de facturation, templates)
 
 ## Clients actifs - details financiers

@@ -1,0 +1,252 @@
+{
+  "name": "Questionnaire Agent Email → Notion",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "questionnaire-agent-email",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [260, 300],
+      "webhookId": "questionnaire-agent-email"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ {\"status\": \"ok\", \"prospect\": $('Webhook').item.json._prospect, \"notion_url\": \"https://www.notion.so/\" + $json.id.replace(/-/g, \"\")} }",
+        "options": {}
+      },
+      "id": "respond-1",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1280, 300]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "create",
+        "databaseId": {
+          "__rl": true,
+          "value": "16d73f2f97474d3eb29646162c77ad06",
+          "mode": "id"
+        },
+        "title": "={{ $json._prospect }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Statut|select",
+              "selectValue": "Nouveau"
+            },
+            {
+              "key": "Date réception|date",
+              "dateValue": "={{ $json._date_envoi }}"
+            },
+            {
+              "key": "Volume mails/jour|select",
+              "selectValue": "={{ {\"moins_20\":\"Moins de 20\",\"20_50\":\"20 à 50\",\"50_100\":\"50 à 100\",\"100_200\":\"100 à 200\",\"plus_200\":\"Plus de 200\"}[$json.volume_jour] || \"\" }}"
+            },
+            {
+              "key": "Nb adresses|number",
+              "numberValue": "={{ [1,2,3,4,5].filter(n => $json[\"adresse_\"+n]).length }}"
+            },
+            {
+              "key": "Niveau autonomie|select",
+              "selectValue": "={{ {\"brouillon_tout\":\"Brouillon uniquement\",\"mixte\":\"Mixte\",\"full_auto\":\"100% autonome\"}[$json.autonomie] || \"\" }}"
+            },
+            {
+              "key": "Fréquence traitement|select",
+              "selectValue": "={{ {\"temps_reel\":\"Temps réel\",\"5min\":\"Toutes les 5 min\",\"15_30min\":\"15-30 min\",\"2_3_fois\":\"2-3 fois/jour\"}[$json.frequence] || \"\" }}"
+            },
+            {
+              "key": "Canal alerte|richText",
+              "textValue": "={{ Array.isArray($json.canal_alerte) ? $json.canal_alerte.join(\", \") : ($json.canal_alerte || \"\") }}"
+            },
+            {
+              "key": "Serveur interne|select",
+              "selectValue": "={{ {\"oui\":\"Oui\",\"non\":\"Non\",\"sais_pas\":\"Ne sait pas\"}[$json.serveur] || \"\" }}"
+            },
+            {
+              "key": "Données sensibles|checkbox",
+              "checkboxValue": "={{ $json.donnees_sensibles ? true : false }}"
+            },
+            {
+              "key": "Hébergement|select",
+              "selectValue": "={{ {\"chez_moi\":\"Chez client\",\"chez_catherine\":\"Chez CS Consulting\",\"sais_pas\":\"\"}[$json.hebergement] || \"\" }}"
+            },
+            {
+              "key": "RDV cadrage|date",
+              "dateValue": "2026-03-12"
+            },
+            {
+              "key": "Notes|richText",
+              "textValue": "={{ $json.commentaire_libre || \"\" }}"
+            }
+          ]
+        }
+      },
+      "id": "notion-create-1",
+      "name": "Notion — Créer fiche",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [520, 300],
+      "credentials": {
+        "notionApi": {
+          "id": "VOTRE_CREDENTIAL_NOTION_ID",
+          "name": "Notion API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "operation": "append",
+        "blockId": "={{ $json.id }}",
+        "blockUi": {
+          "blockValues": [
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"Prospect : \" + $('Webhook').item.json._prospect + \"\\nDate : \" + $('Webhook').item.json._date_envoi + \"\\n\\n--- QUOTIDIEN ---\\nVolume : \" + ($('Webhook').item.json.volume_jour || \"\") + \"\\nTemps passé : \" + ($('Webhook').item.json.temps_mails || \"\") + \"\\nOutils IA : \" + ($('Webhook').item.json.outil_ia || \"\") + \"\\nTemps perdu sur : \" + (Array.isArray($('Webhook').item.json.temps_perdu) ? $('Webhook').item.json.temps_perdu.join(\", \") : ($('Webhook').item.json.temps_perdu || \"\")) }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- ADRESSES EMAIL ---\\n1. \" + ($('Webhook').item.json.adresse_1 || \"—\") + \" (\" + ($('Webhook').item.json.utilisateur_1 || \"\") + \") — \" + ($('Webhook').item.json.volume_1 || \"\") + \"/j — \" + ($('Webhook').item.json.fournisseur_1 || \"\") + \"\\n2. \" + ($('Webhook').item.json.adresse_2 || \"—\") + \" (\" + ($('Webhook').item.json.utilisateur_2 || \"\") + \") — \" + ($('Webhook').item.json.volume_2 || \"\") + \"/j — \" + ($('Webhook').item.json.fournisseur_2 || \"\") + \"\\n3. \" + ($('Webhook').item.json.adresse_3 || \"—\") + \" (\" + ($('Webhook').item.json.utilisateur_3 || \"\") + \") — \" + ($('Webhook').item.json.volume_3 || \"\") + \"/j — \" + ($('Webhook').item.json.fournisseur_3 || \"\") + \"\\n4. \" + ($('Webhook').item.json.adresse_4 || \"—\") + \" (\" + ($('Webhook').item.json.utilisateur_4 || \"\") + \") — \" + ($('Webhook').item.json.volume_4 || \"\") + \"/j — \" + ($('Webhook').item.json.fournisseur_4 || \"\") + \"\\n5. \" + ($('Webhook').item.json.adresse_5 || \"—\") + \" (\" + ($('Webhook').item.json.utilisateur_5 || \"\") + \") — \" + ($('Webhook').item.json.volume_5 || \"\") + \"/j — \" + ($('Webhook').item.json.fournisseur_5 || \"\") + \"\\nLabels existants : \" + ($('Webhook').item.json.labels_existants || \"\") + \"\\nAccès admin : \" + (Array.isArray($('Webhook').item.json.acces_admin) ? $('Webhook').item.json.acces_admin.join(\", \") : ($('Webhook').item.json.acces_admin || \"\")) }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- TYPES DE MAILS ---\\nAdresse 1 : \" + ($('Webhook').item.json.types_adresse_1 || \"\") + \"\\nAdresse 2 : \" + ($('Webhook').item.json.types_adresse_2 || \"\") + \"\\nAdresse 3 : \" + ($('Webhook').item.json.types_adresse_3 || \"\") + \"\\nAdresse 4 : \" + ($('Webhook').item.json.types_adresse_4 || \"\") + \"\\nAdresse 5 : \" + ($('Webhook').item.json.types_adresse_5 || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- ACTIONS PAR TYPE ---\\n\" + ($('Webhook').item.json.action_type_1 || \"\") + \" → Label: \" + ($('Webhook').item.json.action_label_1 || \"\") + \" | Alerte: \" + ($('Webhook').item.json.action_alerte_1 || \"\") + \" | Archivage: \" + ($('Webhook').item.json.action_archivage_1 || \"\") + \" | Brouillon: \" + ($('Webhook').item.json.action_brouillon_1 || \"\") + \" | Autre: \" + ($('Webhook').item.json.action_autre_1 || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- BROUILLONS ---\\nTypes : \" + ($('Webhook').item.json.types_brouillons || \"\") + \"\\nModèles : \" + ($('Webhook').item.json.modeles_reponse || \"\") + \"\\nTon : \" + ($('Webhook').item.json.ton || \"\") + \"\\nLangues : \" + ($('Webhook').item.json.langues || \"\") + \"\\nSignature : \" + ($('Webhook').item.json.signature || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- PIECES JOINTES ---\\nTypes PJ : \" + ($('Webhook').item.json.types_pj || \"\") + \"\\nAction PJ : \" + (Array.isArray($('Webhook').item.json.action_pj) ? $('Webhook').item.json.action_pj.join(\", \") : ($('Webhook').item.json.action_pj || \"\")) }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- ALERTES ---\\nDéclencheurs : \" + ($('Webhook').item.json.declencheurs_alerte || \"\") + \"\\nCanal : \" + (Array.isArray($('Webhook').item.json.canal_alerte) ? $('Webhook').item.json.canal_alerte.join(\", \") : ($('Webhook').item.json.canal_alerte || \"\")) + \"\\nExpéditeurs VIP : \" + ($('Webhook').item.json.expediteurs_vip || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- ARCHIVAGE ---\\nMails archivables : \" + ($('Webhook').item.json.mails_archivables || \"\") + \"\\nDélai : \" + ($('Webhook').item.json.delai_archivage || \"\") + \"\\nSupprimables : \" + ($('Webhook').item.json.mails_supprimables || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- REGLES SPECIFIQUES ---\\nTransferts auto : \" + ($('Webhook').item.json.transferts_auto || \"\") + \"\\nHoraires : \" + ($('Webhook').item.json.horaires || \"\") + \"\\nInterdits : \" + ($('Webhook').item.json.interdits || \"\") + \"\\nInvitations : \" + ($('Webhook').item.json.invitations || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- AUTONOMIE ---\\nNiveau : \" + ($('Webhook').item.json.autonomie || \"\") + \"\\nRésumé activité : \" + ($('Webhook').item.json.resume_activite || \"\") + \"\\nContenu rapport : \" + (Array.isArray($('Webhook').item.json.contenu_rapport) ? $('Webhook').item.json.contenu_rapport.join(\", \") : ($('Webhook').item.json.contenu_rapport || \"\")) + \"\\nCanal rapport : \" + ($('Webhook').item.json.canal_rapport || \"\") + \"\\nCorrection erreurs : \" + ($('Webhook').item.json.correction || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- RAPIDITE ---\\nFréquence : \" + ($('Webhook').item.json.frequence || \"\") + \"\\nPlage horaire : \" + ($('Webhook').item.json.plage_horaire || \"\") + \"\\nHoraires perso : \" + ($('Webhook').item.json.horaires_perso || \"\") }}"
+            },
+            {
+              "type": "paragraph",
+              "textContent": "={{ \"--- TECHNIQUE ---\\nServeur : \" + ($('Webhook').item.json.serveur || \"\") + \"\\nInformaticien : \" + ($('Webhook').item.json.informaticien || \"\") + \"\\nHébergement : \" + ($('Webhook').item.json.hebergement || \"\") + \"\\nDonnées sensibles : \" + ($('Webhook').item.json.donnees_sensibles || \"\") }}"
+            }
+          ]
+        }
+      },
+      "id": "notion-append-1",
+      "name": "Notion — Détail complet",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [780, 300],
+      "credentials": {
+        "notionApi": {
+          "id": "VOTRE_CREDENTIAL_NOTION_ID",
+          "name": "Notion API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "catherine@csbusiness.fr",
+        "subject": "={{ \"📋 Nouveau questionnaire agent email — \" + $('Webhook').item.json._prospect }}",
+        "message": "={{ \"Nouveau questionnaire reçu de \" + $('Webhook').item.json._prospect + \"<br><br><b>Volume mails/jour :</b> \" + ($('Webhook').item.json.volume_jour || \"non renseigné\") + \"<br><b>Nb adresses :</b> \" + [1,2,3,4,5].filter(n => $('Webhook').item.json[\"adresse_\"+n]).length + \"<br><b>Niveau autonomie :</b> \" + ($('Webhook').item.json.autonomie || \"non renseigné\") + \"<br><b>Serveur interne :</b> \" + ($('Webhook').item.json.serveur || \"non renseigné\") + \"<br><br>👉 <a href=\\\"https://www.notion.so/\" + $json.id.replace(/-/g, \"\") + \"\\\">Voir la fiche complète dans Notion</a>\" }}",
+        "options": {}
+      },
+      "id": "gmail-1",
+      "name": "Gmail — Notification Catherine",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [1040, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VOTRE_CREDENTIAL_GMAIL_ID",
+          "name": "Gmail OAuth2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Notion — Créer fiche",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion — Créer fiche": {
+      "main": [
+        [
+          {
+            "node": "Notion — Détail complet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notion — Détail complet": {
+      "main": [
+        [
+          {
+            "node": "Gmail — Notification Catherine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail — Notification Catherine": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "prospects"
+    },
+    {
+      "name": "agent-email"
+    }
+  ]
+}

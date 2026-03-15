@@ -8,7 +8,7 @@
 - **Taille** : TPE (Aurelia + 1-3 personnes dont Laurie en support operationnel)
 - **Programme** : Clarte & Autonomie — 6 mois, 19 seances
 - **Periode** : fevrier 2026 → aout 2026 (dates exactes a confirmer)
-- **Sessions** : 2 / 19 utilisees (session 3 a planifier semaine du 9 mars 2026)
+- **Sessions** : 3 / 19 utilisees (session 4 a planifier semaine du 18 mars 2026)
 - **Tutoiement / Vouvoiement** : Tutoiement (proposition redigee en tutoiement)
 
 ## Notion IDs
@@ -136,6 +136,13 @@
 - Laurie alignee sur le repositionnement premium
 - Aurelia adopte Claude AI en autonomie (migration depuis ChatGPT)
 - Vision se clarifie : FSY = rente automatisee, Aurelia Del Sol = premium
+- Pricing stabilise session 3 : formation 1 950 EUR (early bird 1 550 EUR), abo 17 EUR/mois (139 EUR/an), accompagnement 399 EUR
+- Evergreen formation : lancement realiste mai 2026, 10 inscriptions/mois, fin des cohortes
+- Accompagnement sommeil : lancement juin 2026, 399 EUR, 18 videos
+- YouScreen garde 1 an de plus (migration trop couteuse maintenant)
+- Revenue projection realiste : 634K EUR/an (120 formations + 1 000 accompagnements)
+- Contrats actuellement manuels (e-signature bulk) — automatisation Kajabi a explorer
+- Laurie role de garde-fou strategique — freine Aurelia quand elle s'eparpille
 
 ### Blocages recurrents
 - Eparpillement — "je pars dans tous les sens"
@@ -173,6 +180,9 @@
 - "Inhabit your face, inhabit your life" (Session 2 — emergence promesse premium)
 - "Il faut encore que je me legitimise" (Session 2 — syndrome de l'imposteur persiste)
 - "Mon esprit est un peu fatigue" (Session 2 — signal surcharge)
+- "Il faut qu'elle termine ce qui est commence avant de lancer autre chose" (Session 3 — Laurie sur Aurelia, eparpillement)
+- "Je commence a avoir des regles assez strictes ou je ne travaille pas les week-ends" (Session 3 — Laurie, progression perso)
+- "Il y a 50 messages par jour entre elles" (Session 3 — Laurie, volume communaute justifie mode mention-only)
 
 ## Pepites LinkedIn
 > Extraites des sessions — reutilisables pour posts LinkedIn (anonymise : "une dirigeante" ou "une entrepreneuse")
@@ -189,6 +199,9 @@
 | 2 | Passage de "je fais des lives toutes les semaines" a "ca tourne tout seul en evergreen" — transformation business model | Temoignage / Coulisses | "Elle faisait des lives chaque semaine. Epuisee. On a tout arrete. Et remplace par un systeme qui ne dort jamais." | Non |
 | 2 | "Inhabit your face, inhabit your life" — emergence positionnement premium depuis le mass-market | Coulisses / Temoignage | "En 6 ans, elle est passee de 'touche ta ride' a 'rehabite ta vie'. Le positionnement premium ne se decrete pas. Il emerge." | Non |
 | 2 | Architecture a 4 niveaux (17 EUR → 299-500 EUR → 3-6K EUR → 10-15K EUR) construite en 1 session | Expertise / Educatif | "4 niveaux de prix. Du 17 EUR au 15 000 EUR. Construits en 1 heure. La clarte d'offre, ca ne prend pas 6 mois." | Non |
+| 3 | Laurie freine Aurelia — "il faut qu'elle termine avant de lancer autre chose" — le role de l'assistante garde-fou | Expertise / Coulisses | "Sa bras droit m'a dit : 'Il faut la ralentir.' Le meilleur conseil strat que j'ai entendu cette semaine." | Non |
+| 3 | Revenue projection 634K EUR/an construit en 1 session — formation evergreen + accompagnements | Expertise / Educatif | "120 formations x 1 950 EUR. 1 000 accompagnements x 400 EUR. 634 000 EUR. Pas un reve. Un tableur." | Non |
+| 3 | Le chatbot comme solution au "je ne travaille plus le week-end" — reminders automatiques dimanche soir | Temoignage / Coulisses | "Elle m'a dit : 'Les dimanches soirs, il faut envoyer un message aux membres.' Je lui ai repondu : 'Le bot le fera. Toi, tu restes en pyjama.'" | Non |
 
 ## Chatbot Telegram (@facesoulyoga_bot)
 
@@ -204,6 +217,13 @@
 - Commandes slash OK, ecoute passive IA OK
 - **Decision 6 mars** : IA sur mention `@facesoulyoga_bot` uniquement (pas ecoute de tous les messages) — preserve les echanges entre membres + economise les tokens
 - Reste a faire : fix escalade, charger FAQ, deployer sur vrai groupe
+- **Reminders programmables** : dimanche soir pour lives du lundi (demande Laurie session 3)
+
+## A faire (apres session 3)
+- Tableau de bord KPIs par formation/offre (formation, abo, accompagnement) — priorite Catherine
+- Envoyer CR session 3 a Laurie/Aurelia
+- Planifier 1:1 Aurelia (mindset — demande Laurie)
+- Attendre infos Laurie : FAQ, planning, groupe Telegram, chat_id
 - Detail technique complet : voir `/Users/cath/.claude/projects/-Users-cath-Projects/memory/chatbot-fsy.md`
 
 ### Board Miro
@@ -218,3 +238,4 @@
 | 1 | 2026-02-19 | Lancement strategique & cadrage priorites | Cartographier process (urgence), 2h CEO time/sem, pricing B2C 299+upsells→399, B2B evergreen, migration plateforme mi-mars, objectif 500K | Feuille de route presentee, templates SOP crees, Aurelia+Laurie alignees sur "stop urgence" et repositionnement premium |
 | — | 2026-02-24 | Migration plateforme (travail inter-session) | Comparatif publie dans Notion : 3 architectures (Circle+Bunny, Kajabi seul, Kajabi+Bunny). Critere n°1 = portabilite. Kajabi deja en test. | Document aide a la decision pret pour vendredi 28/02. YouTube, Wistia, Wooskill, Skool elimines. Reco Catherine = Kajabi+Bunny (compromis simplicite/liberte) |
 | 2 | 2026-03-02 | Migration Kajabi + Bunny, Architecture d'offre FSY & Pipeline Premium | Kajabi + Bunny.net confirmes, Circle elimine, Brevo maintenu. Architecture offre : FSY mass-market (abo 17 EUR + programmes 299-500 EUR) vs Aurelia Del Sol premium (Mastermind 3-6K EUR, 1:1 10-15K EUR). Fin lives hebdo, passage evergreen. Freelance Fiverr/ComeUp pour migration. Bot WhatsApp a explorer. | Decisions plateforme et offre actees. Laurie prend le lead migration. Antoine gere social media. Aurelia adopte Claude AI. KPIs : 6 700 membres totaux Uscreen, 613 courants, ~600 videos ~550 Go, communautes 238+184, ~300 abonnes app ~1 150-1 200 EUR |
+| 3 | 2026-03-11 | Strategie offre FSY (evergreen + pricing) & Chatbot Telegram | Focus Master The Method → evergreen (mai 2026). Pricing stabilise : formation 1 950 EUR, abo 17 EUR/mois, accompagnement 399 EUR. YouScreen garde 1 an. Chatbot mode mention valide. | Laurie seule (Aurelia absente). Laurie freine Aurelia sur l'eparpillement. Revenue projection 634K EUR/an. Reminders programmables demandes pour chatbot. Automatisation contrats Kajabi a explorer. Session 1:1 Aurelia mindset a planifier. |

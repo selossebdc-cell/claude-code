@@ -157,6 +157,8 @@
         .agent-avatar.commercial { background: #5AC2A044; }
         .agent-avatar.cs { background: #5A9EC244; }
         .agent-avatar.daf { background: #E0C05A44; }
+        .agent-avatar.growth { background: #E05AAA44; }
+        .agent-avatar.coo { background: #5AE0C244; }
         .agent-info h4 { font-size: 13px; margin-bottom: 2px; }
         .agent-info p { font-size: 11px; color: #888; }
         .agent-info .skills-used {
@@ -250,13 +252,15 @@
             <li><span class="folder">commercial/</span> <span class="badge badge-agent">agent</span></li>
             <li><span class="folder">customer-success/</span> <span class="badge badge-agent">agent</span></li>
             <li><span class="folder">daf/</span> <span class="badge badge-agent">agent</span></li>
+            <li><span class="folder">growth/</span> <span class="badge badge-agent">agent</span></li>
+            <li><span class="folder">coo/</span> <span class="badge badge-agent">agent</span></li>
         </ul>
 
         <div class="section-label">Infrastructure</div>
         <ul class="tree">
             <li><span class="folder">core/</span> <span class="file">agent.py, message_bus.py</span></li>
             <li><span class="folder">config/</span> <span class="file">settings, notion_ids, calendar_ids</span></li>
-            <li><span class="folder">tools/</span> <span class="file">calendar, notion, memory, messaging</span></li>
+            <li><span class="folder">tools/</span> <span class="file">calendar, notion, memory, messaging, growth</span></li>
             <li><span class="folder">routines/</span> <span class="badge badge-routine">cron</span></li>
         </ul>
     </div>
@@ -349,7 +353,7 @@
                 <div class="agent-avatar dg">C</div>
                 <div class="agent-info">
                     <h4>DG — Direction Generale</h4>
-                    <p>Orchestrateur. Interroge les 3 departements. Challenge Catherine. Priorise (3 max/jour).</p>
+                    <p>Orchestrateur. Interroge les 5 departements. Challenge Catherine. Priorise (3 max/jour).</p>
                     <div class="skills-used">
                         <span class="skill-tag">weekly-planner</span>
                         <span class="skill-tag">noble-ai</span>
@@ -393,6 +397,36 @@
                     </div>
                 </div>
             </div>
+
+            <div class="agent-card">
+                <div class="agent-avatar coo">O</div>
+                <div class="agent-info">
+                    <h4>COO — Operations</h4>
+                    <p>Coordination Christelle, outils & abonnements, qualite delivery, execution SOPs, workflows & automatisations.</p>
+                    <div class="skills-used">
+                        <span class="skill-tag">cockpit</span>
+                        <span class="skill-tag">notion</span>
+                        <span class="skill-tag">calendar</span>
+                        <span class="skill-tag">memory</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-card" style="grid-column: 1 / -1;">
+                <div class="agent-avatar growth">G</div>
+                <div class="agent-info">
+                    <h4>Growth Ops — Scalabilite & Croissance</h4>
+                    <p>Patterns cross-clients, SOPs, pipeline contenu (pepites → LinkedIn → leads), delegation Christelle, productisation, metriques scalabilite.</p>
+                    <div class="skills-used">
+                        <span class="skill-tag">growth_analyze_patterns</span>
+                        <span class="skill-tag">growth_sop_gap</span>
+                        <span class="skill-tag">growth_content_pipeline</span>
+                        <span class="skill-tag">growth_delegation</span>
+                        <span class="skill-tag">growth_scalability_metrics</span>
+                        <span class="skill-tag">growth_productization</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -410,13 +444,19 @@
                     <td>Briefing matinal</td>
                     <td>DG</td>
                     <td><code>30 7 * * 1-5</code></td>
-                    <td>Lun-Ven 7h30 — Interroge les 3 depts + agenda du jour + 3 priorites</td>
+                    <td>Lun-Ven 7h30 — Interroge les 5 depts + agenda du jour + 3 priorites</td>
                 </tr>
                 <tr>
                     <td>Check factures</td>
                     <td>DAF</td>
                     <td><code>0 9 * * 5</code></td>
                     <td>Vendredi 9h — Etat factures, paiements, retards, CA cumule</td>
+                </tr>
+                <tr>
+                    <td>Revue scalabilite</td>
+                    <td>Growth Ops</td>
+                    <td><code>0 10 * * 1</code></td>
+                    <td>Lundi 10h — Metriques, SOPs manquantes, pepites, delegation, productisation</td>
                 </tr>
             </tbody>
         </table>

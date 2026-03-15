@@ -6,6 +6,8 @@ Usage:
     python3 cli.py daf "Ou en sont les paiements?"
     python3 cli.py customer_success "Statut de Fred?"
     python3 cli.py commercial "Pipeline de prospection?"
+    python3 cli.py growth "Revue scalabilite"
+    python3 cli.py coo "Statut operations"
 
 Mode interactif:
     python3 cli.py dg
@@ -21,6 +23,8 @@ from dg.agent import create_dg_agent
 from customer_success.agent import create_cs_agent
 from commercial.agent import create_commercial_agent
 from daf.agent import create_daf_agent
+from growth.agent import create_growth_agent
+from coo.agent import create_coo_agent
 
 
 def init_agents():
@@ -30,14 +34,25 @@ def init_agents():
     cs = create_cs_agent()
     commercial = create_commercial_agent()
     daf = create_daf_agent()
+    growth = create_growth_agent()
+    coo = create_coo_agent()
     dg = create_dg_agent()
 
     bus.register_agent("customer_success", cs)
     bus.register_agent("commercial", commercial)
     bus.register_agent("daf", daf)
+    bus.register_agent("growth", growth)
+    bus.register_agent("coo", coo)
     bus.register_agent("dg", dg)
 
-    return {"dg": dg, "customer_success": cs, "commercial": commercial, "daf": daf}
+    return {
+        "dg": dg,
+        "coo": coo,
+        "customer_success": cs,
+        "commercial": commercial,
+        "daf": daf,
+        "growth": growth,
+    }
 
 
 def interactive_mode(agent):
@@ -73,6 +88,8 @@ def main():
         print("  customer_success   Customer Success Manager")
         print("  commercial         Commercial & Prospection")
         print("  daf                DAF (Admin & Finance)")
+        print("  growth             Growth Ops & Scalabilite")
+        print("  coo                COO (Operations)")
         print()
         print("Exemples:")
         print('  python3 cli.py dg "Briefing du matin"')

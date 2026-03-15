@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrat de Maintenance — FEEDUC x CS Consulting Stratégique</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4;
+    margin: 25mm 20mm 30mm 20mm;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #433F3C;
+    background: #FFFFFF;
+    padding: 40px 60px;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #D17C61;
+  }
+  .header img {
+    height: 60px;
+  }
+  .header-right {
+    text-align: right;
+    font-size: 11px;
+    color: #AE7558;
+  }
+
+  /* Title */
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #D17C61;
+    text-align: center;
+    margin: 30px 0 5px 0;
+  }
+  .subtitle {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #AE7558;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  /* Sections */
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #D17C61;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #F3EADA;
+  }
+  h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #433F3C;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  /* Parties */
+  .parties {
+    display: flex;
+    gap: 40px;
+    margin: 20px 0 30px 0;
+  }
+  .partie {
+    flex: 1;
+    background: #F3EADA;
+    padding: 16px 20px;
+    border-radius: 6px;
+  }
+  .partie-label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #D17C61;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .partie p {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 2px 0;
+  }
+  .partie strong {
+    color: #433F3C;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  li {
+    margin-bottom: 4px;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+  }
+  th {
+    background: #D17C61;
+    color: #FFFFFF;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #F3EADA;
+    font-size: 12.5px;
+  }
+  tr:nth-child(even) td {
+    background: #FDFBF7;
+  }
+
+  /* Highlight box */
+  .highlight {
+    background: #F3EADA;
+    border-left: 3px solid #D17C61;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 12.5px;
+  }
+
+  /* Options payment */
+  .options {
+    display: flex;
+    gap: 20px;
+    margin: 12px 0;
+  }
+  .option {
+    flex: 1;
+    border: 1px solid #C19E8A;
+    border-radius: 6px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .option.preferred {
+    border-color: #D17C61;
+    background: #FDF8F5;
+  }
+  .option-label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #D17C61;
+    margin-bottom: 4px;
+  }
+  .option-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #433F3C;
+    margin: 6px 0;
+  }
+  .option-detail {
+    font-size: 11px;
+    color: #AE7558;
+  }
+  .badge {
+    display: inline-block;
+    background: #D17C61;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+  }
+
+  /* Signatures */
+  .signatures {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    page-break-inside: avoid;
+  }
+  .sig-block {
+    flex: 1;
+    border: 1px solid #C19E8A;
+    border-radius: 6px;
+    padding: 20px;
+  }
+  .sig-block p {
+    font-size: 12px;
+  }
+  .sig-label {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #D17C61;
+    margin-bottom: 10px;
+  }
+  .sig-line {
+    border-bottom: 1px dotted #C19E8A;
+    height: 40px;
+    margin: 8px 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 40px;
+    padding-top: 15px;
+    border-top: 1px solid #F3EADA;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: #AE7558;
+  }
+  .footer a {
+    color: #D17C61;
+    text-decoration: none;
+  }
+
+  /* Print */
+  @media print {
+    body { padding: 0; }
+    .page-break { page-break-before: always; }
+  }
+
+  p { margin-bottom: 8px; }
+  strong { color: #433F3C; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="../../03-developpement/site-csbusiness/assets/logo-cs-terracotta-fond-lin.png" alt="CS Consulting Stratégique">
+  <div class="header-right">
+    <strong>Catherine Selosse</strong><br>
+    Consulting Stratégique<br>
+    catherine@csbusiness.fr<br>
+    06 61 86 40 16
+  </div>
+</div>
+
+<!-- TITLE -->
+<h1>Contrat de Maintenance</h1>
+<div class="subtitle">FEEDUC × CS Consulting Stratégique</div>
+
+<!-- PARTIES -->
+<div class="parties">
+  <div class="partie">
+    <div class="partie-label">Le Prestataire</div>
+    <p><strong>Catherine Selosse</strong> — Entreprise Individuelle</p>
+    <p>43 rue de l'Estagnas — 64200 Biarritz, France</p>
+    <p>SIRET : 819 718 255 000 30</p>
+    <p>Email : catherine@csbusiness.fr</p>
+    <p>Tél : 06 61 86 40 16</p>
+  </div>
+  <div class="partie">
+    <div class="partie-label">Le Client</div>
+    <p><strong>FEEDUC</strong></p>
+    <p>Nathalie SANCHEZ</p>
+    <p>C/ del PEZ, 13, 2D — 28004 Madrid, Espagne</p>
+    <p>TVA intra : ESB87732384</p>
+    <p>Email : nathalie@feeduc.eu</p>
+  </div>
+</div>
+
+<!-- ARTICLE 1 -->
+<h2>Article 1 — Objet</h2>
+<p>Le présent contrat définit les conditions de maintenance et de support technique des outils et automatisations mis en place par le Prestataire pour le compte du Client, à savoir :</p>
+
+<h3>1. Workflows d'automatisation n8n</h3>
+<ul>
+  <li>Agent IA de gestion des e-mails et relances (Lot 1)</li>
+  <li>Agent IA de comptes rendus de réunion (Lot 2)</li>
+  <li>Tout workflow additionnel déployé dans le cadre de la mission initiale</li>
+</ul>
+
+<h3>2. Intégrations techniques</h3>
+<ul>
+  <li>Connexions API (Gmail/Outlook, Google Meet, Google Drive, Oscar CRM, Notion)</li>
+  <li>Pipeline de traitement IA (Gemini / Claude)</li>
+</ul>
+
+<h3>3. Infrastructure</h3>
+<ul>
+  <li>Instance n8n hébergée</li>
+  <li>Bases de données et fichiers de configuration associés</li>
+</ul>
+
+<!-- ARTICLE 2 -->
+<h2>Article 2 — Prestations incluses</h2>
+
+<h3>2.1 — Maintenance corrective</h3>
+<ul>
+  <li>Correction des bugs et dysfonctionnements des workflows</li>
+  <li>Rétablissement du service en cas de panne</li>
+  <li>Mise à jour des connexions API en cas de changement des services tiers</li>
+</ul>
+
+<h3>2.2 — Maintenance évolutive légère</h3>
+<ul>
+  <li>Ajustements mineurs des workflows existants (ajout d'un label, modification d'un template de mail, mise à jour d'une liste de contacts, etc.)</li>
+  <li>Jusqu'à <strong>2 heures d'ajustements par mois</strong> incluses, <strong>non cumulables</strong> d'un mois sur l'autre si non consommées</li>
+</ul>
+
+<h3>2.3 — Monitoring et surveillance</h3>
+<ul>
+  <li>Vérification régulière du bon fonctionnement des workflows</li>
+  <li>Alerte proactive en cas de dysfonctionnement détecté</li>
+  <li>Rapport trimestriel d'activité (nombre d'exécutions, erreurs, suggestions d'amélioration)</li>
+</ul>
+
+<h3>2.4 — Support</h3>
+<ul>
+  <li>Assistance par email et messagerie (WhatsApp, etc.)</li>
+  <li>Délai de réponse : <strong>48h ouvrables</strong> pour les demandes standard</li>
+  <li>En cas de panne critique (workflow complètement arrêté) : déconnexion du workflow concerné et intervention sous <strong>48h ouvrables</strong> maximum</li>
+</ul>
+
+<!-- ARTICLE 3 -->
+<h2>Article 3 — Prestations exclues</h2>
+<p>Les éléments suivants ne sont pas couverts par le présent contrat :</p>
+<ul>
+  <li>Développement de nouveaux workflows ou automatisations</li>
+  <li>Refonte majeure des workflows existants</li>
+  <li>Migration vers de nouveaux outils ou plateformes</li>
+  <li>Formation de nouveaux collaborateurs</li>
+  <li>Interventions dépassant 2 heures/mois d'ajustements</li>
+</ul>
+<p>Ces prestations feront l'objet d'un devis séparé.</p>
+
+<!-- ARTICLE 4 -->
+<h2>Article 4 — Conditions financières</h2>
+
+<table>
+  <thead>
+    <tr><th>Élément</th><th>Montant</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Forfait mensuel (support + hébergement inclus)</td><td>150 € HT / mois</td></tr>
+    <tr><td><strong>Forfait annuel (tarif préférentiel)</strong></td><td><strong>1 500 € HT / an</strong></td></tr>
+    <tr><td>TVA</td><td>Non applicable, art. 293 B du CGI</td></tr>
+  </tbody>
+</table>
+
+<p>Le forfait inclut l'ensemble des prestations décrites à l'article 2, y compris l'hébergement de l'infrastructure technique (article 6).</p>
+
+<p><strong>Modalités de paiement</strong>, au choix du Client :</p>
+
+<div class="options">
+  <div class="option preferred">
+    <span class="badge">Recommandé</span>
+    <div class="option-label">Option A — Annuel</div>
+    <div class="option-price">1 500 € HT/an</div>
+    <div class="option-detail">Soit 125 €/mois — Économie de 300 €/an<br>Paiement unique, renouvelé automatiquement</div>
+  </div>
+  <div class="option">
+    <div class="option-label">Option B — Mensuel</div>
+    <div class="option-price">150 € HT/mois</div>
+    <div class="option-detail">Soit 1 800 €/an<br>Prélèvement automatique via Stripe</div>
+  </div>
+</div>
+
+<p><strong>Moyen de paiement :</strong> Carte bancaire (lien Stripe) ou virement bancaire.</p>
+
+<!-- ARTICLE 5 -->
+<h2>Article 5 — Durée et renouvellement</h2>
+<ul>
+  <li><strong>Date de prise d'effet :</strong> 1er janvier 2026</li>
+  <li><strong>Durée :</strong> 12 mois (1er janvier — 31 décembre 2026)</li>
+  <li><strong>Renouvellement :</strong> Tacite reconduction automatique par périodes de 12 mois, sauf dénonciation par l'une des parties avec un préavis de 30 jours avant l'échéance.</li>
+</ul>
+
+<div class="highlight">
+  <strong>En cas de paiement annuel (option A) :</strong> engagement ferme de 12 mois. Le tarif préférentiel de 1 500 € HT/an est conditionné à cet engagement.
+</div>
+<div class="highlight">
+  <strong>En cas de paiement mensuel (option B) :</strong> le prélèvement Stripe est reconduit automatiquement chaque mois. Le Client peut résilier avec un préavis écrit d'un mois. Le tarif mensuel de 150 € HT/mois s'applique (soit 1 800 € HT/an).
+</div>
+
+<!-- ARTICLE 6 -->
+<h2>Article 6 — Hébergement</h2>
+<p>L'hébergement de l'instance n8n et de l'infrastructure technique associée est inclus dans le forfait de maintenance défini à l'article 4.</p>
+
+<!-- ARTICLE 7 -->
+<h2>Article 7 — Résiliation</h2>
+<p><strong>Option A (annuel) :</strong> Chaque partie peut résilier le contrat à l'échéance annuelle, avec un préavis écrit de 30 jours avant la date de renouvellement. Aucun remboursement n'est dû en cours de période.</p>
+<p><strong>Option B (mensuel) :</strong> Le Client peut résilier à tout moment avec un préavis écrit d'un mois.</p>
+<p>En cas de manquement grave de l'autre partie, le contrat peut être résilié après mise en demeure restée sans effet pendant 15 jours.</p>
+
+<!-- ARTICLE 8 -->
+<h2>Article 8 — Confidentialité</h2>
+<p>Le Prestataire s'engage à maintenir la confidentialité de toutes les données et informations du Client auxquelles il a accès dans le cadre de cette maintenance (données étudiants, informations partenaires, process internes).</p>
+
+<!-- ARTICLE 9 -->
+<h2>Article 9 — Responsabilité</h2>
+<p>Le Prestataire assure l'hébergement et la maintenance des solutions techniques validées et recettées par le Client lors de la mise en production initiale.</p>
+<p>Le Client reconnaît avoir validé le bon fonctionnement des workflows et automatisations avant leur mise en production. Le Prestataire intervient en qualité d'hébergeur et de mainteneur d'une solution approuvée par le Client.</p>
+<p>La responsabilité du Prestataire est limitée au montant annuel du contrat de maintenance. En aucun cas le Client ne pourra réclamer de dommages et intérêts au-delà de ce montant, y compris en cas de résiliation pour manquement grave.</p>
+<p>Le Prestataire ne saurait être tenu responsable :</p>
+<ul>
+  <li>Des dysfonctionnements liés aux services tiers (Google, n8n Cloud, APIs partenaires)</li>
+  <li>Des résultats produits par les modèles d'IA intégrés aux workflows (Gemini, Claude, etc.)</li>
+  <li>Des conséquences de décisions prises par le Client sur la base des résultats de l'IA</li>
+  <li>Des dommages indirects (perte de données, manque à gagner, préjudice d'image)</li>
+</ul>
+
+<!-- ARTICLE 10 -->
+<h2>Article 10 — Droit applicable et litiges</h2>
+<p>Le présent contrat est soumis au droit français. En cas de litige, les parties s'engagent à rechercher une solution amiable. À défaut, le Tribunal de Commerce de Bayonne sera seul compétent.</p>
+
+<!-- SIGNATURES -->
+<div class="signatures">
+  <div class="sig-block">
+    <div class="sig-label">Le Prestataire</div>
+    <p><strong>Catherine Selosse</strong><br>CS Consulting Stratégique</p>
+    <p style="margin-top: 12px;">Date : _______________</p>
+    <p>Signature :</p>
+    <div class="sig-line"></div>
+  </div>
+  <div class="sig-block">
+    <div class="sig-label">Le Client</div>
+    <p><strong>Nathalie SANCHEZ</strong><br>FEEDUC</p>
+    <p style="margin-top: 12px;">Date : _______________</p>
+    <p>Signature précédée de « Bon pour accord » :</p>
+    <div class="sig-line"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>CS Consulting Stratégique — Catherine Selosse<br>SIRET : 819 718 255 000 30</div>
+  <div style="text-align: right;"><a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a><br>06 61 86 40 16</div>
+</div>
+
+<p style="text-align: center; font-size: 10px; color: #C19E8A; margin-top: 20px;"><em>Document généré le 10 mars 2026</em></p>
+
+</body>
+</html>

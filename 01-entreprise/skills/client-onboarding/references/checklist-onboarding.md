@@ -1,6 +1,6 @@
 # Checklist d'onboarding — Nouveau client CS Consulting Stratégique
 
-Source : Process d'onboarding Notion de Catherine + Questionnaire Fillout (https://feuillederoute.fillout.com/csbusiness)
+Source : Process d'onboarding Notion de Catherine + Questionnaire HTML auto-hébergé (03-developpement/questionnaire-onboarding/)
 
 ## 1️⃣ Validation & engagement (J0)
 
@@ -68,7 +68,7 @@ Afin de commencer dans les meilleures conditions, voici les premières informati
 
 **Prochaine étape**
 Avant notre première séance, merci de :
-1. Remplir le questionnaire d'onboarding : https://feuillederoute.fillout.com/csbusiness
+1. Remplir le questionnaire d'onboarding : [URL_QUESTIONNAIRE]
 2. Réserver votre Session #1 (minimum 5 jours ouvrés après le questionnaire) : [lien Fantastical]
 
 ⏰ Pourquoi ce délai ? Pour que je puisse analyser vos réponses et vous préparer une feuille de route personnalisée avant notre rencontre.
@@ -93,22 +93,28 @@ CS — Consulting Stratégique
 ## 3️⃣ Questionnaire d'onboarding (envoyé J0-J1)
 
 **Objectif :** récolter les infos clés sans allers-retours
-**Format :** Formulaire Fillout
+**Format :** Formulaire HTML auto-hébergé (03-developpement/questionnaire-onboarding/)
 
-Le questionnaire d'onboarding est hébergé sur Fillout :
-→ **URL : https://feuillederoute.fillout.com/csbusiness**
+Le questionnaire d'onboarding est un formulaire HTML hébergé sur GitHub Pages :
+→ **URL : [URL_QUESTIONNAIRE]** (à définir après déploiement)
 
 ⚠️ **RÈGLE CRITIQUE — Délai questionnaire → Session #1 :**
 Le client doit réserver sa Session #1 **minimum 5 jours ouvrés (= 7 jours calendaires) après avoir rempli le questionnaire**. Ce délai est nécessaire pour que Catherine puisse analyser les réponses et préparer la feuille de route personnalisée.
 
-### Sections du questionnaire (7 sections) :
-1. **Clarifier la vision** — Pourquoi cette entreprise, vie idéale, valeurs
-2. **Simplifier la stratégie** — Client idéal, offres, positionnement
-3. **Mapper le parcours client** — Marketing, vente, delivery
-4. **Auditer la productivité** — Tâches détestées, meilleur usage du temps
-5. **Problématiques** — Obstacles, défis, ce qui ne fonctionne pas
-6. **Objectifs** — Résultats attendus, métriques de succès
-7. **Revenus** — CA actuel, CA souhaité, résultats à 1 an
+### Sections du questionnaire (9 sections + 1 bonus — 43 questions) :
+
+> Contenu détaillé : `questionnaire-onboarding.md`
+
+1. **Vision** (5 Q) — Pourquoi l'entreprise, description, vision 3 ans, priorités 12 mois, valeurs
+2. **Stratégie** (4 Q) — Score structuration /10, organisation actuelle, client idéal, offres & tarifs
+3. **Productivité** (5 Q) — Heures/sem, répartition temps, 3 tâches chronophages, 3 tâches à automatiser, tâches faute de process
+4. **Parcours client** (5 Q) — Parcours complet, perte prospects, % automatisation, friction principale, canaux d'acquisition
+5. **Outils** (4 Q) — Stack actuelle, intégration /5, doublons, automatisations existantes
+6. **Équipe & Délégation** (5 Q) — Taille, rôles, tâches à déléguer, autonomie /5, freins délégation
+7. **Pilotage** (4 Q) — KPIs, outils de suivi, fréquence, fiabilité /5
+8. **Mindset & Blocages** (4 Q) — Posture dirigeant vs opérationnel, PLUS GROS blocage, tentatives passées, baguette magique
+9. **Engagement & Objectifs** (5 Q) — Priorités classées, objectif 6 mois, prêt au changement /10, heures dispo, CA actuel & objectif
+10. **Documentation process** (2 Q bonus) — Score documentation /5, scénario absence 2 semaines
 
 ### Envoi au client
 - Envoyer le lien Fillout dans l'email de bienvenue
@@ -209,7 +215,7 @@ Votre espace personnel est prêt ! Voici vos accès :
 
 Prenez 5 minutes pour :
 1. Ouvrir le lien et explorer votre espace
-2. Remplir le questionnaire de démarrage : https://feuillederoute.fillout.com/csbusiness
+2. Remplir le questionnaire de démarrage : [URL_QUESTIONNAIRE]
 3. Réserver votre Session #1 (au moins 5 jours ouvrés après le questionnaire) : [lien Fantastical]
 
 Pas de stress si ça semble beaucoup — on verra tout ça ensemble lors de notre première séance.

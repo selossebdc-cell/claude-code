@@ -7,7 +7,7 @@
 - **Taille** : TPE (dirigeant seul + equipe reduite)
 - **Programme** : Transition Strategique — 6 mois
 - **Periode** : 22 janvier 2026 → 22 juillet 2026
-- **Sessions** : 5 / 18 utilisees
+- **Sessions** : 6 / 18 utilisees
 - **Tutoiement / Vouvoiement** : Tutoiement
 
 ## Notion IDs
@@ -24,9 +24,10 @@
 - **Personnalite** : Entrepreneur energique, beaucoup d'idees, tendance a la dispersion
 - **Style de communication** : Direct, informel, aime les exemples concrets
 - **Neuro-diversite** : TDAH — besoin de structure, sessions courtes (25 min de focus), recadrage quand il part dans tous les sens
-- **Niveau digital** : Debutant — ne comprend pas la synchro cloud, confond en ligne vs local, pas de gestion de mots de passe
-- **Outils actuels** : Botnation (chatbot a migrer), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (compte cree session 5, agenda centralise), OneDrive (100Go en vrac, nettoyage a faire), OneNote (prise de notes — readopte session 5), Firefox Containers (test), Chrome (encore utilise mais a reduire), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), pas de gestionnaire MDP (Proton Pass prevu)
-- **Adresse principale** : fu@fusolution.fr (decidee session 5 — outils + admin transversal)
+- **Niveau digital** : Debutant en progression — comprend mieux les outils familiers, encore fragile sur synchro cloud et config technique
+- **Outils actuels** : Botnation (chatbot a migrer), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (fichiers partages equipe), OneDrive (en attente — potentiel remplacement Dropbox si M365), OneNote (prise de notes — readopte session 5), Outlook desktop (client mail principal — decide session 6, config FredGmail FAIT), Firefox Containers (test — association sites/conteneurs a finaliser), Chrome (encore utilise), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), Dashlane (gestionnaire MDP — decide session 6, a installer), Microsoft 365 Personnel (99 EUR/an — decide session 6, a souscrire sous FU Solutions)
+- **Adresse principale** : fu@fusolution.fr (decidee session 5 — outils + admin transversal, hebergee Gmail/Google Workspace confirme)
+- **Boites mail** : FredGmail, V8@v8-equipment.com, contact@v8-equipment.com, FU Solutions (bloquee 2FA OVH)
 - **Ce qui le motive** : Gagner du temps, structurer son business, ne plus etre deborde, utiliser l'IA pour automatiser
 - **Ce qui le bloque** : Dispersion, manque de structure de fichiers, pas de separation perso/pro sur ses outils, peur de la complexite technique
 
@@ -86,6 +87,8 @@
 - Le recadrage bienveillant quand il part dans une nouvelle idee
 - Les outils simples et immediats (pas de config complexe)
 - Time-blocking : 6h "temps dirigeant" (3 x 2h blocs focus) — adopte
+- Capitaliser sur les outils familiers plutot que forcer du nouveau (Outlook = comeback, pas Thunderbird)
+- Fred applique les actions entre les sessions quand elles sont concretes (arborescence Dropbox, captures d'ecran)
 
 ### Blocages recurrents
 - Dispersion : commence une tache, part sur une autre idee
@@ -93,18 +96,20 @@
 - Chrome surcharge : ouvre tout dans Chrome (Drive, HSBC, Revolut, Sheets) → trop d'onglets → rame. A resoudre : epingler Drive dans Firefox ou installer app Drive desktop
 - Procrastination sur les taches "techniques" (export MDP, config cloud)
 - Tendance a accumuler les outils sans les maitriser (Feishu = abandonne)
-- Comptabilite = point de douleur emotionnel (changement expert-comptable, ancien a failli provoquer controle Tracfin)
-- 4 boites mail avec factures eparpillees (Gmail, Fred V8, Contact V8, V8 V8) + factures papier
-- Reroutage email en cours de config (bug transfert Gmail → V8 a investiguer)
+- Comptabilite = point de douleur emotionnel (changement expert-comptable, ancien a failli provoquer controle Tracfin). Situation critique : pas de rapprochement bancaire 2024, 2025 non traite malgre pieces envoyees par Virginie
+- 4 boites mail avec factures eparpillees (Gmail, Fred V8, Contact V8, FU Solutions) + factures papier
+- Boite FU Solutions bloquee sur PC (fonctionne sur telephone) — probleme 2FA OVH, Gaetan doit resoudre
 
 ### Themes qui reviennent
 - Organisation des fichiers et arborescence (OneDrive pour equipe Chine)
-- Migration des outils (Botnation → Claude, Chrome → Firefox, pas de MDP → Proton Pass)
-- Besoin d'un agent IA adapte a son TDAH (structurer, recadrer, timer)
+- Migration des outils (Botnation → Claude, Chrome → Firefox, Google Passwords → Dashlane)
+- Besoin d'un agent IA adapte a son TDAH (structurer, recadrer, timer) — Claude a acheter
 - Separation vie pro / vie perso sur les outils (Firefox Containers par activite)
-- Cloture comptable mensuelle (automatisation souhaitee, assistante Admilink dans la boucle)
+- Cloture comptable mensuelle (automatisation souhaitee, situation compta critique 2024-2025)
+- Centralisation email sur Outlook desktop (retour a un outil familier, 4 boites a configurer)
 - Structure FU Solutions : holding chapeau avec 3 branches FU-Fight (rouge), V8 (vert), Sourcing (jaune)
 - Leboncoin + IA (banana.io pour photos produits)
+- Automatisation factures : Catherine prepare le cahier des charges (n8n + Claude + Drive)
 
 ### Citations cles
 - "Methode 25 min = GAME CHANGER" (session 2, a propos du Pomodoro)
@@ -114,6 +119,10 @@
 - "Le temps que tu me fais gagner la, je te raconte pas" (session 5, events recurrents)
 - "Arrete de faire ton vieux con et suis le progres" (session 5, auto-derision face au digital)
 - "Quand t'es pas geek comme moi, c'est un enfer" (session 5, frustration digitale)
+- "Je me suis eclate parce que j'ai compris enfin comment faire des copies d'ecran" (session 6, fierte capture d'ecran)
+- "ok pour Outlook, ca va etre un comeback" (session 6, retour a Outlook)
+- "le brouillard se dissipe" (session 6, sentiment de clarte)
+- "Putain ces factures... j'en peux plus" (session 6, douleur comptabilite)
 
 ## Pepites LinkedIn
 > Extraites des sessions — reutilisables pour posts LinkedIn (anonymise : "un dirigeant TPE")
@@ -130,6 +139,11 @@
 | 5 | "C'est tout con !" — un dirigeant decouvre Calendar + Meet apres 20 ans de business | Temoignage / Coulisses | "Un dirigeant m'a dit : 'C'est tout con.' Il venait de creer son premier rendez-vous en ligne. Apres 20 ans de business." | Non |
 | 5 | 17 personnes avaient encore acces aux fichiers — anciens collaborateurs jamais revoques | Expertise (constat terrain) | "17 personnes avaient encore acces aux fichiers de son entreprise. Dont des gens partis il y a 3 ans." | Non |
 | 5 | "Quand t'es pas geek, c'est un enfer" — se connecter a sa boite mail | Empathie | "Un dirigeant m'a dit : 'Quand t'es pas geek, c'est un enfer.' Il ne parlait pas d'un logiciel complique. Il parlait de se connecter a sa boite mail." | Non |
+| 6 | "Je me suis eclate parce que j'ai compris enfin comment faire des copies d'ecran" — un dirigeant celebre une capture d'ecran | Coulisses / Empathie | "Un dirigeant m'a dit : 'Je me suis eclate.' Il ne parlait pas d'un deal a 6 chiffres. Il parlait d'une capture d'ecran." | Non |
+| 6 | "ok pour Outlook, ca va etre un comeback" — retour a un outil maitrise plutot que forcer du nouveau | Expertise / Methode | "Parfois, la meilleure decision digitale, c'est de revenir en arriere. Un dirigeant m'a dit : 'Outlook, ca va etre un comeback.'" | Non |
+| 6 | "le brouillard se dissipe" — apres 6 sessions, un dirigeant voit enfin clair | Temoignage / Transformation | "Apres 6 sessions, un dirigeant m'a dit : 'Le brouillard se dissipe.' Il ne parlait pas de la meteo." | Non |
+| 6 | "Putain ces factures... j'en peux plus" — la douleur comptable du dirigeant seul | Empathie / Coulisses | "Un dirigeant m'a dit : 'Ces factures, j'en peux plus.' Pas parce qu'il y en avait trop. Parce qu'il ne savait pas ou elles etaient." | Non |
+| 6 | Retour a Outlook apres Gmail impose — choisir ses outils vs subir ceux des autres | Educatif | "Un informaticien lui avait impose Gmail. Un autre proposait Thunderbird. Personne ne lui avait demande ce qu'il savait deja utiliser." | Non |
 
 ## Historique Sessions
 
@@ -139,4 +153,5 @@
 | 2 | 2026-02-02 | Pomodoro valide, Cloud Dropbox, Agent IA, Cloture compta | Cloud unique = Dropbox 2To, Agent IA personnalise Claude/Gemini | Methode 25 min = GAME CHANGER, tunnel concentration valide |
 | 3 | 2026-02-10 | Comptabilite, Migration cloud OneDrive, Firefox | Migration fichiers + setup Firefox + arborescence OneDrive | Feishu abandonne, 4 profils Chrome a nettoyer, 200Go Dropbox en vrac |
 | 4 | 2026-02-22 | Organisation emails, centralisation factures, Firefox Containers, schema FU Solutions | Centraliser factures sur V8 V8, labels Gmail, 4 containers Firefox (test 1 sem), structure FU Solutions a valider | Process factures clarifie, Fred lucide "c'est du temps que j'achete" |
-| 5 | 2026-03-01 | Centralisation outils & identite FU Solutions | FU Solutions = email principal, agenda centralise avec code couleur, Google Drive FU Solutions cree, OneNote readopte | Premier event Calendar+Meet ("c'est tout con !"), Dropbox organise (FAIT), WhatsApp desktop installe, 17 acces revoques. Blocage OVH 2FA → Gaetan. Proton Pass a lancer. |
+| 5 | 2026-03-01 | Centralisation outils & identite FU Solutions | FU Solutions = email principal, agenda centralise avec code couleur, Google Drive FU Solutions cree, OneNote readopte | Premier event Calendar+Meet ("c'est tout con !"), Dropbox organise (FAIT), WhatsApp desktop installe, 17 acces revoques. Blocage OVH 2FA → Gaetan. Google Passwords a activer (remplace Proton Pass — deja integre a Google). |
+| 6 | 2026-03-09 | Email Outlook, Cloud, MDP Dashlane, M365, Automatisation factures | Outlook desktop = client mail principal, Dashlane = gestionnaire MDP, M365 Personnel 99 EUR/an, Dropbox reste cloud principal, Catherine prepare CdC automatisation factures | Config FredGmail sur Outlook (FAIT), captures d'ecran apprises, "le brouillard se dissipe". Compta critique (pas de rapprochement 2024). Boite FU Solutions toujours bloquee (2FA OVH). Prochaine session vendredi 14/03 8h. |

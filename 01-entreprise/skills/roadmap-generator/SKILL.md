@@ -11,6 +11,7 @@ Avant de commencer, lis les références :
 - `references/structure-feuille-de-route.md` — schéma Notion, phases, propriétés
 - `references/guide-cartographie-process.md` — méthodologie de cartographie des process
 - `references/template-sop.md` — template SOP, méthode d'interview "Raconte-moi ta semaine", priorisation
+- `../client-onboarding/references/questionnaire-onboarding.md` — contenu complet du questionnaire (9 sections, mapping questions → diagnostic)
 
 ## Quand ce skill se déclenche
 
@@ -18,14 +19,14 @@ Avant de commencer, lis les références :
 - "Roadmap [Client]"
 - "Crée le plan d'action de [Client]"
 - "Prépare la stratégie d'accompagnement de [Client]"
-- Catherine partage un CSV d'audit stratégique Fillout
+- Catherine partage les réponses au questionnaire d'onboarding (CSV ou données brutes)
 - Catherine demande de construire ou mettre à jour une feuille de route
-- Après réception des réponses au questionnaire Fillout d'un client
+- Après réception des réponses au questionnaire d'un client
 
 ## Input attendu
 
 1. **Nom du client**
-2. **Réponses au questionnaire Fillout** (CSV ou données brutes)
+2. **Réponses au questionnaire d'onboarding** (CSV, JSON webhook ou données brutes)
 3. **CR d'appel découverte / échanges initiaux** (transcripts ou notes)
 4. **Contrat signé** (pour vérifier les engagements spécifiques)
 5. (Optionnel) **CR de sessions précédentes** si le programme a déjà démarré
@@ -40,15 +41,15 @@ Si des infos manquent, demande à Catherine.
 
 1. Lire `clients/[prenom-nom].md` — mémoire projet du client
 2. Lire le **contrat signé** dans Notion (page "Contrat & Conditions" du dashboard client)
-3. Lire les **réponses Fillout** (CSV ou section Questionnaire de la mémoire client)
+3. Lire les **réponses au questionnaire** (section Questionnaire de la mémoire client ou données brutes)
 4. Lire les **CR d'échanges initiaux** (appel découverte, session de lancement)
 5. Identifier le dashboard Notion du client et ses databases (Feuille de Route, SOP & Process)
 
 ### Étape 2 — Diagnostic de départ
 
-À partir du questionnaire Fillout et de l'appel découverte, extraire et structurer :
+À partir du questionnaire d'onboarding et de l'appel découverte, extraire et structurer :
 
-| Dimension | Source Fillout | Ce qu'on extrait |
+| Dimension | Source questionnaire | Ce qu'on extrait |
 |-----------|---------------|------------------|
 | Répartition temps | Heures ops / stratégie / gestion | % de chaque + total heures/semaine |
 | Stratégie structurée | "Échelle 1-10 stratégie" | Score + description qualitative |
@@ -75,11 +76,11 @@ Présenter le diagnostic à Catherine pour validation avant de continuer.
 #### 3a — Identifier les process existants
 
 Sources pour identifier les process :
-- Fillout : "3 tâches qui prennent le PLUS de temps"
-- Fillout : "3 tâches à automatiser"
-- Fillout : "Point de friction parcours client"
-- Fillout : "Tâches à déléguer DÈS MAINTENANT"
-- Fillout : "Tâches gérées faute de temps/process/confiance"
+- Questionnaire : "3 tâches qui prennent le PLUS de temps" (Q3.3)
+- Questionnaire : "3 tâches à automatiser" (Q3.4)
+- Questionnaire : "Point de friction parcours client" (Q4.4)
+- Questionnaire : "Tâches à déléguer DÈS MAINTENANT" (Q6.3)
+- Questionnaire : "Tâches gérées faute de temps/process/confiance" (Q3.5)
 - Appel découverte : problématiques identifiées
 - Contrat : objectifs spécifiques du programme
 
@@ -118,7 +119,7 @@ Présenter la cartographie complète à Catherine. Elle valide, ajuste, priorise
 
 1. **Partir des process cartographiés** (étape 3), pas d'une liste théorique
 2. **Prioriser impitoyablement** : seules les actions à fort impact passent
-3. **Respecter la capacité du client** : vérifier les heures disponibles (Fillout)
+3. **Respecter la capacité du client** : vérifier les heures disponibles (questionnaire Q9.4)
 4. **Chaque action = 1 résultat concret** (pas de "réfléchir à..." mais "créer X", "configurer Y")
 5. **Les phases sont progressives** : on ne passe à la suivante que quand la précédente est solide
 
@@ -155,15 +156,15 @@ Compléter la page "Feuille de Route Stratégique" dans Notion :
 
 1. **En-tête** : dates début/fin, objectif global
 2. **Diagnostic de départ** : tableau des 5 dimensions (état actuel → objectif 6 mois)
-3. **Blocages identifiés** : liste des freins principaux (depuis Fillout + découverte)
+3. **Blocages identifiés** : liste des freins principaux (depuis questionnaire + découverte)
 4. **Roadmap 6 mois** : résumé narratif des 4 phases (2-3 lignes par phase)
 5. **Indicateurs de succès** : 3-5 KPIs mesurables (ex: "Passer de 5h/sem à 15h/sem de stratégie")
-6. **Engagement client** : objectif 6 mois en une phrase (citation du client depuis Fillout)
+6. **Engagement client** : objectif 6 mois en une phrase (citation du client depuis questionnaire Q9.2)
 
 ### Étape 6 — Mettre à jour la mémoire client
 
 1. Lire `clients/[prenom-nom].md`
-2. Mettre à jour la section **Questionnaire Fillout** (7 sections) si pas encore fait
+2. Mettre à jour la section **Questionnaire d'onboarding** (9 sections + 1 bonus) si pas encore fait
 3. Ajouter les Notion IDs des databases Feuille de Route et SOP & Process si manquants
 4. Commit + push GitHub
 
@@ -183,18 +184,23 @@ Compléter la page "Feuille de Route Stratégique" dans Notion :
 - **SOP & Process (database)** : `304c3a2f-4255-81ae-8bae-000bef8717d0`
 - **Page stratégique** : `304c3a2f-4255-814d-a857-d766711d8825`
 
-## Colonnes du questionnaire Fillout (référence CSV)
+## Sections du questionnaire d'onboarding (référence)
 
-Le CSV d'audit stratégique contient ces catégories :
-1. **Vision** : mission, vision 3 ans, priorités 12 mois, valeurs
-2. **Stratégie** : score structuration (1-10), description organisation
-3. **Productivité** : heures/semaine, répartition ops/stratégie/gestion, tâches chronophages
-4. **Parcours client** : connaissance parcours, perte prospects, % automatisation, friction principale
-5. **Outils** : liste outils, intégration (1-5), doublons, automatisations existantes
-6. **Équipe & Délégation** : taille, tâches à déléguer, autonomie (1-5), freins délégation
-7. **Pilotage** : KPIs suivis, outils de suivi, fiabilité données, fréquence consultation
-8. **Mindset** : dirigeant vs opérationnel, légitimité, blocages, baguette magique
-9. **Engagement** : priorités classées, prêt au changement (1-10), heures disponibles
+> Référence complète : `../client-onboarding/references/questionnaire-onboarding.md` (43 questions, mapping vers diagnostic)
+> Formulaire HTML : `03-developpement/questionnaire-onboarding/index.html`
+
+Le questionnaire d'onboarding contient ces sections :
+
+1. **Vision** (Q1.1→Q1.5) : pourquoi l'entreprise, description 1 phrase, vision 3 ans, 3 priorités 12 mois, valeurs
+2. **Stratégie** (Q2.1→Q2.4) : score structuration (1-10), description organisation, client idéal, offres & tarifs
+3. **Productivité** (Q3.1→Q3.5) : heures/semaine, répartition ops/stratégie/gestion (3 curseurs), 3 tâches chronophages, 3 tâches à automatiser, tâches faute de temps/process
+4. **Parcours client** (Q4.1→Q4.5) : description parcours complet, perte prospects (où/pourquoi), % automatisation (0-100), friction principale, canaux d'acquisition
+5. **Outils** (Q5.1→Q5.4) : liste outils quotidiens, intégration (1-5), doublons/outils inutilisés, automatisations existantes
+6. **Équipe & Délégation** (Q6.1→Q6.5) : taille équipe, rôles, tâches à déléguer immédiatement, autonomie (1-5), freins à la délégation
+7. **Pilotage** (Q7.1→Q7.4) : KPIs suivis, outils de suivi, fréquence consultation, fiabilité données (1-5)
+8. **Mindset & Blocages** (Q8.1→Q8.4) : % dirigeant vs opérationnel, PLUS GROS blocage, tentatives passées, baguette magique
+9. **Engagement & Objectifs** (Q9.1→Q9.5) : priorités classées (drag&drop), objectif 6 mois (citation), prêt au changement (1-10), heures disponibles/semaine, CA actuel & objectif
+10. **Documentation process** (Q10.1→Q10.2) : score documentation (1-5), scénario absence 2 semaines
 
 ## Règles importantes
 
@@ -206,5 +212,5 @@ Le CSV d'audit stratégique contient ces catégories :
 6. **Adapter les phases au profil du client** — les noms et le contenu varient selon le diagnostic
 7. **Le client doit se sentir capable** en regardant sa feuille de route, jamais submergé
 8. **Commencer par les quick wins** — Phase 0 = victoires rapides pour créer la dynamique
-9. **Ne pas inventer** — chaque action doit être justifiée par le diagnostic, le Fillout ou le contrat
-10. **Respecter la capacité du client** — vérifier les heures disponibles déclarées dans le Fillout
+9. **Ne pas inventer** — chaque action doit être justifiée par le diagnostic, le questionnaire ou le contrat
+10. **Respecter la capacité du client** — vérifier les heures disponibles déclarées dans le questionnaire (Q9.4)

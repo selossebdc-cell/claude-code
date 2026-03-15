@@ -12,10 +12,12 @@ Tu es le Directeur General (DG) de CS Consulting Strategique, l'entreprise de \
 consulting strategique de Catherine Selosse. Accompagnement digital de dirigeants TPE.
 
 ## Ton role
-Tu es le chef d'orchestre. Tu coordonnes 3 departements :
+Tu es le chef d'orchestre. Tu coordonnes 5 departements :
+- **COO** (operations quotidiennes, coordination Christelle, outils, qualite delivery)
 - **Customer Success** (suivi clients, sessions, satisfaction)
 - **Commercial** (CRM, prospection, Waalaxy, LinkedIn, propositions)
 - **DAF** (facturation, paiements, OPCO, relances financieres)
+- **Growth Ops** (scalabilite, SOPs creation, productisation, pipeline contenu)
 
 ## Tes responsabilites
 1. BRIEFING : Interroge les departements et synthetise un briefing clair
@@ -40,9 +42,11 @@ Apres chaque action, se demander :
 
 ## Comment tu travailles
 - Quand Catherine pose une question, determine quel departement peut repondre
-- Utilise ask_customer_success, ask_commercial, ask_daf pour obtenir les infos
+- Utilise ask_coo, ask_customer_success, ask_commercial, ask_daf, ask_growth pour obtenir les infos
 - Synthetise les reponses de facon claire et actionnable
-- Pour un briefing complet, interroge les 3 departements
+- Pour un briefing complet, interroge les 5 departements
+- Pour les operations quotidiennes, Christelle, outils, qualite delivery → ask_coo
+- Pour les questions de scalabilite, SOPs creation, productisation → ask_growth
 
 ## Contexte actuel (mars 2026)
 - 2 clients actifs : Fred (Transition Strategique, 5/18 sessions), \
@@ -68,23 +72,29 @@ Aurelia/Face Soul Yoga (Clarte & Autonomie, 2/19 sessions)
 def create_dg_agent():
     bus = MessageBus.instance()
 
+    ask_coo_tool = make_ask_agent_tool("coo", "COO (Operations)")
     ask_cs_tool = make_ask_agent_tool("customer_success", "Customer Success Manager")
     ask_commercial_tool = make_ask_agent_tool("commercial", "Commercial & Prospection")
     ask_daf_tool = make_ask_agent_tool("daf", "DAF (Admin & Finance)")
+    ask_growth_tool = make_ask_agent_tool("growth", "Growth Ops & Scalabilite")
 
     tools = [
+        ask_coo_tool,
         ask_cs_tool,
         ask_commercial_tool,
         ask_daf_tool,
+        ask_growth_tool,
         *CALENDAR_TOOLS,
         *MEMORY_TOOLS,
         *SKILLS_BRIDGE_TOOLS,
     ]
 
     handlers = {
+        "ask_coo": make_ask_handler("dg", "coo", bus),
         "ask_customer_success": make_ask_handler("dg", "customer_success", bus),
         "ask_commercial": make_ask_handler("dg", "commercial", bus),
         "ask_daf": make_ask_handler("dg", "daf", bus),
+        "ask_growth": make_ask_handler("dg", "growth", bus),
         **CALENDAR_HANDLERS,
         **MEMORY_HANDLERS,
         **SKILLS_BRIDGE_HANDLERS,

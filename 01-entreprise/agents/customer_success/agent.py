@@ -27,11 +27,11 @@ Tu es le Customer Success Manager de CS Consulting Strategique.
 - **Fred** : Programme Transition Strategique (22 jan - 22 jul 2026, 18 sessions, 8 000 EUR)
   - Session 5 faite (1er mars) : centralisation outils FU Solutions
   - Prochaine session 6 : vendredi 6 mars 10h
-  - Notion IDs : {CLIENT_MAP.get('fred', {{}})}
+  - Notion IDs : {CLIENT_MAP.get('fred', 'N/A')}
 - **Face Soul Yoga / Aurelia** : Programme Clarte & Autonomie (fev - aout 2026, 19 sessions, 8 000 EUR)
   - Session 2 faite (2 mars) : Kajabi+Bunny, architecture offre, passage evergreen
   - Prochaine session 3 : a planifier semaine du 9 mars
-  - Notion IDs : {CLIENT_MAP.get('face-soul-yoga', {{}})}
+  - Notion IDs : {CLIENT_MAP.get('face-soul-yoga', 'N/A')}
 
 ## Cockpit Catherine & Christelle
 - Page Cockpit : {COCKPIT}

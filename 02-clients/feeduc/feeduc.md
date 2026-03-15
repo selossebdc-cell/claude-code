@@ -7,12 +7,12 @@
 - **Taille** : 7 prestataires independants (France / Espagne)
 - **Programme** : Optimisation des processus operationnels via l'IA
 - **Proposition** : V2, 19 mai 2025
-- **Statut** : Prospect (proposition envoyee, en attente signature)
+- **Statut** : Client actif (maintenance en cours, automatisations deployees)
 - **Tutoiement / Vouvoiement** : Vouvoiement
 
 ## Notion IDs
 - Dashboard : `201c3a2f-4255-80bf-87ca-f44124ee3118`
-- Meeting Agendas : ``
+- Meeting Agendas : `201c3a2f-4255-8106-ad64-cf1c502fe283`
 - Objectifs & Actions : ``
 - Fiche client (Mes Clients) : ``
 
@@ -105,25 +105,45 @@
 > Mis a jour par le skill session-report apres chaque seance
 
 ### Ce qui marche avec ce client
--
+- Relation de confiance forte, discussions ouvertes
+- La dirigeante est lucide et structuree, prise de decision rapide
+- Accepte de deleguer la technique a Catherine
 
 ### Blocages recurrents
--
+- Adoption inegale des outils par l'equipe (2 proactifs sur 7, 2 clairement pas)
+- Prestataires independants : certains veulent le beurre et l'argent du beurre
+- Vente en cours = incertitude sur le futur des outils
 
 ### Themes qui reviennent
--
+- Autonomie de l'equipe sur les outils
+- Vente de l'entreprise et transition vers acheteur
+- Automatisation des leads partenaires (formulaires WordPress)
+- Besoin de tableaux de suivi partageables avec les partenaires
 
 ### Citations cles
--
+- "Sinon, tu m'envoies une facture globale" (mars 2026, sur le contrat de maintenance)
+- "Moi ces mails pour leur ramener du lead, je veux pas les traiter moi" (mars 2026, sur l'automatisation leads)
 
 ## Pepites LinkedIn
 > Extraites par le skill session-report apres chaque seance.
 
 | # Session | Citation / Situation | Angle LinkedIn | Hook potentiel | Utilise ? |
 |-----------|---------------------|----------------|----------------|-----------|
+| 1 | Dirigeante met son entreprise en vente mais continue d'investir dans les outils | Vision long terme | "Elle vend sa boite. Et pourtant, elle investit dans l'automatisation. Pourquoi ? Parce qu'une entreprise active se vend mieux qu'une entreprise en pause." | Non |
+| 1 | "Je veux pas traiter ces mails moi" — deleguer les leads aux partenaires via automatisation | Expertise / Temoignage | "Une dirigeante m'a dit : 'Ces mails, je veux plus les traiter.' Pas par flemme. Par intelligence. Elle a choisi d'automatiser pour se concentrer sur ce qui compte." | Non |
+
+## Contrat de maintenance 2026
+
+- **Montant** : 1 500 EUR HT/an (option A annuelle — tarif préférentiel vs 150 €/mois)
+- **Structure** : EI Catherine Selosse (pas de TVA — art. 293 B CGI)
+- **Période** : 1er janvier → 31 décembre 2026 (tacite reconduction)
+- **Statut** : **En attente de signature** (contrat envoyé 10/03/2026)
+- **Obligations trimestrielles** : CR de fonctionnement des agents — incidents, performances, suggestions
+- **Paiement reçu** : 1 300 € HT le 13/03/2026 (solde final de la mission initiale)
 
 ## Historique Sessions
 > Resume cumulatif — une ligne par session
 
 | # | Date | Theme | Decision cle | Avancee notable |
 |---|------|-------|-------------|-----------------|
+| 1 | Mars 2026 | Bilan outils, vente entreprise, nouveaux projets | Contrat maintenance 1 500 €/an (option annuelle), Google Form feedback equipe, automatisation leads partenaires | Entreprise en vente, reunion equipe juin Madrid, projet leads WordPress prevu aout. 1 300 € reçus (solde mission). |

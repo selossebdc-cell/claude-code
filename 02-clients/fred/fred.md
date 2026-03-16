@@ -7,7 +7,7 @@
 - **Taille** : TPE (dirigeant seul + equipe reduite)
 - **Programme** : Transition Strategique — 6 mois
 - **Periode** : 22 janvier 2026 → 22 juillet 2026
-- **Sessions** : 6 / 18 utilisees
+- **Sessions** : 7 / 18 utilisees
 - **Tutoiement / Vouvoiement** : Tutoiement
 
 ## Notion IDs
@@ -25,9 +25,10 @@
 - **Style de communication** : Direct, informel, aime les exemples concrets
 - **Neuro-diversite** : TDAH — besoin de structure, sessions courtes (25 min de focus), recadrage quand il part dans tous les sens
 - **Niveau digital** : Debutant en progression — comprend mieux les outils familiers, encore fragile sur synchro cloud et config technique
-- **Outils actuels** : Botnation (chatbot a migrer), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (fichiers partages equipe), OneDrive (en attente — potentiel remplacement Dropbox si M365), OneNote (prise de notes — readopte session 5), Outlook desktop (client mail principal — decide session 6, config FredGmail FAIT), Firefox Containers (test — association sites/conteneurs a finaliser), Chrome (encore utilise), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), Dashlane (gestionnaire MDP — decide session 6, a installer), Microsoft 365 Personnel (99 EUR/an — decide session 6, a souscrire sous FU Solutions)
-- **Adresse principale** : fu@fusolution.fr (decidee session 5 — outils + admin transversal, hebergee Gmail/Google Workspace confirme)
-- **Boites mail** : FredGmail, V8@v8-equipment.com, contact@v8-equipment.com, FU Solutions (bloquee 2FA OVH)
+- **Outils actuels** : Botnation (chatbot a migrer), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (fichiers partages equipe), OneDrive (en attente — potentiel remplacement Dropbox si M365), OneNote (prise de notes — readopte session 5), Outlook desktop (client mail principal — 4 boites configurees session 7), Firefox (navigateur par defaut session 7, Containers par activite operationnels), Chrome (en cours de migration vers Firefox), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), Dashlane (gestionnaire MDP — extension Firefox a ajouter, import MDP en cours), Microsoft 365 Personnel (99 EUR/an — a acheter sous FU Solutions)
+- **Adresse principale** : fu@fusolution.fr (decidee session 5 — compte Firefox + Microsoft bascules en principal session 7)
+- **Boites mail** : FredGmail, V8@v8-equipment.com, contact@v8-equipment.com, fu@fusolution.fr — toutes configurees dans Outlook (session 7)
+- **OVH** : acces manager recupere session 7 (FF4801-OVH), 12 noms de domaine dont beaucoup inutiles (~300 EUR/an), menage a planifier
 - **Ce qui le motive** : Gagner du temps, structurer son business, ne plus etre deborde, utiliser l'IA pour automatiser
 - **Ce qui le bloque** : Dispersion, manque de structure de fichiers, pas de separation perso/pro sur ses outils, peur de la complexite technique
 
@@ -98,7 +99,8 @@
 - Tendance a accumuler les outils sans les maitriser (Feishu = abandonne)
 - Comptabilite = point de douleur emotionnel (changement expert-comptable, ancien a failli provoquer controle Tracfin). Situation critique : pas de rapprochement bancaire 2024, 2025 non traite malgre pieces envoyees par Virginie
 - 4 boites mail avec factures eparpillees (Gmail, Fred V8, Contact V8, FU Solutions) + factures papier
-- Boite FU Solutions bloquee sur PC (fonctionne sur telephone) — probleme 2FA OVH, Gaetan doit resoudre
+- Boite FU Solutions configuree dans Outlook (session 7) — acces OVH recupere, 2FA resolue
+- Phishing : Fred a clique sur un faux email OVH en session 7, Catherine l'a detecte en direct → sensibilisation faite
 
 ### Themes qui reviennent
 - Organisation des fichiers et arborescence (OneDrive pour equipe Chine)
@@ -123,6 +125,10 @@
 - "ok pour Outlook, ca va etre un comeback" (session 6, retour a Outlook)
 - "le brouillard se dissipe" (session 6, sentiment de clarte)
 - "Putain ces factures... j'en peux plus" (session 6, douleur comptabilite)
+- "c'est un pas de geant" (session 7, toutes les boites mail dans Outlook)
+- "Avant, c'etait impossible que je te fasse un truc comme ca" (session 7, progres assume)
+- "il faut que je me fasse un mind map, parce que si je ne vois pas les choses, il y a des moments ou je bug" (session 7, besoin visuel TDAH)
+- "ca me bousille" (session 7, a propos de la comptabilite)
 
 ## Pepites LinkedIn
 > Extraites des sessions — reutilisables pour posts LinkedIn (anonymise : "un dirigeant TPE")
@@ -144,6 +150,11 @@
 | 6 | "le brouillard se dissipe" — apres 6 sessions, un dirigeant voit enfin clair | Temoignage / Transformation | "Apres 6 sessions, un dirigeant m'a dit : 'Le brouillard se dissipe.' Il ne parlait pas de la meteo." | Non |
 | 6 | "Putain ces factures... j'en peux plus" — la douleur comptable du dirigeant seul | Empathie / Coulisses | "Un dirigeant m'a dit : 'Ces factures, j'en peux plus.' Pas parce qu'il y en avait trop. Parce qu'il ne savait pas ou elles etaient." | Non |
 | 6 | Retour a Outlook apres Gmail impose — choisir ses outils vs subir ceux des autres | Educatif | "Un informaticien lui avait impose Gmail. Un autre proposait Thunderbird. Personne ne lui avait demande ce qu'il savait deja utiliser." | Non |
+| 7 | "c'est un pas de geant" — un dirigeant voit pour la 1ere fois toutes ses boites mail au meme endroit | Temoignage / Transformation | "Un dirigeant m'a dit : 'C'est un pas de geant.' Il ne parlait pas d'un contrat signe. Il parlait de voir ses 4 boites mail sur un seul ecran." | Non |
+| 7 | "Avant, c'etait impossible que je te fasse un truc comme ca" — progression assumee apres 7 sessions | Coulisses / Temoignage | "Session 7. Un dirigeant me dit : 'Avant, c'etait impossible que je fasse ca.' Il venait de configurer Outlook tout seul." | Non |
+| 7 | 12 noms de domaine inutilises = 300 EUR/an jetes par la fenetre | Expertise / Educatif | "12 noms de domaine. 300 EUR par an. Aucun n'etait utilise. Et personne ne lui avait jamais dit." | Non |
+| 7 | Phishing detecte en direct pendant la session coaching | Coulisses / Educatif | "Pendant une session, un dirigeant me montre un mail. 'C'est OVH, je dois payer.' J'ai regarde l'URL. C'etait du phishing." | Non |
+| 7 | "si je ne vois pas les choses, il y a des moments ou je bug" — besoin de visuel du dirigeant TDAH | Empathie / Expertise | "Un dirigeant m'a dit : 'Si je ne vois pas les choses, je bug.' Ce n'est pas un manque de competence. C'est un cerveau qui fonctionne en images." | Non |
 
 ## Historique Sessions
 
@@ -154,4 +165,5 @@
 | 3 | 2026-02-10 | Comptabilite, Migration cloud OneDrive, Firefox | Migration fichiers + setup Firefox + arborescence OneDrive | Feishu abandonne, 4 profils Chrome a nettoyer, 200Go Dropbox en vrac |
 | 4 | 2026-02-22 | Organisation emails, centralisation factures, Firefox Containers, schema FU Solutions | Centraliser factures sur V8 V8, labels Gmail, 4 containers Firefox (test 1 sem), structure FU Solutions a valider | Process factures clarifie, Fred lucide "c'est du temps que j'achete" |
 | 5 | 2026-03-01 | Centralisation outils & identite FU Solutions | FU Solutions = email principal, agenda centralise avec code couleur, Google Drive FU Solutions cree, OneNote readopte | Premier event Calendar+Meet ("c'est tout con !"), Dropbox organise (FAIT), WhatsApp desktop installe, 17 acces revoques. Blocage OVH 2FA → Gaetan. Google Passwords a activer (remplace Proton Pass — deja integre a Google). |
-| 6 | 2026-03-09 | Email Outlook, Cloud, MDP Dashlane, M365, Automatisation factures | Outlook desktop = client mail principal, Dashlane = gestionnaire MDP, M365 Personnel 99 EUR/an, Dropbox reste cloud principal, Catherine prepare CdC automatisation factures | Config FredGmail sur Outlook (FAIT), captures d'ecran apprises, "le brouillard se dissipe". Compta critique (pas de rapprochement 2024). Boite FU Solutions toujours bloquee (2FA OVH). Prochaine session vendredi 14/03 8h. |
+| 6 | 2026-03-09 | Email Outlook, Cloud, MDP Dashlane, M365, Automatisation factures | Outlook desktop = client mail principal, Dashlane = gestionnaire MDP, M365 Personnel 99 EUR/an, Dropbox reste cloud principal, Catherine prepare CdC automatisation factures | Config FredGmail sur Outlook (FAIT), captures d'ecran apprises, "le brouillard se dissipe". Compta critique (pas de rapprochement 2024). Boite FU Solutions toujours bloquee (2FA OVH). |
+| 7 | 2026-03-13 | Cadrage digital : Outlook/OVH, gouvernance actifs, OneDrive/Dashlane | Outlook 4 boites OK, OVH acces recupere, Firefox par defaut, favoris reorganises par Claude, M365 a acheter, portail client bookmarke | "c'est un pas de geant" (toutes boites dans Outlook). OVH : 12 domaines inutiles (~300 EUR/an). Phishing detecte en live. Firefox Containers adopte spontanement. Prochaine session mardi 17/03 8h. |

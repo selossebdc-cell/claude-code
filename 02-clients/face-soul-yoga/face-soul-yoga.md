@@ -8,7 +8,7 @@
 - **Taille** : TPE (Aurelia + 1-3 personnes dont Laurie en support operationnel)
 - **Programme** : Clarte & Autonomie — 6 mois, 19 seances
 - **Periode** : fevrier 2026 → aout 2026 (dates exactes a confirmer)
-- **Sessions** : 3 / 19 utilisees (session 4 a planifier semaine du 18 mars 2026)
+- **Sessions** : 4 / 19 utilisees (prochaine session semaine du 24 mars 2026)
 - **Tutoiement / Vouvoiement** : Tutoiement (proposition redigee en tutoiement)
 
 ## Notion IDs
@@ -29,8 +29,9 @@
 - **Style de communication** : Direct, emotionnel, investie. Parle avec passion de sa methode.
 - **Neuro-diversite** : (non mentionne)
 - **Niveau digital** : Intermediaire — utilise Notion, ManyChat, Brevo, CapCut, Canva mais outils sous-utilises (20% de potentiel), architecture fragmentee
-- **Outils actuels** : Kajabi (plateforme principale — confirme session 2), Bunny.net (stockage video — choisi session 2), Brevo (email marketing — maintenu), Wix (site), Planity (reservations), ManyChat, CapCut, Canva, Notion/Airtable, Google Drive, WhatsApp, Claude AI (adopte par Aurelia)
-- **Outils en sortie** : Uscreen (migration en cours vers Kajabi+Bunny), Circle (elimine — trop cher, communaute pas prioritaire)
+- **Outils actuels** : Circle (remplace Kajabi+Uscreen — décidé session 4, Business 199€/mois), Bunny.net (stockage vidéo CDN), Brevo (email marketing — maintenu, 13K contacts), Wix (site — à refondre éducatif), ManyChat, CapCut, Canva, Google Drive, WhatsApp, Claude AI (adopté par Aurélia, connecteurs Canva/Drive/Calendar)
+- **Outils en sortie** : Uscreen (migration vers Circle avant juillet 2026, coûte 7090€/an), Kajabi (migration vers Circle, coexistence temporaire)
+- **VA** : Anam (Pakistan, Upwork, 500$) — migration vidéos Uscreen → Bunny.net + import Circle. Laurie supervise.
 - **Ce qui la motive** : Devenir une vraie chef d'entreprise avec recul et fluidite, atteindre 1M EUR, transmettre sa methode, retrouver du temps pour creer
 - **Ce qui la bloque** : Eparpillement, syndrome de l'imposteur, 80% du temps en operationnel, process manquants, peur de deleguer (budget + confiance), pas de vision claire
 
@@ -183,6 +184,11 @@
 - "Il faut qu'elle termine ce qui est commence avant de lancer autre chose" (Session 3 — Laurie sur Aurelia, eparpillement)
 - "Je commence a avoir des regles assez strictes ou je ne travaille pas les week-ends" (Session 3 — Laurie, progression perso)
 - "Il y a 50 messages par jour entre elles" (Session 3 — Laurie, volume communaute justifie mode mention-only)
+- "À 17 €, les gens n'ont pas accès à moi. Mon énergie, je suis en train de la mettre sur Aurélia Del Sol." (Session 4 — séparation marque/personne actée)
+- "C'est un recurring revenue qui est intéressant et qui peut être complètement scalable et qui, à terme, est revendable parce que la communauté est là, parce que les datas sont là" (Session 4 — vision business/actif)
+- "Inconsciemment, c'est se dire je vais payer une formation, mais elle n'est pas assez chère" (Session 4 — déclic pricing via coach Romain)
+- "Il faut qu'on arrive à prévoir un an à l'avance" (Session 4 — Laurie, cadre anti-chaos)
+- "Il faut vraiment que le focus ce soit la méthode et pas toi" (Session 4 — Laurie, séparation marque/personne)
 
 ## Pepites LinkedIn
 > Extraites des sessions — reutilisables pour posts LinkedIn (anonymise : "une dirigeante" ou "une entrepreneuse")
@@ -239,3 +245,4 @@
 | — | 2026-02-24 | Migration plateforme (travail inter-session) | Comparatif publie dans Notion : 3 architectures (Circle+Bunny, Kajabi seul, Kajabi+Bunny). Critere n°1 = portabilite. Kajabi deja en test. | Document aide a la decision pret pour vendredi 28/02. YouTube, Wistia, Wooskill, Skool elimines. Reco Catherine = Kajabi+Bunny (compromis simplicite/liberte) |
 | 2 | 2026-03-02 | Migration Kajabi + Bunny, Architecture d'offre FSY & Pipeline Premium | Kajabi + Bunny.net confirmes, Circle elimine, Brevo maintenu. Architecture offre : FSY mass-market (abo 17 EUR + programmes 299-500 EUR) vs Aurelia Del Sol premium (Mastermind 3-6K EUR, 1:1 10-15K EUR). Fin lives hebdo, passage evergreen. Freelance Fiverr/ComeUp pour migration. Bot WhatsApp a explorer. | Decisions plateforme et offre actees. Laurie prend le lead migration. Antoine gere social media. Aurelia adopte Claude AI. KPIs : 6 700 membres totaux Uscreen, 613 courants, ~600 videos ~550 Go, communautes 238+184, ~300 abonnes app ~1 150-1 200 EUR |
 | 3 | 2026-03-11 | Strategie offre FSY (evergreen + pricing) & Chatbot Telegram | Focus Master The Method → evergreen (mai 2026). Pricing stabilise : formation 1 950 EUR, abo 17 EUR/mois, accompagnement 399 EUR. YouScreen garde 1 an. Chatbot mode mention valide. | Laurie seule (Aurelia absente). Laurie freine Aurelia sur l'eparpillement. Revenue projection 634K EUR/an. Reminders programmables demandes pour chatbot. Automatisation contrats Kajabi a explorer. Session 1:1 Aurelia mindset a planifier. |
+| 4 | 2026-03-16 | Repositionnement des marques & feuille de route opérationnelle | SESSION PIVOT : 3 entités distinctes actées (FSY Studio B2C, MTM B2B 2 900€, Aurélia Del Sol Premium). Migration Uscreen+Kajabi → Circle avant juillet. VA recrutée sur Upwork. Site FSY → éducatif. | Aurélia arrive avec décisions prises (coachs Mélanie + Romain). Prix MTM 1 950→2 900€. Laurie prend le lead Circle+migration. 4 temps forts/an FSY, 2 pushs/an MTM. Brevo = 13K contacts sous-exploités. Session Claude prévue. Feuille de route V2 construite. |

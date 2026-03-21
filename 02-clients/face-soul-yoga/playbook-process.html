@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Playbook — Face Soul Yoga</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Playfair+Display+SC:wght@400;700&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#FFFBF7;--card:#ffffff;--border:#E0C3B8;--accent:#B55B50;--accent-hover:#a04a40;
+--green:#4CAF50;--orange:#F29973;--blue:#5b9bd5;--red:#e74c3c;--purple:#9b59b6;
+--text:#2B2B2B;--muted:#7a7067;--radius:12px;
+--cream:#FCECDE;--peach:#F9CCA0;--teal:#033231;
+--owner-aurelia:#B55B50;--owner-laurie:#5b9bd5;--owner-autre:#7a7067;--owner-auto:#F29973;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat','Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:600;color:var(--teal)}
+a{color:var(--accent);text-decoration:none}
+
+/* Header */
+.header{background:linear-gradient(135deg,#FCECDE 0%,#FFFBF7 100%);border-bottom:1px solid var(--border);padding:16px 24px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(181,91,80,.08)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo h1{font-size:1.3rem;color:var(--accent);font-family:'Playfair Display SC',serif}
+.logo span{font-size:.75rem;color:var(--muted);display:block;font-family:'Inter',sans-serif;font-weight:400}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.header-actions button{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;font-family:'Montserrat',sans-serif;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.header-actions button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;background:var(--cream);border-radius:var(--radius);padding:4px;max-width:500px}
+.tab{flex:1;padding:10px 16px;text-align:center;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:500;transition:all .25s;border:none;background:transparent;color:var(--muted);font-family:'Montserrat',sans-serif}
+.tab.active{background:var(--accent);color:var(--cream)}
+.tab:hover:not(.active){color:var(--text);background:rgba(181,91,80,.08)}
+
+/* Main */
+.main{max-width:1200px;margin:0 auto;padding:24px}
+.view{display:none;animation:fadeIn .3s ease}
+.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.85rem;font-weight:500;transition:all .2s}
+.btn-primary{background:var(--accent);color:var(--cream)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn-secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent)}
+.btn-sm{padding:6px 12px;font-size:.78rem;border-radius:8px}
+.btn-danger{background:transparent;color:var(--red);border:1px solid var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.card:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(181,91,80,.1)}
+
+/* Forms */
+select,input[type="text"],input[type="date"],textarea{
+background:#FFFBF7;border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:8px;font-family:'Montserrat',sans-serif;font-size:.85rem;width:100%;transition:border-color .2s}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical;min-height:60px}
+label{font-size:.78rem;color:var(--muted);margin-bottom:4px;display:block;font-weight:500}
+
+/* Process list */
+.process-card{cursor:pointer;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.process-card .process-info{flex:1;min-width:200px}
+.process-card .process-info h3{font-size:1rem;margin-bottom:4px}
+.process-card .process-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+.process-card .process-progress{width:120px}
+
+/* Progress bar */
+.progress-bar{height:8px;background:var(--cream);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .4s ease}
+.progress-text{font-size:.75rem;color:var(--muted);margin-top:4px;text-align:right}
+
+/* Big progress */
+.progress-big{margin-bottom:24px}
+.progress-big .progress-bar{height:12px}
+.progress-big .progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-big .progress-header span{font-size:.85rem;color:var(--muted)}
+
+/* Step card */
+.step-card{display:flex;gap:12px;align-items:flex-start;border-left:4px solid var(--border);padding-left:16px;position:relative;transition:all .2s}
+.step-card.status-done{border-left-color:var(--green)}
+.step-card.status-progress{border-left-color:var(--blue)}
+.step-card.status-overdue{border-left-color:var(--red)}
+.step-card.status-pending{border-left-color:var(--border)}
+
+.step-left{display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:2px}
+.step-checkbox{width:22px;height:22px;border-radius:6px;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;background:var(--bg)}
+.step-checkbox.checked{background:var(--green);border-color:var(--green)}
+.step-checkbox.checked::after{content:'\\2713';color:#fff;font-size:14px;font-weight:700}
+.step-arrows{display:flex;flex-direction:column;gap:2px}
+.step-arrows button{background:var(--bg);border:1px solid var(--border);color:var(--muted);width:22px;height:18px;border-radius:4px;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.step-arrows button:hover{border-color:var(--accent);color:var(--accent)}
+
+.step-content{flex:1;min-width:0}
+.step-title{font-weight:600;font-size:.9rem;margin-bottom:4px;cursor:text}
+.step-title:focus{outline:none;border-bottom:1px dashed var(--accent)}
+.step-desc{font-size:.8rem;color:var(--muted);margin-bottom:8px;cursor:text;white-space:pre-wrap}
+.step-desc:empty::before{content:'Ajouter une description...';color:#555;font-style:italic}
+.step-desc:focus{outline:none;border-bottom:1px dashed var(--accent);color:var(--text)}
+
+.step-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.badge{font-size:.72rem;padding:3px 10px;border-radius:6px;font-weight:500;white-space:nowrap}
+.badge-owner{color:#fff}
+.badge-timing{background:var(--cream);color:var(--text)}
+.badge-date{background:transparent;border:1px solid var(--border);color:var(--muted)}
+.badge-overdue{background:rgba(231,76,60,.15);color:var(--red);border:1px solid rgba(231,76,60,.3)}
+
+.step-actions{display:flex;gap:4px;align-items:center;flex-shrink:0}
+.step-actions button{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px;border-radius:4px;transition:all .15s}
+.step-actions button:hover{color:var(--red);background:rgba(231,76,60,.1)}
+
+/* Owner colors */
+.owner-laurie{background:var(--owner-laurie)}
+.owner-aurelia{background:var(--owner-aurelia)}
+.owner-catherine{background:var(--owner-catherine)}
+.owner-va{background:var(--owner-va)}
+.owner-autre{background:var(--owner-autre)}
+.owner-auto,.owner-automatique{background:var(--owner-auto)}
+
+/* Task view */
+.task-item{cursor:pointer}
+.task-item .task-process{font-size:.72rem;color:var(--accent);margin-bottom:4px;font-weight:500}
+.task-item .task-row{display:flex;align-items:center;gap:12px}
+.task-item .task-info{flex:1}
+
+.filter-bar{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap}
+.filter-btn{padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;font-family:'Montserrat',sans-serif;font-size:.82rem;transition:all .2s}
+.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(181,91,80,.08)}
+.filter-btn:hover:not(.active){color:var(--text)}
+
+/* Timeline */
+.timeline-container{position:relative;overflow-x:auto;padding:40px 0 20px}
+.timeline-track{position:relative;min-height:200px;margin:0 40px}
+.timeline-axis{position:absolute;top:80px;left:0;right:0;height:2px;background:var(--border)}
+.timeline-today{position:absolute;top:20px;bottom:0;width:2px;background:var(--red);z-index:5}
+.timeline-today::before{content:"Aujourd'hui";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--red);white-space:nowrap;font-weight:600}
+.timeline-jourj{position:absolute;top:20px;bottom:0;width:2px;background:var(--accent);z-index:5}
+.timeline-jourj::before{content:"JOUR J";position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:.65rem;color:var(--accent);white-space:nowrap;font-weight:700}
+.timeline-node{position:absolute;width:16px;height:16px;border-radius:50%;top:73px;cursor:pointer;z-index:10;transition:transform .2s;border:2px solid rgba(0,0,0,.3)}
+.timeline-node:hover{transform:scale(1.5)}
+.timeline-node.done{opacity:.5}
+.timeline-label{position:absolute;font-size:.65rem;color:var(--muted);max-width:100px;text-align:center;line-height:1.2;top:100px}
+.timeline-date-label{position:absolute;font-size:.6rem;color:#555;top:60px;transform:translateX(-50%)}
+
+.timeline-tooltip{position:fixed;background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;z-index:200;max-width:300px;font-size:.8rem;box-shadow:0 8px 32px rgba(0,0,0,.12);pointer-events:none;display:none}
+.timeline-tooltip h4{font-size:.85rem;margin-bottom:6px}
+.timeline-tooltip .tt-owner{font-size:.72rem;margin-bottom:4px}
+.timeline-tooltip .tt-date{font-size:.72rem;color:var(--muted)}
+
+.timeline-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;padding:12px;background:var(--cream);border-radius:var(--radius);border:1px solid var(--border)}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted)}
+.legend-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(3,50,49,.4);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,.15)}
+.modal h3{font-size:1.1rem;margin-bottom:16px}
+.modal .form-group{margin-bottom:16px}
+.modal .form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state h3{font-size:1.2rem;margin-bottom:8px;color:var(--text)}
+.empty-state p{font-size:.85rem;margin-bottom:20px}
+
+/* Inline edit for timing */
+.timing-edit{width:80px;padding:2px 6px;font-size:.72rem;display:inline-block}
+
+/* Owner select inline */
+.owner-select{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:3px 8px;border-radius:6px;font-size:.72rem;cursor:pointer}
+.owner-select:focus{border-color:var(--accent);outline:none}
+
+/* Print */
+@media print{
+.header,.tabs,.header-actions,.step-arrows,.step-actions,.btn,.filter-bar{display:none!important}
+body{background:#fff;color:#000}
+.card{border:1px solid #ddd;background:#fff}
+.step-card{border-left-width:4px!important}
+.progress-fill{background:var(--accent)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.badge{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.badge-owner{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* Responsive */
+@media(max-width:768px){
+.header-inner{flex-direction:column;align-items:stretch}
+.tabs{max-width:100%}
+.process-card{flex-direction:column;align-items:stretch}
+.process-card .process-progress{width:100%}
+.step-card{flex-direction:column}
+.step-left{flex-direction:row}
+.step-badges{margin-top:4px}
+.main{padding:16px}
+.timeline-container{padding:40px 0}
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div>
+        <h1>Mon Playbook</h1>
+        <span style="color:var(--accent)">Face Soul Yoga</span>
+      </div>
+    </div>
+    <div class="tabs" id="mainTabs">
+      <button class="tab active" data-view="playbook">Playbook</button>
+      <button class="tab" data-view="tasks">Mes t&acirc;ches</button>
+      <button class="tab" data-view="timeline">Timeline</button>
+    </div>
+    <div class="header-actions">
+      <button onclick="window.print()" title="Imprimer">Imprimer</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <!-- VIEW 1: PLAYBOOK -->
+  <div class="view active" id="view-playbook">
+    <div id="playbook-list">
+      <div class="card" style="margin-bottom:24px">
+        <h3 style="font-size:1rem;margin-bottom:12px">Nouveau process</h3>
+        <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+          <div style="flex:1;min-width:200px">
+            <label>Template</label>
+            <select id="templateSelect">
+              <option value="">Nouveau process vide</option>
+              <option value="circle">Cr&eacute;er un espace Circle</option>
+              <option value="migration">Migrer un contenu existant vers Circle</option>
+              <option value="formation">Lancer une formation</option>
+              <option value="challenge">Lancer un challenge recrutement</option>
+              <option value="onboarding">Onboarder un nouveau membre</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" onclick="showCreateModal()">Ouvrir</button>
+        </div>
+      </div>
+      <h2 style="font-size:1.1rem;margin-bottom:16px" id="activeProcessTitle">Process actifs</h2>
+      <div id="processList"></div>
+    </div>
+
+    <div id="playbook-detail" style="display:none">
+      <button class="btn btn-secondary btn-sm" onclick="backToList()" style="margin-bottom:16px">&larr; Retour aux process</button>
+      <div id="detailHeader"></div>
+      <div id="detailSteps"></div>
+      <button class="btn btn-secondary" onclick="addStep()" style="margin-top:12px">+ Ajouter une &eacute;tape</button>
+    </div>
+  </div>
+
+  <!-- VIEW 2: MES TACHES -->
+  <div class="view" id="view-tasks">
+    <h2 style="font-size:1.2rem;margin-bottom:16px">Mes t&acirc;ches</h2>
+    <div class="filter-bar" id="taskFilters"></div>
+    <div id="taskList"></div>
+  </div>
+
+  <!-- VIEW 3: TIMELINE -->
+  <div class="view" id="view-timeline">
+    <h2 style="font-size:1.2rem;margin-bottom:16px">Timeline</h2>
+    <div style="margin-bottom:16px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px">
+        <label>Process</label>
+        <select id="timelineSelect" onchange="renderTimeline()"></select>
+      </div>
+    </div>
+    <div id="timelineContent"></div>
+  </div>
+</div>
+
+<!-- Tooltip for timeline -->
+<div class="timeline-tooltip" id="tooltip"></div>
+
+<script>
+// ===== DATA =====
+const STORAGE_KEY='fsy-playbook-data';
+const DEFAULT_OWNERS=['Aurélia','Laurie','Autre','Automatique'];
+let OWNERS=[...DEFAULT_OWNERS];
+try{const saved=JSON.parse(localStorage.getItem('fsy-playbook-owners'));if(saved&&saved.length)OWNERS=saved}catch(e){}
+function saveOwners(){localStorage.setItem('fsy-playbook-owners',JSON.stringify(OWNERS))}
+const OWNER_COLORS_MAP={'Laurie':'var(--owner-laurie)','Aurélia':'var(--owner-aurelia)','Autre':'var(--owner-autre)','Automatique':'var(--owner-auto)'};
+const OWNER_CLASSES_MAP={'Laurie':'owner-laurie','Aurélia':'owner-aurelia','Autre':'owner-autre','Automatique':'owner-auto'};
+function getOwnerColor(name){return OWNER_COLORS_MAP[name]||'var(--owner-autre)'}
+function getOwnerClass(name){return OWNER_CLASSES_MAP[name]||'owner-autre'}
+const OWNER_CLASSES=new Proxy({},{get:function(_,k){return getOwnerClass(k)}});
+const OWNER_COLORS=new Proxy({},{get:function(_,k){return getOwnerColor(k)}});
+function addNewOwner(){
+var name=prompt('Nom de la nouvelle personne :');
+if(!name||!name.trim())return;
+name=name.trim();
+if(OWNERS.indexOf(name)===-1){OWNERS.splice(OWNERS.length-2,0,name);saveOwners()}
+}
+
+let data={processes:[]};
+let currentProcessId=null;
+let currentFilter='Toutes';
+
+function uid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,6)}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(data))}
+function load(){try{const d=localStorage.getItem(STORAGE_KEY);if(d)data=JSON.parse(d)}catch(e){}}
+
+// ===== TEMPLATES =====
+function getTemplates(){return{
+circle:{name:'Créer un espace Circle',steps:[
+{title:'Définir l\'offre et le positionnement (nom, prix, description, public cible)',owner:'Aurélia',timing:-21,desc:''},
+{title:'Créer le compte Circle Business (ou ajouter un espace si déjà existant)',owner:'Laurie',timing:-20,desc:''},
+{title:'Configurer l\'espace (nom, description, branding, logo, couleurs)',owner:'Laurie',timing:-19,desc:''},
+{title:'Connecter Stripe au checkout (prix, devise, période d\'essai éventuelle)',owner:'Laurie',timing:-18,desc:''},
+{title:'Créer les catégories/collections de contenu',owner:'Laurie',timing:-17,desc:''},
+{title:'Configurer les niveaux d\'accès (gratuit vs payant, ce qui est visible)',owner:'Laurie',timing:-15,desc:''},
+{title:'Ajouter le contenu initial (minimum 5-10 éléments pour que l\'espace ne soit pas vide)',owner:'Laurie',timing:-14,desc:'Laurie + VA'},
+{title:'Configurer la communauté (règles, canaux de discussion, modération)',owner:'Laurie',timing:-12,desc:''},
+{title:'Configurer le calendrier d\'événements (si applicable)',owner:'Laurie',timing:-10,desc:''},
+{title:'Configurer l\'email de bienvenue automatique dans Circle',owner:'Laurie',timing:-10,desc:''},
+{title:'Connecter Circle ↔ Brevo (webhook, Zapier ou n8n)',owner:'Autre',timing:-8,desc:''},
+{title:'Test complet du parcours : inscription → paiement → accès → navigation → contenu',owner:'Aurélia',timing:-7,desc:''},
+{title:'Corriger les problèmes identifiés lors du test',owner:'Laurie',timing:-5,desc:''},
+{title:'Inviter 3-5 bêta-testeuses (personnes de confiance)',owner:'Aurélia',timing:-3,desc:''},
+{title:'Intégrer les retours bêta et ajustements finaux',owner:'Laurie',timing:-1,desc:''},
+{title:'Ouverture officielle',owner:'Aurélia',timing:0,desc:''}
+]},
+migration:{name:'Migrer un contenu existant vers Circle',steps:[
+{title:'Inventaire complet du contenu à migrer (nombre, format, taille, catégories)',owner:'Aurélia',timing:-90,desc:''},
+{title:'Décision : quels contenus garder, archiver, supprimer',owner:'Aurélia',timing:-85,desc:''},
+{title:'Recruter/briefer la VA pour la migration technique',owner:'Laurie',timing:-80,desc:''},
+{title:'Clause NDA dans le contrat de la VA',owner:'Autre',timing:-80,desc:''},
+{title:'Configurer Bunny.net comme CDN vidéo (si vidéos)',owner:'Autre',timing:-75,desc:''},
+{title:'Export complet depuis la plateforme source',owner:'Autre',timing:-70,desc:''},
+{title:'Upload vers Bunny.net (par batch, vérification qualité à chaque lot)',owner:'Autre',timing:-65,desc:''},
+{title:'Créer la structure dans Circle (espaces, collections, catégories)',owner:'Laurie',timing:-60,desc:''},
+{title:'Import du contenu dans Circle (intégrer vidéos Bunny.net, textes, fichiers)',owner:'Autre',timing:-55,desc:''},
+{title:'Organiser et ordonner le contenu (ordre des modules, progression logique)',owner:'Laurie',timing:-50,desc:''},
+{title:'Vérifier CHAQUE contenu migré (lien fonctionne, vidéo se lance, texte OK)',owner:'Laurie',timing:-45,desc:'Laurie + VA'},
+{title:'Configurer le checkout et les accès (Stripe, niveaux, période d\'essai)',owner:'Laurie',timing:-40,desc:''},
+{title:'Test parcours complet : inscription → paiement → accès → navigation → chaque contenu',owner:'Aurélia',timing:-35,desc:''},
+{title:'Préparer le plan de communication aux membres existants',owner:'Autre',timing:-30,desc:''},
+{title:'Email 1 aux membres : "Votre expérience évolue !" (annonce positive)',owner:'Laurie',timing:-30,desc:''},
+{title:'Identifier les abonnés Apple/Google In-App (ne migrent PAS automatiquement)',owner:'Laurie',timing:-21,desc:''},
+{title:'Email dédié aux abonnés Apple/Google avec procédure de migration',owner:'Laurie',timing:-21,desc:''},
+{title:'Email 2 aux membres : "Comment ça va se passer" + FAQ + guide visuel',owner:'Laurie',timing:-14,desc:''},
+{title:'Inviter un groupe bêta (10 membres motivés) sur Circle',owner:'Laurie',timing:-7,desc:''},
+{title:'Email 3 : "C\'est pour bientôt !" + lien pré-inscription',owner:'Laurie',timing:-7,desc:''},
+{title:'Intégrer retours bêta, ajustements',owner:'Laurie',timing:-3,desc:''},
+{title:'Email 4 : "Bienvenue sur votre nouvel espace !" + lien direct',owner:'Laurie',timing:0,desc:''},
+{title:'Activer la redirection depuis l\'ancienne plateforme',owner:'Autre',timing:0,desc:''},
+{title:'Email 5 : "Tout se passe bien ?" + relance non-connectés',owner:'Laurie',timing:7,desc:''},
+{title:'Période de coexistence (ancien + nouveau accessibles)',owner:'Laurie',timing:14,desc:''},
+{title:'Fermeture définitive ancienne plateforme',owner:'Laurie',timing:30,desc:''},
+{title:'Suppression des apps custom des stores si applicable',owner:'Autre',timing:30,desc:''}
+]},
+formation:{name:'Lancer une formation',steps:[
+{title:'Définir le concept de la formation (thème, public, transformation promise, durée)',owner:'Aurélia',timing:-270,desc:'9 mois'},
+{title:'Structurer le programme (modules, leçons, progression, livrables par module)',owner:'Aurélia',timing:-250,desc:''},
+{title:'Valider le pricing (prix plein, early bird, modalités de paiement)',owner:'Aurélia',timing:-240,desc:'Aurélia + Catherine'},
+{title:'Écrire la page de vente (hook, pain points, transformation, témoignages, FAQ, CTA)',owner:'Aurélia',timing:-230,desc:'Aurélia + Claude'},
+{title:'Commencer la production du contenu (vidéos, supports, exercices, quiz)',owner:'Aurélia',timing:-210,desc:'7 mois'},
+{title:'Configurer l\'espace Circle (structure, modules, accès, checkout Stripe)',owner:'Laurie',timing:-180,desc:'6 mois'},
+{title:'Créer le quiz de certification (si applicable)',owner:'Aurélia',timing:-180,desc:''},
+{title:'Automatiser le contrat e-signature (n8n : achat → envoi contrat → signature → accès)',owner:'Autre',timing:-150,desc:'5 mois'},
+{title:'Préparer la séquence email de lancement (7-8 emails, nurturing + urgence douce)',owner:'Autre',timing:-120,desc:'4 mois — Catherine + Brevo'},
+{title:'Créer le lead magnet associé (guide, webinar gratuit, mini-cours)',owner:'Aurélia',timing:-120,desc:''},
+{title:'Configurer le tunnel : lead magnet → séquence nurturing → page de vente',owner:'Autre',timing:-90,desc:'3 mois'},
+{title:'Préparer les assets communication (visuels, témoignages, cas d\'usage)',owner:'Laurie',timing:-90,desc:''},
+{title:'Pré-lancement : teasing sur Instagram/email, liste d\'attente early bird',owner:'Aurélia',timing:-60,desc:'2 mois'},
+{title:'Importer le contenu finalisé dans Circle',owner:'Laurie',timing:-45,desc:'Laurie + VA'},
+{title:'Test complet du parcours : inscription → paiement → contrat → accès → formation → quiz → certification',owner:'Aurélia',timing:-30,desc:'1 mois — Aurélia + Laurie'},
+{title:'Ouvrir les inscriptions early bird (prix réduit, durée limitée)',owner:'Aurélia',timing:-30,desc:''},
+{title:'Lancer la séquence email de lancement (email 1/8)',owner:'Automatique',timing:-21,desc:'Automatique Brevo'},
+{title:'Intensifier la communication (stories, posts, emails quotidiens dernière semaine)',owner:'Aurélia',timing:-14,desc:''},
+{title:'Email "Dernier jour early bird"',owner:'Automatique',timing:-7,desc:'Automatique Brevo'},
+{title:'Email "Plus que 3 jours"',owner:'Automatique',timing:-3,desc:'Automatique Brevo'},
+{title:'Lancement officiel au prix plein',owner:'Automatique',timing:0,desc:''},
+{title:'Email de bienvenue + accès + planning formation',owner:'Automatique',timing:1,desc:'Automatique Circle/Brevo'},
+{title:'Email "Comment se passe votre première semaine ?"',owner:'Automatique',timing:7,desc:'Automatique Brevo'},
+{title:'Point d\'étape mi-formation (email encouragement + stats progression)',owner:'Automatique',timing:30,desc:''},
+{title:'Fin de formation → quiz certification → kit communication "Certifiée"',owner:'Automatique',timing:90,desc:'Automatique Circle'},
+{title:'Proposer la licence annuelle (100€/an pour accès continu + communauté)',owner:'Automatique',timing:90,desc:''},
+{title:'Débrief lancement : nombre inscrits, CA, taux complétion, retours → ajuster pour prochain lancement',owner:'Autre',timing:120,desc:'Catherine + Aurélia'}
+]},
+challenge:{name:'Lancer un challenge recrutement',steps:[
+{title:'Définir le thème du challenge (aligné avec une douleur du public cible)',owner:'Aurélia',timing:-60,desc:''},
+{title:'Structurer le challenge (durée, nombre de jours, contenu quotidien, objectif)',owner:'Aurélia',timing:-55,desc:''},
+{title:'Produire le contenu du challenge (vidéos courtes, exercices, messages quotidiens)',owner:'Aurélia',timing:-50,desc:''},
+{title:'Créer la landing page d\'inscription (formulaire email → Brevo)',owner:'Laurie',timing:-45,desc:''},
+{title:'Préparer la séquence email challenge (1 email/jour + email final avec offre)',owner:'Autre',timing:-40,desc:''},
+{title:'Préparer les visuels de promotion (Instagram, stories, reels)',owner:'Laurie',timing:-35,desc:''},
+{title:'Configurer le groupe/espace temporaire (Circle ou Telegram)',owner:'Laurie',timing:-30,desc:''},
+{title:'Lancer la promotion : posts Instagram, stories, collab avec certifiées MTM',owner:'Aurélia',timing:-21,desc:''},
+{title:'Intensifier la promotion + relance email liste existante',owner:'Aurélia',timing:-14,desc:'Aurélia + Brevo'},
+{title:'Email "Plus qu\'une semaine pour s\'inscrire !"',owner:'Automatique',timing:-7,desc:'Automatique Brevo'},
+{title:'Clôture des inscriptions (ou maintenir ouvert, au choix)',owner:'Aurélia',timing:-3,desc:''},
+{title:'Lancement du challenge — email jour 1 + contenu',owner:'Automatique',timing:0,desc:''},
+{title:'Emails quotidiens automatiques (contenu + motivation + communauté)',owner:'Automatique',timing:1,desc:'J+1 à J+X'},
+{title:'Email final avec offre spéciale abonnement FSY Studio (réduction limitée)',owner:'Automatique',timing:5,desc:'Jour final du challenge'},
+{title:'Email relance non-converties',owner:'Automatique',timing:8,desc:'J+3 après fin'},
+{title:'Bilan challenge : inscrits, engagement, conversions, learnings',owner:'Autre',timing:12,desc:'J+7 après fin — Catherine + Aurélia'}
+]},
+onboarding:{name:'Onboarder un nouveau membre',steps:[
+{title:'Paiement reçu → accès Circle activé automatiquement (Stripe webhook)',owner:'Automatique',timing:0,desc:''},
+{title:'Email de bienvenue : "Bienvenue chez Face Soul Yoga !" + guide premiers pas + lien Circle',owner:'Automatique',timing:0,desc:'Automatique Brevo'},
+{title:'Email : "Par où commencer ?" — 3 vidéos recommandées pour débutants',owner:'Automatique',timing:1,desc:'Automatique Brevo'},
+{title:'Email : "As-tu découvert la communauté ?" — incitation à se présenter dans le forum',owner:'Automatique',timing:3,desc:'Automatique Brevo'},
+{title:'Email : "Ta première semaine !" — encouragement + suggestion de routine hebdo',owner:'Automatique',timing:7,desc:'Automatique Brevo'},
+{title:'Vérifier si le membre s\'est connecté au moins 2 fois',owner:'Laurie',timing:14,desc:'Laurie (ou automatique)'},
+{title:'Si non connecté → email de réengagement "On ne t\'a pas vue cette semaine !"',owner:'Automatique',timing:14,desc:'Automatique Brevo'},
+{title:'Email : "Découvre les collections avancées" — suggestions personnalisées',owner:'Automatique',timing:21,desc:'Automatique Brevo'},
+{title:'Email bilan : "Ton premier mois !" — stats, progrès, invitation à laisser un témoignage',owner:'Automatique',timing:30,desc:'Automatique Brevo'},
+{title:'Si engagement faible → flag pour attention personnelle Laurie',owner:'Laurie',timing:30,desc:'Automatique ou Laurie'}
+]}
+}}
+
+// ===== DATE HELPERS =====
+function addDays(date,days){const d=new Date(date);d.setDate(d.getDate()+days);return d}
+function formatDate(d){if(!d)return'';const dt=new Date(d);return dt.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'})}
+function formatDateISO(d){const dt=new Date(d);return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0')}
+function calcAbsDate(dateCible,timing){if(!dateCible)return null;return addDays(dateCible,timing)}
+function timingLabel(t){if(t===0)return'Jour J';if(t>0)return'J+'+t;return'J'+t}
+function parseTiming(str){str=str.trim();if(str.toLowerCase()==='jour j'||str==='J0'||str==='j0')return 0;const m=str.match(/^[Jj]([+-]?\d+)$/);if(m)return parseInt(m[1]);const m2=str.match(/^[Jj]-(\d+)$/);if(m2)return -parseInt(m2[1]);const m3=str.match(/^[Jj]\+(\d+)$/);if(m3)return parseInt(m3[1]);return null}
+function isOverdue(absDate,done){if(done)return false;if(!absDate)return false;const today=new Date();today.setHours(0,0,0,0);const d=new Date(absDate);d.setHours(0,0,0,0);return d<today}
+function stepStatus(step,dateCible){if(step.done)return'done';const abs=calcAbsDate(dateCible,step.timing);if(isOverdue(abs,false))return'overdue';return'pending'}
+
+// ===== VIEWS =====
+function switchView(view){
+document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+document.getElementById('view-'+view).classList.add('active');
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelector('.tab[data-view="' + view + '"]').classList.add('active');
+if(view==='playbook')renderPlaybook();
+if(view==='tasks')renderTasks();
+if(view==='timeline'){populateTimelineSelect();renderTimeline()}
+}
+
+document.querySelectorAll('.tab').forEach(t=>{
+t.addEventListener('click',()=>switchView(t.dataset.view))
+});
+
+// ===== CREATE PROCESS MODAL =====
+function showCreateModal(){
+const tpl=document.getElementById('templateSelect').value;
+const templates=getTemplates();
+const tplName=tpl?templates[tpl].name:'Process vide';
+const overlay=document.createElement('div');
+overlay.className='modal-overlay';
+overlay.innerHTML=`<div class="modal">
+<h3>Nouveau process</h3>
+<div class="form-group"><label>Nom</label><input type="text" id="modalName" value="${tplName}"></div>
+<div class="form-group"><label>Date cible (Jour J)</label><input type="date" id="modalDate" value="${formatDateISO(addDays(new Date(),30))}"></div>
+<div class="form-actions">
+<button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove()">Annuler</button>
+<button class="btn btn-primary" onclick="createProcess()">Ouvrir</button>
+</div></div>`;
+document.body.appendChild(overlay);
+overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove()});
+document.getElementById('modalName').focus();
+}
+
+function createProcess(){
+const name=document.getElementById('modalName').value.trim();
+const date=document.getElementById('modalDate').value;
+if(!name){alert('Veuillez entrer un nom');return}
+if(!date){alert('Veuillez choisir une date cible');return}
+const tplKey=document.getElementById('templateSelect').value;
+const templates=getTemplates();
+const steps=tplKey?templates[tplKey].steps.map((s,i)=>({
+id:uid(),title:s.title,desc:s.desc||'',owner:s.owner,timing:s.timing,done:false,order:i
+})):[];
+const proc={id:uid(),name,dateCible:date,template:tplKey?templates[tplKey].name:'Vide',steps,createdAt:new Date().toISOString()};
+data.processes.push(proc);
+save();
+document.querySelector('.modal-overlay').remove();
+openProcess(proc.id);
+}
+
+// ===== PLAYBOOK VIEW =====
+function renderPlaybook(){
+if(currentProcessId){renderProcessDetail();return}
+var list=document.getElementById('processList');
+var titleEl=document.getElementById('activeProcessTitle');
+if(!data.processes.length){
+titleEl.textContent='Process en cours';
+list.innerHTML='<div class="empty-state"><h3>Aucun process en cours</h3><p>Choisissez un template ci-dessus pour commencer.</p></div>';
+return;
+}
+// Global stats
+var totalDone=0,totalSteps=0;
+data.processes.forEach(function(p){totalDone+=p.steps.filter(function(s){return s.done}).length;totalSteps+=p.steps.length});
+var globalPct=totalSteps?Math.round(totalDone/totalSteps*100):0;
+var globalColor=globalPct>=80?'var(--green)':globalPct>=50?'var(--accent)':'var(--orange)';
+titleEl.innerHTML='Process en cours <span style="font-family:Inter,sans-serif;font-size:.85rem;font-weight:400;color:var(--muted);margin-left:8px">'+data.processes.length+' actif'+(data.processes.length>1?'s':'')+'</span>';
+// Global progress bar
+var globalHtml='<div class="card" style="margin-bottom:20px;padding:16px 20px">'
++'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
++'<span style="font-size:.85rem;font-weight:600">Avancement global</span>'
++'<span style="font-size:1.3rem;font-weight:700;font-family:Playfair Display,serif;color:'+globalColor+'">'+globalPct+'%</span>'
++'</div>'
++'<div class="progress-bar" style="height:14px"><div class="progress-fill" style="width:'+globalPct+'%;background:'+globalColor+'"></div></div>'
++'<div style="font-size:.75rem;color:var(--muted);margin-top:6px">'+totalDone+' / '+totalSteps+' étapes terminées</div>'
++'</div>';
+// Process cards
+var cardsHtml=data.processes.map(function(p){
+var done=p.steps.filter(function(s){return s.done}).length;
+var total=p.steps.length;
+var pct=total?Math.round(done/total*100):0;
+var pctColor=pct>=80?'var(--green)':pct>=50?'var(--accent)':'var(--orange)';
+var overdue=p.steps.filter(function(s){if(s.done)return false;var abs=calcAbsDate(p.dateCible,s.timing);return isOverdue(abs,false)}).length;
+var overdueHtml=overdue>0?'<span style="color:var(--red);font-weight:600">'+overdue+' en retard</span>':'';
+return'<div class="card process-card" onclick="openProcess(\''+p.id+'\')">'
++'<div class="process-info">'
++'<h3>'+esc(p.name)+'</h3>'
++'<div class="process-meta">'
++'<span>📋 '+esc(p.template)+'</span>'
++'<span>📅 Jour J : '+formatDate(p.dateCible)+'</span>'
++'<span>'+done+'/'+total+' étapes</span>'
++overdueHtml
++'</div>'
++'</div>'
++'<div class="process-progress" style="min-width:140px">'
++'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'
++'<span style="font-size:.75rem;color:var(--muted)">Avancement</span>'
++'<span style="font-size:1rem;font-weight:700;color:'+pctColor+'">'+pct+'%</span>'
++'</div>'
++'<div class="progress-bar"><div class="progress-fill" style="width:'+pct+'%;background:'+pctColor+'"></div></div>'
++'</div>'
++'<button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteProcess(\''+p.id+'\')" title="Supprimer">🗑</button>'
++'</div>';
+}).join('');
+list.innerHTML=globalHtml+cardsHtml;
+document.getElementById('playbook-list').style.display='block';
+document.getElementById('playbook-detail').style.display='none';
+}
+
+function openProcess(id){currentProcessId=id;renderProcessDetail()}
+function backToList(){currentProcessId=null;document.getElementById('playbook-list').style.display='block';document.getElementById('playbook-detail').style.display='none';renderPlaybook()}
+
+function renderProcessDetail(){
+const proc=data.processes.find(p=>p.id===currentProcessId);
+if(!proc){backToList();return}
+document.getElementById('playbook-list').style.display='none';
+document.getElementById('playbook-detail').style.display='block';
+const done=proc.steps.filter(s=>s.done).length;
+const total=proc.steps.length;
+const pct=total?Math.round(done/total*100):0;
+document.getElementById('detailHeader').innerHTML=`
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:8px;flex-wrap:wrap">
+<h2 style="font-size:1.3rem;flex:1">${esc(proc.name)}</h2>
+<span style="font-size:.82rem;color:var(--muted)">📅 Jour J : ${formatDate(proc.dateCible)}</span>
+<button class="btn btn-sm btn-secondary" onclick="editProcessMeta()">Modifier</button>
+</div>
+<div class="progress-big">
+<div class="progress-header"><span>${done} / ${total} étapes</span><span>${pct}%</span></div>
+<div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+</div>`;
+
+const sorted=[...proc.steps].sort((a,b)=>a.order-b.order);
+document.getElementById('detailSteps').innerHTML=sorted.map((s,idx)=>{
+const st=stepStatus(s,proc.dateCible);
+const abs=calcAbsDate(proc.dateCible,s.timing);
+const absStr=abs?formatDate(abs):'';
+const isOvd=st==='overdue';
+const ownerCls=OWNER_CLASSES[s.owner]||'owner-autre';
+return`<div class="card step-card status-${st}" data-step-id="${s.id}">
+<div class="step-left">
+<div class="step-checkbox ${s.done?'checked':''}" onclick="toggleStep('${s.id}')"></div>
+<div class="step-arrows">
+<button onclick="moveStep('${s.id}',-1)" title="Monter">▲</button>
+<button onclick="moveStep('${s.id}',1)" title="Descendre">▼</button>
+</div>
+</div>
+<div class="step-content">
+<div class="step-title" contenteditable="true" onblur="updateStepField('${s.id}','title',this.textContent)">${esc(s.title)}</div>
+<div class="step-desc" contenteditable="true" onblur="updateStepField('${s.id}','desc',this.textContent)">${esc(s.desc)}</div>
+<div class="step-badges">
+<select class="owner-select" onchange="handleOwnerChange(this,'${s.id}')">
+`+OWNERS.map(function(o){return'<option value="'+o+'" '+(o===s.owner?'selected':'')+'>'+o+'</option>';}).join('')+'<option value="__new__">+ Nouvelle personne</option>'+`
+</select>
+<span class="badge badge-timing" contenteditable="true" onblur="updateTiming('${s.id}',this.textContent)" title="Cliquer pour modifier">${timingLabel(s.timing)}</span>
+<span class="badge ${isOvd?'badge-overdue':'badge-date'}">${absStr}</span>
+</div>
+</div>
+<div class="step-actions">
+<button onclick="deleteStep('${s.id}')" title="Supprimer">🗑</button>
+</div>
+</div>`;
+}).join('');
+}
+
+function editProcessMeta(){
+const proc=data.processes.find(p=>p.id===currentProcessId);
+if(!proc)return;
+const overlay=document.createElement('div');
+overlay.className='modal-overlay';
+overlay.innerHTML=`<div class="modal">
+<h3>Modifier le process</h3>
+<div class="form-group"><label>Nom</label><input type="text" id="editName" value="${esc(proc.name)}"></div>
+<div class="form-group"><label>Date cible</label><input type="date" id="editDate" value="${proc.dateCible}"></div>
+<div class="form-actions">
+<button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove()">Annuler</button>
+<button class="btn btn-primary" onclick="saveProcessMeta()">Enregistrer</button>
+</div></div>`;
+document.body.appendChild(overlay);
+}
+
+function saveProcessMeta(){
+const proc=data.processes.find(p=>p.id===currentProcessId);
+proc.name=document.getElementById('editName').value.trim()||proc.name;
+proc.dateCible=document.getElementById('editDate').value||proc.dateCible;
+save();document.querySelector('.modal-overlay').remove();renderProcessDetail();
+}
+
+function toggleStep(stepId){
+const proc=data.processes.find(p=>p.id===currentProcessId);
+const step=proc.steps.find(s=>s.id===stepId);
+step.done=!step.done;save();renderProcessDetail();
+}
+
+function updateStepField(stepId,field,value){
+const proc=data.processes.find(p=>p.id===currentProcessId);
+const step=proc.steps.find(s=>s.id===stepId);
+if(step[field]!==value.trim()){step[field]=value.trim();save()}
+}
+
+function handleOwnerChange(sel,stepId){
+if(sel.value==='__new__'){
+var name=prompt('Nom de la nouvelle personne :');
+if(name&&name.trim()){
+name=name.trim();
+if(OWNERS.indexOf(name)===-1){OWNERS.splice(OWNERS.length-2,0,name);saveOwners()}
+updateStepField(stepId,'owner',name);
+}
+renderProcessDetail();
+}else{
+updateStepField(stepId,'owner',sel.value);
+}
+}
+
+function updateTiming(stepId,text){
+const t=parseTiming(text);
+if(t===null)return;
+const proc=data.processes.find(p=>p.id===currentProcessId);
+const step=proc.steps.find(s=>s.id===stepId);
+step.timing=t;save();renderProcessDetail();
+}
+
+function moveStep(stepId,dir){
+const proc=data.processes.find(p=>p.id===currentProcessId);
+const sorted=[...proc.steps].sort((a,b)=>a.order-b.order);
+const idx=sorted.findIndex(s=>s.id===stepId);
+const newIdx=idx+dir;
+if(newIdx<0||newIdx>=sorted.length)return;
+const tmp=sorted[idx].order;sorted[idx].order=sorted[newIdx].order;sorted[newIdx].order=tmp;
+save();renderProcessDetail();
+}
+
+function addStep(){
+const proc=data.processes.find(p=>p.id===currentProcessId);
+const maxOrder=proc.steps.reduce((m,s)=>Math.max(m,s.order),-1);
+proc.steps.push({id:uid(),title:'Nouvelle étape',desc:'',owner:'Laurie',timing:0,done:false,order:maxOrder+1});
+save();renderProcessDetail();
+document.getElementById('detailSteps').lastElementChild.scrollIntoView({behavior:'smooth'});
+}
+
+function deleteStep(stepId){
+if(!confirm('Supprimer cette étape ?'))return;
+const proc=data.processes.find(p=>p.id===currentProcessId);
+proc.steps=proc.steps.filter(s=>s.id!==stepId);save();renderProcessDetail();
+}
+
+function deleteProcess(id){
+if(!confirm('Supprimer ce process et toutes ses étapes ?'))return;
+data.processes=data.processes.filter(p=>p.id!==id);
+if(currentProcessId===id)currentProcessId=null;
+save();renderPlaybook();
+}
+
+// ===== TASKS VIEW =====
+function renderTasks(){
+const filters=['Toutes',...OWNERS];
+document.getElementById('taskFilters').innerHTML=filters.map(f=>
+`<button class="filter-btn ${f===currentFilter?'active':''}" onclick="currentFilter='${f}';renderTasks()">${f}</button>`
+).join('');
+
+let tasks=[];
+data.processes.forEach(p=>{
+p.steps.forEach(s=>{
+const abs=calcAbsDate(p.dateCible,s.timing);
+tasks.push({...s,processId:p.id,processName:p.name,dateCible:p.dateCible,absDate:abs});
+});
+});
+
+if(currentFilter!=='Toutes')tasks=tasks.filter(t=>t.owner===currentFilter);
+tasks.sort((a,b)=>{
+if(!a.absDate)return 1;if(!b.absDate)return-1;
+return new Date(a.absDate)-new Date(b.absDate);
+});
+
+const list=document.getElementById('taskList');
+if(!tasks.length){list.innerHTML='<div class="empty-state"><h3>Aucune tâche</h3><p>Créez des process dans l\'onglet Playbook.</p></div>';return}
+
+list.innerHTML=tasks.map(t=>{
+const st=t.done?'done':isOverdue(t.absDate,false)?'overdue':'pending';
+const ownerCls=OWNER_CLASSES[t.owner]||'owner-autre';
+return`<div class="card task-item step-card status-${st}" onclick="goToProcessStep('${t.processId}')">
+<div class="step-checkbox ${t.done?'checked':''}" onclick="event.stopPropagation();toggleTaskStep('${t.processId}','${t.id}')"></div>
+<div class="step-content">
+<div class="task-process">${esc(t.processName)}</div>
+<div class="step-title">${esc(t.title)}</div>
+<div class="step-badges">
+<span class="badge badge-owner ${ownerCls}">${t.owner}</span>
+<span class="badge ${st==='overdue'?'badge-overdue':'badge-date'}">${t.absDate?formatDate(t.absDate):''}</span>
+</div>
+</div>
+</div>`;
+}).join('');
+}
+
+function toggleTaskStep(procId,stepId){
+const proc=data.processes.find(p=>p.id===procId);
+const step=proc.steps.find(s=>s.id===stepId);
+step.done=!step.done;save();renderTasks();
+}
+
+function goToProcessStep(procId){
+currentProcessId=procId;switchView('playbook');renderProcessDetail();
+}
+
+// ===== TIMELINE VIEW =====
+function populateTimelineSelect(){
+var sel=document.getElementById('timelineSelect');
+var cur=sel.value;
+var html='<option value="__all__"'+(cur==='__all__'||!cur?' selected':'')+'>Tous les process</option>';
+data.processes.forEach(function(p){
+html+='<option value="'+p.id+'"'+(p.id===cur?' selected':'')+'>'+esc(p.name)+'</option>';
+});
+if(!data.processes.length)html='<option>Aucun process</option>';
+sel.innerHTML=html;
+}
+
+function renderTimeline(){
+var container=document.getElementById('timelineContent');
+var sel=document.getElementById('timelineSelect');
+var selVal=sel.value;
+var procs=selVal==='__all__'?data.processes:data.processes.filter(function(p){return p.id===selVal});
+if(!procs.length){container.innerHTML='<div class="empty-state"><p>Aucun process à afficher.</p></div>';return}
+
+if(selVal==='__all__'&&procs.length>1){
+renderGantt(container,procs);
+}else{
+renderSingleTimeline(container,procs[0]);
+}
+}
+
+function renderGantt(container,procs){
+// Collect all dates to find global range
+var allDates=[];
+var today=new Date();
+procs.forEach(function(p){
+p.steps.forEach(function(s){
+var d=calcAbsDate(p.dateCible,s.timing);
+if(d)allDates.push(new Date(d));
+});
+allDates.push(new Date(p.dateCible));
+});
+if(!allDates.length){container.innerHTML='<div class="empty-state"><p>Aucune date calculable.</p></div>';return}
+allDates.sort(function(a,b){return a-b});
+var minDate=allDates[0];
+var maxDate=allDates[allDates.length-1];
+// Add padding
+minDate=addDays(minDate,-14);
+maxDate=addDays(maxDate,14);
+var rangeMs=maxDate-minDate||1;
+var width=Math.max(900,Math.round(rangeMs/86400000)*3);
+var rowH=60;
+var headerH=40;
+var totalH=headerH+procs.length*rowH+40;
+var padding=200;
+
+var html='<div class="timeline-container"><div class="gantt-chart" style="width:'+(width+padding)+'px;height:'+totalH+'px;position:relative">';
+
+// Month labels along top
+var d=new Date(minDate);
+d.setDate(1);
+while(d<=maxDate){
+var mPct=(d-minDate)/rangeMs;
+if(mPct>=0&&mPct<=1){
+var mx=padding+mPct*( width-padding);
+html+='<div style="position:absolute;top:0;left:'+mx+'px;font-size:.7rem;color:var(--muted);font-weight:600;text-transform:uppercase">'+d.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'})+'</div>';
+html+='<div style="position:absolute;top:'+headerH+'px;bottom:0;left:'+mx+'px;width:1px;background:var(--border);opacity:.4"></div>';
+}
+d.setMonth(d.getMonth()+1);
+}
+
+// Today line
+var todayPct=(today-minDate)/rangeMs;
+if(todayPct>=0&&todayPct<=1){
+var todayX=padding+todayPct*(width-padding);
+html+='<div style="position:absolute;top:0;bottom:0;left:'+todayX+'px;width:2px;background:var(--red);z-index:5"></div>';
+html+='<div style="position:absolute;top:2px;left:'+(todayX-30)+'px;font-size:.6rem;color:var(--red);font-weight:700;white-space:nowrap">Aujourd\'hui</div>';
+}
+
+// Each process as a row
+procs.forEach(function(p,rowIdx){
+var y=headerH+rowIdx*rowH;
+// Row background
+html+='<div style="position:absolute;left:0;top:'+y+'px;width:100%;height:'+rowH+'px;'+(rowIdx%2===0?'background:rgba(255,255,255,.02)':'')+';border-bottom:1px solid var(--border)"></div>';
+// Process name label (fixed left)
+var done=p.steps.filter(function(s){return s.done}).length;
+var total=p.steps.length;
+var pct=total?Math.round(done/total*100):0;
+html+='<div style="position:absolute;left:8px;top:'+(y+8)+'px;width:'+(padding-16)+'px;z-index:10">'
++'<div style="font-size:.8rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(p.name)+'</div>'
++'<div style="display:flex;align-items:center;gap:6px;margin-top:4px">'
++'<div class="progress-bar" style="flex:1;height:6px"><div class="progress-fill" style="width:'+pct+'%;background:'+(pct>=80?'var(--green)':pct>=50?'var(--accent)':'var(--orange)')+'"></div></div>'
++'<span style="font-size:.7rem;font-weight:700;color:'+(pct>=80?'var(--green)':pct>=50?'var(--accent)':'var(--orange)')+'">'+pct+'%</span>'
++'</div></div>';
+
+// Jour J marker for this process
+var jjPct=(new Date(p.dateCible)-minDate)/rangeMs;
+if(jjPct>=0&&jjPct<=1){
+var jjX=padding+jjPct*(width-padding);
+html+='<div style="position:absolute;top:'+y+'px;left:'+jjX+'px;width:2px;height:'+rowH+'px;background:var(--accent);opacity:.6;z-index:4"></div>';
+}
+
+// Steps as dots on this row
+p.steps.forEach(function(s){
+var absDate=calcAbsDate(p.dateCible,s.timing);
+if(!absDate)return;
+var sPct=(new Date(absDate)-minDate)/rangeMs;
+if(sPct<0||sPct>1)return;
+var sx=padding+sPct*(width-padding)-6;
+var sy=y+Math.round(rowH/2)-6;
+var color=getOwnerColor(s.owner);
+var doneClass=s.done?'done':'';
+var ttTitle=esc(s.title).replace(/'/g,'&#39;');
+var ttOwner=(s.owner||'').replace(/'/g,'&#39;');
+var ttDate=formatDate(absDate).replace(/'/g,'&#39;');
+html+='<div class="timeline-node '+doneClass+'" style="position:absolute;left:'+sx+'px;top:'+sy+'px;width:12px;height:12px;border-radius:50%;background:'+color+';cursor:pointer;z-index:10;border:2px solid rgba(0,0,0,.3);transition:transform .2s"'
++' onmouseenter="showTooltip(event,\''+ttTitle+'\',\''+ttOwner+'\',\''+ttDate+'\','+s.done+')"'
++' onmouseleave="hideTooltip()"></div>';
+});
+});
+
+html+='</div></div>';
+
+// Legend
+var legendOwners={};
+procs.forEach(function(p){p.steps.forEach(function(s){legendOwners[s.owner]=getOwnerColor(s.owner)})});
+html+='<div class="timeline-legend"><span style="font-size:.78rem;font-weight:600;color:var(--text);margin-right:8px">Légende :</span>';
+Object.keys(legendOwners).forEach(function(name){
+html+='<div class="legend-item"><div class="legend-dot" style="background:'+legendOwners[name]+'"></div>'+name+'</div>';
+});
+html+='<div class="legend-item"><div style="width:10px;height:2px;background:var(--red);border-radius:1px"></div>Aujourd\'hui</div>';
+html+='<div class="legend-item"><div style="width:10px;height:2px;background:var(--accent);border-radius:1px"></div>Jour J</div>';
+html+='</div>';
+
+container.innerHTML=html;
+}
+
+function renderSingleTimeline(container,proc){
+if(!proc||!proc.steps.length){container.innerHTML='<div class="empty-state"><p>Aucune étape dans ce process.</p></div>';return}
+var steps=proc.steps.map(function(s){return Object.assign({},s,{absDate:calcAbsDate(proc.dateCible,s.timing)})}).filter(function(s){return s.absDate});
+if(!steps.length){container.innerHTML='<div class="empty-state"><p>Aucune date calculable.</p></div>';return}
+
+steps.sort(function(a,b){return new Date(a.absDate)-new Date(b.absDate)});
+var minDate=new Date(steps[0].absDate);
+var maxDate=new Date(steps[steps.length-1].absDate);
+var today=new Date();
+var jourJ=new Date(proc.dateCible);
+var rangeMs=maxDate-minDate||1;
+var pPad=60;
+var w=Math.max(800,steps.length*70);
+
+var html='<div class="timeline-container"><div class="timeline-track" style="width:'+(w+pPad*2)+'px;height:200px">';
+html+='<div class="timeline-axis" style="left:'+pPad+'px;right:'+pPad+'px"></div>';
+
+var todayPct=(today-minDate)/rangeMs;
+if(todayPct>=0&&todayPct<=1){
+html+='<div class="timeline-today" style="left:'+(pPad+todayPct*w)+'px"></div>';
+}
+var jjPct=(jourJ-minDate)/rangeMs;
+if(jjPct>=0&&jjPct<=1){
+html+='<div class="timeline-jourj" style="left:'+(pPad+jjPct*w)+'px"></div>';
+}
+
+steps.forEach(function(s,i){
+var pct=(new Date(s.absDate)-minDate)/rangeMs;
+var x=pPad+pct*w-8;
+var color=getOwnerColor(s.owner);
+var doneClass=s.done?'done':'';
+var ttTitle=esc(s.title).replace(/'/g,'&#39;');
+var ttOwner=(s.owner||'').replace(/'/g,'&#39;');
+var ttDate=formatDate(s.absDate).replace(/'/g,'&#39;');
+html+='<div class="timeline-node '+doneClass+'" style="left:'+x+'px;background:'+color+'" data-idx="'+i+'"'
++' onmouseenter="showTooltip(event,\''+ttTitle+'\',\''+ttOwner+'\',\''+ttDate+'\','+s.done+')"'
++' onmouseleave="hideTooltip()"></div>';
+if(i%3===0){
+html+='<div class="timeline-label" style="left:'+(x-30)+'px">'+esc(s.title).substring(0,30)+(s.title.length>30?'...':'')+'</div>';
+}
+if(i%4===0){
+html+='<div class="timeline-date-label" style="left:'+(x+8)+'px">'+formatDate(s.absDate)+'</div>';
+}
+});
+
+html+='</div></div>';
+
+var legendOwners={};
+steps.forEach(function(s){legendOwners[s.owner]=getOwnerColor(s.owner)});
+html+='<div class="timeline-legend"><span style="font-size:.78rem;font-weight:600;color:var(--text);margin-right:8px">Légende :</span>';
+Object.keys(legendOwners).forEach(function(name){
+html+='<div class="legend-item"><div class="legend-dot" style="background:'+legendOwners[name]+'"></div>'+name+'</div>';
+});
+html+='</div>';
+
+container.innerHTML=html;
+}
+
+function showTooltip(e,title,owner,date,done){
+const tt=document.getElementById('tooltip');
+tt.innerHTML='<h4>'+title+'</h4><div class="tt-owner">\ud83d\udc64 '+owner+'</div><div class="tt-date">\ud83d\udcc5 '+date+'</div><div style="margin-top:4px;font-size:.72rem;color:'+(done?'var(--green)':'var(--muted)')+';">'+(done?'\u2713 Termin\u00e9':'En attente')+'</div>';
+tt.style.display='block';
+const x=e.clientX+16;
+const y=e.clientY-10;
+tt.style.left=Math.min(x,window.innerWidth-320)+'px';
+tt.style.top=Math.max(y,10)+'px';
+}
+function hideTooltip(){document.getElementById('tooltip').style.display='none'}
+
+// ===== EXPORT / IMPORT =====
+function exportData(){
+const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+const a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='fsy-playbook-'+new Date().toISOString().slice(0,10)+'.json';
+a.click();URL.revokeObjectURL(a.href);
+}
+
+function importData(e){
+const file=e.target.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=ev=>{
+try{
+const imported=JSON.parse(ev.target.result);
+if(imported.processes){data=imported;save();currentProcessId=null;switchView('playbook');alert('Import réussi !');}
+else alert('Format invalide');
+}catch(err){alert('Erreur de lecture : '+err.message)}
+};
+reader.readAsText(file);
+e.target.value='';
+}
+
+// ===== UTILS =====
+function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// ===== INIT =====
+load();
+renderPlaybook();
+</script>
+</body>
+</html>

@@ -7,7 +7,7 @@
 - **Taille** : TPE (dirigeant seul + equipe reduite)
 - **Programme** : Transition Strategique — 6 mois
 - **Periode** : 22 janvier 2026 → 22 juillet 2026
-- **Sessions** : 7 / 18 utilisees
+- **Sessions** : 8 / 18 utilisees
 - **Tutoiement / Vouvoiement** : Tutoiement
 
 ## Notion IDs
@@ -25,12 +25,22 @@
 - **Style de communication** : Direct, informel, aime les exemples concrets
 - **Neuro-diversite** : TDAH — besoin de structure, sessions courtes (25 min de focus), recadrage quand il part dans tous les sens
 - **Niveau digital** : Debutant en progression — comprend mieux les outils familiers, encore fragile sur synchro cloud et config technique
-- **Outils actuels** : Botnation (chatbot a migrer), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (fichiers partages equipe), OneDrive (en attente — potentiel remplacement Dropbox si M365), OneNote (prise de notes — readopte session 5), Outlook desktop (client mail principal — 4 boites configurees session 7), Firefox (navigateur par defaut session 7, Containers par activite operationnels), Chrome (en cours de migration vers Firefox), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), Dashlane (gestionnaire MDP — extension Firefox a ajouter, import MDP en cours), Microsoft 365 Personnel (99 EUR/an — a acheter sous FU Solutions)
+- **Outils actuels** : **Claude Pro** (plan 20$/mois, compte fu@fusolutions.fr — remplace Botnation session 8), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (fichiers partages equipe + dossier "Claude" cree session 8), OneDrive (en attente — potentiel remplacement Dropbox si M365), OneNote (prise de notes — readopte session 5), Outlook desktop (client mail principal — 4 boites configurees session 7), Firefox (navigateur par defaut session 7, Containers par activite operationnels), Chrome (en cours de migration vers Firefox), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), Dashlane (gestionnaire MDP — extension Firefox a ajouter, import MDP en cours), Microsoft 365 Personnel (99 EUR/an — a acheter sous FU Solutions)
+- **Claude Pro config** : projet "Strategie entreprise", Google Drive connecte, Google Calendar connecte, Gmail fred@v8-equipment.com connecte, tache Daily Briefing 7h (Haiku), memoire securisee (pas de donnees perso), app desktop epinglee barre de taches
+- **Botnation** : desabonnement en cours (export memoire fait session 8)
 - **Adresse principale** : fu@fusolution.fr (decidee session 5 — compte Firefox + Microsoft bascules en principal session 7)
 - **Boites mail** : FredGmail, V8@v8-equipment.com, contact@v8-equipment.com, fu@fusolution.fr — toutes configurees dans Outlook (session 7)
 - **OVH** : acces manager recupere session 7 (FF4801-OVH), 12 noms de domaine dont beaucoup inutiles (~300 EUR/an), menage a planifier
 - **Ce qui le motive** : Gagner du temps, structurer son business, ne plus etre deborde, utiliser l'IA pour automatiser
 - **Ce qui le bloque** : Dispersion, manque de structure de fichiers, pas de separation perso/pro sur ses outils, peur de la complexite technique
+
+## Google Cloud Console (projet "Automatisation Factures")
+- **Projet GCP** : Automatisation Factures
+- **OAuth2 Client ID** : `509507030266-uquo84c7eskou217bn74kijcthkaqihc.apps.googleusercontent.com`
+- **OAuth2 Client Secret** : `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`
+- **Redirect URI** : `https://srv921609.hstgr.cloud/rest/oauth2-credential/callback`
+- **APIs activées** : Gmail API, Google Sheets API, Google Drive API
+- **Date création** : 2026-03-20
 
 ## Audit Decouverte
 > A completer — les notes de l'appel decouverte n'ont pas ete capturees dans le systeme
@@ -111,7 +121,9 @@
 - Centralisation email sur Outlook desktop (retour a un outil familier, 4 boites a configurer)
 - Structure FU Solutions : holding chapeau avec 3 branches FU-Fight (rouge), V8 (vert), Sourcing (jaune)
 - Leboncoin + IA (banana.io pour photos produits)
-- Automatisation factures : Catherine prepare le cahier des charges (n8n + Claude + Drive)
+- Automatisation factures : PRD + specs techniques faites (n8n + Claude API + Google Sheets), 9 factures d'exemple analysees, Gmail trigger (v8@v8 = Google Workspace)
+- Claude Pro = game changer pour Fred — Cowork sur Excel FooFight l'a bluffe, daily briefing configure
+- Formation Simon : Fred decroche — WhatsApp trop brouillon, pas de plateforme centralisee
 
 ### Citations cles
 - "Methode 25 min = GAME CHANGER" (session 2, a propos du Pomodoro)
@@ -129,6 +141,11 @@
 - "Avant, c'etait impossible que je te fasse un truc comme ca" (session 7, progres assume)
 - "il faut que je me fasse un mind map, parce que si je ne vois pas les choses, il y a des moments ou je bug" (session 7, besoin visuel TDAH)
 - "ca me bousille" (session 7, a propos de la comptabilite)
+- "Chaque fois j'ai du cul" (session 8, lacher-prise face aux imprevus)
+- "Catherine, tu me regales. J'adore." (session 8, decouverte Cowork Claude sur Excel)
+- "J'ai les epaules qui se liberent, les sacs de platre qui tombent" (session 8, automatisation factures)
+- "J'ai vraiment envie d'avancer, mais ce qui me manque c'est la premiere action" (session 8, blocage TDAH)
+- "je comptais vachement sur Annie Link/Virginie, et j'ai pas du tout cette sensation" (session 8, deception compta)
 
 ## Pepites LinkedIn
 > Extraites des sessions — reutilisables pour posts LinkedIn (anonymise : "un dirigeant TPE")
@@ -155,6 +172,10 @@
 | 7 | 12 noms de domaine inutilises = 300 EUR/an jetes par la fenetre | Expertise / Educatif | "12 noms de domaine. 300 EUR par an. Aucun n'etait utilise. Et personne ne lui avait jamais dit." | Non |
 | 7 | Phishing detecte en direct pendant la session coaching | Coulisses / Educatif | "Pendant une session, un dirigeant me montre un mail. 'C'est OVH, je dois payer.' J'ai regarde l'URL. C'etait du phishing." | Non |
 | 7 | "si je ne vois pas les choses, il y a des moments ou je bug" — besoin de visuel du dirigeant TDAH | Empathie / Expertise | "Un dirigeant m'a dit : 'Si je ne vois pas les choses, je bug.' Ce n'est pas un manque de competence. C'est un cerveau qui fonctionne en images." | Non |
+| 8 | "Catherine, tu me regales" — un dirigeant decouvre que l'IA peut analyser son Excel et trouver des erreurs critiques | Temoignage / Transformation | "Un dirigeant m'a dit : 'Tu me regales.' L'IA venait de trouver 4 erreurs dans son tableau de rentabilite. En 8 minutes." | Non |
+| 8 | "Les epaules se liberent, les sacs de platre tombent" — automatiser la corvee comptable | Temoignage / Empathie | "Un dirigeant m'a dit : 'Les sacs de platre tombent.' On venait de lui montrer qu'il n'aurait plus a trier ses factures a la main." | Non |
+| 8 | "Ce qui me manque c'est la premiere action pour lancer le truc" — le blocage TDAH du demarrage | Expertise / Educatif | "Un dirigeant m'a dit : 'Ce qui me manque, c'est la premiere action.' Pas la motivation. Pas le temps. Juste savoir par ou commencer." | Non |
+| 8 | Fred decu par sa compta externalisee — reprend le controle avec l'IA plutot que dependre d'un tiers | Coulisses / Expertise | "Un dirigeant a externalise sa compta. 6 mois plus tard : 'J'ai pas du tout cette sensation de etre decharge.' Alors on a automatise." | Non |
 
 ## Historique Sessions
 
@@ -166,4 +187,5 @@
 | 4 | 2026-02-22 | Organisation emails, centralisation factures, Firefox Containers, schema FU Solutions | Centraliser factures sur V8 V8, labels Gmail, 4 containers Firefox (test 1 sem), structure FU Solutions a valider | Process factures clarifie, Fred lucide "c'est du temps que j'achete" |
 | 5 | 2026-03-01 | Centralisation outils & identite FU Solutions | FU Solutions = email principal, agenda centralise avec code couleur, Google Drive FU Solutions cree, OneNote readopte | Premier event Calendar+Meet ("c'est tout con !"), Dropbox organise (FAIT), WhatsApp desktop installe, 17 acces revoques. Blocage OVH 2FA → Gaetan. Google Passwords a activer (remplace Proton Pass — deja integre a Google). |
 | 6 | 2026-03-09 | Email Outlook, Cloud, MDP Dashlane, M365, Automatisation factures | Outlook desktop = client mail principal, Dashlane = gestionnaire MDP, M365 Personnel 99 EUR/an, Dropbox reste cloud principal, Catherine prepare CdC automatisation factures | Config FredGmail sur Outlook (FAIT), captures d'ecran apprises, "le brouillard se dissipe". Compta critique (pas de rapprochement 2024). Boite FU Solutions toujours bloquee (2FA OVH). |
-| 7 | 2026-03-13 | Cadrage digital : Outlook/OVH, gouvernance actifs, OneDrive/Dashlane | Outlook 4 boites OK, OVH acces recupere, Firefox par defaut, favoris reorganises par Claude, M365 a acheter, portail client bookmarke | "c'est un pas de geant" (toutes boites dans Outlook). OVH : 12 domaines inutiles (~300 EUR/an). Phishing detecte en live. Firefox Containers adopte spontanement. Prochaine session mardi 17/03 8h. |
+| 7 | 2026-03-13 | Cadrage digital : Outlook/OVH, gouvernance actifs, OneDrive/Dashlane | Outlook 4 boites OK, OVH acces recupere, Firefox par defaut, favoris reorganises par Claude, M365 a acheter, portail client bookmarke | "c'est un pas de geant" (toutes boites dans Outlook). OVH : 12 domaines inutiles (~300 EUR/an). Phishing detecte en live. Firefox Containers adopte spontanement. |
+| 8 | 2026-03-17 | Claude Pro, Cowork & Automatisation Factures | Migration Botnation → Claude Pro (20$/mois), Claude = binome travail (Drive+Calendar+Gmail), automatisation factures lancee (n8n) | Compte Claude cree, Cowork Excel FooFight = Fred bluffe ("tu me regales"), Daily Briefing 7h configure, 9 factures recues pour auto, compta Annie Link decevante. Prochaine session mardi 18/03 8h. |

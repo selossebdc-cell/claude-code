@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CR Session 4 — Face Soul Yoga | CS Consulting Stratégique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg: #0f0f0f;
+        --card: #1a1a1a;
+        --border: #2a2a2a;
+        --terracotta: #C27A5A;
+        --terracotta-soft: rgba(194, 122, 90, 0.15);
+        --text: #e0e0e0;
+        --muted: #888;
+        --green: #52b788;
+        --green-bg: rgba(45, 106, 79, 0.2);
+        --green-border: rgba(82, 183, 136, 0.25);
+        --orange: #e0a050;
+        --orange-bg: rgba(184, 134, 11, 0.15);
+        --orange-border: rgba(224, 160, 80, 0.25);
+        --radius: 12px;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        padding: 24px;
+    }
+
+    .container {
+        max-width: 880px;
+        margin: 0 auto;
+    }
+
+    /* ── HEADER ── */
+    .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--border);
+    }
+    .header-brand {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 16px;
+    }
+    .header h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 4px;
+    }
+    .header h1 span { color: var(--terracotta); }
+    .header-client {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        color: var(--terracotta);
+        margin-bottom: 24px;
+    }
+
+    .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        max-width: 640px;
+        margin: 0 auto 24px;
+    }
+    .meta-item {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px 16px;
+        text-align: center;
+    }
+    .meta-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--muted);
+        margin-bottom: 4px;
+    }
+    .meta-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrapper {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+    .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    .progress-label { font-size: 12px; color: var(--muted); }
+    .progress-count { font-size: 13px; font-weight: 600; color: var(--terracotta); }
+    .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+    }
+    .progress-fill {
+        height: 100%;
+        width: 21.05%; /* 4/19 */
+        background: linear-gradient(90deg, var(--terracotta), #d4956e);
+        border-radius: 3px;
+        transition: width 0.6s ease;
+    }
+
+    /* ── PDF BUTTON ── */
+    .btn-pdf {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+        padding: 10px 24px;
+        background: var(--terracotta);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+    }
+    .btn-pdf:hover { background: #b06a4c; }
+    .btn-pdf:active { transform: scale(0.97); }
+    .btn-pdf svg { width: 16px; height: 16px; }
+
+    /* ── SECTION CARDS ── */
+    .section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 28px;
+        margin-bottom: 20px;
+    }
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+    .section-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+    .section-icon.terracotta { background: var(--terracotta-soft); }
+    .section-icon.green { background: var(--green-bg); }
+    .section-icon.orange { background: var(--orange-bg); }
+    .section h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    /* ── CELEBRATIONS ── */
+    .celebration-list { list-style: none; }
+    .celebration-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        background: var(--green-bg);
+        border: 1px solid var(--green-border);
+        border-radius: 8px;
+        font-size: 14px;
+    }
+    .celebration-item .icon-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--green);
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 7px;
+    }
+    .celebration-item strong { color: #fff; }
+
+    /* ── BLOCAGES ── */
+    .blocage-list { list-style: none; }
+    .blocage-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px;
+        margin-bottom: 8px;
+        background: var(--orange-bg);
+        border: 1px solid var(--orange-border);
+        border-radius: 8px;
+        font-size: 14px;
+    }
+    .blocage-item .icon-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--orange);
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 7px;
+    }
+
+    /* ── DECISIONS ── */
+    .decision-card {
+        background: rgba(194, 122, 90, 0.06);
+        border: 1px solid rgba(194, 122, 90, 0.2);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 14px;
+    }
+    .decision-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        background: var(--terracotta);
+        color: #fff;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 700;
+        margin-right: 10px;
+        flex-shrink: 0;
+    }
+    .decision-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+    .decision-body { font-size: 13px; color: var(--text); }
+    .decision-body ul {
+        list-style: none;
+        margin-top: 8px;
+    }
+    .decision-body ul li {
+        padding: 4px 0;
+        padding-left: 16px;
+        position: relative;
+    }
+    .decision-body ul li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 11px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--terracotta);
+        opacity: 0.6;
+    }
+    .decision-body strong { color: #fff; }
+    .decision-body .entity-tag {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-right: 4px;
+    }
+    .entity-fsy { background: #2d6a4f33; color: var(--green); }
+    .entity-mtm { background: var(--terracotta-soft); color: var(--terracotta); }
+    .entity-ads { background: rgba(160, 120, 200, 0.2); color: #c0a0e0; }
+
+    /* ── ACTIONS ── */
+    .actions-group {
+        margin-bottom: 24px;
+    }
+    .actions-group:last-child { margin-bottom: 0; }
+    .actions-person {
+        font-family: 'Playfair Display', serif;
+        font-size: 17px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+    }
+    .priority-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-family: 'Inter', sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+    .priority-1 { background: rgba(194, 122, 90, 0.25); color: var(--terracotta); }
+    .priority-2 { background: rgba(82, 183, 136, 0.2); color: var(--green); }
+    .priority-3 { background: rgba(136, 136, 136, 0.2); color: var(--muted); }
+
+    .priority-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+    .action-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(42, 42, 42, 0.5);
+    }
+    .action-item:last-child { border-bottom: none; }
+    .action-checkbox {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #444;
+        border-radius: 4px;
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+    .action-owner {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 1px 8px;
+        border-radius: 4px;
+        background: rgba(194, 122, 90, 0.15);
+        color: var(--terracotta);
+        margin-right: 4px;
+    }
+
+    /* ── NEXT SESSION ── */
+    .next-session {
+        background: linear-gradient(135deg, rgba(194, 122, 90, 0.12), rgba(194, 122, 90, 0.04));
+        border: 1px solid rgba(194, 122, 90, 0.3);
+        border-radius: var(--radius);
+        padding: 28px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .next-session h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        color: var(--terracotta);
+        margin-bottom: 8px;
+    }
+    .next-session .date {
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 16px;
+    }
+    .next-session .focus-list {
+        list-style: none;
+        display: inline-block;
+        text-align: left;
+    }
+    .next-session .focus-list li {
+        padding: 4px 0;
+        font-size: 13px;
+        color: var(--text);
+        padding-left: 20px;
+        position: relative;
+    }
+    .next-session .focus-list li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 11px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: 2px solid var(--terracotta);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+        text-align: center;
+        padding: 32px 0 16px;
+        border-top: 1px solid var(--border);
+        margin-top: 40px;
+    }
+    .footer-brand {
+        font-family: 'Playfair Display', serif;
+        font-size: 16px;
+        color: var(--terracotta);
+        margin-bottom: 4px;
+    }
+    .footer-sub {
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 1px;
+    }
+    .footer-contact {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+    }
+    .footer-contact a {
+        color: var(--terracotta);
+        text-decoration: none;
+    }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+        :root {
+            --bg: #fff;
+            --card: #f9f9f9;
+            --border: #e0e0e0;
+            --text: #333;
+            --muted: #777;
+        }
+        body {
+            background: #fff;
+            color: #333;
+            padding: 12px;
+            font-size: 12px;
+        }
+        .header h1 { color: #333; }
+        .header h1 span { color: var(--terracotta); }
+        .header-client { color: var(--terracotta); }
+        .section { break-inside: avoid; }
+        .section h2 { color: #333; }
+        .decision-card { break-inside: avoid; }
+        .celebration-item {
+            background: #f0f7f3;
+            border-color: #c0dcc9;
+        }
+        .blocage-item {
+            background: #fdf6ec;
+            border-color: #e8d5b0;
+        }
+        .decision-card {
+            background: #fdf5f0;
+            border-color: #e8cfc0;
+        }
+        .decision-title { color: #333; }
+        .actions-person { color: #333; }
+        .next-session {
+            background: #fdf5f0;
+            border-color: #d4a88a;
+        }
+        .next-session .date { color: #333; }
+        .progress-fill { background: var(--terracotta); }
+        .meta-item { background: #f5f5f5; border-color: #ddd; }
+        .meta-value { color: #333; }
+        .btn-pdf { display: none !important; }
+        .footer { border-top-color: #ddd; }
+        .action-checkbox { border-color: #999; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+        body { padding: 16px; }
+        .header h1 { font-size: 24px; }
+        .header-client { font-size: 17px; }
+        .meta-grid { grid-template-columns: repeat(2, 1fr); }
+        .section { padding: 20px 16px; }
+        .section h2 { font-size: 17px; }
+        .decision-card { padding: 16px; }
+        .celebration-item,
+        .blocage-item { padding: 10px 12px; font-size: 13px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ═══════ HEADER ═══════ -->
+    <header class="header">
+        <div class="header-brand">CS Consulting Stratégique</div>
+        <h1>Compte-Rendu <span>Session 4</span></h1>
+        <div class="header-client">Face Soul Yoga</div>
+
+        <div class="meta-grid">
+            <div class="meta-item">
+                <div class="meta-label">Date</div>
+                <div class="meta-value">16 mars 2026</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Durée</div>
+                <div class="meta-value">1h06</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Session</div>
+                <div class="meta-value">4 / 19</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Lieu</div>
+                <div class="meta-value">Visio</div>
+            </div>
+        </div>
+
+        <div class="meta-grid" style="max-width: 400px;">
+            <div class="meta-item" style="grid-column: 1 / -1;">
+                <div class="meta-label">Participantes</div>
+                <div class="meta-value">Aurélia &middot; Laurie &middot; Catherine</div>
+            </div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-header">
+                <span class="progress-label">Progression accompagnement</span>
+                <span class="progress-count">4 / 19 sessions</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <button class="btn-pdf" onclick="window.print()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Télécharger en PDF
+        </button>
+    </header>
+
+    <!-- ═══════ CELEBRATIONS ═══════ -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon green">&#10024;</div>
+            <h2>Célébrations</h2>
+        </div>
+        <ul class="celebration-list">
+            <li class="celebration-item">
+                <div class="icon-dot"></div>
+                <div><strong>Séparation des 3 entités actée</strong> — Après coaching avec Mélanie et Romain, Aurélia a une vision claire et assumée</div>
+            </li>
+            <li class="celebration-item">
+                <div class="icon-dot"></div>
+                <div><strong>VA trouvée sur Upwork</strong> — Anam (Pakistan), 500$, brief rédigé avec Claude</div>
+            </li>
+            <li class="celebration-item">
+                <div class="icon-dot"></div>
+                <div><strong>Aurélia utilise Claude en autonomie</strong> — Brief migration rédigé en anglais avec Claude en 2h</div>
+            </li>
+            <li class="celebration-item">
+                <div class="icon-dot"></div>
+                <div><strong>Prix MTM relevé à 2 900 &euro;</strong> — Validé par coach Romain</div>
+            </li>
+            <li class="celebration-item">
+                <div class="icon-dot"></div>
+                <div><strong>Laurie alignée et structurante</strong> — Vision calendaire réaliste, pousse la séparation des identités</div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- ═══════ BLOCAGES ═══════ -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon orange">&#9888;</div>
+            <h2>Blocages identifiés</h2>
+        </div>
+        <ul class="blocage-list">
+            <li class="blocage-item">
+                <div class="icon-dot"></div>
+                <div><strong>Brevo sans tags :</strong> fonctionne par listes, pas par tags. Segmentation complexe &rarr; besoin solution intermédiaire</div>
+            </li>
+            <li class="blocage-item">
+                <div class="icon-dot"></div>
+                <div><strong>Migration = risque perte d'abonnés :</strong> abonnés Apple App ne migrent pas automatiquement. Plan de com nécessaire dès mai</div>
+            </li>
+            <li class="blocage-item">
+                <div class="icon-dot"></div>
+                <div><strong>Éparpillement toujours présent :</strong> Aurélia pense déjà retraites, SEO, blog &rarr; Catherine recadre</div>
+            </li>
+            <li class="blocage-item">
+                <div class="icon-dot"></div>
+                <div><strong>Contrats VA sans clause de confidentialité :</strong> Anam aura accès aux données &rarr; NDA nécessaire</div>
+            </li>
+            <li class="blocage-item">
+                <div class="icon-dot"></div>
+                <div><strong>Circle inconnu :</strong> ni Catherine ni Aurélia ne maîtrisent Circle. Besoin d'exploration</div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- ═══════ DECISIONS ═══════ -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon terracotta">&#9670;</div>
+            <h2>Décisions prises</h2>
+        </div>
+
+        <!-- Decision 1 -->
+        <div class="decision-card">
+            <div class="decision-title">
+                <span class="decision-number">1</span>
+                3 entités distinctes — séparation actée
+            </div>
+            <div class="decision-body">
+                <ul>
+                    <li><span class="entity-tag entity-fsy">FSY Studio</span> <strong>Face Soul Yoga Studio</strong> (B2C) : 17&euro;/mois, vidéos batch, plus de lives, géré par Laurie. Objectif : 10-15K&euro;/mois récurrent, revendable</li>
+                    <li><span class="entity-tag entity-mtm">MTM</span> <strong>Master The Method</strong> (B2B) : 2 900&euro; (early bird 2 500&euro;), certification + licence 100&euro;/an, 2 pushs/an</li>
+                    <li><span class="entity-tag entity-ads">ADS</span> <strong>Aurélia Del Sol</strong> (Premium) : nouvelle marque, programmes 390&euro;+, immersions 6 000&euro;, 100% nouveau contenu</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Decision 2 -->
+        <div class="decision-card">
+            <div class="decision-title">
+                <span class="decision-number">2</span>
+                Migration Uscreen &rarr; Circle (avant juillet 2026)
+            </div>
+            <div class="decision-body">
+                <ul>
+                    <li>Circle remplace Uscreen ET Kajabi</li>
+                    <li>Circle Business (199&euro;/mois)</li>
+                    <li>VA Anam gère migration vidéos vers Bunny.net</li>
+                    <li>Laurie prend le lead</li>
+                    <li>Plan de communication dès mai</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Decision 3 -->
+        <div class="decision-card">
+            <div class="decision-title">
+                <span class="decision-number">3</span>
+                Prix MTM : 1 950&euro; &rarr; 2 900&euro;
+            </div>
+            <div class="decision-body">
+                <ul>
+                    <li>40h+ de contenu justifie le repositionnement tarifaire</li>
+                    <li>Early bird 2 500&euro; lors des 2 pushs annuels</li>
+                    <li>13 000 contacts Brevo = levier sous-exploité</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Decision 4 -->
+        <div class="decision-card">
+            <div class="decision-title">
+                <span class="decision-number">4</span>
+                Site FSY = purement éducatif
+            </div>
+            <div class="decision-body">
+                <ul>
+                    <li>Enlever immersions, lifestyle, belly typo</li>
+                    <li>Focus : méthode, formation, studio</li>
+                    <li>Articles SEO : sommeil, mâchoire, bruxisme</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Decision 5 -->
+        <div class="decision-card">
+            <div class="decision-title">
+                <span class="decision-number">5</span>
+                Automatisation contrats B2B
+            </div>
+            <div class="decision-body">
+                <ul>
+                    <li>E-signature automatique via n8n/Zapier</li>
+                    <li>Licence annuelle relance auto M-3</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Decision 6 -->
+        <div class="decision-card">
+            <div class="decision-title">
+                <span class="decision-number">6</span>
+                4 temps forts/an FSY Studio
+            </div>
+            <div class="decision-body">
+                <ul>
+                    <li>Challenges recrutement, calendrier éditorial annuel</li>
+                    <li>Laurie gère, Aurélia n'intervient pas</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Decision 7 -->
+        <div class="decision-card">
+            <div class="decision-title">
+                <span class="decision-number">7</span>
+                Skills Claude pour Aurélia — session dédiée prévue
+            </div>
+            <div class="decision-body">
+                <ul>
+                    <li>Formation Claude personnalisée planifiée pour une prochaine session</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ ACTIONS AURELIA & LAURIE ═══════ -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon terracotta">&#9745;</div>
+            <h2>Actions — Aurélia &amp; Laurie</h2>
+        </div>
+
+        <div class="actions-group">
+            <div class="priority-badge priority-1">Priorité 1</div>
+            <div class="priority-title">Migration Circle — Laurie lead</div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Laurie</span> Prendre la main sur VA Anam + clause NDA</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Laurie</span> Explorer Circle Business, créer espaces (Studio, MTM), tester fonctionnalités</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Aurélia</span> Valider liste vidéos/collections à migrer</div>
+            </div>
+        </div>
+
+        <div class="actions-group">
+            <div class="priority-badge priority-2">Priorité 2</div>
+            <div class="priority-title">Contenu &amp; identité</div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Laurie</span> Benchmark sites éducatifs avec Claude &rarr; nouveau positionnement site FSY</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Laurie</span> Lister TOUS les emails par parcours</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Aurélia</span> Réécrire page de vente MTM à 2 900&euro;</div>
+            </div>
+        </div>
+
+        <div class="actions-group">
+            <div class="priority-badge priority-3">Priorité 3</div>
+            <div class="priority-title">Préparation Aurélia Del Sol</div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Aurélia</span> Écrire premiers programmes (sommeil, respiration)</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div><span class="action-owner">Aurélia</span> Réfléchir identité visuelle (temps 2)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ ACTIONS CATHERINE ═══════ -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon terracotta">&#9745;</div>
+            <h2>Actions — Catherine</h2>
+        </div>
+
+        <div class="actions-group">
+            <div class="priority-badge priority-1">Priorité 1</div>
+            <div class="priority-title">Les 3 parcours clients</div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Mapper parcours FSY Studio B2C</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Mapper parcours MTM B2B</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Mapper parcours Aurélia Del Sol (ébauche)</div>
+            </div>
+        </div>
+
+        <div class="actions-group">
+            <div class="priority-badge priority-2">Priorité 2</div>
+            <div class="priority-title">Migration &amp; outils</div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Plan migration Uscreen &rarr; Circle</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Plan migration Kajabi &rarr; Circle</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Connexion Circle &harr; Brevo</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Automatisation contrat e-signature B2B</div>
+            </div>
+        </div>
+
+        <div class="actions-group">
+            <div class="priority-badge priority-3">Priorité 3</div>
+            <div class="priority-title">Brevo &amp; Claude</div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Auditer Brevo</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Proposer architecture segmentation</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Développer 2 skills Claude prioritaires</div>
+            </div>
+            <div class="action-item">
+                <div class="action-checkbox"></div>
+                <div>Préparer session formation Claude</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ PROCHAINE SESSION ═══════ -->
+    <div class="next-session">
+        <h2>Prochaine session</h2>
+        <div class="date">Semaine du 24 mars 2026</div>
+        <ul class="focus-list">
+            <li>3 parcours clients mappés</li>
+            <li>Validation plans migration Circle</li>
+            <li>Session formation Claude (si le temps)</li>
+            <li>Point avancement VA migration</li>
+        </ul>
+    </div>
+
+    <!-- ═══════ FOOTER ═══════ -->
+    <footer class="footer">
+        <div class="footer-brand">CS Consulting Stratégique</div>
+        <div class="footer-sub">Accompagnement digital des dirigeants</div>
+        <div class="footer-contact">
+            Catherine Selosse &middot; <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a> &middot; <a href="https://csbusiness.fr">csbusiness.fr</a>
+        </div>
+    </footer>
+
+</div>
+
+</body>
+</html>

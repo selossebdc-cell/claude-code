@@ -270,16 +270,16 @@ const OFFERS = [
         id: 'formation',
         icon: '🎓',
         name: 'Formation Master The Method',
-        price: 1950,
+        price: 2900,
         unit: '',
-        earlyBird: 1550,
+        earlyBird: 2500,
         fields: [
             { key: 'formation_sold', label: 'Vendues (total)', default: 0 },
             { key: 'formation_month', label: 'Ventes ce mois', default: 0 },
             { key: 'formation_target_month', label: 'Objectif / mois', default: 10 }
         ],
         color: '#C27A5A',
-        calcRevenue: (d) => d.formation_month * 1950
+        calcRevenue: (d) => d.formation_month * 2900
     },
     {
         id: 'accomp',
@@ -312,10 +312,12 @@ const OFFERS = [
 
 const MILESTONES = [
     { label: "Architecture offre definie", date: "Mars 2026", status: "done" },
-    { label: "Migration Kajabi + Bunny lancee", date: "Mars 2026", status: "current" },
+    { label: "Migration Uscreen → Circle lancée", date: "Mars 2026", status: "current" },
     { label: "Chatbot Telegram deploye", date: "Mars 2026", status: "current" },
     { label: "Process creation formation documente", date: "Avril 2026", status: "pending" },
     { label: "Formation evergreen en ligne", date: "Mai 2026", status: "pending" },
+    { label: "Communication migration membres", date: "Mai 2026", status: "pending" },
+    { label: "Kajabi → Circle MTM migré", date: "Juin 2026", status: "pending" },
     { label: "10 inscriptions / mois formation", date: "Juin 2026", status: "pending" },
     { label: "Accompagnement sommeil lance", date: "Juin 2026", status: "pending" },
     { label: "Aurelia sort de l'operationnel FSY", date: "Aout 2026", status: "pending" },
@@ -337,8 +339,9 @@ const OPS_METRICS = [
         name: 'Communaute & Engagement',
         fields: [
             { key: 'members_whatsapp', label: 'Membres WhatsApp', default: 300 },
-            { key: 'members_telegram', label: 'Membres Telegram', default: 0 },
-            { key: 'members_uscreen', label: 'Membres Uscreen actifs', default: 613 },
+            { key: 'members_telegram', label: 'Membres Telegram', default: 184 },
+            { key: 'members_uscreen', label: 'Membres Uscreen/Circle actifs', default: 613 },
+            { key: 'members_circle', label: 'Abonnées Circle', default: 0 },
             { key: 'videos_total', label: 'Videos en ligne', default: 600 }
         ]
     }
@@ -371,12 +374,12 @@ function saveState() {
 // ===== RENDER =====
 function render() {
     const mrrAbo = state.abo_current * 17;
-    const revFormation = state.formation_month * 1950;
+    const revFormation = state.formation_month * 2900;
     const revAccomp = state.accomp_month * 399;
     const revPremium = state.premium_month * 4500;
     const revMensuel = mrrAbo + revFormation + revAccomp + revPremium;
 
-    const projAnnuel = (mrrAbo * 12) + (state.formation_month * 1950 * 12) + (state.accomp_month * 399 * 12) + (state.premium_month * 4500 * 12);
+    const projAnnuel = (mrrAbo * 12) + (state.formation_month * 2900 * 12) + (state.accomp_month * 399 * 12) + (state.premium_month * 4500 * 12);
     const pctObjectif = Math.min(100, (projAnnuel / state.objectif_annuel) * 100);
 
     const totalFormationsVendues = state.formation_sold;
@@ -471,7 +474,7 @@ function render() {
     // Projection table
     const projData = [
         { nom: 'Abonnements', qte: state.abo_current, prix: 17, mensuel: mrrAbo, annuel: mrrAbo * 12, color: '#5b9bd5' },
-        { nom: 'Formation MTM', qte: state.formation_month + '/mois', prix: 1950, mensuel: revFormation, annuel: revFormation * 12, color: '#C27A5A' },
+        { nom: 'Formation MTM', qte: state.formation_month + '/mois', prix: 2900, mensuel: revFormation, annuel: revFormation * 12, color: '#C27A5A' },
         { nom: 'Accompagnement Sommeil', qte: state.accomp_month + '/mois', prix: 399, mensuel: revAccomp, annuel: revAccomp * 12, color: '#9C7AB5' },
         { nom: 'Premium / Mastermind', qte: state.premium_month + '/mois', prix: 4500, mensuel: revPremium, annuel: revPremium * 12, color: '#d4a574' }
     ];
@@ -499,7 +502,7 @@ function render() {
             </tbody>
         </table>
         <div class="note" style="margin-top:12px">
-            <strong>Scenario realiste (session 3) :</strong> 120 formations/an (10/mois) + 1 000 accompagnements/an (~83/mois) + 300 abonnees = <strong>634 000 &euro;/an</strong>
+            <strong>Scenario realiste (session 4) :</strong> 120 formations/an (10/mois) x 2 900 &euro; + 1 000 accompagnements/an x 399 &euro; + 1 000 abonnees x 17 &euro;/mois = <strong>951 000 &euro;/an</strong>
         </div>
     `;
 

@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Migration Circle — Face Soul Yoga | CS Consulting Stratégique</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #C27A5A;
+    --accent-light: #d4956f;
+    --accent-dark: #a8624a;
+    --text: #e0e0e0;
+    --muted: #888;
+    --success: #4caf50;
+    --warning: #ff9800;
+    --danger: #e74c3c;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    padding: 48px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .header h1 span { color: var(--accent); }
+  .header p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .header-meta span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .header-meta strong { color: var(--accent); }
+
+  /* ── PDF Button ── */
+  .pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s;
+    margin-top: 20px;
+  }
+  .pdf-btn:hover { background: var(--accent-light); }
+  .pdf-btn svg { width: 18px; height: 18px; }
+
+  /* ── Progress Tracker ── */
+  .progress-tracker {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    margin-bottom: 32px;
+  }
+  .progress-tracker h3 {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: var(--accent);
+  }
+  .progress-bar-container {
+    background: var(--border);
+    border-radius: 8px;
+    height: 8px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light));
+    border-radius: 8px;
+    width: 0%;
+    transition: width .4s ease;
+  }
+  .progress-percent {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: right;
+    margin-top: -18px;
+    margin-bottom: 16px;
+  }
+  .progress-phases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  .progress-phase {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .progress-phase input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    margin-top: 2px;
+    transition: all .2s;
+  }
+  .progress-phase input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .progress-phase input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 11px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .progress-phase .phase-label {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .progress-phase .phase-label strong {
+    display: block;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  /* ── Section / Accordion ── */
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .section:hover { border-color: #3a3a3a; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s;
+  }
+  .section-header:hover { background: rgba(194,122,90,.05); }
+
+  .section-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-number {
+    background: var(--accent);
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+  }
+  .section-title {
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+  }
+  .section-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  .chevron {
+    width: 24px;
+    height: 24px;
+    color: var(--muted);
+    transition: transform .3s ease;
+    flex-shrink: 0;
+  }
+  .section.open .chevron { transform: rotate(180deg); }
+
+  .section-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+  }
+  .section.open .section-body {
+    max-height: 8000px;
+  }
+  .section-content {
+    padding: 0 24px 28px;
+  }
+
+  /* ── Timeline Visual ── */
+  .timeline {
+    position: relative;
+    padding: 20px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding-left: 52px;
+    margin-bottom: 28px;
+  }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-dot {
+    position: absolute;
+    left: 12px;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 3px solid var(--accent);
+  }
+  .timeline-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(194,122,90,.25);
+  }
+  .timeline-date {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Before/After ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: start;
+    margin: 20px 0;
+  }
+  @media (max-width: 640px) {
+    .compare-grid {
+      grid-template-columns: 1fr;
+    }
+    .compare-arrow { transform: rotate(90deg); }
+  }
+  .compare-box {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .compare-box h4 {
+    font-size: 14px;
+    margin-bottom: 14px;
+    color: var(--accent);
+  }
+  .compare-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+  }
+  .compare-item:last-child { border-bottom: none; }
+  .compare-arrow {
+    color: var(--accent);
+    font-size: 28px;
+    font-weight: 300;
+    text-align: center;
+    align-self: center;
+  }
+
+  /* ── Steps ── */
+  .step-list { list-style: none; }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-num {
+    background: rgba(194,122,90,.15);
+    color: var(--accent);
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .step-text { font-size: 14px; line-height: 1.6; }
+  .step-text strong { color: #fff; }
+  .step-detail {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .step-sub {
+    list-style: none;
+    margin-top: 8px;
+    padding-left: 0;
+  }
+  .step-sub li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .step-sub li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* ── Alert Box ── */
+  .alert {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin: 20px 0;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .alert-warning {
+    background: rgba(255,152,0,.08);
+    border: 1px solid rgba(255,152,0,.25);
+    color: #ffb74d;
+  }
+  .alert-danger {
+    background: rgba(231,76,60,.08);
+    border: 1px solid rgba(231,76,60,.25);
+    color: #ef9a9a;
+  }
+  .alert-success {
+    background: rgba(76,175,80,.08);
+    border: 1px solid rgba(76,175,80,.25);
+    color: #a5d6a7;
+  }
+  .alert-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── Email Cards ── */
+  .email-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .email-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .email-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .email-card h4 {
+    font-size: 15px;
+    color: #fff;
+  }
+  .email-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .email-card ul {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .email-card ul li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .email-card ul li::before {
+    content: '>';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── Tables ── */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    text-align: left;
+    padding: 12px 14px;
+    background: rgba(194,122,90,.1);
+    color: var(--accent);
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+    border-bottom: 2px solid var(--accent);
+  }
+  tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:hover { background: rgba(255,255,255,.02); }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-high { background: rgba(231,76,60,.15); color: #ef9a9a; }
+  .badge-medium { background: rgba(255,152,0,.15); color: #ffb74d; }
+  .badge-low { background: rgba(76,175,80,.15); color: #a5d6a7; }
+
+  /* ── Checklist per person ── */
+  .person-card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .person-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .person-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .person-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: #fff;
+  }
+  .person-role {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .person-tasks {
+    list-style: none;
+  }
+  .person-tasks li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 2;
+    color: var(--text);
+  }
+  .person-tasks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+
+  /* ── Budget row highlight ── */
+  .budget-positive { color: var(--success); font-weight: 600; }
+  .budget-total td {
+    font-weight: 700;
+    border-top: 2px solid var(--accent);
+    color: var(--success);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  .footer p {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .footer strong { color: var(--accent); }
+
+  /* ── Print ── */
+  @media print {
+    body { background: #fff; color: #222; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .container { max-width: 100%; padding: 0; }
+    .header { padding: 20px 0; }
+    .pdf-btn, .progress-tracker { display: none !important; }
+    .section { break-inside: avoid; border-color: #ddd; background: #fff; }
+    .section-body { max-height: none !important; overflow: visible !important; }
+    .section-content { padding-bottom: 16px; }
+    .chevron { display: none; }
+    .section-header { cursor: default; }
+    .compare-box, .email-card, .person-card, .alert { background: #f9f9f9; border-color: #ddd; }
+    thead th { background: #f0e6df; color: #8b5a3c; }
+    .section-number { background: #C27A5A; }
+    .timeline-dot { border-color: #C27A5A; }
+    .timeline-dot.active { background: #C27A5A; }
+    h1, h2, h3, h4, .section-title, .timeline-title, .person-name { color: #222; }
+    .step-text strong { color: #222; }
+    .header h1 span { color: #C27A5A; }
+    .alert-warning { background: #fff8e1; border-color: #ffcc02; color: #795500; }
+    .alert-danger { background: #fce4ec; border-color: #e57373; color: #b71c1c; }
+    .alert-success { background: #e8f5e9; border-color: #81c784; color: #2e7d32; }
+    .badge-high { background: #fce4ec; color: #c62828; }
+    .badge-medium { background: #fff8e1; color: #e65100; }
+    .badge-low { background: #e8f5e9; color: #2e7d32; }
+    a { color: #C27A5A; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-badge">CS Consulting Strategique</div>
+    <h1>Migration vers <span>Circle</span></h1>
+    <p>Process complet de migration Face Soul Yoga : Uscreen + Kajabi vers Circle, plan de communication, checklist et budget.</p>
+    <div class="header-meta">
+      <span><strong>Cliente :</strong> Aurelia (Face Soul Yoga)</span>
+      <span><strong>Deadline :</strong> Juillet 2026</span>
+      <span><strong>Mis a jour :</strong> 17 mars 2026</span>
+    </div>
+    <button class="pdf-btn" onclick="window.print()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M6 20h12a2 2 0 002-2V8l-6-6H6a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+      Telecharger en PDF
+    </button>
+  </div>
+
+  <!-- Progress Tracker -->
+  <div class="progress-tracker">
+    <h3>Suivi de progression</h3>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+    <div class="progress-percent" id="progressPercent">0%</div>
+    <div class="progress-phases">
+      <label class="progress-phase">
+        <input type="checkbox" data-phase="1" onchange="updateProgress()">
+        <span class="phase-label"><strong>Phase 1</strong>Preparation</span>
+      </label>
+      <label class="progress-phase">
+        <input type="checkbox" data-phase="2" onchange="updateProgress()">
+        <span class="phase-label"><strong>Phase 2</strong>Migration FSY</span>
+      </label>
+      <label class="progress-phase">
+        <input type="checkbox" data-phase="3" onchange="updateProgress()">
+        <span class="phase-label"><strong>Phase 3</strong>Communication</span>
+      </label>
+      <label class="progress-phase">
+        <input type="checkbox" data-phase="4" onchange="updateProgress()">
+        <span class="phase-label"><strong>Phase 4</strong>Migration MTM</span>
+      </label>
+      <label class="progress-phase">
+        <input type="checkbox" data-phase="5" onchange="updateProgress()">
+        <span class="phase-label"><strong>Phase 5</strong>Bascule & Fermeture</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- SECTION 1: VUE D'ENSEMBLE -->
+  <div class="section open" data-section="1">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">1</div>
+        <div>
+          <div class="section-title">Vue d'ensemble</div>
+          <div class="section-subtitle">Timeline, architecture cible et matrice de risques</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+
+        <h3 style="margin-bottom:16px; font-size:16px; color:var(--accent);">Timeline Mars — Aout 2026</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <div class="timeline-date">Mars — Avril 2026</div>
+            <div class="timeline-title">Phase 1 : Preparation</div>
+            <div class="timeline-desc">Creation du compte Circle Business, configuration des espaces, connexion Stripe, mise en place Bunny.net, tests parcours, NDA VA Anam, recherche integration Brevo.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Avril — Mai 2026</div>
+            <div class="timeline-title">Phase 2 : Migration FSY Studio</div>
+            <div class="timeline-desc">Export videos Uscreen, upload Bunny.net, import et organisation dans Circle, test beta avec 5-10 abonnees.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Mai 2026</div>
+            <div class="timeline-title">Phase 3 : Communication migration</div>
+            <div class="timeline-desc">Sequence de 5 emails aux abonnees, communication specifique Apple App, FAQ, guides visuels.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Mai — Juin 2026</div>
+            <div class="timeline-title">Phase 4 : Migration Master The Method</div>
+            <div class="timeline-desc">Recreation de la formation B2B dans Circle, quiz de certification, checkout, automatisation e-signature, licence annuelle.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Juin — Juillet 2026</div>
+            <div class="timeline-title">Phase 5 : Bascule & Fermeture</div>
+            <div class="timeline-desc">Verification des abonnees, coexistence 2 semaines, fermeture Uscreen & Kajabi, suppression apps stores.</div>
+          </div>
+        </div>
+
+        <h3 style="margin:32px 0 16px; font-size:16px; color:var(--accent);">Avant / Apres</h3>
+        <div class="compare-grid">
+          <div class="compare-box">
+            <h4>Stack actuelle</h4>
+            <div class="compare-item"><span style="color:var(--danger);">&#x2717;</span> Uscreen (FSY Studio B2C)</div>
+            <div class="compare-item"><span style="color:var(--danger);">&#x2717;</span> Kajabi (MTM B2B)</div>
+            <div class="compare-item"><span style="color:var(--muted);">&#x25CB;</span> Stripe (paiements)</div>
+            <div class="compare-item"><span style="color:var(--muted);">&#x25CB;</span> Bunny.net (CDN video)</div>
+            <div class="compare-item"><span style="color:var(--muted);">&#x25CB;</span> Brevo (email marketing)</div>
+            <div class="compare-item"><span style="color:var(--danger);">&#x2717;</span> Apps custom iOS/Android</div>
+          </div>
+          <div class="compare-arrow">&#x2192;</div>
+          <div class="compare-box">
+            <h4>Stack cible</h4>
+            <div class="compare-item"><span style="color:var(--success);">&#x2713;</span> Circle (tout-en-un)</div>
+            <div class="compare-item"><span style="color:var(--success);">&#x2713;</span> Circle (tout-en-un)</div>
+            <div class="compare-item"><span style="color:var(--success);">&#x2713;</span> Stripe (conserve)</div>
+            <div class="compare-item"><span style="color:var(--success);">&#x2713;</span> Bunny.net (conserve)</div>
+            <div class="compare-item"><span style="color:var(--success);">&#x2713;</span> Brevo (conserve + integration)</div>
+            <div class="compare-item"><span style="color:var(--success);">&#x2713;</span> App Circle native</div>
+          </div>
+        </div>
+
+        <div class="alert alert-success">
+          <div class="alert-title"><span>&#x2714;</span> Economies apres migration</div>
+          Uscreen (-149$/mois) + Kajabi (-~150$/mois) = <strong>~300$/mois d'economie</strong>. Circle Business a 199 EUR/mois + Bunny.net ~40 EUR/mois = economie nette d'environ 70 EUR/mois.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: PHASE 1 — PREPARATION -->
+  <div class="section" data-section="2">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">2</div>
+        <div>
+          <div class="section-title">Phase 1 — Preparation</div>
+          <div class="section-subtitle">Mars — Avril 2026</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <ol class="step-list">
+          <li class="step-item">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-text"><strong>Creer le compte Circle Business</strong> (199 EUR/mois)</div>
+              <div class="step-detail">Choisir le plan Business pour acceder aux espaces multiples, integrations API, app custom.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-text"><strong>Configurer les 3 espaces</strong></div>
+              <ul class="step-sub">
+                <li><strong style="color:var(--text);">FSY Studio</strong> (B2C) — Abonnement mensuel 17 EUR/mois, ~600 videos, ~613 abonnees</li>
+                <li><strong style="color:var(--text);">Master The Method</strong> (B2B) — Formation certifiante 2 900 EUR (early bird 2 500 EUR), 40h+ de contenu</li>
+                <li><strong style="color:var(--text);">Communaute Certifiees</strong> — Licence annuelle 100 EUR/an, espace reserve aux professeures certifiees</li>
+              </ul>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-text"><strong>Connecter Stripe (existant) a Circle</strong></div>
+              <div class="step-detail">Les abonnees existantes ne doivent pas re-entrer leur carte bancaire. Verifier la migration des subscriptions Stripe.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-text"><strong>Configurer Bunny.net comme CDN video</strong></div>
+              <div class="step-detail">~550 Go de videos hebergees. Verifier compatibilite d'embed Circle + Bunny.net player.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">5</div>
+            <div>
+              <div class="step-text"><strong>Tester le parcours complet</strong></div>
+              <div class="step-detail">Inscription &#x2192; Paiement Stripe &#x2192; Acces automatique &#x2192; Navigation &#x2192; Lecture video. Tester sur mobile et desktop.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">6</div>
+            <div>
+              <div class="step-text"><strong>Clause NDA pour VA Anam</strong></div>
+              <div class="step-detail">Contrat Upwork avec clause de confidentialite. La VA aura acces a ~600 videos proprietaires (contenu payant).</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">7</div>
+            <div>
+              <div class="step-text"><strong>Rechercher integration Circle &#x2194; Brevo</strong></div>
+              <div class="step-detail">Explorer : API Circle webhooks, Zapier, n8n. Objectif : synchroniser les contacts Circle vers Brevo pour les sequences email marketing.</div>
+              <ul class="step-sub">
+                <li>API native Circle (webhooks on member join/leave)</li>
+                <li>Zapier : connecteur Circle existant ?</li>
+                <li>n8n : webhook custom + appel API Brevo</li>
+                <li>Fallback : export CSV periodique</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PHASE 2 — MIGRATION FSY STUDIO -->
+  <div class="section" data-section="3">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">3</div>
+        <div>
+          <div class="section-title">Phase 2 — Migration FSY Studio</div>
+          <div class="section-subtitle">Avril — Mai 2026 | ~600 videos, ~613 abonnees</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <ol class="step-list">
+          <li class="step-item">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-text"><strong>Export des videos depuis Uscreen</strong> (VA Anam)</div>
+              <div class="step-detail">Exporter par batch (collections). Verifier que chaque fichier est complet et non corrompu. Garder un fichier de mapping : nom video &#x2192; collection &#x2192; URL Bunny.net.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-text"><strong>Upload vers Bunny.net</strong> (VA Anam)</div>
+              <div class="step-detail">~550 Go a uploader. Prevoir plusieurs jours selon la bande passante. Verifier l'integrite apres upload (duree, resolution).</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-text"><strong>Import dans Circle avec organisation par collections</strong></div>
+              <div class="step-detail">Integrer les liens Bunny.net dans les posts Circle. Recreer la structure des categories FSY Studio.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-text"><strong>Recreer les collections / categories dans Circle</strong></div>
+              <div class="step-detail">Mapper la structure Uscreen vers les Spaces/Groups Circle. Garder une navigation intuitive pour les abonnees.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">5</div>
+            <div>
+              <div class="step-text"><strong>Configurer le calendrier de contenu</strong></div>
+              <div class="step-detail">Programmer les futurs lives/cours dans Circle. Tester les notifications automatiques.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">6</div>
+            <div>
+              <div class="step-text"><strong>Tester avec 5-10 abonnees beta</strong> (Laurie selectionne)</div>
+              <div class="step-detail">Choisir des profils varies : tech-savvy et moins a l'aise. Recueillir feedback structure sur : navigation, qualite video, paiement, mobile.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">7</div>
+            <div>
+              <div class="step-text"><strong>Corriger les problemes remontes</strong></div>
+              <div class="step-detail">Iterer rapidement. Objectif : zero friction pour le lancement public.</div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="alert alert-warning">
+          <div class="alert-title"><span>&#x26A0;</span> Point d'attention</div>
+          La VA Anam est budgetee a 500$ — verifier que le scope est realiste pour ~600 videos. Prevoir un contrat avec livrables clairs et jalons de validation.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PHASE 3 — COMMUNICATION -->
+  <div class="section" data-section="4">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">4</div>
+        <div>
+          <div class="section-title">Phase 3 — Communication migration</div>
+          <div class="section-subtitle">Mai 2026 | Sequence 5 emails + communication Apple App</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+
+        <div class="email-card">
+          <div class="email-card-header">
+            <span class="email-badge">Email 1 — M-2</span>
+            <h4>"Votre experience FSY evolue !"</h4>
+          </div>
+          <p>Ton positif et enthousiaste. Focus sur les ameliorations : communaute entre membres, application mobile Circle, navigation amelioree, contenu toujours disponible.</p>
+          <ul>
+            <li>Ne pas donner de date precise (encore en preparation)</li>
+            <li>Rassurer : "votre abonnement continue sans interruption"</li>
+            <li>Teaser les nouveautes : espace communaute, messagerie entre membres</li>
+          </ul>
+        </div>
+
+        <div class="email-card">
+          <div class="email-card-header">
+            <span class="email-badge">Email 2 — M-1</span>
+            <h4>"Comment ca va se passer"</h4>
+          </div>
+          <p>Informations pratiques et FAQ. Guide visuel de la nouvelle plateforme avec captures d'ecran.</p>
+          <ul>
+            <li>FAQ : Mon abonnement continue ? Oui, rien ne change cote paiement</li>
+            <li>FAQ : Mes videos favorites ? Tout le catalogue est migre</li>
+            <li>FAQ : L'application actuelle ? Elle sera remplacee par l'app Circle</li>
+            <li>Guide visuel : screenshots de Circle avec annotations</li>
+          </ul>
+        </div>
+
+        <div class="email-card">
+          <div class="email-card-header">
+            <span class="email-badge">Email 3 — J-7</span>
+            <h4>"C'est pour bientot !"</h4>
+          </div>
+          <p>Compte a rebours. Creer de l'excitation et preparer la transition.</p>
+          <ul>
+            <li>Lien de pre-inscription Circle (creer son compte avant le Jour J)</li>
+            <li>Video tuto : "Comment acceder a votre nouvel espace" (2-3 min)</li>
+            <li>Rappel : l'ancien espace reste accessible 2 semaines apres</li>
+          </ul>
+        </div>
+
+        <div class="email-card">
+          <div class="email-card-header">
+            <span class="email-badge">Email 4 — Jour J</span>
+            <h4>"Bienvenue sur votre nouvel espace"</h4>
+          </div>
+          <p>Le grand jour. Lien direct, instructions simples, support disponible.</p>
+          <ul>
+            <li>Lien direct vers Circle (un clic)</li>
+            <li>Rappel rapide : comment naviguer</li>
+            <li>Support : email Laurie pour toute question</li>
+          </ul>
+        </div>
+
+        <div class="email-card">
+          <div class="email-card-header">
+            <span class="email-badge">Email 5 — J+7</span>
+            <h4>"Tout se passe bien ?"</h4>
+          </div>
+          <p>Relance bienveillante. Cibler ceux qui ne se sont pas encore connectes.</p>
+          <ul>
+            <li>Relance personnalisee pour les non-connectes</li>
+            <li>FAQ mise a jour avec les questions recues</li>
+            <li>Rappel : l'ancien espace ferme dans 1 semaine</li>
+          </ul>
+        </div>
+
+        <div class="alert alert-danger">
+          <div class="alert-title"><span>&#x26A0;</span> ATTENTION : Abonnes Apple App</div>
+          <p style="margin-bottom:10px;">Les abonnees via Apple in-app purchase <strong>ne migrent PAS automatiquement</strong>. L'application custom FSY disparaitra des stores.</p>
+          <p style="margin-bottom:10px;"><strong>Actions specifiques requises :</strong></p>
+          <ul style="list-style:none; margin:0;">
+            <li style="padding-left:16px; position:relative; line-height:1.8;"><span style="position:absolute; left:0; color:var(--danger);">1.</span> Identifier TOUS les abonnees Apple (export Uscreen / App Store Connect)</li>
+            <li style="padding-left:16px; position:relative; line-height:1.8;"><span style="position:absolute; left:0; color:var(--danger);">2.</span> Email dedie expliquant la situation avec empathie</li>
+            <li style="padding-left:16px; position:relative; line-height:1.8;"><span style="position:absolute; left:0; color:var(--danger);">3.</span> Offre speciale pour re-souscrire via Stripe/Circle (ex: 1 mois offert)</li>
+            <li style="padding-left:16px; position:relative; line-height:1.8;"><span style="position:absolute; left:0; color:var(--danger);">4.</span> Suivi individuel par Laurie des non-convertis</li>
+          </ul>
+          <p style="margin-top:10px;"><strong>Risque :</strong> Perte de ces abonnees si mal gere. Anticiper et communiquer tot.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: PHASE 4 — MIGRATION MTM -->
+  <div class="section" data-section="5">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">5</div>
+        <div>
+          <div class="section-title">Phase 4 — Migration Master The Method</div>
+          <div class="section-subtitle">Mai — Juin 2026 | Formation B2B 40h+</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <ol class="step-list">
+          <li class="step-item">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-text"><strong>Recreer la structure de formation dans Circle</strong></div>
+              <div class="step-detail">Modules, lecons, progression. Circle Courses ou Spaces structures. Garder le parcours pedagogique identique a Kajabi.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-text"><strong>Configurer le quiz de certification</strong></div>
+              <div class="step-detail">Quiz final pour valider la certification. Explorer les options Circle (quiz natif ou integration externe type Typeform).</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-text"><strong>Migrer le contenu depuis Kajabi</strong></div>
+              <div class="step-detail">40h+ de contenu video. Reprendre les descriptions, ressources PDF, liens complementaires.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-text"><strong>Configurer le checkout a 2 900 EUR</strong> (+ early bird 2 500 EUR)</div>
+              <div class="step-detail">Paiement Stripe via Circle. Tester le paiement en 3x sans frais si souhaite. Page de vente dans Circle ou externe.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">5</div>
+            <div>
+              <div class="step-text"><strong>Automatiser le contrat e-signature</strong></div>
+              <div class="step-detail">Webhook Circle (nouvel achat) &#x2192; n8n &#x2192; envoi contrat e-signature automatique. A construire.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">6</div>
+            <div>
+              <div class="step-text"><strong>Configurer la licence annuelle 100 EUR/an</strong></div>
+              <div class="step-detail">Renouvellement automatique Stripe. Acces a l'espace "Communaute Certifiees" tant que la licence est active.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">7</div>
+            <div>
+              <div class="step-text"><strong>Tester le parcours complet</strong></div>
+              <div class="step-detail">Achat &#x2192; Contrat e-signature &#x2192; Acces formation &#x2192; Modules &#x2192; Quiz &#x2192; Certification &#x2192; Acces communaute &#x2192; Licence annuelle.</div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: PHASE 5 — BASCULE & FERMETURE -->
+  <div class="section" data-section="6">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">6</div>
+        <div>
+          <div class="section-title">Phase 5 — Bascule & Fermeture</div>
+          <div class="section-subtitle">Juin — Juillet 2026</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <ol class="step-list">
+          <li class="step-item">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-text"><strong>Verifier que TOUS les abonnes actifs sont sur Circle</strong></div>
+              <div class="step-detail">Croiser la liste Uscreen/Kajabi avec les membres Circle. Identifier et relancer les retardataires.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-text"><strong>Fermer les inscriptions Uscreen</strong></div>
+              <div class="step-detail">Rediriger les nouvelles inscriptions vers Circle. Mettre un bandeau sur Uscreen "Nous avons demenage !".</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-text"><strong>Periode de coexistence : 2 semaines</strong></div>
+              <div class="step-detail">Les abonnees ont acces a Uscreen ET Circle en parallele. Derniere chance pour migrer.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">4</div>
+            <div>
+              <div class="step-text"><strong>Fermer Uscreen definitivement</strong></div>
+              <div class="step-detail">Annuler l'abonnement. Economie : 149$/mois. Garder un backup local des donnees avant cloture.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">5</div>
+            <div>
+              <div class="step-text"><strong>Fermer Kajabi</strong></div>
+              <div class="step-detail">Apres validation complete de MTM sur Circle. Economie : ~150$/mois.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">6</div>
+            <div>
+              <div class="step-text"><strong>Supprimer les apps FSY des stores</strong> (Apple + Google)</div>
+              <div class="step-detail">Les abonnees utiliseront desormais l'app Circle. Communiquer clairement avant la suppression.</div>
+            </div>
+          </li>
+          <li class="step-item">
+            <div class="step-num">7</div>
+            <div>
+              <div class="step-text"><strong>Bilan : economie mensuelle ~70 EUR/mois</strong></div>
+              <div class="step-detail">Uscreen (-149$) + Kajabi (-~150$) = ~300$/mois d'economie. Circle (199 EUR) + Bunny.net (~40 EUR) = cout net inferieur.</div>
+            </div>
+          </li>
+        </ol>
+
+        <div class="alert alert-success">
+          <div class="alert-title"><span>&#x2714;</span> Objectif atteint</div>
+          Stack simplifiee, une seule plateforme (Circle), communaute integree, app native, economies recurrentes. Aurelia gagne en autonomie de gestion.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: CHECKLIST PAR PERSONNE -->
+  <div class="section" data-section="7">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">7</div>
+        <div>
+          <div class="section-title">Checklist par personne</div>
+          <div class="section-subtitle">Qui fait quoi</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+
+        <div class="person-card">
+          <div class="person-header">
+            <div class="person-avatar">L</div>
+            <div>
+              <div class="person-name">Laurie</div>
+              <div class="person-role">Lead migration / Operations</div>
+            </div>
+          </div>
+          <ul class="person-tasks">
+            <li>Piloter la migration de bout en bout</li>
+            <li>Superviser le travail de la VA Anam (validation livrables)</li>
+            <li>Tester Circle : parcours abonnee, navigation, paiement</li>
+            <li>Selectionner les 5-10 beta-testeuses</li>
+            <li>Rediger et envoyer les emails de communication (via Brevo)</li>
+            <li>Support post-migration : repondre aux questions des abonnees</li>
+            <li>Identifier et relancer les abonnees Apple App</li>
+            <li>Verifier la liste complete des abonnees avant bascule</li>
+          </ul>
+        </div>
+
+        <div class="person-card">
+          <div class="person-header">
+            <div class="person-avatar">A</div>
+            <div>
+              <div class="person-name">VA Anam</div>
+              <div class="person-role">Upwork / Migration videos (500$)</div>
+            </div>
+          </div>
+          <ul class="person-tasks">
+            <li>Signer le NDA avant de commencer</li>
+            <li>Exporter toutes les videos depuis Uscreen (par batch/collection)</li>
+            <li>Uploader vers Bunny.net avec verification d'integrite</li>
+            <li>Importer dans Circle avec organisation par collections</li>
+            <li>Maintenir le fichier de mapping (video &#x2192; collection &#x2192; URL)</li>
+            <li>Signaler tout probleme technique a Laurie</li>
+          </ul>
+        </div>
+
+        <div class="person-card">
+          <div class="person-header">
+            <div class="person-avatar" style="background:#d4956f;">A</div>
+            <div>
+              <div class="person-name">Aurelia</div>
+              <div class="person-role">Fondatrice Face Soul Yoga / Decision maker</div>
+            </div>
+          </div>
+          <ul class="person-tasks">
+            <li>Valider la liste complete des videos a migrer</li>
+            <li>Valider le ton et le contenu des communications aux membres</li>
+            <li>Tester l'experience finale Circle en tant qu'abonnee</li>
+            <li>Decision Go/No-Go pour la bascule</li>
+            <li>Communication personnelle aux abonnees fideles si necessaire</li>
+          </ul>
+        </div>
+
+        <div class="person-card">
+          <div class="person-header">
+            <div class="person-avatar" style="background:#a8624a;">C</div>
+            <div>
+              <div class="person-name">Catherine</div>
+              <div class="person-role">CS Consulting / Strategie & automatisations</div>
+            </div>
+          </div>
+          <ul class="person-tasks">
+            <li>Definir la strategie globale de migration</li>
+            <li>Rechercher et implementer l'integration Circle &#x2194; Brevo</li>
+            <li>Construire les automatisations n8n (e-signature, webhooks)</li>
+            <li>Rediger le plan de communication (structure + ton)</li>
+            <li>Documenter tous les process pour autonomie future</li>
+            <li>Conseil sur la gestion des abonnees Apple App</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: RISQUES & MITIGATIONS -->
+  <div class="section" data-section="8">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">8</div>
+        <div>
+          <div class="section-title">Risques & Mitigations</div>
+          <div class="section-subtitle">6 risques identifies avec plans d'action</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Risque</th>
+                <th>Impact</th>
+                <th>Probabilite</th>
+                <th>Mitigation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Perte abonnes Apple App</strong></td>
+                <td><span class="badge badge-high">Fort</span></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td>Communication dediee + offre speciale (1 mois offert) + suivi individuel Laurie</td>
+              </tr>
+              <tr>
+                <td><strong>Videos corrompues pendant migration</strong></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td><span class="badge badge-low">Faible</span></td>
+                <td>Verification par batch + backup complet Uscreen avant export + fichier de mapping</td>
+              </tr>
+              <tr>
+                <td><strong>Circle ne supporte pas une fonctionnalite</strong></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td>Explorer completement pendant Phase 1 avant tout engagement (calendrier, quiz, drip content)</td>
+              </tr>
+              <tr>
+                <td><strong>Brevo non integrable avec Circle</strong></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td>Alternatives : Zapier, n8n webhook custom, ou migration vers email Circle natif</td>
+              </tr>
+              <tr>
+                <td><strong>Abonnes perdus pendant transition</strong></td>
+                <td><span class="badge badge-high">Fort</span></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td>Periode de coexistence 2 semaines + relances personnalisees + support reactif</td>
+              </tr>
+              <tr>
+                <td><strong>VA Anam sous-performe</strong></td>
+                <td><span class="badge badge-medium">Moyen</span></td>
+                <td><span class="badge badge-low">Faible</span></td>
+                <td>Contrat Upwork avec livrables clairs, jalons de validation, NDA signe</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 9: BUDGET -->
+  <div class="section" data-section="9">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-header-left">
+        <div class="section-number">9</div>
+        <div>
+          <div class="section-title">Budget migration</div>
+          <div class="section-subtitle">Couts, economies et bilan net</div>
+        </div>
+      </div>
+      <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="section-content">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Poste</th>
+                <th>Cout</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>VA Anam (Upwork)</td>
+                <td>500$</td>
+                <td>One-time</td>
+              </tr>
+              <tr>
+                <td>Circle Business</td>
+                <td>199 EUR/mois</td>
+                <td>Recurrent</td>
+              </tr>
+              <tr>
+                <td>Bunny.net CDN (~550 Go)</td>
+                <td>~30-50 EUR/mois</td>
+                <td>Recurrent</td>
+              </tr>
+              <tr>
+                <td class="budget-positive">Arret Uscreen</td>
+                <td class="budget-positive">-149$/mois</td>
+                <td>Economie</td>
+              </tr>
+              <tr>
+                <td class="budget-positive">Arret Kajabi</td>
+                <td class="budget-positive">-~150$/mois</td>
+                <td>Economie</td>
+              </tr>
+              <tr class="budget-total">
+                <td>Net apres migration</td>
+                <td>~-70 EUR/mois (economie)</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert alert-success" style="margin-top:20px;">
+          <div class="alert-title"><span>&#x2714;</span> Bilan financier</div>
+          <p>Investissement initial de 500$ (VA) + cout de migration negligeable. Economie recurrente d'environ <strong>70 EUR/mois</strong> (840 EUR/an) avec une stack plus simple et plus puissante.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Document prepare par <strong>CS Consulting Strategique</strong> pour <strong>Face Soul Yoga</strong></p>
+    <p style="margin-top:6px;">Session 4 — Mars 2026 | catherine@csbusiness.fr</p>
+  </div>
+</div>
+
+<script>
+// Accordion toggle
+function toggleSection(header) {
+  const section = header.closest('.section');
+  section.classList.toggle('open');
+}
+
+// Progress tracker
+function updateProgress() {
+  const checkboxes = document.querySelectorAll('.progress-phase input[type="checkbox"]');
+  const checked = document.querySelectorAll('.progress-phase input[type="checkbox"]:checked').length;
+  const total = checkboxes.length;
+  const percent = Math.round((checked / total) * 100);
+  document.getElementById('progressBar').style.width = percent + '%';
+  document.getElementById('progressPercent').textContent = percent + '%';
+  // Save state
+  const state = {};
+  checkboxes.forEach(cb => { state[cb.dataset.phase] = cb.checked; });
+  localStorage.setItem('circle-migration-progress', JSON.stringify(state));
+}
+
+// Restore state on load
+document.addEventListener('DOMContentLoaded', function() {
+  const saved = localStorage.getItem('circle-migration-progress');
+  if (saved) {
+    const state = JSON.parse(saved);
+    document.querySelectorAll('.progress-phase input[type="checkbox"]').forEach(cb => {
+      if (state[cb.dataset.phase]) cb.checked = true;
+    });
+    updateProgress();
+  }
+});
+</script>
+</body>
+</html>

@@ -8,7 +8,7 @@
 - **Taille** : TPE (Aurelia + 1-3 personnes dont Laurie en support operationnel)
 - **Programme** : Clarte & Autonomie — 6 mois, 19 seances
 - **Periode** : fevrier 2026 → aout 2026 (dates exactes a confirmer)
-- **Sessions** : 4 / 19 utilisees (prochaine session semaine du 24 mars 2026)
+- **Sessions** : 5 / 19 utilisees (prochaine session a caler cette semaine)
 - **Tutoiement / Vouvoiement** : Tutoiement (proposition redigee en tutoiement)
 
 ## Notion IDs
@@ -189,6 +189,11 @@
 - "Inconsciemment, c'est se dire je vais payer une formation, mais elle n'est pas assez chère" (Session 4 — déclic pricing via coach Romain)
 - "Il faut qu'on arrive à prévoir un an à l'avance" (Session 4 — Laurie, cadre anti-chaos)
 - "Il faut vraiment que le focus ce soit la méthode et pas toi" (Session 4 — Laurie, séparation marque/personne)
+- "J'ai 130 000 personnes, mais je n'arrive pas a vendre. Soyez spectateurs, mais n'achetez pas." (Session 5 — syndrome imposteur qui sabote le business)
+- "L'equipe qui t'amene a 5 chiffres, c'est pas celle qui t'amene a 6 ou 7." (Session 5 — lucidite sur le scaling)
+- "J'ai l'impression d'avoir 1 000 tablettes ouvertes et d'etre perdue." (Session 5 — surcharge)
+- "Face Soul Yoga, c'est un peu ma prison doree." (Session 5 — quand ton business t'enferme)
+- "Je suis happee par des sujets qui me plaisent plus, mais j'ose pas y aller." (Session 5 — peur de lacher l'ancien)
 
 ## Pepites LinkedIn
 > Extraites des sessions — reutilisables pour posts LinkedIn (anonymise : "une dirigeante" ou "une entrepreneuse")
@@ -208,6 +213,10 @@
 | 3 | Laurie freine Aurelia — "il faut qu'elle termine avant de lancer autre chose" — le role de l'assistante garde-fou | Expertise / Coulisses | "Sa bras droit m'a dit : 'Il faut la ralentir.' Le meilleur conseil strat que j'ai entendu cette semaine." | Non |
 | 3 | Revenue projection 634K EUR/an construit en 1 session — formation evergreen + accompagnements | Expertise / Educatif | "120 formations x 1 950 EUR. 1 000 accompagnements x 400 EUR. 634 000 EUR. Pas un reve. Un tableur." | Non |
 | 3 | Le chatbot comme solution au "je ne travaille plus le week-end" — reminders automatiques dimanche soir | Temoignage / Coulisses | "Elle m'a dit : 'Les dimanches soirs, il faut envoyer un message aux membres.' Je lui ai repondu : 'Le bot le fera. Toi, tu restes en pyjama.'" | Non |
+| 5 | "J'ai 130 000 personnes mais je n'arrive pas a vendre" — syndrome imposteur qui sabote le business | Expertise / Educatif | "130 000 abonnes. Et pas capable de vendre. Le syndrome de l'imposteur ne touche pas que les debutants." | Non |
+| 5 | "L'equipe qui t'amene a 5 chiffres, c'est pas celle qui t'amene a 6 ou 7" — scaling et deuil des premieres equipes | Expertise / Coulisses | "La personne qui t'a aide a demarrer n'est pas toujours celle qui t'emmenera au niveau suivant. Et c'est OK." | Non |
+| 5 | "Face Soul Yoga, c'est un peu ma prison doree" — quand ton propre business t'enferme | Temoignage / Empathie | "Elle a cree sa boite pour etre libre. 6 ans plus tard, c'est devenu sa prison doree." | Non |
+| 5 | "Je suis happee par des sujets qui me plaisent plus, mais j'ose pas y aller" — peur de lacher l'ancien | Expertise / Educatif | "Vous savez deja ce que vous voulez faire. Vous n'osez juste pas lacher ce qui ne vous fait plus vibrer." | Non |
 
 ## Chatbot Telegram (@facesoulyoga_bot)
 
@@ -246,3 +255,4 @@
 | 2 | 2026-03-02 | Migration Kajabi + Bunny, Architecture d'offre FSY & Pipeline Premium | Kajabi + Bunny.net confirmes, Circle elimine, Brevo maintenu. Architecture offre : FSY mass-market (abo 17 EUR + programmes 299-500 EUR) vs Aurelia Del Sol premium (Mastermind 3-6K EUR, 1:1 10-15K EUR). Fin lives hebdo, passage evergreen. Freelance Fiverr/ComeUp pour migration. Bot WhatsApp a explorer. | Decisions plateforme et offre actees. Laurie prend le lead migration. Antoine gere social media. Aurelia adopte Claude AI. KPIs : 6 700 membres totaux Uscreen, 613 courants, ~600 videos ~550 Go, communautes 238+184, ~300 abonnes app ~1 150-1 200 EUR |
 | 3 | 2026-03-11 | Strategie offre FSY (evergreen + pricing) & Chatbot Telegram | Focus Master The Method → evergreen (mai 2026). Pricing stabilise : formation 1 950 EUR, abo 17 EUR/mois, accompagnement 399 EUR. YouScreen garde 1 an. Chatbot mode mention valide. | Laurie seule (Aurelia absente). Laurie freine Aurelia sur l'eparpillement. Revenue projection 634K EUR/an. Reminders programmables demandes pour chatbot. Automatisation contrats Kajabi a explorer. Session 1:1 Aurelia mindset a planifier. |
 | 4 | 2026-03-16 | Repositionnement des marques & feuille de route opérationnelle | SESSION PIVOT : 3 entités distinctes actées (FSY Studio B2C, MTM B2B 2 900€, Aurélia Del Sol Premium). Migration Uscreen+Kajabi → Circle avant juillet. VA recrutée sur Upwork. Site FSY → éducatif. | Aurélia arrive avec décisions prises (coachs Mélanie + Romain). Prix MTM 1 950→2 900€. Laurie prend le lead Circle+migration. 4 temps forts/an FSY, 2 pushs/an MTM. Brevo = 13K contacts sous-exploités. Session Claude prévue. Feuille de route V2 construite. |
+| 5 | 2026-03-24 | Repositionnement & organisation FSY (1:1 Aurelia) | Garder abo 17 EUR/mois mais Aurelia ne gere plus — process + freelance animation. Explorer packaging FSY comme actif revendable/franchise. Chatbot pret, en attente donnees. | Seance coaching 1:1 (sans Laurie). Laurie a dit "c'est pas moi le business manager". Syndrome imposteur profond (trauma exposition passe). Formation B2B a 2 900 EUR. Facture 2 750 EUR en retard. Prochaine session a caler cette semaine. |

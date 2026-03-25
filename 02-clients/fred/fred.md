@@ -7,7 +7,7 @@
 - **Taille** : TPE (dirigeant seul + equipe reduite)
 - **Programme** : Transition Strategique — 6 mois
 - **Periode** : 22 janvier 2026 → 22 juillet 2026
-- **Sessions** : 8 / 18 utilisees
+- **Sessions** : 9 / 18 utilisees
 - **Tutoiement / Vouvoiement** : Tutoiement
 
 ## Notion IDs
@@ -189,3 +189,4 @@
 | 6 | 2026-03-09 | Email Outlook, Cloud, MDP Dashlane, M365, Automatisation factures | Outlook desktop = client mail principal, Dashlane = gestionnaire MDP, M365 Personnel 99 EUR/an, Dropbox reste cloud principal, Catherine prepare CdC automatisation factures | Config FredGmail sur Outlook (FAIT), captures d'ecran apprises, "le brouillard se dissipe". Compta critique (pas de rapprochement 2024). Boite FU Solutions toujours bloquee (2FA OVH). |
 | 7 | 2026-03-13 | Cadrage digital : Outlook/OVH, gouvernance actifs, OneDrive/Dashlane | Outlook 4 boites OK, OVH acces recupere, Firefox par defaut, favoris reorganises par Claude, M365 a acheter, portail client bookmarke | "c'est un pas de geant" (toutes boites dans Outlook). OVH : 12 domaines inutiles (~300 EUR/an). Phishing detecte en live. Firefox Containers adopte spontanement. |
 | 8 | 2026-03-17 | Claude Pro, Cowork & Automatisation Factures | Migration Botnation → Claude Pro (20$/mois), Claude = binome travail (Drive+Calendar+Gmail), automatisation factures lancee (n8n) | Compte Claude cree, Cowork Excel FooFight = Fred bluffe ("tu me regales"), Daily Briefing 7h configure, 9 factures recues pour auto, compta Annie Link decevante. Prochaine session mardi 18/03 8h. |
+| 9 | 2026-03-24 | Restructuration HKFU & retro-planning expatriation | Tout transferer sous HKFU (nouvelle entite HK). FU Solutions France ferme fin 2026. V8 a vendre. SCI aux enfants. Emails sous domaine unique HKFU. Factures : attribution par projet. Revolut releve mensuel active. | Seminaire expatriation (Joseph & Vincent) = choc thermique. Frere malade. Automatisation factures revue (corrections mineures, Le Bon Coin non reconnu). Drive partage avec Admilink. Revolut API dispo. Contact notaire Jonathan Machado. Prochaine session lundi 30/03 10h. |

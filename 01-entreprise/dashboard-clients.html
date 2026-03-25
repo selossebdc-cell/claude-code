@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS Consulting — Cockpit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --terracotta: #C27A5A;
+      --terracotta-light: #d4956f;
+      --terracotta-dark: #a5654a;
+      --bg-dark: #0f0f0f;
+      --bg-card: #1a1a1a;
+      --bg-card-hover: #222222;
+      --bg-input: #2a2a2a;
+      --border: #333333;
+      --border-light: #444444;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+      --success: #4ade80;
+      --success-bg: rgba(74, 222, 128, 0.1);
+      --warning: #fbbf24;
+      --warning-bg: rgba(251, 191, 36, 0.1);
+      --danger: #f87171;
+      --danger-bg: rgba(248, 113, 113, 0.1);
+      --info: #60a5fa;
+      --info-bg: rgba(96, 165, 250, 0.1);
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+
+    /* ===== LOGIN ===== */
+    .login-overlay {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-dark);
+      z-index: 1000;
+    }
+
+    .login-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .login-box h1 {
+      color: var(--terracotta);
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .login-box .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group { margin-bottom: 1rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.375rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      outline: none;
+      transition: border-color 250ms ease;
+    }
+
+    .form-group input:focus {
+      border-color: var(--terracotta);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none; border-radius: var(--radius-md);
+      font-family: inherit; font-size: 0.9375rem; font-weight: 500;
+      cursor: pointer; transition: all 250ms ease;
+    }
+
+    .btn-primary {
+      background: var(--terracotta);
+      color: #fff;
+      width: 100%;
+    }
+
+    .btn-primary:hover { background: var(--terracotta-light); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .login-error {
+      color: var(--danger);
+      font-size: 0.8125rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    /* ===== LAYOUT ===== */
+    .hidden { display: none !important; }
+
+    .app-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    /* ===== HEADER ===== */
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .app-header-left h1 {
+      color: var(--terracotta);
+      font-size: 1.75rem;
+    }
+
+    .app-header-left .tagline {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .app-header-right {
+      display: flex; align-items: center; gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-text {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .btn-icon {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 200ms ease;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+
+    /* ===== TAB BAR ===== */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      color: var(--text-secondary);
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--terracotta-light);
+    }
+
+    .tab-btn.active {
+      color: var(--terracotta);
+      border-bottom-color: var(--terracotta);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ===== KPI CARDS ===== */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      transition: border-color 200ms ease;
+    }
+
+    .kpi-card:hover { border-color: var(--border-light); }
+
+    .kpi-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .kpi-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--terracotta);
+    }
+
+    .kpi-sub {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .kpi-value.green { color: var(--success); }
+    .kpi-value.blue { color: var(--info); }
+    .kpi-value.orange { color: var(--warning); }
+
+    /* ===== ALERTS ===== */
+    .alerts-container {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .alert-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+    }
+
+    .alert-row.danger {
+      background: var(--danger-bg);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      color: var(--danger);
+    }
+
+    .alert-row.warning {
+      background: var(--warning-bg);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      color: var(--warning);
+    }
+
+    .alert-row.info {
+      background: var(--info-bg);
+      border: 1px solid rgba(96, 165, 250, 0.2);
+      color: var(--info);
+    }
+
+    .alert-icon { font-size: 1.125rem; flex-shrink: 0; }
+
+    .no-alerts {
+      padding: 1rem;
+      text-align: center;
+      color: var(--success);
+      background: var(--success-bg);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      margin-top: 1rem;
+    }
+
+    /* ===== CLIENT CARDS ===== */
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+
+    .client-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      transition: border-color 200ms ease;
+    }
+
+    .client-card:hover { border-color: var(--terracotta-dark); }
+
+    .client-card-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .client-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .client-company {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .progress-container {
+      margin: 0.75rem 0;
+    }
+
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.375rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--bg-input);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--terracotta);
+      border-radius: 3px;
+      transition: width 500ms ease;
+    }
+
+    .client-detail {
+      display: flex; align-items: flex-start; gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .client-detail .label {
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .client-detail .value { color: var(--text-primary); }
+    .client-detail .value.danger { color: var(--danger); }
+
+    .action-count {
+      font-size: 0.75rem;
+      color: var(--terracotta);
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .action-mini {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+      padding-left: 0.25rem;
+    }
+
+    .portal-link {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--terracotta);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .client-card:hover .portal-link {
+      color: var(--terracotta-light);
+    }
+
+    /* ===== ACTIONS TODO ===== */
+    .actions-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .actions-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--terracotta);
+      margin-bottom: 0.5rem;
+    }
+
+    .action-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.625rem 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.375rem;
+      transition: background 200ms ease;
+    }
+
+    .action-item:hover { background: var(--bg-card-hover); }
+
+    .action-checkbox {
+      appearance: none;
+      width: 18px; height: 18px;
+      border: 2px solid var(--border-light);
+      border-radius: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 200ms ease;
+      position: relative;
+    }
+
+    .action-checkbox:checked {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+
+    .action-checkbox:checked::after {
+      content: '\2713';
+      position: absolute;
+      top: -1px; left: 2px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .action-content { flex: 1; min-width: 0; }
+
+    .action-title {
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+
+    .action-meta {
+      display: flex; align-items: center; gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+
+    .tag-badge {
+      display: inline-block;
+      padding: 0.125rem 0.5rem;
+      background: rgba(194, 122, 90, 0.15);
+      color: var(--terracotta-light);
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      font-weight: 500;
+    }
+
+    .due-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .due-date.overdue { color: var(--danger); font-weight: 500; }
+
+    /* ===== TIMELINE ===== */
+    .timeline-list {
+      display: flex; flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .timeline-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+    }
+
+    .timeline-date {
+      color: var(--terracotta);
+      font-weight: 600;
+      white-space: nowrap;
+      min-width: 90px;
+    }
+
+    .timeline-client {
+      color: var(--text-primary);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .timeline-title {
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .timeline-link {
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .timeline-link a {
+      color: var(--terracotta);
+      text-decoration: none;
+      font-size: 0.75rem;
+    }
+
+    .timeline-link a:hover { text-decoration: underline; }
+
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    /* ===== SPINNER ===== */
+    .spinner {
+      display: inline-block;
+      width: 24px; height: 24px;
+      border: 2px solid var(--border);
+      border-top-color: var(--terracotta);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-state {
+      display: flex; align-items: center; justify-content: center;
+      padding: 3rem; gap: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* ===== FINANCIAL SECTIONS ===== */
+    .fin-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .fin-section h2 {
+      color: var(--terracotta);
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fin-section h3 {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin: 1rem 0 0.5rem 0;
+    }
+
+    /* Financial tables */
+    .fin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .fin-table th {
+      background: var(--bg-input);
+      color: var(--terracotta);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .fin-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fin-table tr:hover { background: var(--bg-card-hover); }
+
+    .fin-table .amount { text-align: right; font-variant-numeric: tabular-nums; }
+
+    .fin-status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .fin-status-actif { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+    .fin-status-prospect { background: rgba(251, 191, 36, 0.15); color: var(--warning); }
+    .fin-status-maintenance { background: rgba(96, 165, 250, 0.15); color: var(--info); }
+    .fin-status-paye { background: rgba(74, 222, 128, 0.15); color: var(--success); }
+    .fin-status-attente { background: rgba(251, 191, 36, 0.15); color: var(--warning); }
+    .fin-status-retard { background: rgba(248, 113, 113, 0.15); color: var(--danger); }
+
+    /* Progress bar in financial */
+    .fin-progress-bar {
+      background: var(--bg-input);
+      border-radius: 6px;
+      height: 10px;
+      overflow: hidden;
+      margin: 0.5rem 0;
+    }
+
+    .fin-progress-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.5s;
+      background: linear-gradient(90deg, var(--terracotta), var(--terracotta-light));
+    }
+
+    /* Cost rows */
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.375rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .cost-row:last-child { border-bottom: none; }
+    .cost-label { color: var(--text-secondary); }
+
+    .cost-amount {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cost-row.total {
+      border-top: 2px solid var(--terracotta);
+      margin-top: 0.5rem;
+      padding-top: 0.625rem;
+    }
+
+    .cost-row.total .cost-label,
+    .cost-row.total .cost-amount {
+      color: var(--terracotta);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .cost-row.highlight .cost-amount { color: var(--success); font-size: 1.1rem; }
+
+    /* Sim grid */
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 768px) { .sim-grid { grid-template-columns: 1fr; } }
+
+    /* Waterfall chart */
+    .waterfall {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 200px;
+      margin: 1rem 0;
+      padding: 0 20px;
+    }
+
+    .waterfall-bar {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+    }
+
+    .waterfall-bar .bar {
+      width: 100%;
+      max-width: 80px;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      transition: height 0.5s;
+      position: relative;
+    }
+
+    .waterfall-bar .bar-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 6px;
+      white-space: nowrap;
+    }
+
+    .waterfall-bar .bar-amount {
+      font-size: 0.7rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      position: absolute;
+      top: -18px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .bar.income { background: linear-gradient(180deg, var(--terracotta), var(--terracotta-dark)); }
+    .bar.expense { background: linear-gradient(180deg, #ef5350, #c62828); }
+    .bar.net { background: linear-gradient(180deg, #4CAF50, #2e7d32); }
+
+    /* Editable amounts */
+    .editable {
+      cursor: pointer;
+      border-bottom: 1px dashed var(--border-light);
+    }
+
+    .editable:hover { border-color: var(--terracotta); }
+
+    input.edit-input {
+      background: var(--bg-dark);
+      border: 1px solid var(--terracotta);
+      color: var(--text-primary);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-size: inherit;
+      width: 80px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-family: inherit;
+    }
+
+    /* SARL Checklist */
+    .checklist { list-style: none; }
+
+    .checklist li {
+      padding: 0.375rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .check {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border-light);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .check.done {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: #fff;
+    }
+
+    .check.done::after { content: "\2713"; }
+
+    /* Note box */
+    .fin-note {
+      background: rgba(194, 122, 90, 0.08);
+      border-left: 3px solid var(--terracotta);
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+
+    .fin-note strong { color: var(--terracotta); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .app-container { padding: 1rem 0.75rem 2rem; }
+      .app-header { flex-direction: column; align-items: flex-start; }
+      .kpi-value { font-size: 1.5rem; }
+      .clients-grid { grid-template-columns: 1fr; }
+      .timeline-item { flex-wrap: wrap; gap: 0.375rem; }
+      .timeline-title { white-space: normal; }
+      .tab-btn { padding: 0.5rem 1rem; font-size: 0.875rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div id="login-screen" class="login-overlay">
+    <div class="login-box">
+      <h1>Cockpit CS Consulting</h1>
+      <p class="subtitle">CS Consulting Stratégique — Espace admin</p>
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" placeholder="catherine@csbusiness.fr" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Mot de passe</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" id="login-btn" onclick="handleLogin()">Se connecter</button>
+      <div class="login-error" id="login-error"></div>
+    </div>
+  </div>
+
+  <!-- ===== APP ===== -->
+  <div id="app" class="hidden">
+    <div class="app-container">
+
+      <!-- Header -->
+      <header class="app-header">
+        <div class="app-header-left">
+          <h1>Cockpit CS Consulting</h1>
+          <p class="tagline">CS Consulting Stratégique — Suivi clients & finances</p>
+        </div>
+        <div class="app-header-right">
+          <span class="meta-text" id="last-update"></span>
+          <button class="btn-icon" onclick="refreshData()" title="Actualiser">&#x21bb; Actualiser</button>
+          <button class="btn-icon" onclick="handleLogout()" title="Déconnexion">Déconnexion</button>
+        </div>
+      </header>
+
+      <!-- Tab Bar -->
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('clients')" id="tab-btn-clients">Suivi Clients</button>
+        <button class="tab-btn" onclick="switchTab('financier')" id="tab-btn-financier">Financier</button>
+      </div>
+
+      <!-- ================= TAB: SUIVI CLIENTS ================= -->
+      <div class="tab-content active" id="tab-clients">
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid" id="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Clients actifs</div>
+            <div class="kpi-value" id="kpi-clients">—</div>
+            <div class="kpi-sub" id="kpi-clients-sub">/ objectif 24</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Prochaine séance</div>
+            <div class="kpi-value" id="kpi-next-session" style="font-size:1.25rem">—</div>
+            <div class="kpi-sub" id="kpi-next-session-sub"></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Actions en attente</div>
+            <div class="kpi-value" id="kpi-actions">—</div>
+            <div class="kpi-sub" id="kpi-actions-sub">non complétées</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Alertes</div>
+            <div class="kpi-value" id="kpi-alerts">—</div>
+            <div class="kpi-sub" id="kpi-alerts-sub">éléments à traiter</div>
+          </div>
+        </div>
+
+        <!-- Alertes -->
+        <h2 class="section-title">Alertes</h2>
+        <div id="alerts-section"></div>
+
+        <!-- Client Cards -->
+        <h2 class="section-title">Mes clients</h2>
+        <div class="clients-grid" id="clients-grid"></div>
+
+        <!-- Actions Catherine -->
+        <h2 class="section-title">Actions Catherine</h2>
+        <div id="actions-section"></div>
+
+        <!-- Prochains RDV -->
+        <h2 class="section-title">Prochains rendez-vous</h2>
+        <div id="timeline-section"></div>
+
+      </div>
+
+      <!-- ================= TAB: FINANCIER ================= -->
+      <div class="tab-content" id="tab-financier">
+
+        <!-- KPI Financiers -->
+        <div class="kpi-grid" id="fin-kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">CA encaissé 2026</div>
+            <div class="kpi-value" id="fin-kpi-ca">—</div>
+            <div class="kpi-sub">Objectif : 200 000 €</div>
+            <div class="fin-progress-bar"><div class="fin-progress-fill" id="fin-progress-ca" style="width:0%"></div></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Net disponible</div>
+            <div class="kpi-value green" id="fin-kpi-net">—</div>
+            <div class="kpi-sub">Après charges &amp; cotisations</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Clients actifs</div>
+            <div class="kpi-value blue" id="fin-kpi-clients">—</div>
+            <div class="kpi-sub">Objectif : 24 sur 2026</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Pipeline prospects</div>
+            <div class="kpi-value orange" id="fin-kpi-prospects">—</div>
+            <div class="kpi-sub">Valeur potentielle</div>
+          </div>
+        </div>
+
+        <!-- Clients & Revenus -->
+        <div class="fin-section">
+          <h2>Clients &amp; Revenus</h2>
+          <table class="fin-table" id="fin-clients-table">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Programme</th>
+                <th>Statut</th>
+                <th>Montant total</th>
+                <th>Encaissé</th>
+                <th>Reste dû</th>
+                <th>Prochaine échéance</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Pipeline Prospects -->
+        <div class="fin-section">
+          <h2>Pipeline Prospects</h2>
+          <table class="fin-table" id="fin-prospects-table">
+            <thead>
+              <tr>
+                <th>Prospect</th>
+                <th>Offre</th>
+                <th>Montant estimé</th>
+                <th>Score</th>
+                <th>Prochaine action</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Simulation Facture -->
+        <div class="fin-section">
+          <h2>Simulation : Que reste-t-il sur une facture ?</h2>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.75rem;">Basée sur SARL IS, gérante majoritaire TNS. Clique sur un montant pour le modifier.</p>
+
+          <div class="sim-grid">
+            <div>
+              <h3>Ventilation sur <span class="editable" id="sim-ca-label" onclick="editSimCA()">8 000</span> € HT facturés</h3>
+              <div class="waterfall" id="waterfall"></div>
+            </div>
+            <div>
+              <h3>Détail</h3>
+              <div class="cost-row">
+                <span class="cost-label">CA facturé HT</span>
+                <span class="cost-amount" id="sim-ca">8 000 €</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">TVA collectée (20%)</span>
+                <span class="cost-amount" id="sim-tva">+ 1 600 €</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">TVA à reverser</span>
+                <span class="cost-amount" style="color:var(--danger)" id="sim-tva-rev">- 1 400 €</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">Charges fixes mensuelles</span>
+                <span class="cost-amount" style="color:var(--danger)" id="sim-charges">- 330 €</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">Cotisations TNS (~45% du net)</span>
+                <span class="cost-amount" style="color:var(--danger)" id="sim-cotisations">- 2 400 €</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">IS (si bénéfice résiduel)</span>
+                <span class="cost-amount" style="color:var(--danger)" id="sim-is">- 0 €</span>
+              </div>
+              <div class="cost-row total highlight">
+                <span class="cost-label">Net en poche</span>
+                <span class="cost-amount" id="sim-net">5 270 €</span>
+              </div>
+              <div class="cost-row">
+                <span class="cost-label">Ratio net / CA</span>
+                <span class="cost-amount" id="sim-ratio" style="color:var(--terracotta)">66%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fin-note">
+            <strong>Astuce :</strong> En SARL IS, tes charges pro (ordi, téléphone, outils, déplacements, repas) sont déductibles. Plus tu as de charges justifiées, moins tu paies de cotisations et d'IS. Garde bien toutes tes factures.
+          </div>
+        </div>
+
+        <!-- Coûts Fixes Mensuels -->
+        <div class="fin-section">
+          <h2>Coûts fixes mensuels</h2>
+          <div class="sim-grid">
+            <div>
+              <h3>Charges professionnelles</h3>
+              <div id="fin-costs-list"></div>
+            </div>
+            <div>
+              <h3>Outils &amp; Abonnements</h3>
+              <div id="fin-tools-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Structures Juridiques -->
+        <div class="fin-section">
+          <h2>Structures juridiques — Vue d'ensemble</h2>
+          <table class="fin-table">
+            <thead>
+              <tr>
+                <th>Structure</th>
+                <th>Statut</th>
+                <th>Activités</th>
+                <th>Régime fiscal</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>EI (micro-entreprise)</strong></td>
+                <td><span class="fin-status fin-status-actif">ACTIVE</span></td>
+                <td>Formation (NDA/OPCO) + Vignes (fermage)</td>
+                <td>IR, micro-BNC</td>
+                <td>TVA non applicable (art. 293 B CGI). Plafond 77 700 €</td>
+              </tr>
+              <tr>
+                <td><strong>SARL CS Consulting</strong></td>
+                <td><span class="fin-status fin-status-prospect">EN CRÉATION</span></td>
+                <td>Consulting digital, accompagnement dirigeants, dév/automatisations</td>
+                <td>IS</td>
+                <td>Capital 1 000 €, gérante majoritaire (TNS)</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="fin-note">
+            <strong>Répartition :</strong> L'EI est conservée (obligation légale vignes + NDA formation). La SARL porte tout le consulting et le développement technique. Les 2 structures coexistent.
+          </div>
+        </div>
+
+        <!-- SARL Checklist -->
+        <div class="fin-section">
+          <h2>Création SARL — Suivi</h2>
+          <div class="sim-grid">
+            <div>
+              <h3>Informations</h3>
+              <div class="cost-row"><span class="cost-label">Dénomination</span><span class="cost-amount">CS Consulting</span></div>
+              <div class="cost-row"><span class="cost-label">Forme</span><span class="cost-amount">SARL</span></div>
+              <div class="cost-row"><span class="cost-label">Capital</span><span class="cost-amount">1 000 € (1 000 parts x 1 €)</span></div>
+              <div class="cost-row"><span class="cost-label">Siège</span><span class="cost-amount">43 rue de l'Estagnas, 64200 Biarritz</span></div>
+              <div class="cost-row"><span class="cost-label">RCS</span><span class="cost-amount">Bayonne</span></div>
+              <div class="cost-row"><span class="cost-label">Régime fiscal</span><span class="cost-amount">IS</span></div>
+              <div class="cost-row"><span class="cost-label">Régime social</span><span class="cost-amount">TNS (gérante majoritaire)</span></div>
+              <div class="cost-row"><span class="cost-label">Comptable</span><span class="cost-amount">Catherine BERTON</span></div>
+              <div class="cost-row"><span class="cost-label">1er exercice</span><span class="cost-amount">Immatriculation → 31/12/2026</span></div>
+              <div class="cost-row"><span class="cost-label">Durée</span><span class="cost-amount">99 ans</span></div>
+            </div>
+            <div>
+              <h3>Checklist</h3>
+              <ul class="checklist" id="sarl-checklist"></ul>
+            </div>
+          </div>
+
+          <h3 style="margin-top:1rem">Coûts de création estimés</h3>
+          <div id="fin-creation-costs"></div>
+        </div>
+
+        <!-- Comparatif EI vs SARL -->
+        <div class="fin-section">
+          <h2>Comparatif EI (micro) vs SARL IS — sur 200 000 € CA</h2>
+          <table class="fin-table">
+            <thead>
+              <tr>
+                <th>Critère</th>
+                <th>Micro-entreprise (EI)</th>
+                <th>SARL IS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Plafond CA</td><td class="amount">77 700 €</td><td class="amount" style="color:var(--success)">Illimité</td></tr>
+              <tr><td>TVA</td><td>Non applicable</td><td>20% (collectée + déductible)</td></tr>
+              <tr><td>Charges déductibles</td><td style="color:var(--danger)">Non</td><td style="color:var(--success)">Oui (tout justifié)</td></tr>
+              <tr><td>Taux cotisations</td><td class="amount">~22%</td><td class="amount">~45% du net (~30% du CA)</td></tr>
+              <tr><td>Sur 200K — Cotisations</td><td class="amount" style="color:var(--danger)">44 000 €</td><td class="amount" style="color:var(--danger)">~47 000 €</td></tr>
+              <tr><td>Sur 200K — Charges déduites</td><td class="amount">0 €</td><td class="amount" style="color:var(--success)">~15 000 €</td></tr>
+              <tr><td>Sur 200K — Net estimé</td><td class="amount" style="color:var(--danger)">Impossible (plafond)</td><td class="amount" style="color:var(--success)">~120 000 €</td></tr>
+              <tr><td>Dividendes</td><td style="color:var(--danger)">Non</td><td style="color:var(--success)">Oui (flat tax 30%)</td></tr>
+              <tr><td>Responsabilité</td><td style="color:var(--danger)">Illimitée</td><td style="color:var(--success)">Limitée au capital</td></tr>
+              <tr><td>Comptabilité</td><td>Simplifiée</td><td>Obligatoire (bilan)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /tab-financier -->
+
+    </div>
+  </div>
+
+  <script>
+    // ===== SUPABASE CONFIG =====
+    const SUPABASE_URL = 'https://dcynlifggjiqqihincbp.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjeW5saWZnZ2ppcXFpaGluY2JwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NTUyNTIsImV4cCI6MjA4OTIzMTI1Mn0.zsJnkswhmnzLCcO--0PwxJtIfTFL8C2p6_gqMM-V3bI';
+    const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ===== STATE (Supabase) =====
+    let profiles = [];
+    let sessions = [];
+    let actions = [];
+    let contracts = [];
+    let refreshInterval = null;
+
+    // ===== FINANCIAL DATA (hardcoded — source unique de vérité) =====
+    const FIN = {
+      clients: [
+        {
+          nom: "Fred (FU-Fight / V8)",
+          programme: "Transition Stratégique 6 mois",
+          statut: "actif",
+          sessions: "9/18",
+          montant_total: 8000,
+          encaisse: 5000,
+          reste_du: 3000,
+          prochaine_echeance: "Avril 2026",
+          notes: "OPCO ~3 000 € en cours"
+        },
+        {
+          nom: "Aurélia (Face Soul Yoga)",
+          programme: "Clarté & Autonomie 6 mois",
+          statut: "actif",
+          sessions: "5/19",
+          montant_total: 8000,
+          encaisse: 2500,
+          reste_du: 5500,
+          prochaine_echeance: "Mars 2026 (en retard)",
+          notes: "2 750 € en retard + 2 750 € avril"
+        },
+        {
+          nom: "FEEDUC",
+          programme: "Maintenance annuelle",
+          statut: "maintenance",
+          sessions: "—",
+          montant_total: 1500,
+          encaisse: 1300,
+          reste_du: 1500,
+          prochaine_echeance: "À la signature",
+          notes: "Solde mission reçu 13/03. Contrat maintenance en attente. EI (pas de TVA)."
+        }
+      ],
+
+      prospects: [
+        {
+          nom: "Jade Denia (Masenz Group / Barcelone)",
+          offre: "3 agents email + trigger proforma",
+          montant: 2000,
+          score: "8/10",
+          action: "Accord verbal — attente signature + acompte 1 000 €",
+          date: "Avant 27 mars 2026"
+        },
+        {
+          nom: "Guadeloupe Explor (Taïna)",
+          offre: "Accélération 6 mois",
+          montant: 9000,
+          score: "7/10",
+          action: "Signature imminente — questionnaire envoyé",
+          date: "Démarrage sem. 17 mars"
+        },
+        {
+          nom: "Marion",
+          offre: "À qualifier (agents à chiffrer)",
+          montant: 0,
+          score: "—",
+          action: "Délivrer devis agents",
+          date: "—"
+        },
+        {
+          nom: "Maylis",
+          offre: "À qualifier",
+          montant: 0,
+          score: "—",
+          action: "Suivi",
+          date: "—"
+        }
+      ],
+
+      couts_fixes: [
+        { label: "Comptable", montant: 150, categorie: "pro" },
+        { label: "Assurance RC Pro", montant: 30, categorie: "pro" },
+        { label: "CFE (lissé/mois)", montant: 50, categorie: "pro" },
+        { label: "Mutuelle TNS", montant: 60, categorie: "pro" },
+        { label: "Téléphone pro", montant: 25, categorie: "pro" }
+      ],
+
+      outils: [
+        { label: "Notion (Team)", montant: 10, categorie: "outil" },
+        { label: "n8n (Hostinger VPS)", montant: 10, categorie: "outil" },
+        { label: "API Anthropic (Claude)", montant: 20, categorie: "outil" },
+        { label: "Shine (banque pro)", montant: 8, categorie: "outil" },
+        { label: "Stripe (% sur encaissements)", montant: 15, categorie: "outil" },
+        { label: "Waalaxy", montant: 60, categorie: "outil" },
+        { label: "Plaud (transcription)", montant: 10, categorie: "outil" },
+        { label: "Domaine csbusiness.fr", montant: 3, categorie: "outil" },
+        { label: "Canva Pro", montant: 12, categorie: "outil" }
+      ],
+
+      sarl_checklist: [
+        { label: "Rédaction des statuts (comptable)", done: true },
+        { label: "Choix dénomination : CS Consulting", done: true },
+        { label: "Choix siège : 43 rue de l'Estagnas, Biarritz", done: true },
+        { label: "Compléter état civil dans les statuts (p.2)", done: false },
+        { label: "Vérifier clause conjoint art. 6.2 (cohérence situation)", done: false },
+        { label: "Capital : 1 000 € — dépôt sur compte bloqué", done: false },
+        { label: "Courrier de domiciliation signé", done: false },
+        { label: "Signature des statuts", done: false },
+        { label: "Publication annonce légale (JAL)", done: false },
+        { label: "Dépôt dossier au Guichet Unique (INPI)", done: false },
+        { label: "Obtention Kbis", done: false },
+        { label: "Ouverture compte bancaire SARL", done: false },
+        { label: "Déblocage du capital", done: false },
+        { label: "Transfert activité EI → SARL", done: false },
+        { label: "Mise à jour Shine / Stripe / factures", done: false },
+        { label: "Radiation micro-entreprise", done: false },
+        { label: "Nouveau numéro TVA intracommunautaire", done: false }
+      ],
+
+      couts_creation: [
+        { label: "Annonce légale (JAL)", montant: 150 },
+        { label: "Immatriculation Guichet Unique", montant: 37 },
+        { label: "Honoraires comptable (statuts + formalités)", montant: 500 },
+        { label: "Dépôt capital (frais bancaires)", montant: 0 },
+        { label: "Tampon / papeterie", montant: 30 }
+      ],
+
+      // Simulation params
+      sim_ca: 8000,
+      taux_tva: 0.20,
+      tva_deductible: 200,
+      charges_fixes_mensuelles: 0,
+      taux_cotisations_tns: 0.31
+    };
+
+    // ===== UTILS =====
+    const today = () => new Date().toISOString().split('T')[0];
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '—';
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    function formatDateShort(dateStr) {
+      if (!dateStr) return '—';
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+    }
+
+    function formatTime(date) {
+      return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function fmt(n) {
+      return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+
+    // ===== TAB SWITCHING =====
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById('tab-btn-' + tabName).classList.add('active');
+      document.getElementById('tab-' + tabName).classList.add('active');
+
+      if (tabName === 'financier') {
+        renderFinancier();
+      }
+    }
+
+    // ===== LOGIN =====
+    async function handleLogin() {
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errorEl = document.getElementById('login-error');
+      const btn = document.getElementById('login-btn');
+
+      if (!email || !password) {
+        errorEl.textContent = 'Veuillez remplir tous les champs.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Connexion...';
+      errorEl.style.display = 'none';
+
+      try {
+        const { data, error } = await db.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+
+        // Check admin role
+        const { data: profile, error: profileErr } = await db
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .single();
+
+        if (profileErr) throw profileErr;
+
+        if (profile.role !== 'admin') {
+          await db.auth.signOut();
+          throw new Error('Accès réservé aux administrateurs.');
+        }
+
+        sessionStorage.setItem('dashboard_auth', 'true');
+        showApp();
+      } catch (err) {
+        errorEl.textContent = err.message || 'Erreur de connexion.';
+        errorEl.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Se connecter';
+      }
+    }
+
+    async function handleLogout() {
+      await db.auth.signOut();
+      sessionStorage.removeItem('dashboard_auth');
+      clearInterval(refreshInterval);
+      document.getElementById('app').classList.add('hidden');
+      document.getElementById('login-screen').classList.remove('hidden');
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Enter key on login
+      document.getElementById('login-password').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleLogin();
+      });
+      document.getElementById('login-email').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') document.getElementById('login-password').focus();
+      });
+
+      // Load SARL checklist from localStorage
+      loadFinData();
+
+      // Check existing session
+      const { data: { session } } = await db.auth.getSession();
+      if (session && sessionStorage.getItem('dashboard_auth')) {
+        // Verify still admin
+        const { data: profile } = await db
+          .from('profiles')
+          .select('role')
+          .eq('id', session.user.id)
+          .single();
+        if (profile && profile.role === 'admin') {
+          showApp();
+          return;
+        }
+      }
+      // Show login
+      document.getElementById('login-screen').classList.remove('hidden');
+    });
+
+    async function showApp() {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app').classList.remove('hidden');
+      await refreshData();
+      // Auto-refresh every 5 minutes
+      refreshInterval = setInterval(refreshData, 5 * 60 * 1000);
+    }
+
+    // ===== DATA FETCHING =====
+    async function refreshData() {
+      try {
+        const [profilesRes, sessionsRes, actionsRes, contractsRes] = await Promise.all([
+          db.from('profiles').select('*').eq('role', 'client').eq('status', 'active'),
+          db.from('sessions').select('*').order('date', { ascending: true }),
+          db.from('actions').select('*').order('sort_order', { ascending: true }),
+          db.from('contracts').select('*'),
+        ]);
+
+        profiles = profilesRes.data || [];
+        sessions = sessionsRes.data || [];
+        actions = actionsRes.data || [];
+        contracts = contractsRes.data || [];
+
+        renderAll();
+        document.getElementById('last-update').textContent = 'Dernière mise à jour : ' + formatTime(new Date());
+      } catch (err) {
+        console.error('Erreur lors du chargement des données :', err);
+      }
+    }
+
+    // ===== RENDERING (Clients tab) =====
+    function renderAll() {
+      const alertsList = computeAlerts();
+      renderKPIs(alertsList);
+      renderAlerts(alertsList);
+      renderClientCards();
+      renderActions();
+      renderTimeline();
+    }
+
+    // ----- Compute Alerts -----
+    function computeAlerts() {
+      const alerts = [];
+      const todayStr = today();
+
+      // 1. Factures en retard
+      contracts.forEach(c => {
+        const client = profiles.find(p => p.client_id === c.client_id || p.id === c.client_id);
+        const clientName = client ? client.full_name : 'Client inconnu';
+        if (c.payment_schedule && Array.isArray(c.payment_schedule)) {
+          c.payment_schedule.forEach(pay => {
+            if (pay.date && pay.date < todayStr && pay.status !== 'paid') {
+              alerts.push({
+                type: 'danger',
+                icon: '💰',
+                text: `Facture en retard — ${clientName} : ${pay.label || pay.amount + ' €'} (échéance ${formatDateShort(pay.date)})`
+              });
+            }
+          });
+        }
+      });
+
+      // 2. Sessions pas bookées (grouped by company)
+      getUniqueClients().forEach(client => {
+        const clientSessions = sessions.filter(s => client.ids.includes(s.client_id));
+        const hasPlanned = clientSessions.some(s => s.status === 'planned');
+        if (!hasPlanned) {
+          alerts.push({
+            type: 'warning',
+            icon: '📅',
+            text: `Aucune séance bookée — ${client.name}`
+          });
+        }
+      });
+
+      // 3. Actions en retard
+      actions.forEach(a => {
+        if (!a.is_completed && a.due_date && a.due_date < todayStr) {
+          const client = profiles.find(p => (p.client_id || p.id) === a.client_id);
+          const clientName = client ? client.full_name : '';
+          alerts.push({
+            type: 'danger',
+            icon: '⚠️',
+            text: `Action en retard — ${clientName ? clientName + ' : ' : ''}${a.title} (échéance ${formatDateShort(a.due_date)})`
+          });
+        }
+      });
+
+      return alerts;
+    }
+
+    // ----- KPIs -----
+    function renderKPIs(alertsList) {
+      // Clients actifs (grouped by company)
+      document.getElementById('kpi-clients').textContent = getUniqueClients().length;
+
+      // Prochaine séance
+      const todayStr = today();
+      const nextSessions = sessions.filter(s => s.status === 'planned' && s.date && s.date >= todayStr);
+      if (nextSessions.length > 0) {
+        const next = nextSessions[0];
+        const client = profiles.find(p => (p.client_id || p.id) === next.client_id);
+        document.getElementById('kpi-next-session').textContent = formatDateShort(next.date);
+        document.getElementById('kpi-next-session-sub').textContent = client ? client.full_name + ' — ' + (next.title || '') : next.title || '';
+      } else {
+        document.getElementById('kpi-next-session').textContent = '—';
+        document.getElementById('kpi-next-session-sub').textContent = 'Aucune séance planifiée';
+      }
+
+      // Actions en attente
+      const pendingActions = actions.filter(a => !a.is_completed);
+      document.getElementById('kpi-actions').textContent = pendingActions.length;
+
+      // Alertes
+      document.getElementById('kpi-alerts').textContent = alertsList.length;
+    }
+
+    // ----- Alerts -----
+    function renderAlerts(alertsList) {
+      const container = document.getElementById('alerts-section');
+      if (alertsList.length === 0) {
+        container.innerHTML = '<div class="no-alerts">Aucune alerte — tout est à jour !</div>';
+        return;
+      }
+      container.innerHTML = '<div class="alerts-container">' +
+        alertsList.map(a => `
+          <div class="alert-row ${a.type}">
+            <span class="alert-icon">${a.icon}</span>
+            <span>${escapeHtml(a.text)}</span>
+          </div>
+        `).join('') +
+        '</div>';
+    }
+
+    // ----- Group profiles by company (FSY = 1 client, not 2) -----
+    function getUniqueClients() {
+      const clientMap = {};
+      profiles.forEach(p => {
+        const key = p.company || p.full_name;
+        if (!clientMap[key]) {
+          clientMap[key] = {
+            name: p.full_name,
+            company: p.company,
+            total_sessions: p.total_sessions,
+            booking_url: p.booking_url,
+            ids: [p.client_id || p.id],
+            portalId: p.id
+          };
+        } else {
+          clientMap[key].ids.push(p.client_id || p.id);
+          // Keep the main client name (not Laurie)
+          if (p.full_name !== 'Laurie') {
+            clientMap[key].name = p.full_name;
+            clientMap[key].portalId = p.id;
+          }
+        }
+      });
+      return Object.values(clientMap);
+    }
+
+    // ----- Client Cards -----
+    function renderClientCards() {
+      const container = document.getElementById('clients-grid');
+      const clients = getUniqueClients();
+
+      if (clients.length === 0) {
+        container.innerHTML = '<div class="empty-state">Aucun client actif pour le moment.</div>';
+        return;
+      }
+
+      container.innerHTML = clients.map(client => {
+        // Aggregate sessions across all profile IDs (for FSY: Aurélia + Laurie)
+        const clientSessions = sessions.filter(s => client.ids.includes(s.client_id));
+        const completedSessions = clientSessions.filter(s => s.status === 'completed');
+        const plannedSessions = clientSessions.filter(s => s.status === 'planned' && s.date && s.date >= today());
+        const totalSessions = client.total_sessions || 18;
+        const progress = totalSessions > 0 ? Math.round((completedSessions.length / totalSessions) * 100) : 0;
+
+        // Dernière séance
+        const lastCompleted = completedSessions.length > 0
+          ? completedSessions[completedSessions.length - 1]
+          : null;
+
+        // Prochaine séance
+        const nextPlanned = plannedSessions.length > 0 ? plannedSessions[0] : null;
+
+        // Actions en cours (aggregate across IDs)
+        const clientActions = actions.filter(a => client.ids.includes(a.client_id) && !a.is_completed);
+        const first3 = clientActions.slice(0, 3);
+
+        // Portail link
+        const portalUrl = 'https://espace.csbusiness.fr/app.html';
+
+        return `
+          <div class="client-card" data-portal-url="${portalUrl}" title="Ouvrir le portail client" style="cursor:pointer">
+            <div class="client-card-header">
+              <span class="client-name">${escapeHtml(client.name)}</span>
+              <span class="client-company">${escapeHtml(client.company || '')}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-label">
+                <span>Session ${completedSessions.length}/${totalSessions}</span>
+                <span>${progress}%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width:${progress}%"></div>
+              </div>
+            </div>
+            <div class="client-detail">
+              <span class="label">Dernière séance :</span>
+              <span class="value">${lastCompleted ? formatDateShort(lastCompleted.date) + ' — ' + escapeHtml(lastCompleted.title || '') : '—'}</span>
+            </div>
+            <div class="client-detail">
+              <span class="label">Prochaine séance :</span>
+              <span class="value ${nextPlanned ? '' : 'danger'}">${nextPlanned ? formatDateShort(nextPlanned.date) + ' — ' + escapeHtml(nextPlanned.title || '') : '⚠️ Pas bookée'}</span>
+            </div>
+            ${clientActions.length > 0 ? `
+              <div class="action-count">${clientActions.length} action${clientActions.length > 1 ? 's' : ''} en cours</div>
+              ${first3.map(a => `<div class="action-mini">• ${escapeHtml(a.title)}</div>`).join('')}
+            ` : ''}
+            <div class="portal-link">Ouvrir le portail →</div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach click handlers after rendering
+      container.querySelectorAll('.client-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const url = this.getAttribute('data-portal-url');
+          if (url) window.open(url, '_blank');
+        });
+      });
+    }
+
+    // ----- Actions Catherine -----
+    function renderActions() {
+      const container = document.getElementById('actions-section');
+      const pending = actions.filter(a => !a.is_completed);
+
+      if (pending.length === 0) {
+        container.innerHTML = '<div class="empty-state">Toutes les actions sont complétées.</div>';
+        return;
+      }
+
+      // Group by client
+      const grouped = {};
+      pending.forEach(a => {
+        const client = profiles.find(p => (p.client_id || p.id) === a.client_id);
+        const name = client ? client.full_name : 'Général';
+        if (!grouped[name]) grouped[name] = [];
+        grouped[name].push(a);
+      });
+
+      const todayStr = today();
+
+      container.innerHTML = Object.entries(grouped).map(([clientName, clientActions]) => `
+        <div class="actions-group">
+          <div class="actions-group-title">${escapeHtml(clientName)}</div>
+          ${clientActions.map(a => {
+            const isOverdue = a.due_date && a.due_date < todayStr;
+            const tags = a.tags && Array.isArray(a.tags) ? a.tags : [];
+            return `
+              <div class="action-item" data-id="${a.id}">
+                <input type="checkbox" class="action-checkbox" onchange="toggleAction('${a.id}', this)" title="Marquer comme terminée">
+                <div class="action-content">
+                  <div class="action-title">${escapeHtml(a.title)}</div>
+                  <div class="action-meta">
+                    ${tags.map(t => `<span class="tag-badge">${escapeHtml(t)}</span>`).join('')}
+                    ${a.due_date ? `<span class="due-date ${isOverdue ? 'overdue' : ''}">${isOverdue ? '⚠️ ' : ''}${formatDateShort(a.due_date)}</span>` : ''}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `).join('');
+    }
+
+    // ----- Toggle Action -----
+    async function toggleAction(actionId, checkbox) {
+      checkbox.disabled = true;
+      try {
+        const { error } = await db
+          .from('actions')
+          .update({
+            is_completed: true,
+            completed_at: new Date().toISOString(),
+            status: 'done'
+          })
+          .eq('id', actionId);
+
+        if (error) throw error;
+
+        // Update local state
+        const action = actions.find(a => a.id === actionId);
+        if (action) {
+          action.is_completed = true;
+          action.completed_at = new Date().toISOString();
+          action.status = 'done';
+        }
+
+        renderAll();
+      } catch (err) {
+        console.error('Erreur lors de la mise à jour :', err);
+        checkbox.checked = false;
+        checkbox.disabled = false;
+      }
+    }
+
+    // ----- Timeline -----
+    function renderTimeline() {
+      const container = document.getElementById('timeline-section');
+      const todayStr = today();
+      const planned = sessions
+        .filter(s => s.status === 'planned' && s.date && s.date >= todayStr)
+        .slice(0, 5);
+
+      if (planned.length === 0) {
+        container.innerHTML = '<div class="empty-state">Aucun rendez-vous planifié.</div>';
+        return;
+      }
+
+      container.innerHTML = '<div class="timeline-list">' +
+        planned.map(s => {
+          const client = profiles.find(p => (p.client_id || p.id) === s.client_id);
+          const clientName = client ? client.full_name : 'Client inconnu';
+          const bookingUrl = client && client.booking_url ? client.booking_url : null;
+          return `
+            <div class="timeline-item">
+              <span class="timeline-date">${formatDateShort(s.date)}</span>
+              <span class="timeline-client">${escapeHtml(clientName)}</span>
+              <span class="timeline-title">${escapeHtml(s.title || 'Séance ' + (s.session_number || ''))}</span>
+              ${bookingUrl ? `<span class="timeline-link"><a href="${escapeHtml(bookingUrl)}" target="_blank">Réserver</a></span>` : ''}
+            </div>
+          `;
+        }).join('') +
+        '</div>';
+    }
+
+    // ===== FINANCIER RENDERING =====
+    function renderFinancier() {
+      // Calculate totals
+      const totalChargesPro = FIN.couts_fixes.reduce((s, c) => s + c.montant, 0);
+      const totalOutils = FIN.outils.reduce((s, c) => s + c.montant, 0);
+      FIN.charges_fixes_mensuelles = totalChargesPro + totalOutils;
+
+      const totalEncaisse = FIN.clients.reduce((s, c) => s + c.encaisse, 0);
+      const totalResteDu = FIN.clients.reduce((s, c) => s + c.reste_du, 0);
+      const totalPipeline = FIN.prospects.reduce((s, p) => s + p.montant, 0);
+      const nbClientsActifs = FIN.clients.filter(c => c.statut === 'actif').length;
+
+      // Net estimate
+      const chargesAnnuelles = FIN.charges_fixes_mensuelles * 12;
+      const cotisations = totalEncaisse * FIN.taux_cotisations_tns;
+      const netEstime = totalEncaisse - cotisations - (chargesAnnuelles * (3/12));
+
+      // KPIs
+      document.getElementById('fin-kpi-ca').textContent = fmt(totalEncaisse) + ' €';
+      document.getElementById('fin-progress-ca').style.width = Math.min((totalEncaisse / 200000) * 100, 100) + '%';
+      document.getElementById('fin-kpi-net').textContent = fmt(Math.round(netEstime)) + ' €';
+      document.getElementById('fin-kpi-clients').textContent = nbClientsActifs + ' + 1 maint.';
+      document.getElementById('fin-kpi-prospects').textContent = fmt(totalPipeline) + ' €';
+
+      // Clients table
+      const clientsTbody = document.querySelector('#fin-clients-table tbody');
+      clientsTbody.innerHTML = FIN.clients.map(c => `
+        <tr>
+          <td><strong>${c.nom}</strong></td>
+          <td>${c.programme}<br><small style="color:var(--text-muted)">${c.sessions} sessions</small></td>
+          <td><span class="fin-status fin-status-${c.statut}">${c.statut.toUpperCase()}</span></td>
+          <td class="amount">${fmt(c.montant_total)} €</td>
+          <td class="amount" style="color:var(--success)">${fmt(c.encaisse)} €</td>
+          <td class="amount" style="color:var(--warning)">${fmt(c.reste_du)} €</td>
+          <td>${c.prochaine_echeance}<br><small style="color:var(--text-muted)">${c.notes}</small></td>
+        </tr>
+      `).join('') + `
+        <tr style="border-top:2px solid var(--terracotta); font-weight:700">
+          <td colspan="3" style="color:var(--terracotta)">TOTAL</td>
+          <td class="amount" style="color:var(--terracotta)">${fmt(FIN.clients.reduce((s,c)=>s+c.montant_total,0))} €</td>
+          <td class="amount" style="color:var(--success)">${fmt(totalEncaisse)} €</td>
+          <td class="amount" style="color:var(--warning)">${fmt(totalResteDu)} €</td>
+          <td></td>
+        </tr>
+      `;
+
+      // Prospects table
+      const prospectsTbody = document.querySelector('#fin-prospects-table tbody');
+      prospectsTbody.innerHTML = FIN.prospects.map(p => `
+        <tr>
+          <td><strong>${p.nom}</strong></td>
+          <td>${p.offre}</td>
+          <td class="amount">${p.montant ? fmt(p.montant) + ' €' : '—'}</td>
+          <td>${p.score}</td>
+          <td>${p.action}</td>
+          <td>${p.date}</td>
+        </tr>
+      `).join('');
+
+      // Simulation
+      renderSimulation();
+
+      // Costs
+      renderFinCosts('fin-costs-list', FIN.couts_fixes, totalChargesPro);
+      renderFinCosts('fin-tools-list', FIN.outils, totalOutils);
+
+      // SARL Checklist
+      const checklistEl = document.getElementById('sarl-checklist');
+      checklistEl.innerHTML = FIN.sarl_checklist.map((item, i) => `
+        <li>
+          <div class="check ${item.done ? 'done' : ''}" onclick="toggleCheck(${i})"></div>
+          <span style="${item.done ? 'text-decoration:line-through; color:var(--text-muted)' : ''}">${item.label}</span>
+        </li>
+      `).join('');
+
+      // Creation costs
+      const creationEl = document.getElementById('fin-creation-costs');
+      const totalCreation = FIN.couts_creation.reduce((s, c) => s + c.montant, 0);
+      creationEl.innerHTML = FIN.couts_creation.map(c => `
+        <div class="cost-row">
+          <span class="cost-label">${c.label}</span>
+          <span class="cost-amount">${fmt(c.montant)} €</span>
+        </div>
+      `).join('') + `
+        <div class="cost-row total">
+          <span class="cost-label">Total création</span>
+          <span class="cost-amount">~ ${fmt(totalCreation)} €</span>
+        </div>
+      `;
+    }
+
+    function renderSimulation() {
+      const ca = FIN.sim_ca;
+      const tva = ca * FIN.taux_tva;
+      const tvaRev = tva - FIN.tva_deductible;
+      const charges = FIN.charges_fixes_mensuelles;
+      const baseRemuneration = ca - charges;
+      const cotisations = Math.round(baseRemuneration * FIN.taux_cotisations_tns);
+      const net = baseRemuneration - cotisations;
+      const ratio = Math.round((net / ca) * 100);
+
+      document.getElementById('sim-ca-label').textContent = fmt(ca);
+      document.getElementById('sim-ca').textContent = fmt(ca) + ' €';
+      document.getElementById('sim-tva').textContent = '+ ' + fmt(Math.round(tva)) + ' €';
+      document.getElementById('sim-tva-rev').textContent = '- ' + fmt(Math.round(tvaRev)) + ' €';
+      document.getElementById('sim-charges').textContent = '- ' + fmt(charges) + ' €';
+      document.getElementById('sim-cotisations').textContent = '- ' + fmt(cotisations) + ' €';
+      document.getElementById('sim-is').textContent = '- 0 €';
+      document.getElementById('sim-net').textContent = fmt(net) + ' €';
+      document.getElementById('sim-ratio').textContent = ratio + '%';
+
+      // Waterfall
+      const maxVal = ca;
+      const waterfall = document.getElementById('waterfall');
+      const bars = [
+        { label: 'CA HT', amount: ca, type: 'income' },
+        { label: 'TVA reversée', amount: tvaRev, type: 'expense' },
+        { label: 'Charges', amount: charges, type: 'expense' },
+        { label: 'Cotisations TNS', amount: cotisations, type: 'expense' },
+        { label: 'NET EN POCHE', amount: net, type: 'net' }
+      ];
+      waterfall.innerHTML = bars.map(b => {
+        const h = Math.max((Math.abs(b.amount) / maxVal) * 180, 20);
+        return `<div class="waterfall-bar">
+          <div class="bar ${b.type}" style="height:${h}px">
+            <div class="bar-amount">${fmt(Math.round(b.amount))} €</div>
+          </div>
+          <div class="bar-label">${b.label}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderFinCosts(containerId, items, total) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = items.map(c => `
+        <div class="cost-row">
+          <span class="cost-label">${c.label}</span>
+          <span class="cost-amount">${fmt(c.montant)} €/mois</span>
+        </div>
+      `).join('') + `
+        <div class="cost-row total">
+          <span class="cost-label">Sous-total</span>
+          <span class="cost-amount">${fmt(total)} €/mois</span>
+        </div>
+      `;
+    }
+
+    // ===== FINANCIAL INTERACTIONS =====
+    function toggleCheck(i) {
+      FIN.sarl_checklist[i].done = !FIN.sarl_checklist[i].done;
+      saveFinData();
+      renderFinancier();
+    }
+
+    function editSimCA() {
+      const label = document.getElementById('sim-ca-label');
+      const current = FIN.sim_ca;
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.className = 'edit-input';
+      input.value = current;
+      input.style.width = '100px';
+      label.replaceWith(input);
+      input.focus();
+      input.select();
+
+      function apply() {
+        const val = parseInt(input.value) || current;
+        FIN.sim_ca = val;
+        const newLabel = document.createElement('span');
+        newLabel.className = 'editable';
+        newLabel.id = 'sim-ca-label';
+        newLabel.onclick = editSimCA;
+        newLabel.textContent = fmt(val);
+        input.replaceWith(newLabel);
+        renderSimulation();
+      }
+
+      input.addEventListener('blur', apply);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') apply(); });
+    }
+
+    // ===== FINANCIAL PERSISTENCE (localStorage) =====
+    function saveFinData() {
+      localStorage.setItem('cs-cockpit-fin-data', JSON.stringify({
+        checklist: FIN.sarl_checklist.map(c => c.done)
+      }));
+    }
+
+    function loadFinData() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('cs-cockpit-fin-data'));
+        if (saved && saved.checklist) {
+          saved.checklist.forEach((done, i) => {
+            if (FIN.sarl_checklist[i]) FIN.sarl_checklist[i].done = done;
+          });
+        }
+      } catch(e) {}
+      // Also try migrating from old key
+      try {
+        const old = JSON.parse(localStorage.getItem('cs-dashboard-data'));
+        if (old && old.checklist && !localStorage.getItem('cs-cockpit-fin-data')) {
+          old.checklist.forEach((done, i) => {
+            if (FIN.sarl_checklist[i]) FIN.sarl_checklist[i].done = done;
+          });
+        }
+      } catch(e) {}
+    }
+  </script>
+</body>
+</html>

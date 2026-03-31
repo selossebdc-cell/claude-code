@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet Délégation FSY Studio — CS Consulting</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      padding: 32px 24px;
+      line-height: 1.6;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #C27A5A;
+    }
+    .header h1 {
+      color: #C27A5A;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .header .subtitle {
+      color: #888;
+      font-size: 1rem;
+    }
+    .header .vision {
+      margin-top: 16px;
+      background: #1a1a1a;
+      border-left: 3px solid #C27A5A;
+      padding: 14px 18px;
+      font-style: italic;
+      color: #d4956f;
+      font-size: 0.95rem;
+      text-align: left;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Sections */
+    h2 {
+      color: #C27A5A;
+      font-size: 1.3rem;
+      margin: 36px 0 16px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    h3 {
+      color: #d4956f;
+      font-size: 1.05rem;
+      margin: 24px 0 12px 0;
+    }
+    h4 {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin: 16px 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Cards */
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card.highlight {
+      border-color: #C27A5A;
+      border-width: 2px;
+    }
+    .card.alert {
+      border-color: #ef5350;
+      background: #1a1515;
+    }
+
+    /* Phase cards */
+    .phase {
+      background: #141414;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .phase::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+    }
+    .phase.phase-1::before { background: #5b9bd5; }
+    .phase.phase-2::before { background: #ff9800; }
+    .phase.phase-3::before { background: #9c27b0; }
+    .phase.phase-4::before { background: #4CAF50; }
+    .phase.phase-5::before { background: #C27A5A; }
+
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .phase-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .phase-1 .phase-number { background: #5b9bd5; }
+    .phase-2 .phase-number { background: #ff9800; }
+    .phase-3 .phase-number { background: #9c27b0; }
+    .phase-4 .phase-number { background: #4CAF50; }
+    .phase-5 .phase-number { background: #C27A5A; }
+
+    .phase-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #f0f0f0;
+    }
+    .phase-timing {
+      font-size: 0.8rem;
+      color: #888;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+    .phase-objective {
+      background: #0f0f0f;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.85rem;
+    }
+    th {
+      background: #1e1e1e;
+      color: #C27A5A;
+      text-align: left;
+      padding: 10px 12px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #1e1e1e;
+      vertical-align: top;
+    }
+    tr:hover { background: rgba(194, 122, 90, 0.05); }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .tag-aurelia { background: #3a1b2a; color: #e091b8; }
+    .tag-laurie { background: #1b2a3a; color: #5b9bd5; }
+    .tag-cm { background: #1b3a1b; color: #4CAF50; }
+    .tag-antoine { background: #3a2e1b; color: #ff9800; }
+    .tag-auto { background: #2a1b3a; color: #b39ddb; }
+    .tag-catherine { background: #3a2a1b; color: #C27A5A; }
+    .tag-oui { background: #1b3a1b; color: #4CAF50; }
+    .tag-non { background: #3a1b1b; color: #ef5350; }
+    .tag-noter { background: #3a2e1b; color: #ff9800; }
+    .tag-pret { background: #1b3a1b; color: #4CAF50; }
+    .tag-acreer { background: #3a2e1b; color: #ff9800; }
+    .tag-attente { background: #3a1b1b; color: #ef5350; }
+    .tag-afaire { background: #3a2e1b; color: #ff9800; }
+
+    /* Lists */
+    ul, ol {
+      margin: 8px 0 8px 20px;
+      font-size: 0.9rem;
+    }
+    li { margin-bottom: 6px; }
+    li strong { color: #d4956f; }
+
+    /* Blockquotes */
+    blockquote {
+      background: #1a1a0f;
+      border-left: 3px solid #C27A5A;
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-size: 0.85rem;
+      color: #bba;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .kpi {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .kpi-label {
+      font-size: 0.7rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .kpi-value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #C27A5A;
+      margin: 4px 0;
+    }
+    .kpi-detail {
+      font-size: 0.75rem;
+      color: #666;
+    }
+    .kpi-alert {
+      font-size: 0.7rem;
+      color: #ef5350;
+      margin-top: 4px;
+    }
+    .kpi.green .kpi-value { color: #4CAF50; }
+    .kpi.blue .kpi-value { color: #5b9bd5; }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: 24px 0;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #2a2a2a;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+      padding: 14px 18px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      border: 1px solid #2a2a2a;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 18px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid #C27A5A;
+      background: #0f0f0f;
+    }
+    .timeline-item .t-period {
+      font-size: 0.75rem;
+      color: #C27A5A;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .timeline-item .t-title {
+      font-weight: 600;
+      color: #f0f0f0;
+      margin: 4px 0;
+    }
+    .timeline-item .t-detail {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    /* Decision grid */
+    .decision-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .decision-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      border: 1px solid #2a2a2a;
+    }
+    .decision-row .situation {
+      flex: 1;
+      font-size: 0.85rem;
+    }
+    .decision-row .response {
+      width: 60px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .decision-row .action {
+      flex: 1;
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* Budget */
+    .budget-box {
+      background: #141414;
+      border: 2px solid #C27A5A;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 16px 0;
+      text-align: center;
+    }
+    .budget-box .amount {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #C27A5A;
+    }
+    .budget-box .label {
+      font-size: 0.85rem;
+      color: #888;
+      margin-top: 4px;
+    }
+    .budget-box .note {
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    /* Result banner */
+    .result-banner {
+      background: linear-gradient(135deg, #1a2a1a, #1a1a1a);
+      border: 2px solid #4CAF50;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin: 32px 0;
+    }
+    .result-banner .big {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #4CAF50;
+      margin-bottom: 8px;
+    }
+    .result-banner .detail {
+      font-size: 0.9rem;
+      color: #999;
+    }
+    .result-banner .arrow {
+      font-size: 1.5rem;
+      color: #4CAF50;
+      margin: 8px 0;
+    }
+
+    /* Checklist */
+    .checklist { list-style: none; margin-left: 0; }
+    .checklist li {
+      padding: 8px 12px;
+      border-bottom: 1px solid #1e1e1e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .check {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #444;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid #2a2a2a;
+      color: #555;
+      font-size: 0.8rem;
+    }
+    .footer .brand { color: #C27A5A; font-weight: 600; }
+
+    /* Print */
+    @media print {
+      body { background: #fff; color: #222; padding: 20px; }
+      .phase, .card, .kpi, .timeline-item, .decision-row { border-color: #ddd; background: #fafafa; }
+      th { background: #f0f0f0; }
+      h2, .phase-number, .kpi-value, .header h1 { color: #C27A5A !important; }
+      td, li, p, .phase-objective, blockquote { color: #333; }
+      .result-banner { border-color: #4CAF50; }
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 16px; }
+      .phase-header { flex-wrap: wrap; }
+      .phase-timing { margin-left: 48px; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .decision-row { flex-direction: column; align-items: flex-start; }
+      .decision-row .response { width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Projet Délégation FSY Studio</h1>
+    <div class="subtitle">Abonnement 17 €/mois — Libérer Aurélia de l'opérationnel</div>
+    <div class="vision">
+      « À 17 €, les gens n'ont pas accès à moi. Mon énergie, je suis en train de la mettre sur Aurélia Del Sol. »
+      <br><span style="color:#888; font-size:0.8rem;">— Aurélia, Session 4</span>
+    </div>
+  </div>
+
+  <!-- OBJECTIF -->
+  <div class="card highlight">
+    <h3 style="margin-top:0;">Objectif</h3>
+    <p>Aurélia sort complètement de l'opérationnel FSY Studio pour se concentrer sur <strong>Aurélia Del Sol</strong> (premium) et <strong>Master The Method</strong> (B2B).</p>
+    <p style="margin-top:8px; color:#888; font-size:0.85rem;">Vision : FSY Studio = actif autonome, générateur de revenus récurrents, potentiellement revendable à terme.</p>
+  </div>
+
+  <!-- ÉTAT DES LIEUX -->
+  <h2>État des lieux actuel</h2>
+
+  <div class="card alert">
+    <p style="font-size:0.9rem;"><strong style="color:#ef5350;">Constat :</strong> Aurélia est encore dans TOUTES les boucles. Aucun process documenté. Délégation impossible sans process.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Élément</th>
+        <th>Situation</th>
+        <th>Qui gère</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Abonnés</td>
+        <td>~613 actifs, ~1 150-1 200 € MRR</td>
+        <td><span class="tag tag-aurelia">Aurélia</span></td>
+      </tr>
+      <tr>
+        <td>Contenu vidéo</td>
+        <td>~600 vidéos, ~550 Go (Uscreen/Bunny)</td>
+        <td><span class="tag tag-aurelia">Aurélia</span> + <span class="tag tag-antoine">Antoine</span></td>
+      </tr>
+      <tr>
+        <td>Communauté WhatsApp</td>
+        <td>~300 membres, 50 msg/jour</td>
+        <td><span class="tag tag-aurelia">Aurélia</span> <span style="color:#ef5350; font-size:0.75rem;">(non cadré)</span></td>
+      </tr>
+      <tr>
+        <td>Communauté Circle</td>
+        <td>Migration en cours (deadline juillet)</td>
+        <td><span class="tag tag-laurie">Laurie</span> + VA Anam</td>
+      </tr>
+      <tr>
+        <td>Email marketing</td>
+        <td>Brevo, 13K contacts, sous-exploité</td>
+        <td><span class="tag tag-aurelia">Aurélia</span> / <span class="tag tag-laurie">Laurie</span></td>
+      </tr>
+      <tr>
+        <td>Social media</td>
+        <td>Instagram 130K abonnés</td>
+        <td><span class="tag tag-antoine">Antoine</span> + <span class="tag tag-aurelia">Aurélia</span></td>
+      </tr>
+      <tr>
+        <td>Support client</td>
+        <td>WhatsApp direct, pas de process</td>
+        <td><span class="tag tag-aurelia">Aurélia</span></td>
+      </tr>
+      <tr>
+        <td>Chatbot Telegram</td>
+        <td>Prêt techniquement, attente données</td>
+        <td><span class="tag tag-catherine">Catherine</span> + <span class="tag tag-laurie">Laurie</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- PHASE 1 -->
+  <h2>Les 5 phases du projet</h2>
+
+  <div class="phase phase-1">
+    <div class="phase-header">
+      <div class="phase-number">1</div>
+      <div class="phase-title">Documenter</div>
+      <div class="phase-timing">Semaines 1-2 (avril)</div>
+    </div>
+    <div class="phase-objective">Capturer tout ce qui est dans la tête d'Aurélia pour que quelqu'un d'autre puisse le faire.</div>
+
+    <h4>1.1 Cartographier les tâches</h4>
+    <p style="font-size:0.85rem; color:#aaa; margin-bottom:8px;">Aurélia liste TOUTES ses tâches FSY en une semaine type (15 min max) :</p>
+    <table>
+      <thead>
+        <tr><th>Tâche</th><th>Fréquence</th><th>Temps</th><th>Délégable</th><th>À qui</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Répondre WhatsApp membres</td><td>Quotidien</td><td>? h</td><td><span class="tag tag-oui">Oui</span></td><td><span class="tag tag-cm">CM</span></td></tr>
+        <tr><td>Publier contenu Circle</td><td>Hebdo</td><td>? h</td><td><span class="tag tag-oui">Oui</span></td><td><span class="tag tag-cm">CM</span></td></tr>
+        <tr><td>Créer nouvelles vidéos</td><td>Mensuel</td><td>? h</td><td><span class="tag tag-noter">Partiel</span></td><td>Aurélia filme, monteur monte</td></tr>
+        <tr><td>Envoyer emails Brevo</td><td>Hebdo</td><td>? h</td><td><span class="tag tag-oui">Oui</span></td><td><span class="tag tag-cm">CM</span></td></tr>
+        <tr><td>Gérer abonnements</td><td>Ponctuel</td><td>? h</td><td><span class="tag tag-oui">Oui</span></td><td>VA admin</td></tr>
+        <tr><td>Lives / Q&A</td><td>Hebdo</td><td>? h</td><td colspan="2">À supprimer ou espacer (1x/mois)</td></tr>
+        <tr><td>Stories Instagram FSY</td><td>Quotidien</td><td>? h</td><td><span class="tag tag-oui">Oui</span></td><td><span class="tag tag-antoine">Antoine</span> / <span class="tag tag-cm">CM</span></td></tr>
+      </tbody>
+    </table>
+
+    <h4>1.2 Rédiger les 5 SOP critiques</h4>
+    <p style="font-size:0.85rem; color:#aaa; margin-bottom:8px;">Format simple : titre + étapes numérotées + outils + fréquence. Catherine aide Aurélia à les écrire en session.</p>
+    <ol>
+      <li><strong>Accueil nouveau membre</strong> : inscription → bienvenue → accès Circle → séquence Brevo</li>
+      <li><strong>Publication contenu hebdo</strong> : planning → vidéo → montage → upload Circle/Bunny → notification</li>
+      <li><strong>Animation communauté</strong> : messages quotidiens → FAQ → reminders → modération</li>
+      <li><strong>Campagne promo</strong> (4x/an) : calendrier → emailing → posts RS → inscriptions → conversions</li>
+      <li><strong>Gestion abonnements</strong> : inscription → facturation → relance impayé → résiliation → rétention</li>
+    </ol>
+
+    <h4>1.3 Calendrier éditorial type</h4>
+    <table>
+      <thead><tr><th>Jour</th><th>Action</th><th>Responsable</th></tr></thead>
+      <tbody>
+        <tr><td>Lundi</td><td>Vidéo de la semaine publiée sur Circle</td><td><span class="tag tag-cm">CM</span></td></tr>
+        <tr><td>Mardi</td><td>Email récap + astuce (Brevo)</td><td><span class="tag tag-cm">CM</span></td></tr>
+        <tr><td>Mercredi</td><td>Story Instagram FSY (teaser vidéo)</td><td><span class="tag tag-antoine">Antoine</span></td></tr>
+        <tr><td>Jeudi</td><td>Post communauté Circle (question/défi)</td><td><span class="tag tag-cm">CM</span></td></tr>
+        <tr><td>Vendredi</td><td>Reminder weekend (chatbot Telegram)</td><td><span class="tag tag-auto">Auto</span></td></tr>
+        <tr><td>1x/mois</td><td>Live Q&A (pré-enregistré ou direct, 30 min)</td><td><span class="tag tag-aurelia">Aurélia</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase phase-2">
+    <div class="phase-header">
+      <div class="phase-number">2</div>
+      <div class="phase-title">Recruter</div>
+      <div class="phase-timing">Semaines 3-4 (avril)</div>
+    </div>
+    <div class="phase-objective">Trouver la bonne personne pour animer FSY au quotidien.</div>
+
+    <h4>Profil : Community Manager freelance</h4>
+    <table>
+      <tbody>
+        <tr><td style="color:#C27A5A; font-weight:600; width:140px;">Volume</td><td>10-15h / semaine</td></tr>
+        <tr><td style="color:#C27A5A; font-weight:600;">Tarif cible</td><td>300-500 €/mois (freelance)</td></tr>
+        <tr><td style="color:#C27A5A; font-weight:600;">Compétences</td><td>Community management, Brevo/email, Circle, Canva</td></tr>
+        <tr><td style="color:#C27A5A; font-weight:600;">Langue</td><td>Français natif</td></tr>
+        <tr><td style="color:#C27A5A; font-weight:600;">Nice to have</td><td>Connaissance yoga/bien-être, gestion abo</td></tr>
+        <tr><td style="color:#C27A5A; font-weight:600;">Contrat</td><td>1 mois d'essai, renouvellement mensuel</td></tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:0.85rem; color:#aaa; margin-top:12px;"><strong>Où chercher :</strong> Upwork, Malt, réseau Laurie, post LinkedIn FSY</p>
+
+    <h4>Clarifier les rôles</h4>
+    <table>
+      <thead>
+        <tr><th></th><th>Laurie</th><th>CM freelance</th><th>Aurélia</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600;">Supervision CM</td><td>Oui (review hebdo)</td><td>—</td><td>Non</td></tr>
+        <tr><td style="font-weight:600;">Animation quotidienne</td><td>Non</td><td>Oui</td><td>Non</td></tr>
+        <tr><td style="font-weight:600;">Décisions stratégiques</td><td>Consultée</td><td>Non</td><td>Valide 1x/mois</td></tr>
+        <tr><td style="font-weight:600;">Migration Circle</td><td>Lead</td><td>Support</td><td>Non</td></tr>
+        <tr><td style="font-weight:600;">Budget / facturation</td><td>Non</td><td>Non</td><td>Oui</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase phase-3">
+    <div class="phase-header">
+      <div class="phase-number">3</div>
+      <div class="phase-title">Transférer</div>
+      <div class="phase-timing">Semaines 5-8 (mai)</div>
+    </div>
+    <div class="phase-objective">Le CM prend le relais progressivement, Aurélia lâche les commandes.</div>
+
+    <h4>Semaines 5-6 : Intégration + doublure</h4>
+    <ul>
+      <li>CM observe Aurélia/Laurie pendant 1 semaine (shadow)</li>
+      <li>CM prend en main les SOP sous supervision</li>
+      <li>Aurélia reste en copie sur les messages communauté</li>
+      <li>Débrief quotidien CM ↔ Laurie (10 min)</li>
+    </ul>
+
+    <h4>Semaines 7-8 : Autonomie progressive</h4>
+    <ul>
+      <li>CM gère seul : publication + animation + support N1</li>
+      <li>Laurie valide 1x/semaine (30 min review)</li>
+      <li>Aurélia ne répond plus aux membres sauf mention explicite</li>
+      <li>Escalade uniquement pour : problème technique, réclamation, demande premium</li>
+    </ul>
+
+    <h4>Ce qu'Aurélia garde (et RIEN d'autre)</h4>
+    <div class="card highlight">
+      <ul style="list-style: none; margin: 0;">
+        <li>1 live ou vidéo par mois (30 min) — <em>le visage de la marque, pas l'opératrice</em></li>
+        <li style="margin-top:8px;">Validation du planning éditorial mensuel (15 min)</li>
+        <li style="margin-top:8px;">Décisions stratégiques : prix, offres, partenariats (1 review/mois)</li>
+      </ul>
+      <p style="text-align:center; margin-top:16px; font-size:1.1rem; font-weight:700; color:#4CAF50;">Temps total Aurélia sur FSY après délégation : 2h/mois max</p>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase phase-4">
+    <div class="phase-header">
+      <div class="phase-number">4</div>
+      <div class="phase-title">Automatiser</div>
+      <div class="phase-timing">Semaines 9-12 (juin)</div>
+    </div>
+    <div class="phase-objective">Réduire encore la charge humaine avec les outils déjà en place.</div>
+
+    <table>
+      <thead>
+        <tr><th>Automatisation</th><th>Outil</th><th>Statut</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Onboarding nouveau membre</td><td>Circle + Brevo séquence</td><td><span class="tag tag-acreer">À créer</span></td></tr>
+        <tr><td>Reminder hebdo (lives, défis)</td><td>Chatbot Telegram</td><td><span class="tag tag-pret">Prêt</span> <span style="font-size:0.75rem; color:#888;">(attente données)</span></td></tr>
+        <tr><td>Relance impayé</td><td>Brevo + alerte Laurie</td><td><span class="tag tag-acreer">À créer</span></td></tr>
+        <tr><td>4 campagnes promo/an</td><td>Brevo templates + planning</td><td><span class="tag tag-acreer">À créer</span></td></tr>
+        <tr><td>Republication contenu evergreen</td><td>Circle + planificateur</td><td><span class="tag tag-acreer">À créer</span></td></tr>
+        <tr><td>Rapport mensuel KPIs</td><td>Dashboard automatisé</td><td><span class="tag tag-acreer">À créer</span></td></tr>
+      </tbody>
+    </table>
+
+    <blockquote>
+      <strong>Chatbot Telegram — à débloquer :</strong> en attente de Laurie → FAQ, planning type, groupe Telegram + chat_id, validation ton/personnalité du bot.
+    </blockquote>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase phase-5">
+    <div class="phase-header">
+      <div class="phase-number">5</div>
+      <div class="phase-title">Piloter</div>
+      <div class="phase-timing">En continu (juillet+)</div>
+    </div>
+    <div class="phase-objective">Aurélia surveille FSY Studio comme une investisseuse, pas comme une opératrice.</div>
+
+    <h4>Les 8 indicateurs à surveiller</h4>
+
+    <p style="font-size:0.8rem; color:#C27A5A; text-transform:uppercase; letter-spacing:1px; margin:16px 0 8px 0; font-weight:600;">Indicateurs financiers</p>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">MRR</div>
+        <div class="kpi-value">10 000 €</div>
+        <div class="kpi-detail">Cible : nb abonnés × 17 €</div>
+        <div class="kpi-alert">Alerte si &lt; 8 000 €</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Churn mensuel</div>
+        <div class="kpi-value">&lt; 5%</div>
+        <div class="kpi-detail">% désabonnements / mois</div>
+        <div class="kpi-alert">Alerte si &gt; 8%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Nouveaux abonnés</div>
+        <div class="kpi-value">&gt; 50</div>
+        <div class="kpi-detail">Inscriptions nettes / mois</div>
+        <div class="kpi-alert">Alerte si &lt; 20</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Panier moyen</div>
+        <div class="kpi-value">&gt; 20 €</div>
+        <div class="kpi-detail">MRR + ventes / clients actifs</div>
+        <div class="kpi-alert">Alerte si &lt; 15 €</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.8rem; color:#C27A5A; text-transform:uppercase; letter-spacing:1px; margin:16px 0 8px 0; font-weight:600;">Indicateurs engagement</p>
+    <div class="kpi-grid">
+      <div class="kpi blue">
+        <div class="kpi-label">Taux d'activité</div>
+        <div class="kpi-value">&gt; 40%</div>
+        <div class="kpi-detail">Membres connectés 1x/sem</div>
+        <div class="kpi-alert">Alerte si &lt; 25%</div>
+      </div>
+      <div class="kpi blue">
+        <div class="kpi-label">Messages communauté</div>
+        <div class="kpi-value">Stable</div>
+        <div class="kpi-detail">Volume hebdo Circle/WhatsApp</div>
+        <div class="kpi-alert">Alerte si baisse &gt; 30% sur 2 sem</div>
+      </div>
+      <div class="kpi blue">
+        <div class="kpi-label">NPS / Satisfaction</div>
+        <div class="kpi-value">&gt; 8/10</div>
+        <div class="kpi-detail">1 question trimestrielle</div>
+        <div class="kpi-alert">Alerte si &lt; 7/10</div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-label">Temps réponse support</div>
+        <div class="kpi-value">&lt; 24h</div>
+        <div class="kpi-detail">Délai 1ère réponse</div>
+        <div class="kpi-alert">Alerte si &gt; 48h</div>
+      </div>
+    </div>
+
+    <h4>Rituel de pilotage</h4>
+    <table>
+      <thead><tr><th>Fréquence</th><th>Quoi</th><th>Qui</th><th>Durée</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Hebdo</strong></td><td>Review rapide</td><td><span class="tag tag-laurie">Laurie</span> + <span class="tag tag-cm">CM</span></td><td>30 min</td></tr>
+        <tr><td><strong>Mensuel</strong></td><td>Dashboard KPIs + décisions</td><td><span class="tag tag-aurelia">Aurélia</span> + <span class="tag tag-laurie">Laurie</span></td><td>45 min</td></tr>
+        <tr><td><strong>Trimestriel</strong></td><td>Bilan stratégique FSY Studio</td><td><span class="tag tag-aurelia">Aurélia</span> + <span class="tag tag-catherine">Catherine</span></td><td>1h</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Grille de décision « Est-ce que j'interviens ? »</h4>
+    <p style="font-size:0.8rem; color:#888; margin-bottom:12px;">Pour Aurélia — à coller sur son bureau :</p>
+
+    <div class="decision-grid">
+      <div class="decision-row">
+        <div class="situation">Un membre pose une question technique</div>
+        <div class="response"><span class="tag tag-non">NON</span></div>
+        <div class="action">Le CM répond</div>
+      </div>
+      <div class="decision-row">
+        <div class="situation">Un membre veut un conseil perso</div>
+        <div class="response"><span class="tag tag-non">NON</span></div>
+        <div class="action">Escalade → offre Premium (Aurélia Del Sol)</div>
+      </div>
+      <div class="decision-row">
+        <div class="situation">Le churn augmente depuis 2 mois</div>
+        <div class="response"><span class="tag tag-oui">OUI</span></div>
+        <div class="action">Analyser avec Laurie en review mensuelle</div>
+      </div>
+      <div class="decision-row">
+        <div class="situation">Un partenariat / collab arrive</div>
+        <div class="response"><span class="tag tag-oui">OUI</span></div>
+        <div class="action">Évaluer en review mensuelle</div>
+      </div>
+      <div class="decision-row">
+        <div class="situation">Le CM est malade / absent</div>
+        <div class="response"><span class="tag tag-non">NON</span></div>
+        <div class="action">Laurie prend le relais temporairement</div>
+      </div>
+      <div class="decision-row">
+        <div class="situation">Idée de nouveau contenu</div>
+        <div class="response"><span class="tag tag-noter">NOTER</span></div>
+        <div class="action">Ajouter au backlog, pas d'action immédiate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLANNING RÉSUMÉ -->
+  <h2>Planning résumé</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="t-period">S1-S2 — Avril</div>
+      <div class="t-title">Phase 1 : Documenter</div>
+      <div class="t-detail">Tableau tâches + 5 SOP + calendrier éditorial</div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-period">S3-S4 — Avril</div>
+      <div class="t-title">Phase 2 : Recruter</div>
+      <div class="t-detail">Fiche de poste + annonce + sélection CM</div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-period">S5-S6 — Mai</div>
+      <div class="t-title">Phase 3a : Transférer (doublure)</div>
+      <div class="t-detail">CM intégré, shadow + premiers posts supervisés</div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-period">S7-S8 — Mai</div>
+      <div class="t-title">Phase 3b : Transférer (autonomie)</div>
+      <div class="t-detail">CM autonome, Aurélia sort des boucles</div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-period">S9-S12 — Juin</div>
+      <div class="t-title">Phase 4 : Automatiser</div>
+      <div class="t-detail">Onboarding auto, chatbot actif, campagnes templates</div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-period">S13+ — Juillet</div>
+      <div class="t-title">Phase 5 : Piloter</div>
+      <div class="t-detail">Dashboard KPIs + rituel mensuel en place</div>
+    </div>
+  </div>
+
+  <!-- RÉSULTAT -->
+  <div class="result-banner">
+    <div style="font-size:0.85rem; color:#888;">Résultat attendu en juillet 2026</div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:24px; margin:16px 0; flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-size:1.3rem; font-weight:700; color:#ef5350;">15-20h/sem</div>
+        <div style="font-size:0.8rem; color:#888;">Aujourd'hui</div>
+      </div>
+      <div class="arrow">→</div>
+      <div style="text-align:center;">
+        <div class="big">2h/mois</div>
+        <div style="font-size:0.8rem; color:#888;">Après délégation</div>
+      </div>
+    </div>
+    <div class="detail">FSY Studio tourne avec un CM + Laurie (supervision) + automatisations</div>
+  </div>
+
+  <!-- BUDGET -->
+  <h2>Budget délégation</h2>
+
+  <div class="budget-box">
+    <div style="font-size:0.8rem; color:#888; text-transform:uppercase; letter-spacing:1px;">Coût réel de la délégation</div>
+    <div class="amount">300-500 €/mois</div>
+    <div class="label">CM freelance — seul nouveau coût</div>
+    <div class="note">Circle (199 €), Brevo (~49 €), Bunny (~30 €) = coûts déjà payés aujourd'hui</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0;">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:0.75rem; color:#888; text-transform:uppercase;">Seuil de rentabilité du CM</div>
+      <div style="font-size:1.5rem; font-weight:700; color:#ff9800; margin:8px 0;">18-30 abonnés</div>
+      <div style="font-size:0.8rem; color:#666;">à 17 € suffisent à couvrir le CM</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:0.75rem; color:#888; text-transform:uppercase;">Abonnés actuels</div>
+      <div style="font-size:1.5rem; font-weight:700; color:#4CAF50; margin:8px 0;">~613</div>
+      <div style="font-size:0.8rem; color:#666;">Marge très confortable</div>
+    </div>
+  </div>
+
+  <!-- CE QUE CATHERINE LIVRE -->
+  <h2>Ce que Catherine livre dans l'accompagnement</h2>
+
+  <table>
+    <thead>
+      <tr><th>Livrable</th><th>Session</th><th>Statut</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Rédaction des 5 SOP avec Aurélia</td><td>Sessions 6-7</td><td><span class="tag tag-afaire">À faire</span></td></tr>
+      <tr><td>Fiche de poste CM</td><td>Session 7</td><td><span class="tag tag-afaire">À faire</span></td></tr>
+      <tr><td>Dashboard KPIs FSY</td><td>Session 8</td><td><span class="tag tag-afaire">À faire</span></td></tr>
+      <tr><td>Automatisations n8n (onboarding, alertes)</td><td>Sessions 9-10</td><td><span class="tag tag-afaire">À faire</span></td></tr>
+      <tr><td>Activation chatbot Telegram</td><td>Dès réception données Laurie</td><td><span class="tag tag-attente">En attente</span></td></tr>
+      <tr><td>Accompagnement 1er mois du CM</td><td>Sessions 10-12</td><td><span class="tag tag-afaire">À faire</span></td></tr>
+      <tr><td>Mise en place rituel pilotage mensuel</td><td>Session 12</td><td><span class="tag tag-afaire">À faire</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="brand">CS Consulting Stratégique</span> — Projet délégation FSY Studio — Mars 2026
+  </div>
+
+</body>
+</html>

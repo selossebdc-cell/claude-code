@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structure HKFU — Restructuration Fred Funel</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f0f0f;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    padding: 30px 20px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    color: #C27A5A;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+  }
+  .org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  /* Chapeau HKFU */
+  .chapeau {
+    background: linear-gradient(135deg, #C27A5A 0%, #a05a3a 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 24px 40px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(194, 122, 90, 0.3);
+    position: relative;
+    min-width: 280px;
+  }
+  .chapeau h2 { font-size: 1.6rem; margin-bottom: 4px; }
+  .chapeau .tag { font-size: 0.85rem; opacity: 0.9; }
+  .chapeau .badge-new {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+  /* Connecteur vertical */
+  .connector {
+    width: 3px;
+    height: 40px;
+    background: #C27A5A;
+  }
+  .connector-fork {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+  }
+  .connector-fork::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #444;
+  }
+  /* Branches */
+  .branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 0;
+  }
+  .branch {
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    border: 2px solid;
+    transition: transform 0.2s;
+  }
+  .branch:hover { transform: translateY(-4px); }
+  .branch h3 { font-size: 1.05rem; margin-bottom: 6px; }
+  .branch p { font-size: 0.8rem; color: #bbb; line-height: 1.4; }
+  .branch .badge {
+    position: absolute;
+    top: -10px;
+    right: -6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  /* Connecteur vertical vers chaque branche */
+  .branch::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 3px;
+    height: 20px;
+    background: #444;
+  }
+  /* Couleurs branches */
+  .branch-fufight { border-color: #ef4444; background: rgba(239, 68, 68, 0.08); }
+  .branch-fufight h3 { color: #ef4444; }
+
+  .branch-sourcing { border-color: #eab308; background: rgba(234, 179, 8, 0.08); }
+  .branch-sourcing h3 { color: #eab308; }
+
+  .branch-v8 { border-color: #22c55e; background: rgba(34, 197, 94, 0.08); }
+  .branch-v8 h3 { color: #22c55e; }
+
+  .branch-fusolutions { border-color: #6b7280; background: rgba(107, 114, 128, 0.08); opacity: 0.7; }
+  .branch-fusolutions h3 { color: #9ca3af; text-decoration: line-through; }
+
+  .branch-sci { border-color: #a78bfa; background: rgba(167, 139, 250, 0.08); }
+  .branch-sci h3 { color: #a78bfa; }
+
+  .badge-vente { background: #22c55e; }
+  .badge-fermeture { background: #6b7280; }
+  .badge-transmission { background: #a78bfa; }
+  .badge-actif { background: #ef4444; }
+
+  /* Section écosystème */
+  .section {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 48px;
+  }
+  .section h2 {
+    color: #C27A5A;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333;
+  }
+  .eco-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .eco-card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .eco-card h4 {
+    color: #C27A5A;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+  .eco-card p {
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.4;
+  }
+  /* Intervenants */
+  .intervenants {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .intervenant {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .intervenant .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #C27A5A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .intervenant h4 { font-size: 0.85rem; color: #e0e0e0; }
+  .intervenant p { font-size: 0.75rem; color: #888; }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 24px;
+    right: 24px;
+    height: 3px;
+    background: #333;
+    z-index: 0;
+  }
+  .tl-step {
+    text-align: center;
+    z-index: 1;
+    flex: 1;
+    min-width: 100px;
+  }
+  .tl-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #C27A5A;
+    margin: 0 auto 8px;
+    border: 3px solid #0f0f0f;
+  }
+  .tl-step .date { font-size: 0.75rem; color: #C27A5A; font-weight: 600; }
+  .tl-step .label { font-size: 0.7rem; color: #999; margin-top: 2px; }
+
+  /* Légende */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 32px;
+    justify-content: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #999;
+  }
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    body { padding: 16px 10px; }
+    h1 { font-size: 1.3rem; }
+    .chapeau { padding: 18px 24px; min-width: auto; }
+    .chapeau h2 { font-size: 1.2rem; }
+    .branches { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .branch { padding: 14px 10px; }
+    .eco-grid, .intervenants { grid-template-columns: 1fr; }
+    .timeline { flex-direction: column; align-items: flex-start; }
+    .timeline::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Restructuration HKFU</h1>
+<p class="subtitle">Fred Funel — Plan de restructuration mars 2026</p>
+
+<div class="org-chart">
+
+  <!-- Chapeau -->
+  <div class="chapeau">
+    <span class="badge-new">Nouveau</span>
+    <h2>HKFU</h2>
+    <p class="tag">Entité chapeau — Hong Kong</p>
+    <p class="tag" style="font-size:0.75rem; margin-top:6px; opacity:0.7;">Domaine email unique · Facturation centralisée</p>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- Branches -->
+  <div class="branches">
+    <div class="branch branch-fufight">
+      <span class="badge badge-actif">Actif</span>
+      <h3>FU-Fight</h3>
+      <p>Activité principale<br>Taekwondo / Combat</p>
+    </div>
+
+    <div class="branch branch-sourcing">
+      <h3>Sourcing</h3>
+      <p>Approvisionnement<br>Fournisseurs Chine</p>
+    </div>
+
+    <div class="branch branch-v8">
+      <span class="badge badge-vente">En vente</span>
+      <h3>V8 Equipment</h3>
+      <p>Commerce / Distribution<br>Recherche repreneur</p>
+    </div>
+
+    <div class="branch branch-fusolutions">
+      <span class="badge badge-fermeture">Fermeture fin 2026</span>
+      <h3>FU Solutions</h3>
+      <p>Holding France<br>Clôture en cours</p>
+    </div>
+
+    <div class="branch branch-sci">
+      <span class="badge badge-transmission">Transmission</span>
+      <h3>SCI</h3>
+      <p>Patrimoine immobilier<br>Transmission aux enfants</p>
+    </div>
+  </div>
+</div>
+
+<!-- Écosystème opérationnel -->
+<div class="section">
+  <h2>Écosystème opérationnel</h2>
+  <div class="eco-grid">
+    <div class="eco-card">
+      <h4>Banque</h4>
+      <p>Revolut = compte principal<br>Relevé mensuel activé<br>API disponible</p>
+    </div>
+    <div class="eco-card">
+      <h4>Emails</h4>
+      <p>Migration vers domaine unique HKFU<br>Centralisation Outlook</p>
+    </div>
+    <div class="eco-card">
+      <h4>Comptabilité</h4>
+      <p>Drive partagé avec Admilink<br>Automatisation factures (n8n)<br>Attribution par projet</p>
+    </div>
+    <div class="eco-card">
+      <h4>Facturation</h4>
+      <p>Attribution par entité :<br>FU-Fight · V8 · HKFU · Sourcing</p>
+    </div>
+  </div>
+</div>
+
+<!-- Intervenants clés -->
+<div class="section">
+  <h2>Intervenants clés</h2>
+  <div class="intervenants">
+    <div class="intervenant">
+      <div class="icon">⚖</div>
+      <div>
+        <h4>Notaire (à définir)</h4>
+        <p>SCI + cession — si besoin</p>
+      </div>
+    </div>
+    <div class="intervenant">
+      <div class="icon">🏢</div>
+      <div>
+        <h4>Joseph & Vincent</h4>
+        <p>Séminaire expatriation HK</p>
+      </div>
+    </div>
+    <div class="intervenant">
+      <div class="icon">📊</div>
+      <div>
+        <h4>Admilink</h4>
+        <p>Comptable — Drive partagé</p>
+      </div>
+    </div>
+    <div class="intervenant">
+      <div class="icon">🤝</div>
+      <div>
+        <h4>Catherine (CS Consulting)</h4>
+        <p>Accompagnement digital + automatisations</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Timeline -->
+<div class="section">
+  <h2>Timeline prévisionnelle</h2>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-dot" style="background:#22c55e;"></div>
+      <div class="date">Mars 2026</div>
+      <div class="label">Décision prise<br>Séminaire HK</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot"></div>
+      <div class="date">T2 2026</div>
+      <div class="label">Création HKFU<br>Contact notaire</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot"></div>
+      <div class="date">T3 2026</div>
+      <div class="label">Migration emails<br>Cession V8</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot"></div>
+      <div class="date">T4 2026</div>
+      <div class="label">Clôture FU Solutions<br>SCI finalisée</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-dot" style="background:#a78bfa;"></div>
+      <div class="date">2027</div>
+      <div class="label">Opérationnel HK<br>Expatriation</div>
+    </div>
+  </div>
+</div>
+
+<!-- Légende -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#ef4444;"></div> FU-Fight (actif)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#eab308;"></div> Sourcing</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#22c55e;"></div> V8 Equipment (en vente)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#6b7280;"></div> FU Solutions (fermeture)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#a78bfa;"></div> SCI (transmission)</div>
+</div>
+
+<p style="text-align:center; color:#555; font-size:0.7rem; margin-top:40px;">CS Consulting Stratégique — Préparé pour la session 10 du 30/03/2026</p>
+
+</body>
+</html>

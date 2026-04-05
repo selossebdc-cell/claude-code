@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 — 1:1 Aurélia | Prep Catherine</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --card-border: #2a2a2a;
+    --terracotta: #C27A5A;
+    --terracotta-dim: rgba(194,122,90,0.12);
+    --terracotta-border: rgba(194,122,90,0.25);
+    --text: #e8e8e8;
+    --text-dim: #888;
+    --text-muted: #555;
+    --green: #4CAF50;
+    --green-dim: rgba(76,175,80,0.1);
+    --orange: #FF9800;
+    --orange-dim: rgba(255,152,0,0.1);
+    --red: #ef5350;
+    --red-dim: rgba(239,83,80,0.1);
+    --purple: #9C27B0;
+    --purple-dim: rgba(156,39,176,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    padding: 24px 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 720px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 32px;
+  }
+
+  .header-label {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 12px;
+  }
+
+  .header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .header-meta {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .header-intent {
+    margin-top: 20px;
+    padding: 16px 20px;
+    background: var(--terracotta-dim);
+    border: 1px solid var(--terracotta-border);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: var(--text);
+    text-align: left;
+  }
+
+  .header-intent strong { color: var(--terracotta); }
+
+  /* Sections */
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .section-icon { font-size: 1.1rem; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  /* Pattern card */
+  .pattern-card {
+    border-left: 3px solid var(--orange);
+  }
+
+  .reveal-card {
+    border-left: 3px solid var(--purple);
+  }
+
+  /* Quote blocks */
+  .quote {
+    padding: 14px 18px;
+    background: var(--terracotta-dim);
+    border-left: 3px solid var(--terracotta);
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  /* Fact list */
+  .fact-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .fact-list li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .fact-list li:last-child { border-bottom: none; }
+
+  .fact-list li::before {
+    content: '→';
+    position: absolute;
+    left: 4px;
+    color: var(--terracotta);
+    font-weight: 600;
+  }
+
+  /* Phase blocks */
+  .phase {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .phase-header:hover { background: rgba(255,255,255,0.02); }
+
+  .phase-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .phase-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .phase-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.05);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .phase-body {
+    padding: 0 20px 20px;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* Questions */
+  .question-group {
+    margin-bottom: 16px;
+  }
+
+  .question-group-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--terracotta);
+    margin-bottom: 8px;
+  }
+
+  .question {
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 0.88rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .question:hover { background: rgba(255,255,255,0.06); }
+
+  .question::before {
+    content: '💬 ';
+    font-size: 0.8rem;
+  }
+
+  .question.used {
+    opacity: 0.35;
+    text-decoration: line-through;
+  }
+
+  /* Alert cards */
+  .alert {
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .alert-icon { font-size: 1rem; flex-shrink: 0; }
+
+  .alert-red { background: var(--red-dim); border: 1px solid rgba(239,83,80,0.2); }
+  .alert-orange { background: var(--orange-dim); border: 1px solid rgba(255,152,0,0.2); }
+  .alert-green { background: var(--green-dim); border: 1px solid rgba(76,175,80,0.2); }
+  .alert-purple { background: var(--purple-dim); border: 1px solid rgba(156,39,176,0.2); }
+
+  /* Examples */
+  .example {
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .example::before {
+    content: '"';
+    color: var(--terracotta);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-right: 4px;
+  }
+
+  .example::after {
+    content: '"';
+    color: var(--terracotta);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-left: 2px;
+  }
+
+  /* After session checklist */
+  .checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.88rem;
+  }
+
+  .checklist-item:last-child { border-bottom: none; }
+
+  .checklist-box {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--card-border);
+    border-radius: 6px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+
+  .checklist-box.checked {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+  }
+
+  .checklist-box.checked::after {
+    content: '✓';
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .checklist-item.done { opacity: 0.4; text-decoration: line-through; }
+
+  /* Print */
+  @media print {
+    body { background: #fff; color: #222; padding: 20px; }
+    .card, .phase { border-color: #ddd; background: #f9f9f9; }
+    .header { border-color: #ddd; }
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 16px 12px; }
+    .header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-label">Préparation séance — Catherine</div>
+    <h1>Session 5 — 1:1 Aurélia</h1>
+    <div class="header-meta">24 mars 2026 · 1h · Aurélia seule (sans Laurie) · Coaching posture + recadrage</div>
+    <div class="header-intent">
+      <strong>Intention :</strong> Aurélia a besoin de clarté, pas de plus de stratégie. Ce n'est pas une session de travail — c'est une session miroir.<br><br>
+      <strong>Objectif de sortie :</strong> qu'elle reparte avec <strong>UNE</strong> décision actée et un engagement à s'y tenir.
+    </div>
+  </div>
+
+  <!-- CE QUE TU OBSERVES -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🔍</span> Ce que tu observes</div>
+
+    <div class="card pattern-card">
+      <div class="card-title">Le pattern</div>
+      <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:14px;">Aurélia prend des décisions... puis les remet en question. Elle consulte Mélanie, Romain, Catherine, Laurie — et à chaque nouvelle conversation, le plan change. Ce n'est pas de l'indécision. C'est un besoin de validation externe qui l'empêche d'avancer.</p>
+      <ul class="fact-list">
+        <li>Session 2 : Kajabi + Bunny confirmé → Session 4 : Circle remplace tout</li>
+        <li>Prix MTM : 1 950 € → 2 900 € (décision portée par Romain, pas par elle)</li>
+        <li>Session 4 : elle arrive avec des décisions prises ailleurs — pas construites avec elle-même</li>
+        <li>Laurie : "Il faut qu'elle termine ce qui est commencé avant de lancer autre chose"</li>
+        <li>Catherine a recadré en session 4 : "Tu vas presque trop vite"</li>
+        <li>Depuis session 4 (16 mars) : aucun retour, aucune action, session non bookée, paiement en retard</li>
+      </ul>
+    </div>
+
+    <div class="card reveal-card">
+      <div class="card-title">Ce que ça révèle</div>
+      <ul class="fact-list">
+        <li><strong>Peur de se tromper</strong> → elle cherche la validation pour ne pas porter seule la responsabilité</li>
+        <li><strong>Syndrome de l'imposteur</strong> → "Il faut encore que je me légitimise" (session 2)</li>
+        <li><strong>Fatigue décisionnelle</strong> → "Mon esprit est un peu fatigué" (session 2)</li>
+        <li><strong>Éparpillement comme évitement</strong> → lancer de nouveaux chantiers = ne pas finir ceux en cours = ne pas être jugée sur le résultat</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DÉROULÉ -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🗣️</span> Déroulé</div>
+
+    <!-- Phase 1 -->
+    <div class="phase">
+      <div class="phase-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="phase-number">1</div>
+        <div class="phase-title">Ouverture — Comment tu vas ?</div>
+        <div class="phase-time">5 min</div>
+      </div>
+      <div class="phase-body" style="display:none;">
+        <p>Écouter. Laisser venir. Ne pas rusher.</p>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase open">
+      <div class="phase-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="phase-number">2</div>
+        <div class="phase-title">Le miroir — Ce que j'observe</div>
+        <div class="phase-time">10 min</div>
+      </div>
+      <div class="phase-body">
+        <p style="margin-bottom:12px;">Poser les faits sans jugement :</p>
+        <div class="quote">"Aurélia, je vais te partager quelque chose que j'observe depuis le début de l'accompagnement. Ce n'est pas un reproche, c'est une observation."</div>
+        <div class="quote">"On a pris ensemble de très belles décisions — la séparation des 3 marques, le pricing, la migration Circle. Mais à chaque session, le plan change. Les décisions qu'on prend ensemble sont remises en question après un échange avec un coach, une idée nouvelle, une conversation."</div>
+        <div class="quote">"Résultat : depuis notre dernière session il y a une semaine, aucune des actions n'a avancé. Et c'est normal — parce que si la décision n'est pas ancrée, l'action ne suit pas."</div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase open">
+      <div class="phase-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="phase-number">3</div>
+        <div class="phase-title">Explorer le blocage — Coaching</div>
+        <div class="phase-time">20 min</div>
+      </div>
+      <div class="phase-body">
+        <p style="margin-bottom:14px;">Choisir les questions qui résonnent. Cliquer pour barrer celles posées.</p>
+
+        <div class="question-group">
+          <div class="question-group-title">Validation externe</div>
+          <div class="question" onclick="this.classList.toggle('used')">Qu'est-ce qui se passerait si tu prenais une décision et qu'elle était mauvaise ?</div>
+          <div class="question" onclick="this.classList.toggle('used')">De quoi as-tu besoin pour te sentir autorisée à avancer ?</div>
+          <div class="question" onclick="this.classList.toggle('used')">Quand tu consultes Mélanie ou Romain avant de décider, qu'est-ce que tu cherches exactement ?</div>
+          <div class="question" onclick="this.classList.toggle('used')">Est-ce que tu cherches la meilleure décision... ou quelqu'un qui te dise que c'est OK ?</div>
+        </div>
+
+        <div class="question-group">
+          <div class="question-group-title">La peur</div>
+          <div class="question" onclick="this.classList.toggle('used')">C'est quoi le pire scénario si tu te plantes sur Circle ?</div>
+          <div class="question" onclick="this.classList.toggle('used')">Et si le prix de MTM à 2 900 € ne marchait pas — qu'est-ce qui se passe concrètement ?</div>
+          <div class="question" onclick="this.classList.toggle('used')">Est-ce que tu as peur de l'échec ou peur d'être vue en train d'échouer ?</div>
+        </div>
+
+        <div class="question-group">
+          <div class="question-group-title">L'éparpillement</div>
+          <div class="question" onclick="this.classList.toggle('used')">Est-ce que lancer de nouveaux projets, c'est pas une façon de ne pas finir ceux en cours ?</div>
+          <div class="question" onclick="this.classList.toggle('used')">Qu'est-ce que ça te coûte de ne pas finir ?</div>
+          <div class="question" onclick="this.classList.toggle('used')">Si tu ne pouvais travailler que sur UNE seule chose pendant 30 jours, ce serait quoi ?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase open">
+      <div class="phase-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="phase-number">4</div>
+        <div class="phase-title">Recadrer l'accompagnement</div>
+        <div class="phase-time">10 min</div>
+      </div>
+      <div class="phase-body">
+        <p style="margin-bottom:12px;">Poser le cadre fermement mais avec bienveillance :</p>
+        <div class="quote">"J'ai besoin qu'on se dise les choses clairement. On a 15 sessions devant nous, une feuille de route construite, des process livrés dans ton espace client. Mais ça ne peut avancer que si tu t'engages sur les décisions qu'on prend ensemble."</div>
+        <div class="quote">"Je ne peux pas reconstruire le plan à chaque session. Et je ne peux pas repousser les sessions non prises chaque semaine."</div>
+        <div class="quote">"Mon rôle ce n'est pas de te dire quoi faire. C'est de t'aider à décider, et ensuite de t'accompagner dans l'exécution. Mais la décision, c'est la tienne."</div>
+        <div style="margin-top:14px;">
+          <div class="alert alert-orange">
+            <span class="alert-icon">💰</span>
+            <span>Aborder le paiement : 2 750 € en retard (dû le 17 mars). Factuel, pas culpabilisant.</span>
+          </div>
+          <div class="alert alert-orange">
+            <span class="alert-icon">📅</span>
+            <span>Sessions à booker : proposer un créneau récurrent pour ne plus avoir à relancer.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="phase open">
+      <div class="phase-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="phase-number">5</div>
+        <div class="phase-title">L'engagement — UNE décision</div>
+        <div class="phase-time">10 min</div>
+      </div>
+      <div class="phase-body">
+        <div class="quote">"Là, maintenant, quelle est LA décision que tu prends et sur laquelle tu t'engages pour les 2 prochaines semaines ?"</div>
+        <p style="margin:12px 0;">L'écrire ensemble. La formuler en une phrase. Pas 3 objectifs, pas un plan — <strong>UNE chose</strong>.</p>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:10px;">Exemples possibles :</p>
+        <div class="example">Je migre sur Circle et je ne change plus de plateforme</div>
+        <div class="example">Je fais mon premier lancement MTM à 2 900 € en mai, point</div>
+        <div class="example">Je termine les vidéos du programme sommeil avant de toucher à quoi que ce soit d'autre</div>
+      </div>
+    </div>
+
+    <!-- Phase 6 -->
+    <div class="phase">
+      <div class="phase-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="phase-number">6</div>
+        <div class="phase-title">Clôture</div>
+        <div class="phase-time">5 min</div>
+      </div>
+      <div class="phase-body" style="display:none;">
+        <div class="quote">"Comment tu te sens ?"</div>
+        <div class="quote">"Qu'est-ce que tu retiens de cette conversation ?"</div>
+        <p style="margin-top:10px;">Lui rappeler que l'espace client contient tout. Les boutons de RDV sont là — pas d'excuse pour ne pas booker la session 6 <strong>avant de raccrocher</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEUILLE DE ROUTE — RAPPEL -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🗺️</span> Sa feuille de route — où on en est</div>
+
+    <div class="card" style="border-left: 3px solid var(--green);">
+      <div class="card-title" style="margin-bottom:14px;">Les 4 phases — 6 mois (fév → août 2026)</div>
+
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="background:var(--terracotta);color:#fff;padding:2px 8px;border-radius:6px;font-size:0.7rem;font-weight:700;">EN COURS</span>
+          <strong style="font-size:0.88rem;">Phase 0 — Ancrage & migrations (mars-avril)</strong>
+        </div>
+        <ul class="fact-list">
+          <li>Mapper les 3 parcours clients (FSY Studio, MTM, Aurélia Del Sol) — <strong>Catherine à livrer</strong></li>
+          <li>Lancer la migration vidéos Uscreen → Bunny.net — <strong>Laurie + VA Anam</strong></li>
+          <li>Explorer Circle Business (2 espaces : Studio + MTM) — <strong>Laurie</strong></li>
+          <li>Auditer Brevo (listes, segmentation) — <strong>Catherine à livrer</strong></li>
+          <li>Rechercher connexion Circle ↔ Brevo — <strong>Catherine à livrer</strong></li>
+        </ul>
+        <div class="alert alert-red" style="margin-top:8px;">
+          <span class="alert-icon">⚠️</span>
+          <span>Aucune de ces 5 actions n'a avancé depuis session 4 (16 mars). Côté Catherine : bloquée par l'absence de retours. Côté Aurélia/Laurie : pas de signal.</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="background:var(--text-muted);color:#fff;padding:2px 8px;border-radius:6px;font-size:0.7rem;font-weight:700;">À VENIR</span>
+          <strong style="font-size:0.88rem;">Phase 1 — FSY Studio sur Circle (avril-mai)</strong>
+        </div>
+        <ul class="fact-list">
+          <li>Construire l'espace Circle Studio (vidéos, collections, checkout Stripe)</li>
+          <li>Séquences email Brevo (bienvenue, rétention, relance churn, upsell)</li>
+          <li>Refonte site FSY → purement éducatif</li>
+          <li>Calendrier éditorial annuel (4 challenges/an)</li>
+          <li>Communication migration aux abonnés (dès mai)</li>
+        </ul>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="background:var(--text-muted);color:#fff;padding:2px 8px;border-radius:6px;font-size:0.7rem;font-weight:700;">À VENIR</span>
+          <strong style="font-size:0.88rem;">Phase 2 — MTM evergreen + automatisations (mai-juin)</strong>
+        </div>
+        <ul class="fact-list">
+          <li>Migration MTM Kajabi → Circle</li>
+          <li>Page de vente MTM à 2 900 €</li>
+          <li>Automatisation contrat e-signature B2B</li>
+          <li>Séquence lancement Brevo (7-8 emails, 2x/an)</li>
+          <li>Licence annuelle automatisée (relance M-3)</li>
+        </ul>
+      </div>
+
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="background:var(--text-muted);color:#fff;padding:2px 8px;border-radius:6px;font-size:0.7rem;font-weight:700;">À VENIR</span>
+          <strong style="font-size:0.88rem;">Phase 3 — Autonomie, Premium & pilotage (juin-août)</strong>
+        </div>
+        <ul class="fact-list">
+          <li>Routine CEO hebdo (30 min/sem : KPIs + décisions + brief Laurie)</li>
+          <li>Plan de délégation définitif (Aurélia = création/vision, Laurie = ops)</li>
+          <li>Fondations Aurélia Del Sol (identité, site, 1er programme)</li>
+          <li>Bilan mi-parcours + plan de continuité post-accompagnement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CE QU'ELLE DOIT OBTENIR -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">🎯</span> Pour qu'elle reparte satisfaite — tes livrables</div>
+
+    <div class="card" style="border-left: 3px solid var(--terracotta);">
+      <div class="card-title">Ses objectifs contractuels (5 piliers)</div>
+      <ul class="fact-list">
+        <li><strong>Clarté & Vision</strong> — 3 entités distinctes avec positionnement clair, parcours clients mappés, vision à 3 ans structurée → <em>en bonne voie (acté session 4)</em></li>
+        <li><strong>Parcours Client & Organisation</strong> — Process documentés, parcours client automatisé de l'acquisition à la rétention → <em>pas encore commencé</em></li>
+        <li><strong>Automatisation & Outils</strong> — Stack unifiée (Circle + Brevo + Bunny), emails automatiques, contrats auto → <em>pas encore commencé</em></li>
+        <li><strong>Systèmes & Délégation</strong> — Laurie gère FSY + MTM en autonomie, Aurélia sort de l'opérationnel → <em>en cours (Laurie monte)</em></li>
+        <li><strong>Pilotage & Pérennisation</strong> — Dashboard KPIs, routine CEO, plan de continuité → <em>dashboard livré, routine pas installée</em></li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--green);">
+      <div class="card-title">Les KPIs de succès</div>
+      <table style="width:100%;font-size:0.82rem;border-collapse:collapse;">
+        <thead>
+          <tr style="text-align:left;color:var(--text-muted);font-size:0.7rem;text-transform:uppercase;letter-spacing:1px;">
+            <th style="padding:6px 0;">KPI</th>
+            <th>Actuel</th>
+            <th>Cible août</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-top:1px solid var(--card-border);">
+            <td style="padding:8px 8px 8px 0;">Temps Aurélia sur ops FSY</td>
+            <td style="color:var(--red);">80%</td>
+            <td style="color:var(--green);">&lt; 10%</td>
+          </tr>
+          <tr style="border-top:1px solid var(--card-border);">
+            <td style="padding:8px 8px 8px 0;">Abonnés Studio</td>
+            <td>613</td>
+            <td>800+</td>
+          </tr>
+          <tr style="border-top:1px solid var(--card-border);">
+            <td style="padding:8px 8px 8px 0;">Ventes MTM/an</td>
+            <td>~5</td>
+            <td>10+</td>
+          </tr>
+          <tr style="border-top:1px solid var(--card-border);">
+            <td style="padding:8px 8px 8px 0;">Séquences email actives</td>
+            <td style="color:var(--red);">0</td>
+            <td style="color:var(--green);">6+</td>
+          </tr>
+          <tr style="border-top:1px solid var(--card-border);">
+            <td style="padding:8px 8px 8px 0;">Process documentés</td>
+            <td>2/5</td>
+            <td>4/5</td>
+          </tr>
+          <tr style="border-top:1px solid var(--card-border);">
+            <td style="padding:8px 8px 8px 0;">Coût outils/mois</td>
+            <td>~760 €</td>
+            <td>~450 €</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="alert alert-orange" style="margin-top:4px;">
+      <span class="alert-icon">💡</span>
+      <span><strong>La promesse</strong> : libérer 10-15h/sem, reprendre le contrôle de ses outils, structurer pour 10K €/mois récurrents. On a 5 mois devant nous et 15 sessions — c'est largement jouable, à condition de garder le rythme.</span>
+    </div>
+  </div>
+
+  <!-- POINTS D'ATTENTION -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">⚠️</span> Points d'attention</div>
+
+    <div class="alert alert-red">
+      <span class="alert-icon">🚫</span>
+      <span><strong>Pas de jugement</strong> — Aurélia est sensible au syndrome de l'imposteur. Le recadrage doit être enveloppant, pas cassant.</span>
+    </div>
+    <div class="alert alert-red">
+      <span class="alert-icon">🚫</span>
+      <span><strong>Ne pas résoudre pour elle</strong> — Résister à l'envie de proposer des solutions. La laisser trouver.</span>
+    </div>
+    <div class="alert alert-red">
+      <span class="alert-icon">🚫</span>
+      <span><strong>Ne pas repartir dans la stratégie</strong> — Si elle dérive sur Circle/Brevo/migration, ramener : "Ce n'est pas le sujet aujourd'hui."</span>
+    </div>
+    <div class="alert alert-purple">
+      <span class="alert-icon">💜</span>
+      <span><strong>Nommer l'émotion</strong> — Si elle est touchée, ne pas fuir : "Je vois que ça te touche. Qu'est-ce qui se passe ?"</span>
+    </div>
+    <div class="alert alert-green">
+      <span class="alert-icon">💡</span>
+      <span><strong>Laurie absente = espace de vulnérabilité</strong> — Aurélia peut être plus vraie sans Laurie qui structure/recadre.</span>
+    </div>
+  </div>
+
+  <!-- APRÈS LA SESSION -->
+  <div class="section">
+    <div class="section-title"><span class="section-icon">📝</span> Après la session</div>
+    <div class="card">
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="checklist-box"></div>
+        <span>CR à rédiger (skill /session-report)</span>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="checklist-box"></div>
+        <span>Mettre à jour le portail FSY avec la décision actée</span>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="checklist-box"></div>
+        <span>Session 6 bookée avant de raccrocher</span>
+      </div>
+      <div class="checklist-item" onclick="toggleCheck(this)">
+        <div class="checklist-box"></div>
+        <span>Envoyer la facture 2 750 € si pas fait avant</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Toggle phase open/close
+  document.querySelectorAll('.phase').forEach(phase => {
+    const body = phase.querySelector('.phase-body');
+    if (phase.classList.contains('open')) {
+      body.style.display = 'block';
+    }
+  });
+
+  document.querySelectorAll('.phase-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const phase = header.parentElement;
+      const body = phase.querySelector('.phase-body');
+      const isOpen = phase.classList.contains('open');
+      if (isOpen) {
+        body.style.display = 'none';
+        phase.classList.remove('open');
+      } else {
+        body.style.display = 'block';
+        phase.classList.add('open');
+      }
+    });
+  });
+
+  // Checklist
+  function toggleCheck(item) {
+    const box = item.querySelector('.checklist-box');
+    box.classList.toggle('checked');
+    item.classList.toggle('done');
+  }
+</script>
+
+</body>
+</html>

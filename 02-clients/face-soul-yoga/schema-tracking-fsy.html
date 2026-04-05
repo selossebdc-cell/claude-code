@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSY — Flux de données &amp; Tracking</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f0f0f; color: #e8e0d8; font-family: 'Segoe UI', sans-serif; padding: 24px; }
+  h1 { color: #C27A5A; font-size: 1.6rem; margin-bottom: 8px; }
+  .subtitle { color: #999; font-size: 0.9rem; margin-bottom: 32px; }
+
+  /* Legend */
+  .legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; padding: 16px; background: #1a1a1a; border-radius: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-entry { background: #4CAF50; }
+  .dot-capture { background: #2196F3; }
+  .dot-nurture { background: #FF9800; }
+  .dot-convert { background: #C27A5A; }
+  .dot-retain { background: #9C27B0; }
+  .dot-todo { border: 2px dashed #ff5252; background: transparent; }
+
+  /* Flow sections */
+  .flow { display: flex; flex-direction: column; gap: 0; position: relative; }
+
+  .phase { position: relative; padding: 24px; margin-bottom: 0; }
+  .phase-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .phase-num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+  .phase-title { font-size: 1.15rem; font-weight: 600; }
+  .phase-desc { font-size: 0.85rem; color: #999; margin-left: 48px; margin-bottom: 16px; }
+
+  .phase-1 { background: linear-gradient(135deg, #1a2e1a, #0f0f0f); border-left: 3px solid #4CAF50; }
+  .phase-1 .phase-num { background: #4CAF50; color: #000; }
+  .phase-1 .phase-title { color: #4CAF50; }
+
+  .phase-2 { background: linear-gradient(135deg, #1a2433, #0f0f0f); border-left: 3px solid #2196F3; }
+  .phase-2 .phase-num { background: #2196F3; color: #000; }
+  .phase-2 .phase-title { color: #2196F3; }
+
+  .phase-3 { background: linear-gradient(135deg, #2e2410, #0f0f0f); border-left: 3px solid #FF9800; }
+  .phase-3 .phase-num { background: #FF9800; color: #000; }
+  .phase-3 .phase-title { color: #FF9800; }
+
+  .phase-4 { background: linear-gradient(135deg, #2e1c14, #0f0f0f); border-left: 3px solid #C27A5A; }
+  .phase-4 .phase-num { background: #C27A5A; color: #000; }
+  .phase-4 .phase-title { color: #C27A5A; }
+
+  .phase-5 { background: linear-gradient(135deg, #231428, #0f0f0f); border-left: 3px solid #9C27B0; }
+  .phase-5 .phase-num { background: #9C27B0; color: #fff; }
+  .phase-5 .phase-title { color: #9C27B0; }
+
+  /* Arrow between phases */
+  .arrow-down { text-align: center; font-size: 1.5rem; color: #555; padding: 4px 0; }
+
+  /* Cards grid */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-left: 48px; }
+  .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 14px; position: relative; }
+  .card h3 { font-size: 0.95rem; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .card p { font-size: 0.8rem; color: #aaa; line-height: 1.5; }
+  .card .tool { display: inline-block; background: #2a2a2a; border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: #ccc; margin-top: 6px; }
+  .card .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; margin-left: auto; }
+  .tag-ok { background: #1b5e20; color: #81c784; }
+  .tag-todo { background: #4a1515; color: #ff8a80; }
+  .tag-partial { background: #4a3b15; color: #ffd54f; }
+
+  /* Data flow arrow inside card */
+  .flow-arrow { color: #C27A5A; font-weight: 700; margin: 0 4px; }
+
+  /* Tracking table */
+  .tracking-table { width: 100%; border-collapse: collapse; margin: 16px 0; margin-left: 48px; max-width: calc(100% - 48px); }
+  .tracking-table th { background: #1a1a1a; color: #C27A5A; text-align: left; padding: 10px 12px; font-size: 0.8rem; border-bottom: 2px solid #333; }
+  .tracking-table td { padding: 10px 12px; font-size: 0.8rem; border-bottom: 1px solid #222; }
+  .tracking-table tr:hover { background: #1a1a1a; }
+
+  /* Summary box */
+  .summary { background: #1a1a1a; border: 2px solid #C27A5A; border-radius: 8px; padding: 20px; margin-top: 32px; }
+  .summary h2 { color: #C27A5A; font-size: 1.1rem; margin-bottom: 12px; }
+  .summary ul { list-style: none; padding: 0; }
+  .summary li { padding: 6px 0; font-size: 0.85rem; border-bottom: 1px solid #222; display: flex; align-items: flex-start; gap: 8px; }
+  .summary li:last-child { border: none; }
+  .priority { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .p-high { background: #ff5252; }
+  .p-med { background: #FF9800; }
+  .p-low { background: #4CAF50; }
+
+  /* Stats box */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 24px 0; }
+  .stat { background: #1a1a1a; border-radius: 8px; padding: 16px; text-align: center; }
+  .stat .num { font-size: 1.8rem; font-weight: 700; color: #C27A5A; }
+  .stat .label { font-size: 0.75rem; color: #888; margin-top: 4px; }
+  .stat .issue { font-size: 0.7rem; color: #ff8a80; margin-top: 4px; }
+
+  @media (max-width: 600px) {
+    .cards { grid-template-columns: 1fr; margin-left: 0; }
+    .phase-desc, .tracking-table { margin-left: 0; }
+    .legend { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Aurélia / FSY — Flux de données &amp; Tracking</h1>
+<p class="subtitle">Parcours complet : de la découverte Instagram à l'abonnement FSY Studio / MTM</p>
+
+<!-- Stats actuelles -->
+<div class="stats">
+  <div class="stat">
+    <div class="num">13 000</div>
+    <div class="label">Contacts Brevo</div>
+  </div>
+  <div class="stat">
+    <div class="num">~4 000</div>
+    <div class="label">Abonnées FSY</div>
+  </div>
+  <div class="stat">
+    <div class="num">240</div>
+    <div class="label">Nouveaux inscrits/mois</div>
+  </div>
+  <div class="stat">
+    <div class="num">36-50%</div>
+    <div class="label">Taux ouverture emails</div>
+    <div class="issue">Conversion inconnue !</div>
+  </div>
+</div>
+
+<!-- Légende -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot dot-entry"></div> Entrée / Acquisition</div>
+  <div class="legend-item"><div class="legend-dot dot-capture"></div> Capture / Identification</div>
+  <div class="legend-item"><div class="legend-dot dot-nurture"></div> Nurture / Séquences</div>
+  <div class="legend-item"><div class="legend-dot dot-convert"></div> Conversion / Vente</div>
+  <div class="legend-item"><div class="legend-dot dot-retain"></div> Rétention / Fidélisation</div>
+  <div class="legend-item"><div class="legend-dot dot-todo"></div> À construire</div>
+</div>
+
+<!-- FLOW -->
+<div class="flow">
+
+  <!-- PHASE 1 : ENTRÉE -->
+  <div class="phase phase-1">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div class="phase-title">ENTRÉE — D'où viennent les gens ?</div>
+    </div>
+    <p class="phase-desc">Tous les canaux par lesquels les prospects découvrent Aurélia. Chaque canal doit avoir un <strong>UTM unique</strong> pour tracker la source.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>📱 Instagram <span class="tag tag-ok">actif</span></h3>
+        <p>Canal principal. Reels, stories, bio link.<br>
+        <strong>Flux :</strong> Reel → bio link → Manychat OU lead magnet</p>
+        <span class="tool">UTM : ?utm_source=instagram&amp;utm_medium=bio</span>
+      </div>
+      <div class="card">
+        <h3>🎥 YouTube <span class="tag tag-partial">partiel</span></h3>
+        <p>Vidéos longues, tutos face yoga.<br>
+        <strong>Flux :</strong> Vidéo → lien description → lead magnet</p>
+        <span class="tool">UTM : ?utm_source=youtube&amp;utm_medium=description</span>
+      </div>
+      <div class="card">
+        <h3>📧 Newsletter <span class="tag tag-ok">actif</span></h3>
+        <p>Newsletter Brevo existante. 36-50% ouverture.<br>
+        <strong>Flux :</strong> Email → CTA → page vente FSY Studio</p>
+        <span class="tool">UTM : ?utm_source=brevo&amp;utm_medium=newsletter&amp;utm_campaign=NOM</span>
+      </div>
+      <div class="card">
+        <h3>🧲 Lead Magnets <span class="tag tag-todo">à créer</span></h3>
+        <p>Quiz sommeil, guide mâchoires, etc.<br>
+        <strong>Flux :</strong> Lead magnet → email capture → tag intérêt auto</p>
+        <span class="tool">1 UTM par lead magnet + tag Brevo automatique</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">▼</div>
+
+  <!-- PHASE 2 : CAPTURE -->
+  <div class="phase phase-2">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div class="phase-title">CAPTURE — Identifier &amp; Taguer</div>
+    </div>
+    <p class="phase-desc">Le prospect devient un <strong>contact identifié</strong> dans Brevo avec des tags (source, intérêt, date).</p>
+    <div class="cards">
+      <div class="card">
+        <h3>💬 Manychat <span class="tag tag-todo">à connecter</span></h3>
+        <p><strong>Instagram DM → Manychat → n8n → Brevo</strong><br><br>
+        Manychat capture l'email en DM Instagram.<br>
+        Webhook envoie à n8n qui crée le contact Brevo avec tags :</p>
+        <span class="tool">source=instagram | intérêt=sommeil | date=2026-04-03</span>
+      </div>
+      <div class="card">
+        <h3>📝 Formulaires <span class="tag tag-partial">partiel</span></h3>
+        <p><strong>Landing page → Formulaire Brevo → Contact tagué</strong><br><br>
+        Chaque lead magnet a son formulaire.<br>
+        Le formulaire Brevo tague automatiquement le contact.</p>
+        <span class="tool">source=lead_magnet_sommeil | intérêt=sommeil</span>
+      </div>
+      <div class="card">
+        <h3>🔄 n8n (orchestrateur) <span class="tag tag-todo">à construire</span></h3>
+        <p><strong>Hub central de toutes les connexions</strong><br><br>
+        Reçoit les webhooks de Manychat, formulaires, Stripe.<br>
+        Route vers Brevo (tags), Circle (membre), dashboard (stats).</p>
+        <span class="tool">VPS Catherine — déjà en place pour Fred</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">▼</div>
+
+  <!-- PHASE 3 : NURTURE -->
+  <div class="phase phase-3">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div class="phase-title">NURTURE — Séquences email automatiques</div>
+    </div>
+    <p class="phase-desc">Selon le tag d'entrée, le contact reçoit une <strong>séquence email personnalisée</strong> qui mène vers l'offre adaptée.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>🌙 Séquence Sommeil <span class="tag tag-todo">à créer</span></h3>
+        <p>Tag : intérêt=sommeil<br>
+        J+0 : Bienvenue + résultat quiz<br>
+        J+3 : Témoignage cliente sommeil<br>
+        J+7 : Offre Sommeil et Joie (390€)</p>
+        <span class="tool">Brevo automation</span>
+      </div>
+      <div class="card">
+        <h3>🧘 Séquence FSY Studio <span class="tag tag-todo">à créer</span></h3>
+        <p>Tag : intérêt=face_yoga<br>
+        J+0 : Bienvenue + vidéo gratuite<br>
+        J+3 : Résultats avant/après<br>
+        J+7 : Offre FSY Studio (17€/mois)</p>
+        <span class="tool">Brevo automation</span>
+      </div>
+      <div class="card">
+        <h3>✨ Séquence Générale <span class="tag tag-todo">à créer</span></h3>
+        <p>Tag : source=newsletter (pas d'intérêt précis)<br>
+        Contenu éducatif → découverte des offres<br>
+        Détection d'intérêt par clics → re-tag auto</p>
+        <span class="tool">Brevo automation + link tracking</span>
+      </div>
+      <div class="card">
+        <h3>🏆 Séquence MTM (B2B) <span class="tag tag-todo">à créer</span></h3>
+        <p>Tag : intérêt=mtm<br>
+        Lancement 2x/an (sept + mars)<br>
+        7-8 emails avec urgence + témoignages certifiées</p>
+        <span class="tool">Brevo automation — trigger manuel</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">▼</div>
+
+  <!-- PHASE 4 : CONVERSION -->
+  <div class="phase phase-4">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div class="phase-title">CONVERSION — Achat &amp; Onboarding</div>
+    </div>
+    <p class="phase-desc">Le prospect achète. Le paiement Stripe déclenche automatiquement l'accès Circle + tag "client" dans Brevo.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>💳 Stripe <span class="tag tag-ok">actif</span></h3>
+        <p><strong>Paiement → Webhook → n8n</strong><br><br>
+        Stripe envoie l'événement "payment_success".<br>
+        n8n crée le compte Circle + met à jour Brevo.</p>
+        <span class="tool">tag Brevo : client=fsy_studio | date_achat=...</span>
+      </div>
+      <div class="card">
+        <h3>⭕ Circle <span class="tag tag-partial">en cours</span></h3>
+        <p><strong>Accès automatique post-paiement</strong><br><br>
+        Le membre arrive sur Circle avec son contenu.<br>
+        Drip content pour les vidéos (progressif).</p>
+        <span class="tool">Circle API — accès à obtenir de Laurie</span>
+      </div>
+      <div class="card">
+        <h3>📱 WhatsApp <span class="tag tag-todo">chatbot</span></h3>
+        <p><strong>Accueil dans la communauté WhatsApp</strong><br><br>
+        Chatbot envoie message de bienvenue.<br>
+        FAQ automatique, escalade vers Laurie si besoin.</p>
+        <span class="tool">Chatbot FSY — en cours d'adaptation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down">▼</div>
+
+  <!-- PHASE 5 : RÉTENTION -->
+  <div class="phase phase-5">
+    <div class="phase-header">
+      <div class="phase-num">5</div>
+      <div class="phase-title">RÉTENTION — Fidéliser &amp; Upsell</div>
+    </div>
+    <p class="phase-desc">Garder les abonnées, détecter le churn, proposer les programmes premium.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>📊 Engagement tracking <span class="tag tag-todo">à construire</span></h3>
+        <p>Suivre l'activité sur Circle (connexions, vidéos vues).<br>
+        Alerter si inactive depuis 14 jours.<br>
+        <strong>→ relance email automatique Brevo</strong></p>
+        <span class="tool">Circle webhook → n8n → Brevo tag "inactive"</span>
+      </div>
+      <div class="card">
+        <h3>🚨 Anti-churn <span class="tag tag-todo">à créer</span></h3>
+        <p>Détection annulation Stripe ou fin période.<br>
+        Séquence : J-30 avant fin → rappel valeur.<br>
+        Si annulation → séquence reconquête.</p>
+        <span class="tool">Stripe webhook → n8n → Brevo séquence churn</span>
+      </div>
+      <div class="card">
+        <h3>⬆️ Upsell <span class="tag tag-todo">à créer</span></h3>
+        <p>Abonnée FSY Studio depuis 3+ mois ?<br>
+        → Proposer Sommeil et Joie (390€)<br>
+        → Proposer MTM si profil pro détecté</p>
+        <span class="tool">n8n calcul ancienneté → Brevo séquence upsell</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WHAT WE NEED -->
+<div class="summary" style="margin-top: 32px; border-color: #ff5252;">
+  <h2 style="color: #ff5252;">🔒 Accès nécessaires pour démarrer</h2>
+  <ul>
+    <li><span class="priority p-high"></span><strong>Brevo</strong> — Login admin + clé API (pour tags, automations, contacts)</li>
+    <li><span class="priority p-high"></span><strong>Circle</strong> — Login admin + clé API ou webhook (pour onboarding auto)</li>
+    <li><span class="priority p-high"></span><strong>Manychat</strong> — Login + accès webhook (pour connexion Instagram → Brevo)</li>
+    <li><span class="priority p-med"></span><strong>Stripe</strong> — Accès webhook (pour détecter paiements → onboarding auto)</li>
+    <li><span class="priority p-low"></span><strong>Bunny.net</strong> — Login (pour intégration vidéos dans Circle)</li>
+  </ul>
+</div>
+
+<!-- TODO PRIORITAIRE -->
+<div class="summary" style="margin-top: 16px;">
+  <h2>Actions à faire — par ordre de priorité</h2>
+  <ul>
+    <li><span class="priority p-high"></span><strong>Obtenir les accès</strong> — Demander à Laurie/Aurélia : Brevo, Circle, Manychat (bloquant)</li>
+    <li><span class="priority p-high"></span><strong>Audit Brevo</strong> — Comprendre les 13K contacts : listes, tags existants, séquences en place</li>
+    <li><span class="priority p-high"></span><strong>Mettre les UTM</strong> — Sur tous les liens : bio Instagram, descriptions YouTube, newsletters, lead magnets</li>
+    <li><span class="priority p-med"></span><strong>Connecter Manychat → n8n → Brevo</strong> — Webhook pour tagging automatique à l'entrée</li>
+    <li><span class="priority p-med"></span><strong>Créer séquences Brevo</strong> — Bienvenue, sommeil, FSY Studio, anti-churn (4 séquences prioritaires)</li>
+    <li><span class="priority p-med"></span><strong>Connecter Stripe → n8n → Circle</strong> — Onboarding automatique post-paiement</li>
+    <li><span class="priority p-low"></span><strong>Dashboard stats</strong> — Tableau de bord conversion pour Aurélia (sources, taux, revenus)</li>
+    <li><span class="priority p-low"></span><strong>Chatbot WhatsApp</strong> — Adapter le bot Telegram pour la communauté FSY Studio</li>
+  </ul>
+</div>
+
+<p style="text-align: center; color: #555; font-size: 0.75rem; margin-top: 32px;">
+  CS Consulting Stratégique — Schéma tracking FSY — 03 avril 2026
+</p>
+
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repositionnement Strategique — CS Consulting | Avril 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --terracotta: #C27A5A;
+            --terracotta-light: #d4956f;
+            --bg-dark: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-card-alt: #222222;
+            --text-primary: #f0ebe6;
+            --text-secondary: #a89f96;
+            --text-muted: #6b6560;
+            --border: #333333;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --accent-blue: #60a5fa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 2px solid var(--terracotta);
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            margin-bottom: 0.5rem;
+        }
+
+        header .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        header .date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--terracotta);
+            margin: 3rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2 .number {
+            display: inline-block;
+            background: var(--terracotta);
+            color: var(--bg-dark);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-right: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: 600;
+        }
+
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+
+        .highlight-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--terracotta);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box.phrase {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            border-left: none;
+            border: 2px solid var(--terracotta);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .highlight-box.phrase .variante {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .card.offer {
+            border-top: 3px solid var(--terracotta);
+        }
+
+        .card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card .card-header h3 {
+            margin: 0;
+            color: var(--terracotta);
+        }
+
+        .card .price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--terracotta);
+        }
+
+        .card .price small {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card ul li {
+            padding: 0.4rem 0;
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--terracotta);
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .avatar-item {
+            background: var(--bg-card-alt);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .avatar-item .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .avatar-item .value {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        table th {
+            text-align: left;
+            padding: 0.75rem;
+            background: var(--bg-card-alt);
+            color: var(--terracotta);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        table tr:last-child td { border-bottom: none; }
+
+        .tunnel {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .tunnel-step {
+            display: inline-block;
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1.25rem;
+            margin: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .tunnel-step.highlight {
+            border-color: var(--terracotta);
+            background: rgba(194, 122, 90, 0.15);
+        }
+
+        .tunnel-arrow {
+            display: block;
+            color: var(--terracotta);
+            font-size: 1.5rem;
+            margin: 0.25rem 0;
+        }
+
+        .pitch-box {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .pitch-box .label {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--terracotta);
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .linkedin-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .linkedin-section .section-label {
+            font-size: 0.8rem;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .linkedin-section .content {
+            color: var(--text-primary);
+            white-space: pre-line;
+        }
+
+        .actions-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: action;
+        }
+
+        .actions-list li {
+            counter-increment: action;
+            padding: 1rem 1rem 1rem 3.5rem;
+            margin: 0.75rem 0;
+            background: var(--bg-card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .actions-list li::before {
+            content: counter(action);
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            background: var(--terracotta);
+            color: var(--bg-dark);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .actions-list li strong {
+            color: var(--text-primary);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag.priority { background: rgba(194, 122, 90, 0.2); color: var(--terracotta); }
+        .tag.this-week { background: rgba(251, 191, 36, 0.2); color: var(--warning); }
+        .tag.next-week { background: rgba(96, 165, 250, 0.2); color: var(--accent-blue); }
+
+        .projection {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .projection-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .projection-card .amount {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--terracotta);
+        }
+
+        .projection-card .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .projection-card .detail {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .before-after .col {
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .before-after .before {
+            background: rgba(107, 101, 96, 0.15);
+            border: 1px solid var(--text-muted);
+        }
+
+        .before-after .after {
+            background: rgba(194, 122, 90, 0.1);
+            border: 1px solid var(--terracotta);
+        }
+
+        .before-after .col-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .before .col-title { color: var(--text-muted); }
+        .after .col-title { color: var(--terracotta); }
+
+        .before-after ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .before-after ul li {
+            padding: 0.35rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            header h1 { font-size: 1.6rem; }
+            .avatar-grid { grid-template-columns: 1fr; }
+            .projection { grid-template-columns: 1fr; }
+            .before-after { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            body { background: white; color: #222; padding: 1cm; }
+            .card, .highlight-box, .linkedin-section, .pitch-box, .tunnel { border: 1px solid #ddd; }
+            h2, h3, .card .card-header h3, header h1 { color: #C27A5A; }
+            .card ul li::before, .tunnel-arrow { color: #C27A5A; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header>
+            <h1>Repositionnement Strategique</h1>
+            <div class="subtitle">CS Consulting Strategique — Catherine Selosse</div>
+            <div class="date">Avril 2026 — Document de travail</div>
+        </header>
+
+        <!-- ============================================ -->
+        <!-- SECTION 1 : POSITIONNEMENT -->
+        <!-- ============================================ -->
+
+        <h2><span class="number">1</span> Positionnement</h2>
+
+        <h3>Ma phrase</h3>
+        <div class="highlight-box phrase">
+            "J'equipe les dirigeants de TPE avec l'IA et les automatisations pour qu'ils sortent de l'operationnel et pilotent leur croissance."
+            <div class="variante">Variante conference : "Je suis la personne qui installe l'intelligence artificielle dans votre entreprise — pas pour remplacer vos equipes, mais pour les rendre imbattables."</div>
+        </div>
+
+        <h3>Ma proposition de valeur</h3>
+        <div class="highlight-box">
+            <p style="color: var(--text-primary); margin-bottom: 0;">
+                Je suis consultante en transformation IA pour les TPE. Concretement, j'arrive dans une entreprise qui tourne deja, j'audite les process de chaque pole, et j'installe des outils d'IA et d'automatisation qui font gagner 10 a 15 heures par semaine a l'equipe. Le dirigeant arrete de courir partout et retrouve une vraie place de stratege. Je suis aussi coach systemique, donc j'accompagne le changement humain, pas juste la technique.
+            </p>
+        </div>
+
+        <h3>Mon avatar client</h3>
+        <div class="avatar-grid">
+            <div class="avatar-item">
+                <div class="label">Profil</div>
+                <div class="value">Dirigeant(e) de TPE</div>
+            </div>
+            <div class="avatar-item">
+                <div class="label">Taille d'equipe</div>
+                <div class="value">5 a 15 personnes</div>
+            </div>
+            <div class="avatar-item">
+                <div class="label">Chiffre d'affaires</div>
+                <div class="value">500K — 3M EUR</div>
+            </div>
+            <div class="avatar-item">
+                <div class="label">Anciennete</div>
+                <div class="value">3+ ans d'existence</div>
+            </div>
+            <div class="avatar-item">
+                <div class="label">Structure</div>
+                <div class="value">Equipe structuree, COO ou bras droit</div>
+            </div>
+            <div class="avatar-item">
+                <div class="label">Niveau IA</div>
+                <div class="value">Zero IA / zero automatisation</div>
+            </div>
+            <div class="avatar-item">
+                <div class="label">Budget</div>
+                <div class="value">Pret a investir 10-25K EUR</div>
+            </div>
+            <div class="avatar-item">
+                <div class="label">Ou le trouver</div>
+                <div class="value">Fractional, FCE, CJD, masterminds</div>
+            </div>
+        </div>
+
+        <h3>Avant / Apres le repositionnement</h3>
+        <div class="before-after">
+            <div class="col before">
+                <div class="col-title">Avant</div>
+                <ul>
+                    <li>Clients non structures (chaos digital)</li>
+                    <li>70% du temps en config basique</li>
+                    <li>Ticket moyen 8-9K EUR</li>
+                    <li>Sessions de 3h30 (au lieu de 1h30)</li>
+                    <li>LinkedIn automatise, posts generiques</li>
+                    <li>Bouche a oreille non systematise</li>
+                    <li>4 reponses differentes a "tu fais quoi ?"</li>
+                    <li>Objectif 24 clients = irealiste en temps</li>
+                </ul>
+            </div>
+            <div class="col after">
+                <div class="col-title">Apres</div>
+                <ul>
+                    <li>Clients deja structures, prets a scaler</li>
+                    <li>90% du temps en strategie + IA</li>
+                    <li>Ticket moyen 15-24K EUR</li>
+                    <li>Sessions cadrees 1h30 max</li>
+                    <li>LinkedIn authentique, 2 posts/semaine</li>
+                    <li>Fractional + conferences + reseau</li>
+                    <li>Une phrase, un pitch, un message</li>
+                    <li>12-16 clients = objectif atteint</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 2 : OFFRES -->
+        <!-- ============================================ -->
+
+        <h2><span class="number">2</span> Grille d'offres</h2>
+
+        <div class="card offer">
+            <div class="card-header">
+                <h3>CS Digital Setup</h3>
+                <div class="price">149 EUR <small>HT</small></div>
+            </div>
+            <p><strong>Produit autonome</strong> — Zero temps Catherine, 100% scalable</p>
+            <ul>
+                <li>Configurateur Claude.ai pour dirigeants de TPE</li>
+                <li>Diagnostic enrichi (9 blocs : identite, offre, quotidien, defis, contraintes...)</li>
+                <li>Instructions personnalisees generees automatiquement</li>
+                <li>Anti-partage par fingerprint navigateur</li>
+                <li>Achat en ligne via Stripe → acces immediat</li>
+            </ul>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Premier contact avec l'univers CS Consulting. Qualifie les dirigeants qui veulent aller plus loin. A pousser en communication (LinkedIn, Substack, conferences, QR code).</p>
+        </div>
+
+        <div class="card offer">
+            <div class="card-header">
+                <h3>Diagnostic IA 360°</h3>
+                <div class="price">1 200 EUR <small>HT</small></div>
+            </div>
+            <p><strong>Porte d'entree</strong> — Pour le dirigeant qui veut savoir ou l'IA peut l'aider</p>
+            <ul>
+                <li><strong>1,5 jour</strong> d'immersion (sur site ou visio) avec le dirigeant + ses responsables de pole</li>
+                <li>Mapping des process par pole (finance, commercial, marketing, ops)</li>
+                <li>Identification des 5 plus gros leviers IA</li>
+                <li>Estimation du temps recuperable par l'equipe</li>
+                <li>Livrable : Rapport PDF avec plan d'action chiffre et priorise</li>
+            </ul>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Convertit vers l'Acceleration IA. Le client repart avec un document actionnable meme s'il ne continue pas.</p>
+        </div>
+
+        <div class="card offer">
+            <div class="card-header">
+                <h3>Acceleration IA</h3>
+                <div class="price">15 000 EUR <small>HT / 6 mois</small></div>
+            </div>
+            <p><strong>Offre principale</strong> — Pour la TPE structuree, prete a implementer</p>
+            <table>
+                <tr><th>Phase</th><th>Contenu</th></tr>
+                <tr><td>Mois 1</td><td>Audit approfondi + installation Claude Team + Cloud CEO</td></tr>
+                <tr><td>Mois 2-3</td><td>Deploiement Clouds par departement (1/quinzaine) + 2 automations n8n</td></tr>
+                <tr><td>Mois 4-5</td><td>Dashboards KPI automatiques + agent Growth hebdomadaire</td></tr>
+                <tr><td>Mois 6</td><td>Optimisation, autonomisation, formation equipe</td></tr>
+            </table>
+            <ul>
+                <li>2 sessions/mois (1h30 max)</li>
+                <li>Claude Team configure, 1 Cloud par pole</li>
+                <li>2 automatisations n8n sur mesure</li>
+                <li>Dashboards KPI en temps reel</li>
+                <li>Agent Growth avec note de decision hebdomadaire</li>
+                <li>1 session coaching systemique "Miroir Dirigeant" (mois 3)</li>
+                <li>Documentation complete de tous les process</li>
+            </ul>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Paiement 3x sans frais : 5 000 EUR a la signature, 5 000 EUR M+2, 5 000 EUR M+4</p>
+        </div>
+
+        <div class="card offer">
+            <div class="card-header">
+                <h3>Transformation IA</h3>
+                <div class="price">24 000 EUR <small>HT / 9 mois</small></div>
+            </div>
+            <p><strong>Premium</strong> — Pour la TPE ambitieuse qui veut une refonte complete</p>
+            <ul>
+                <li>Tout le contenu de l'Acceleration IA, PLUS :</li>
+                <li>Automatisations illimitees (tout ce qui est identifie est implemente)</li>
+                <li>Agent Growth hebdomadaire avec note de decision au CEO</li>
+                <li>3 sessions coaching systemique "Miroir Dirigeant" (M3, M6, M9)</li>
+                <li>2 demi-journees formation equipe a l'IA</li>
+                <li>Acces prioritaire support entre sessions</li>
+            </ul>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Paiement 4x sans frais : 6 000 EUR a la signature, 6 000 EUR M+2, 6 000 EUR M+5, 6 000 EUR M+7</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Maintenance & Evolution</h3>
+                <div class="price">150 EUR <small>HT / mois</small></div>
+            </div>
+            <p><strong>Recurrence post-programme</strong></p>
+            <ul>
+                <li>Monitoring et maintenance des automatisations</li>
+                <li>Support et mises a jour des Clouds & prompts</li>
+                <li><strong>2 automatisations incluses</strong> (dans un plafond de tokens defini)</li>
+                <li>Automatisation supplementaire : <strong>+20 EUR HT/mois</strong> chacune</li>
+                <li>Depassement de consommation tokens : facture au reel</li>
+            </ul>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1rem;">Modele transparent : le client paie une base legere et ne paie plus que s'il consomme davantage. Pas de surprise.</p>
+        </div>
+
+        <h3>Projection financiere</h3>
+        <div class="projection">
+            <div class="projection-card">
+                <div class="amount">150K</div>
+                <div class="label">Acceleration IA</div>
+                <div class="detail">10 clients x 15 000 EUR</div>
+            </div>
+            <div class="projection-card">
+                <div class="amount">72K</div>
+                <div class="label">Transformation IA</div>
+                <div class="detail">3 clients x 24 000 EUR</div>
+            </div>
+            <div class="projection-card">
+                <div class="amount">25K+</div>
+                <div class="label">Recurrence + produits</div>
+                <div class="detail">Diagnostics (1 200) + maintenance (150/mois) + CS Digital Setup (149)</div>
+            </div>
+        </div>
+        <p style="text-align: center; color: var(--terracotta); font-weight: 600; font-size: 1.1rem;">Objectif : 250K+ EUR/an avec 13 clients actifs (pas 24)</p>
+
+        <!-- ============================================ -->
+        <!-- SECTION 3 : ACQUISITION -->
+        <!-- ============================================ -->
+
+        <h2><span class="number">3</span> Systeme d'acquisition</h2>
+
+        <table>
+            <tr><th>Canal</th><th>Role</th><th>Volume estime</th></tr>
+            <tr>
+                <td><strong>Fractional</strong></td>
+                <td>Partenaire IA referencee. Leurs COO referent les clients qui ont besoin d'IA/automatisation.</td>
+                <td>1-2 clients/mois</td>
+            </tr>
+            <tr>
+                <td><strong>Conferences</strong></td>
+                <td>Conference signature 45min dans les reseaux (FCE Academie, CJD, masterminds, Squared). QR code → diagnostic.</td>
+                <td>2 conferences/mois</td>
+            </tr>
+            <tr>
+                <td><strong>Reseau physique</strong></td>
+                <td>FCE Pays Basque (VP), clubs entrepreneurs, events locaux. Presence + QR code diagnostic.</td>
+                <td>1 event/semaine</td>
+            </tr>
+            <tr>
+                <td><strong>Newsletter Substack</strong></td>
+                <td>1 article/semaine, authentique, cas concrets anonymises. Capture emails, nourrit entre les events.</td>
+                <td>500 abonnes en 6 mois</td>
+            </tr>
+            <tr>
+                <td><strong>LinkedIn</strong></td>
+                <td>Credibilite (pas acquisition). 2 posts/semaine ecrits par Catherine. Zero automatisation.</td>
+                <td>Support de confiance</td>
+            </tr>
+        </table>
+
+        <h3>Tunnel de conversion</h3>
+        <div class="tunnel">
+            <div>
+                <span class="tunnel-step">Fractional refere</span>
+                <span class="tunnel-step">Conference / FCE</span>
+                <span class="tunnel-step">Reseau / Substack</span>
+            </div>
+            <div class="tunnel-arrow">↓</div>
+            <div class="tunnel-step">CS Digital Setup — 149 EUR (autonome, scalable)</div>
+            <div class="tunnel-arrow">↓</div>
+            <div class="tunnel-step highlight">Landing page Diagnostic IA + Calendly</div>
+            <div class="tunnel-arrow">↓</div>
+            <div class="tunnel-step highlight">Diagnostic IA 360° — 1 200 EUR (1,5 jour)</div>
+            <div class="tunnel-arrow">↓</div>
+            <div>
+                <span class="tunnel-step highlight">Acceleration IA — 15 000 EUR</span>
+                <span class="tunnel-step highlight">Transformation IA — 24 000 EUR</span>
+            </div>
+            <div class="tunnel-arrow">↓</div>
+            <div class="tunnel-step">Maintenance — 150 EUR/mois + 20 EUR/auto sup.</div>
+        </div>
+
+        <h3>Partenariat Fractional — cadre propose</h3>
+        <div class="card">
+            <ul>
+                <li><strong>Statut</strong> : partenaire independante, pas prestataire de Fractional</li>
+                <li><strong>Relation client</strong> : contrat direct entre Catherine et le client final</li>
+                <li><strong>Commission</strong> : 10% reciproque sur les introductions converties</li>
+                <li><strong>Positionnement</strong> : "Partenaire IA & Automatisation" sur leur site/plaquette</li>
+                <li><strong>Exclusivite</strong> : aucune — liberte totale des deux cotes</li>
+            </ul>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 4 : PITCHS -->
+        <!-- ============================================ -->
+
+        <h2><span class="number">4</span> Pitchs</h2>
+
+        <div class="pitch-box">
+            <div class="label">Pitch 30 secondes</div>
+            "Je suis consultante en transformation IA pour les TPE. Concretement, quand un dirigeant a une equipe de 5 a 15 personnes, des process en place mais zero automatisation et zero IA, j'arrive, j'audite, et j'installe des outils d'intelligence artificielle dans chaque pole de l'entreprise. Resultat : l'equipe recupere 10 a 15 heures par semaine, et le dirigeant retrouve une place de stratege au lieu de courir partout."
+        </div>
+
+        <div class="pitch-box">
+            <div class="label">Pitch 2 minutes</div>
+            "Je m'appelle Catherine Selosse, je dirige CS Consulting Strategique.<br><br>
+            Avant de faire ce que je fais aujourd'hui, j'ai passe 10 ans dans la production industrielle a structurer des process, et 10 ans en strategie d'entreprise a deployer des plans a 3-5 ans. Je suis aussi ingenieur de formation et coach systemique.<br><br>
+            Aujourd'hui, j'accompagne les dirigeants de TPE — des entreprises de 5 a 15 personnes — a integrer l'intelligence artificielle et les automatisations dans leur quotidien.<br><br>
+            La realite, c'est que la plupart de ces dirigeants ont une equipe, des process, un business qui tourne. Mais tout est manuel. Personne n'utilise l'IA de maniere strategique. Le dirigeant passe ses journees dans l'operationnel au lieu de piloter sa croissance.<br><br>
+            Ce que je fais, c'est simple : j'arrive dans l'entreprise, j'audite chaque pole — finance, commercial, marketing, operations — et j'installe des assistants IA et des automatisations sur mesure. Des tableaux de bord qui remontent les KPI en temps reel. Des agents qui trient les emails, qui generent des rapports, qui suivent la tresorerie.<br><br>
+            Et comme je suis aussi coach systemique, j'accompagne le changement humain. Parce qu'un outil que personne n'utilise, ca ne sert a rien.<br><br>
+            Le resultat : l'equipe gagne 10 a 15 heures par semaine, et le dirigeant arrete de gerer l'urgence pour redevenir le stratege de sa boite.<br><br>
+            Si vous etes curieux de savoir ou l'IA pourrait vous faire gagner du temps, je propose un Diagnostic IA 360° — 2 heures, un rapport complet avec un plan d'action concret."
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 5 : LINKEDIN -->
+        <!-- ============================================ -->
+
+        <h2><span class="number">5</span> Profil LinkedIn</h2>
+
+        <div class="linkedin-section">
+            <div class="section-label">Titre (headline)</div>
+            <div class="content" style="font-weight: 600; font-size: 1.05rem;">Consultante en Transformation IA pour TPE | J'installe l'IA dans vos equipes pour que vous pilotiez votre croissance | Coach systemique</div>
+        </div>
+
+        <div class="linkedin-section">
+            <div class="section-label">Resume (section Infos)</div>
+            <div class="content">Vous dirigez une TPE de 5 a 15 personnes. Votre equipe est en place, vos process existent — mais rien n'est automatise, et l'IA reste un sujet "qu'on fera un jour".
+
+Ce jour, c'est maintenant.
+
+Je suis Catherine Selosse. Ingenieur de formation, 10 ans en production et process industriels, 10 ans en strategie d'entreprise, coach systemique certifiee LACT.
+
+Aujourd'hui, j'accompagne les dirigeants de TPE a integrer l'intelligence artificielle et les automatisations dans chaque pole de leur entreprise — finance, commercial, marketing, operations.
+
+Concretement :
+→ J'audite vos process existants
+→ J'installe un assistant IA par responsable de pole
+→ Je cree des automatisations qui eliminent les taches repetitives
+→ Je mets en place des tableaux de bord qui remontent vos KPI en temps reel
+→ Et j'accompagne le changement humain, parce qu'un outil sans adoption ne sert a rien
+
+Resultat : vos equipes gagnent 10 a 15h/semaine. Vous arretez de gerer l'operationnel. Vous redevenez le stratege de votre boite.
+
+Mon approche est differente parce que je ne suis pas qu'une technicienne. Je comprends comment fonctionne une entreprise de l'interieur — j'ai deploye des strategies a 3 et 5 ans, j'ai structure des equipes, j'ai vecu les resistances au changement. Et en tant que coach systemique, j'accompagne aussi le dirigeant dans sa propre transformation.
+
+Vice-presidente FCE Pays Basque | Formatrice IA a la FCE Academie
+
+Vous voulez savoir ou l'IA peut vous faire gagner du temps ?
+Reservez un Diagnostic IA 360° →</div>
+        </div>
+
+        <div class="linkedin-section">
+            <div class="section-label">Experience — Poste actuel</div>
+            <div class="content"><strong>Fondatrice — CS Consulting Strategique</strong>
+2024 - Present
+
+Transformation IA et automatisation pour dirigeants de TPE (5-15 personnes).
+
+J'installe l'intelligence artificielle et les automatisations au coeur des equipes pour que les dirigeants retrouvent leur place de stratege.
+
+→ Audit et cartographie des process par pole
+→ Deploiement d'assistants IA par departement
+→ Automatisations metier (facturation, prospection, reporting, KPI)
+→ Tableaux de bord decisionnels en temps reel
+→ Coaching systemique du dirigeant (accompagnement au changement)
+
+Resultats clients : 10-15h/semaine recuperees par equipe, process documentes, decisions pilotees par la data.</div>
+        </div>
+
+        <div class="linkedin-section">
+            <div class="section-label">Experiences precedentes</div>
+            <div class="content"><strong>10 ans en Strategie d'Entreprise</strong>
+Deploiement de strategies a 3-5 ans aupres d'experts et de directions. Coordination entre vision strategique et execution operationnelle.
+
+<strong>10 ans en Production & Process Industriels</strong>
+Ingenieur de formation. Structuration de process de production, optimisation operationnelle, management d'equipes terrain.</div>
+        </div>
+
+        <div class="linkedin-section">
+            <div class="section-label">Selection mise en avant (Featured)</div>
+            <div class="content">1. "Diagnostic IA 360° — Decouvrez vos leviers" → lien landing page
+2. CS Digital Setup → setup.csbusiness.fr
+3. Temoignage client (a venir)</div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 6 : CONFERENCE SIGNATURE -->
+        <!-- ============================================ -->
+
+        <h2><span class="number">6</span> Conference signature (plan)</h2>
+
+        <div class="card">
+            <h3 style="color: var(--terracotta);">"Comment l'IA peut liberer 10h/semaine dans votre TPE"</h3>
+            <p>Duree : 45 minutes + 15 min Q&A</p>
+            <table>
+                <tr><th>Partie</th><th>Contenu</th><th>Duree</th></tr>
+                <tr><td><strong>Accroche</strong></td><td>"Combien d'entre vous ont teste ChatGPT et se sont dit 'c'est sympa mais ca sert a quoi concretement ?'" — Main levee. Puis montrer un avant/apres reel.</td><td>5 min</td></tr>
+                <tr><td><strong>Le constat</strong></td><td>Les TPE ont des equipes, des process, un business qui tourne. Mais tout est manuel. Le dirigeant est prisonnier de l'operationnel. Chiffres : temps moyen passe en admin, emails, reporting.</td><td>7 min</td></tr>
+                <tr><td><strong>Cas n°1</strong></td><td>Le dirigeant multi-projets (inspire de Fred, anonymise) : factures en chaos → automatisation → 4h/semaine recuperees, zero erreur.</td><td>8 min</td></tr>
+                <tr><td><strong>Cas n°2</strong></td><td>L'entreprise structuree sans IA (inspire de Kevin, anonymise) : 10 collaborateurs, process en place mais manuels → Cloud IA par departement → dashboards, agents, decisions eclairees.</td><td>8 min</td></tr>
+                <tr><td><strong>La methode</strong></td><td>Les 3 etapes : Auditer (ou sont les leviers), Installer (IA + automatisations), Accompagner (le changement humain). Insister sur l'accompagnement humain = le differenciateur.</td><td>10 min</td></tr>
+                <tr><td><strong>Demo live</strong></td><td>Montrer en 3 minutes un agent en action (ex : Daily Briefing, tri d'emails, ou dashboard KPI). Effet "wow".</td><td>5 min</td></tr>
+                <tr><td><strong>Appel a l'action</strong></td><td>QR code → Diagnostic IA 360° gratuit (ou 1 500 EUR selon contexte). "Scannez, remplissez 5 questions, on se retrouve pour 2h qui peuvent changer votre quotidien."</td><td>2 min</td></tr>
+            </table>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- SECTION 7 : ACTIONS -->
+        <!-- ============================================ -->
+
+        <h2><span class="number">7</span> Plan d'action</h2>
+
+        <ol class="actions-list">
+            <li><strong>Mettre a jour le profil LinkedIn</strong> — Titre, resume, experience. Copier-coller depuis ce document. <span class="tag this-week">Ce week-end</span></li>
+            <li><strong>Ecrire le plan de la conference signature</strong> — Structure ci-dessus, rediger les transitions, preparer la demo live. <span class="tag this-week">Ce week-end</span></li>
+            <li><strong>Preparer le RDV COO Kevin</strong> — Diagnostic flash structure, 3 questions cles, montrer un cas d'usage concret. <span class="tag this-week">Avant le 7 avril</span></li>
+            <li><strong>Cadrer le partenariat Fractional</strong> — Envoyer la proposition (option C : partenaire referencee, commission 10%, contrat direct). <span class="tag next-week">Semaine prochaine</span></li>
+            <li><strong>Creer la landing page Diagnostic IA</strong> — Formulaire 5 questions + Calendly + QR code. <span class="tag next-week">Semaine prochaine</span></li>
+            <li><strong>Lancer la newsletter Substack</strong> — Creer le compte, ecrire le premier article ("Pourquoi j'ai arrete de poster via l'IA sur LinkedIn"). <span class="tag next-week">Semaine prochaine</span></li>
+            <li><strong>Proposer une masterclass a Squared</strong> — Format 45 min, meme contenu que la conference signature. <span class="tag next-week">Semaine prochaine</span></li>
+            <li><strong>Arreter les posts LinkedIn automatises</strong> — Confirmer a Christelle. Passer a 2 posts/semaine ecrits par Catherine. <span class="tag priority">Fait</span></li>
+        </ol>
+
+        <!-- ============================================ -->
+        <!-- FOOTER -->
+        <!-- ============================================ -->
+
+        <footer>
+            CS Consulting Strategique — Catherine Selosse<br>
+            Document de travail interne — Avril 2026<br>
+            <span style="color: var(--terracotta);">Genere a partir de l'analyse de 20+ comptes rendus clients + transcript mastermind</span>
+        </footer>
+
+    </div>
+</body>
+</html>

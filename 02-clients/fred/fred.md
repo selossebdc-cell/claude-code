@@ -7,7 +7,7 @@
 - **Taille** : TPE (dirigeant seul + equipe reduite)
 - **Programme** : Transition Strategique — 6 mois
 - **Periode** : 22 janvier 2026 → 22 juillet 2026
-- **Sessions** : 9 / 18 utilisees
+- **Sessions** : 10 / 18 utilisees
 - **Tutoiement / Vouvoiement** : Tutoiement
 
 ## Notion IDs
@@ -25,9 +25,10 @@
 - **Style de communication** : Direct, informel, aime les exemples concrets
 - **Neuro-diversite** : TDAH — besoin de structure, sessions courtes (25 min de focus), recadrage quand il part dans tous les sens
 - **Niveau digital** : Debutant en progression — comprend mieux les outils familiers, encore fragile sur synchro cloud et config technique
-- **Outils actuels** : **Claude Pro** (plan 20$/mois, compte fu@fusolutions.fr — remplace Botnation session 8), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (fichiers partages equipe + dossier "Claude" cree session 8), OneDrive (en attente — potentiel remplacement Dropbox si M365), OneNote (prise de notes — readopte session 5), Outlook desktop (client mail principal — 4 boites configurees session 7), Firefox (navigateur par defaut session 7, Containers par activite operationnels), Chrome (en cours de migration vers Firefox), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), Dashlane (gestionnaire MDP — extension Firefox a ajouter, import MDP en cours), Microsoft 365 Personnel (99 EUR/an — a acheter sous FU Solutions)
+- **Outils actuels** : **Claude Pro** (plan 20$/mois, compte fu@fusolutions.fr — remplace Botnation session 8, daily briefing 7h a migrer sur WhatsApp), Excel (hebdo Chine), Dropbox 2To (cloud principal — arborescence organisee FAIT), Google Drive FU Solutions (fichiers partages equipe + dossier "Claude" cree session 8), OneDrive (en attente — potentiel remplacement Dropbox si M365), OneNote (prise de notes — readopte session 5), Outlook desktop (client mail principal — 4 boites configurees session 7), Firefox (navigateur par defaut session 7, Containers par activite operationnels), AnyDesk (sessions a distance), WhatsApp desktop (installe session 5), Dashlane (en stand-by — Fred attend que la restructuration soit stabilisee), Microsoft 365 Personnel (99 EUR/an — a acheter sous FU Solutions, decision session 10)
+- **Google Workspace** : nettoyage session 10, de 9 a 6 sieges (-18 EUR/mois). 2eme abonnement Starter (4 sieges, 2,28 EUR/utilisateur) a investiguer
 - **Claude Pro config** : projet "Strategie entreprise", Google Drive connecte, Google Calendar connecte, Gmail fred@v8-equipment.com connecte, tache Daily Briefing 7h (Haiku), memoire securisee (pas de donnees perso), app desktop epinglee barre de taches
-- **Botnation** : desabonnement en cours (export memoire fait session 8)
+- **Botnation** : desabonnement toujours pas fait (process volontairement complique — envisager bloquer le prelevement)
 - **Adresse principale** : fu@fusolution.fr (decidee session 5 — compte Firefox + Microsoft bascules en principal session 7)
 - **Boites mail** : FredGmail, V8@v8-equipment.com, contact@v8-equipment.com, fu@fusolution.fr — toutes configurees dans Outlook (session 7)
 - **OVH** : acces manager recupere session 7 (FF4801-OVH), 12 noms de domaine dont beaucoup inutiles (~300 EUR/an), menage a planifier
@@ -119,7 +120,9 @@
 - Separation vie pro / vie perso sur les outils (Firefox Containers par activite)
 - Cloture comptable mensuelle (automatisation souhaitee, situation compta critique 2024-2025)
 - Centralisation email sur Outlook desktop (retour a un outil familier, 4 boites a configurer)
-- Structure FU Solutions : holding chapeau avec 3 branches FU-Fight (rouge), V8 (vert), Sourcing (jaune)
+- Structure FU Solutions : holding chapeau avec 3 branches FU-Fight (rouge), V8 (vert), Sourcing (jaune) → **restructuration HKFU decidee session 9-10**
+- **HKFU** : entite chapeau Hong Kong (compte HSBC 15 ans). Residence fiscale Thailande (Koh Samui). FU Solutions France ferme fin 2026. V8 = vente fonds de commerce. SCI = maison + travaux lotissement (deadline juillet 2026). FuFight = activite principale ("la poule aux oeufs d'or"). Contrat licence FuFight en cours (Denis/Human Lab + FED + Joseph/Vincent)
+- **Intervenants cles expat** : Joseph & Vincent (avocats), Jonathan Machado (notaire — appel semaine du 30/03), Maelys Villeneuve (retraite/OPEX), Admilink (comptable), femme du notaire (cession V8)
 - Leboncoin + IA (banana.io pour photos produits)
 - Automatisation factures : PRD + specs techniques faites (n8n + Claude API + Google Sheets), 9 factures d'exemple analysees, Gmail trigger (v8@v8 = Google Workspace)
 - Claude Pro = game changer pour Fred — Cowork sur Excel FooFight l'a bluffe, daily briefing configure
@@ -146,6 +149,11 @@
 - "J'ai les epaules qui se liberent, les sacs de platre qui tombent" (session 8, automatisation factures)
 - "J'ai vraiment envie d'avancer, mais ce qui me manque c'est la premiere action" (session 8, blocage TDAH)
 - "je comptais vachement sur Annie Link/Virginie, et j'ai pas du tout cette sensation" (session 8, deception compta)
+- "c'est completement ca, c'est completement ca" (session 10, validation schema HKFU)
+- "HTML, tu m'as convaincu encore une fois. Il y avait un avant et un apres" (session 10, format HTML vs Word)
+- "Les economies que tu peux faire, c'est hallucinant" (session 10, nettoyage Google Workspace)
+- "Je veux etre focus la-dessus parce que c'est vraiment la poule aux oeufs d'or" (session 10, FuFight = priorite unique)
+- "J'ai toujours eu 18 000 projets. Moi, je veux etre focus." (session 10, prise de conscience)
 
 ## Pepites LinkedIn
 > Extraites des sessions — reutilisables pour posts LinkedIn (anonymise : "un dirigeant TPE")
@@ -176,6 +184,9 @@
 | 8 | "Les epaules se liberent, les sacs de platre tombent" — automatiser la corvee comptable | Temoignage / Empathie | "Un dirigeant m'a dit : 'Les sacs de platre tombent.' On venait de lui montrer qu'il n'aurait plus a trier ses factures a la main." | Non |
 | 8 | "Ce qui me manque c'est la premiere action pour lancer le truc" — le blocage TDAH du demarrage | Expertise / Educatif | "Un dirigeant m'a dit : 'Ce qui me manque, c'est la premiere action.' Pas la motivation. Pas le temps. Juste savoir par ou commencer." | Non |
 | 8 | Fred decu par sa compta externalisee — reprend le controle avec l'IA plutot que dependre d'un tiers | Coulisses / Expertise | "Un dirigeant a externalise sa compta. 6 mois plus tard : 'J'ai pas du tout cette sensation de etre decharge.' Alors on a automatise." | Non |
+| 10 | "HTML, tu m'as convaincu. Il y avait un avant et un apres" — un dirigeant decouvre les documents interactifs vs les fichiers Word | Temoignage / Transformation | "Un dirigeant m'a dit : 'HTML, tu m'as convaincu. Il y avait un avant et un apres.' Il ne parlait pas d'un site web. Il parlait d'un simple document." | Non |
+| 10 | 9 comptes Google Workspace dont certains jamais utilises = centaines d'euros jetes | Expertise / Educatif | "9 comptes Google Workspace. 3 n'avaient jamais ete ouverts. Personne ne lui avait dit qu'il payait pour des fantomes." | Non |
+| 10 | "J'ai toujours eu 18 000 projets. La, je veux etre focus." — un dirigeant choisit enfin UN projet | Temoignage / Transformation | "Un dirigeant m'a dit : 'J'ai toujours eu 18 000 projets. La, je veux etre focus.' En 10 sessions, il a choisi. Un seul projet. La poule aux oeufs d'or." | Non |
 
 ## Historique Sessions
 
@@ -190,3 +201,4 @@
 | 7 | 2026-03-13 | Cadrage digital : Outlook/OVH, gouvernance actifs, OneDrive/Dashlane | Outlook 4 boites OK, OVH acces recupere, Firefox par defaut, favoris reorganises par Claude, M365 a acheter, portail client bookmarke | "c'est un pas de geant" (toutes boites dans Outlook). OVH : 12 domaines inutiles (~300 EUR/an). Phishing detecte en live. Firefox Containers adopte spontanement. |
 | 8 | 2026-03-17 | Claude Pro, Cowork & Automatisation Factures | Migration Botnation → Claude Pro (20$/mois), Claude = binome travail (Drive+Calendar+Gmail), automatisation factures lancee (n8n) | Compte Claude cree, Cowork Excel FooFight = Fred bluffe ("tu me regales"), Daily Briefing 7h configure, 9 factures recues pour auto, compta Annie Link decevante. Prochaine session mardi 18/03 8h. |
 | 9 | 2026-03-24 | Restructuration HKFU & retro-planning expatriation | Tout transferer sous HKFU (nouvelle entite HK). FU Solutions France ferme fin 2026. V8 a vendre. SCI aux enfants. Emails sous domaine unique HKFU. Factures : attribution par projet. Revolut releve mensuel active. | Seminaire expatriation (Joseph & Vincent) = choc thermique. Frere malade. Automatisation factures revue (corrections mineures, Le Bon Coin non reconnu). Drive partage avec Admilink. Revolut API dispo. Contact notaire Jonathan Machado. Prochaine session lundi 30/03 10h. |
+| 10 | 2026-03-30 | Structure HKFU validee, auto-factures debug, nettoyage Google | Schema HKFU valide par Fred. Expatriation decidee : boite HK + residence Thailande. V8 = vente fonds de commerce. SCI + travaux lotissement (deadline juillet). M365 a acheter maintenant. Daily briefing → WhatsApp. | Google Workspace de 9 a 6 sieges (-18 EUR/mois). Contrat licence FuFight en cours (Denis/Human Lab). Notaire Jonathan Machado appelle cette semaine. Contact retraite Maelys Villeneuve. Fred converti au HTML ("avant et apres"). Dashlane en stand-by. Auto-factures : bugs a corriger (non-factures pas decategorisees). |

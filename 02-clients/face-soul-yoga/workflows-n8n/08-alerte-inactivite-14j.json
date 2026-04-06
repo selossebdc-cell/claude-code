@@ -1,0 +1,53 @@
+{
+  "name": "FSY — Alerte inactivité 14j → Email Laurie",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "cron-lundi-10h",
+      "name": "Tous les lundis 10h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const BREVO_KEY = '[REDACTED_BREVO_KEY]';\nconst CIRCLE_TOKEN = '[REDACTED_CIRCLE_TOKEN]';\nconst COMMUNITY_ID = 503593;\n\n// 1. R&eacute;cup&eacute;rer tous les membres Circle\nlet allMembers = [];\nlet page = 1;\nlet hasMore = true;\nwhile (hasMore) {\n  const resp = await this.helpers.httpRequest({\n    method: 'GET',\n    url: 'https://app.circle.so/api/v1/community_members?community_id=' + COMMUNITY_ID + '&per_page=100&page=' + page,\n    headers: { 'Authorization': 'Token ' + CIRCLE_TOKEN }\n  });\n  if (resp.length === 0) {\n    hasMore = false;\n  } else {\n    allMembers = allMembers.concat(resp);\n    page++;\n  }\n  if (page > 20) hasMore = false;\n}\n\n// 2. Identifier les inactifs (derniere activite > 14 jours)\nconst now = new Date();\nconst fourteenDaysAgo = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);\nconst inactiveMembers = [];\n\nfor (const m of allMembers) {\n  const lastSeen = m.last_seen_at || m.updated_at || m.created_at;\n  if (lastSeen) {\n    const lastDate = new Date(lastSeen);\n    if (lastDate < fourteenDaysAgo) {\n      inactiveMembers.push({\n        name: m.name || '',\n        email: m.email || '',\n        last_seen: lastSeen,\n        days_inactive: Math.floor((now - lastDate) / (24 * 60 * 60 * 1000))\n      });\n    }\n  }\n}\n\nif (inactiveMembers.length === 0) {\n  return [{ json: { success: true, message: 'Aucun membre inactif > 14j', count: 0 } }];\n}\n\n// 3. Taguer les inactifs dans Brevo\nconst brevoHeaders = { 'api-key': BREVO_KEY, 'Content-Type': 'application/json' };\nfor (const m of inactiveMembers) {\n  if (m.email) {\n    try {\n      await this.helpers.httpRequest({\n        method: 'POST',\n        url: 'https://api.brevo.com/v3/contacts',\n        headers: brevoHeaders,\n        body: {\n          email: m.email,\n          attributes: { STATUT_MEMBRE: 'inactive' },\n          updateEnabled: true\n        }\n      });\n    } catch(e) {}\n  }\n}\n\n// 4. Envoyer alerte a Laurie + Catherine\nconst today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });\n\nlet tableRows = '';\nfor (const m of inactiveMembers) {\n  tableRows += '<tr style=\"border-bottom:1px solid #333;\">';\n  tableRows += '<td style=\"padding:8px;color:#e8e0d8;\">' + m.name + '</td>';\n  tableRows += '<td style=\"padding:8px;color:#888;\">' + m.email + '</td>';\n  tableRows += '<td style=\"padding:8px;text-align:right;font-weight:600;color:#ef5350;\">' + m.days_inactive + 'j</td>';\n  tableRows += '</tr>';\n}\n\nconst html = [\n  '<div style=\"background-color:#f7f5f2;padding:40px 20px;font-family:Arial,sans-serif;\">',\n  '<div style=\"max-width:520px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;\">',\n  '<div style=\"background:#0f0f0f;padding:24px 30px;text-align:center;\">',\n  '<div style=\"font-size:20px;font-weight:700;color:#ef5350;\">&#x26a0; ALERTE INACTIVIT&Eacute;</div>',\n  '<div style=\"color:#888;font-size:13px;margin-top:4px;\">' + inactiveMembers.length + ' membre(s) inactif(s) depuis +14 jours</div>',\n  '</div>',\n  '<div style=\"padding:24px;\">',\n  '<p style=\"font-size:14px;color:#666;margin-bottom:16px;\">Ces membres n\\'ont pas &eacute;t&eacute; actifs sur Circle depuis plus de 14 jours. Un message personnel (WhatsApp ou email) est recommand&eacute;.</p>',\n  '<div style=\"background:#0f0f0f;border-radius:8px;padding:16px;overflow-x:auto;\">',\n  '<table style=\"width:100%;border-collapse:collapse;font-size:13px;\">',\n  '<tr style=\"border-bottom:1px solid #555;\"><th style=\"padding:8px;text-align:left;color:#C27A5A;\">Nom</th><th style=\"padding:8px;text-align:left;color:#C27A5A;\">Email</th><th style=\"padding:8px;text-align:right;color:#C27A5A;\">Inactif</th></tr>',\n  tableRows,\n  '</table>',\n  '</div>',\n  '</div>',\n  '<div style=\"background:#f7f5f2;padding:16px 30px;text-align:center;font-size:11px;color:#999;\">',\n  'CS Consulting Strat&eacute;gique &mdash; Alerte automatique ' + today,\n  '</div>',\n  '</div></div>'\n].join('\\n');\n\nawait this.helpers.httpRequest({\n  method: 'POST',\n  url: 'https://api.brevo.com/v3/smtp/email',\n  headers: brevoHeaders,\n  body: {\n    sender: { name: 'CS Consulting', email: 'info@facesoulyoga.com' },\n    to: [\n      { email: 'catherine@csbusiness.fr', name: 'Catherine' },\n      { email: 'support@facesoulyoga.com', name: 'Laurie' }\n    ],\n    subject: 'FSY Alerte: ' + inactiveMembers.length + ' membre(s) inactif(s) depuis +14j',\n    htmlContent: html\n  }\n});\n\nreturn [{ json: { success: true, inactiveCount: inactiveMembers.length, members: inactiveMembers } }];"
+      },
+      "id": "check-inactivite",
+      "name": "V\u00e9rifier inactivit\u00e9 Circle + Alerter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300],
+      "notesInFlow": true,
+      "notes": "Chaque lundi 10h :\n1. Liste tous les membres Circle\n2. Identifie ceux inactifs > 14 jours\n3. Tag Brevo STATUT_MEMBRE=inactive\n4. Envoie alerte email à Laurie + Catherine avec la liste"
+    }
+  ],
+  "connections": {
+    "Tous les lundis 10h": {
+      "main": [
+        [
+          {
+            "node": "V\u00e9rifier inactivit\u00e9 Circle + Alerter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "Chaque lundi 10h : v\u00e9rifie l'inactivit\u00e9 des membres Circle (>14j). Tag Brevo 'inactive' + envoie alerte \u00e0 Laurie et Catherine avec la liste des membres concern\u00e9s."
+  }
+}

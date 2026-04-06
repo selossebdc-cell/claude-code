@@ -1,0 +1,118 @@
+{
+  "name": "FSY — eSignatures Signed → Circle MTM + Brevo",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "esign-mtm-signed",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook-esign",
+      "name": "Webhook eSignatures",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "esign-mtm-signed"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.status }}",
+              "value2": "signed"
+            }
+          ]
+        }
+      },
+      "id": "filter-signed",
+      "name": "Filter: status = signed",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\n// Extraire les infos du signer depuis le payload eSignatures\nconst signer = data.signers?.[0] || data.signer || {};\nconst email = signer.email || data.signer_email || '';\nconst name = signer.name || data.signer_name || '';\nconst parts = name.split(' ');\n\nreturn [{\n  json: {\n    email,\n    prenom: parts[0] || '',\n    nom: parts.slice(1).join(' ') || '',\n    company: signer.company_name || '',\n    contract_id: data.contract_id || data.id || '',\n    signed_at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "extract-signer",
+      "name": "Extraire données signataire",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://app.circle.so/api/v1/community_members",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "=Token {{ $credentials.httpHeaderAuth.value }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"community_id\": 503593,\n  \"email\": \"{{ $json.email }}\",\n  \"name\": \"{{ $json.prenom }} {{ $json.nom }}\",\n  \"space_group_ids\": [1025924],\n  \"skip_invitation\": false\n}",
+        "options": {}
+      },
+      "id": "circle-invite",
+      "name": "Circle: Inviter au Space Group MTM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [910, 200],
+      "notesInFlow": true,
+      "notes": "community_id: 503593 (Face Soul Yoga)\nspace_group MTM: 1025924"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/contacts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "api-key", "value": "={{ $credentials.httpHeaderAuth.value }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"email\": \"{{ $json.email }}\",\n  \"attributes\": {\n    \"PRENOM\": \"{{ $json.prenom }}\",\n    \"NOM\": \"{{ $json.nom }}\",\n    \"OFFRE\": \"mtm\",\n    \"DATE_ACHAT\": \"{{ $json.signed_at.split('T')[0] }}\",\n    \"STATUT_MEMBRE\": \"active\"\n  },\n  \"listIds\": [27],\n  \"updateEnabled\": true\n}",
+        "options": {}
+      },
+      "id": "brevo-mtm",
+      "name": "Brevo: Contact → MTM active",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [910, 400],
+      "notesInFlow": true,
+      "notes": "Ajoute à liste MTM Participantes (#27)\nOFFRE=mtm, STATUT=active"
+    }
+  ],
+  "connections": {
+    "Webhook eSignatures": {
+      "main": [[ { "node": "Filter: status = signed", "type": "main", "index": 0 } ]]
+    },
+    "Filter: status = signed": {
+      "main": [
+        [ { "node": "Extraire données signataire", "type": "main", "index": 0 } ],
+        []
+      ]
+    },
+    "Extraire données signataire": {
+      "main": [[
+        { "node": "Circle: Inviter au Space Group MTM", "type": "main", "index": 0 },
+        { "node": "Brevo: Contact → MTM active", "type": "main", "index": 0 }
+      ]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "description": "PARTIE 2/2 du flux MTM.\nQuand le contrat est signé sur eSignatures.com → invite le membre dans Circle (Space Group MTM #1025924) + met à jour Brevo (OFFRE=mtm, STATUT=active, liste MTM Participantes #27).\n\nCONFIG REQUISE :\n- Credential HTTP Header Auth pour Circle (API token)\n- Credential HTTP Header Auth pour Brevo (API key)\n- URL webhook à configurer dans eSignatures.com → Settings → Webhooks"
+  }
+}

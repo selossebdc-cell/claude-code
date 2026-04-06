@@ -1,0 +1,53 @@
+{
+  "name": "FSY — Rapport Hebdo → Email (lundi 9h)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "cron-lundi",
+      "name": "Tous les lundis 9h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const BREVO_KEY = '[REDACTED_BREVO_KEY]';\nconst headers = { 'api-key': BREVO_KEY, 'accept': 'application/json' };\n\n// 1. Listes principales\nconst r1 = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/12', headers });\nconst activeMembers = r1.uniqueSubscribers || 0;\n\nconst r2 = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/9', headers });\nconst audience = r2.uniqueSubscribers || 0;\n\n// 2. Listes par offre\nconst rMTM = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/27', headers });\nconst mtmCount = rMTM.uniqueSubscribers || 0;\n\nconst rFormation = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/19', headers });\nconst formationCount = rFormation.uniqueSubscribers || 0;\n\nconst rAnnuel = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/25', headers });\nconst annuelCount = rAnnuel.uniqueSubscribers || 0;\n\nconst rFreeTrial = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/11', headers });\nconst freeTrialCount = rFreeTrial.uniqueSubscribers || 0;\n\nconst rRetraite = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/26', headers });\nconst retraiteCount = rRetraite.uniqueSubscribers || 0;\n\nconst rEbook = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/contacts/lists/23', headers });\nconst ebookCount = rEbook.uniqueSubscribers || 0;\n\n// 3. Stats email 7 jours\nconst r3 = await this.helpers.httpRequest({ method: 'GET', url: 'https://api.brevo.com/v3/smtp/statistics/aggregatedReport?days=7', headers });\nconst delivered = r3.delivered || 0;\nconst opens = r3.uniqueOpens || 0;\nconst openRate = delivered > 0 ? Math.round((opens / delivered) * 100) : 0;\nconst clicks = r3.uniqueClicks || 0;\nconst unsubs = r3.unsubscribed || 0;\n\nconst today = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\nconst subject = 'FSY Rapport Hebdo - ' + today;\n\nlet openColor = '#ef5350';\nif (openRate >= 50) openColor = '#4CAF50';\nelse if (openRate >= 30) openColor = '#FF9800';\nconst unsubColor = unsubs > 10 ? '#ef5350' : '#333';\n\nconst html = [\n  '<div style=\"background-color:#f7f5f2;padding:40px 20px;font-family:Arial,sans-serif;\">',\n  '<div style=\"max-width:520px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;\">',\n  '',\n  '<div style=\"background:#0f0f0f;padding:24px 30px;text-align:center;\">',\n  '<div style=\"font-size:24px;font-weight:700;color:#C27A5A;letter-spacing:1px;\">FACE SOUL YOGA</div>',\n  '<div style=\"color:#888;font-size:13px;margin-top:4px;\">Rapport Hebdo &mdash; ' + today + '</div>',\n  '</div>',\n  '',\n  '<div style=\"padding:30px;\">',\n  '',\n  '<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin-bottom:24px;\"><tr>',\n  '<td width=\"48%\" style=\"background:#f7f5f2;border-radius:8px;padding:16px;text-align:center;\">',\n  '<div style=\"font-size:28px;font-weight:700;color:#C27A5A;\">' + audience + '</div>',\n  '<div style=\"font-size:11px;color:#888;margin-top:4px;\">CONTACTS BREVO</div>',\n  '</td>',\n  '<td width=\"4%\"></td>',\n  '<td width=\"48%\" style=\"background:#f7f5f2;border-radius:8px;padding:16px;text-align:center;\">',\n  '<div style=\"font-size:28px;font-weight:700;color:#4CAF50;\">' + activeMembers + '</div>',\n  '<div style=\"font-size:11px;color:#888;margin-top:4px;\">MEMBRES ACTIFS</div>',\n  '</td>',\n  '</tr></table>',\n  '',\n  '<div style=\"background:#0f0f0f;border-radius:8px;padding:16px 20px;margin-bottom:24px;\">',\n  '<div style=\"font-size:12px;font-weight:700;color:#C27A5A;margin-bottom:10px;letter-spacing:1px;\">R&Eacute;PARTITION PAR OFFRE</div>',\n  '<table style=\"width:100%;border-collapse:collapse;font-size:13px;color:#e8e0d8;\">',\n  '<tr style=\"border-bottom:1px solid #333;\">',\n  '<td style=\"padding:8px 4px;\">&#x1f3af; FSY Studio (abonnement)</td>',\n  '<td style=\"padding:8px 4px;text-align:right;font-weight:600;color:#4CAF50;\">' + activeMembers + '</td>',\n  '</tr>',\n  '<tr style=\"border-bottom:1px solid #333;\">',\n  '<td style=\"padding:8px 4px;\">&#x1f393; Master The Method</td>',\n  '<td style=\"padding:8px 4px;text-align:right;font-weight:600;color:#FF9800;\">' + mtmCount + '</td>',\n  '</tr>',\n  '<tr style=\"border-bottom:1px solid #333;\">',\n  '<td style=\"padding:8px 4px;\">&#x1f4da; Formation (int&eacute;ress&eacute;s)</td>',\n  '<td style=\"padding:8px 4px;text-align:right;font-weight:600;color:#64b5f6;\">' + formationCount + '</td>',\n  '</tr>',\n  '<tr style=\"border-bottom:1px solid #333;\">',\n  '<td style=\"padding:8px 4px;\">&#x1f4c5; Abonnement Annuel</td>',\n  '<td style=\"padding:8px 4px;text-align:right;font-weight:600;color:#ce93d8;\">' + annuelCount + '</td>',\n  '</tr>',\n  '<tr style=\"border-bottom:1px solid #333;\">',\n  '<td style=\"padding:8px 4px;\">&#x1f31f; Free Trial</td>',\n  '<td style=\"padding:8px 4px;text-align:right;font-weight:600;color:#ffd54f;\">' + freeTrialCount + '</td>',\n  '</tr>',\n  '<tr style=\"border-bottom:1px solid #333;\">',\n  '<td style=\"padding:8px 4px;\">&#x1f9d8; Retraite</td>',\n  '<td style=\"padding:8px 4px;text-align:right;font-weight:600;color:#80cbc4;\">' + retraiteCount + '</td>',\n  '</tr>',\n  '<tr>',\n  '<td style=\"padding:8px 4px;\">&#x1f4d6; Ebook (lead magnet)</td>',\n  '<td style=\"padding:8px 4px;text-align:right;font-weight:600;color:#ef9a9a;\">' + ebookCount + '</td>',\n  '</tr>',\n  '</table>',\n  '</div>',\n  '',\n  '<div style=\"font-size:12px;font-weight:700;color:#666;margin-bottom:8px;letter-spacing:1px;\">STATS EMAIL (7 DERNIERS JOURS)</div>',\n  '<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">',\n  '<tr style=\"border-bottom:1px solid #eee;\">',\n  '<td style=\"padding:10px 8px;color:#666;\">Emails d&eacute;livr&eacute;s</td>',\n  '<td style=\"padding:10px 8px;text-align:right;font-weight:600;color:#333;\">' + delivered + '</td>',\n  '</tr>',\n  '<tr style=\"border-bottom:1px solid #eee;\">',\n  '<td style=\"padding:10px 8px;color:#666;\">Taux d\\'ouverture</td>',\n  '<td style=\"padding:10px 8px;text-align:right;font-weight:600;color:' + openColor + ';\">' + openRate + '%</td>',\n  '</tr>',\n  '<tr style=\"border-bottom:1px solid #eee;\">',\n  '<td style=\"padding:10px 8px;color:#666;\">Clics uniques</td>',\n  '<td style=\"padding:10px 8px;text-align:right;font-weight:600;color:#333;\">' + clicks + '</td>',\n  '</tr>',\n  '<tr>',\n  '<td style=\"padding:10px 8px;color:#666;\">D&eacute;sabonnements</td>',\n  '<td style=\"padding:10px 8px;text-align:right;font-weight:600;color:' + unsubColor + ';\">-' + unsubs + '</td>',\n  '</tr>',\n  '</table>',\n  '',\n  '</div>',\n  '',\n  '<div style=\"background:#f7f5f2;padding:16px 30px;text-align:center;font-size:11px;color:#999;\">',\n  'CS Consulting Strat&eacute;gique &mdash; Rapport g&eacute;n&eacute;r&eacute; automatiquement',\n  '</div>',\n  '',\n  '</div>',\n  '</div>'\n].join('\\n');\n\nconst emailResult = await this.helpers.httpRequest({\n  method: 'POST',\n  url: 'https://api.brevo.com/v3/smtp/email',\n  headers: { 'api-key': BREVO_KEY, 'Content-Type': 'application/json' },\n  body: {\n    sender: { name: 'CS Consulting', email: 'info@facesoulyoga.com' },\n    to: [{ email: 'catherine@csbusiness.fr', name: 'Catherine' }],\n    subject: subject,\n    htmlContent: html\n  }\n});\n\nreturn [{ json: { success: true, subject, audience, activeMembers, mtmCount, formationCount, annuelCount, freeTrialCount, retraiteCount, ebookCount, delivered, openRate, clicks, unsubs } }];"
+      },
+      "id": "rapport-complet",
+      "name": "Collecter data + Envoyer email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300],
+      "notesInFlow": true,
+      "notes": "Tout-en-un : appelle Brevo API x3, construit le rapport HTML, envoie l'email.\nTEST: uniquement Catherine.\nEN PROD: ajouter { email: 'aurelia.delsol@gmail.com', name: 'Aurelia' } dans le tableau 'to'."
+    }
+  ],
+  "connections": {
+    "Tous les lundis 9h": {
+      "main": [
+        [
+          {
+            "node": "Collecter data + Envoyer email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "description": "Chaque lundi 9h : collecte les stats Brevo (audience, membres actifs, emails 7j) et envoie un rapport HTML par email a Catherine. En prod: ajouter Aurelia."
+  }
+}

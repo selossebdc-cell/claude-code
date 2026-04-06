@@ -1,0 +1,66 @@
+{
+  "name": "FSY — Manychat Quiz → Brevo (tag source + intérêt)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "manychat-fsy",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook-manychat",
+      "name": "Webhook Manychat",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "manychat-fsy"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\n\n// Manychat envoie les custom fields du quiz\nconst email = data.email || '';\nconst prenom = data.first_name || data.prenom || '';\nconst interet = data.interet || data.quiz_result || data.custom_field_interet || '';\nconst ig_username = data.ig_username || data.username || '';\n\nif (!email) {\n  return []; // Pas d'email = on ne peut rien faire\n}\n\nreturn [{\n  json: {\n    email,\n    prenom,\n    interet: interet.toLowerCase().trim(),\n    source: 'instagram',\n    utm_source: 'instagram',\n    utm_medium: 'manychat_quiz',\n    ig_username\n  }\n}];"
+      },
+      "id": "extract-manychat",
+      "name": "Extraire données Manychat",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/contacts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "api-key", "value": "={{ $credentials.httpHeaderAuth.value }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"email\": \"{{ $json.email }}\",\n  \"attributes\": {\n    \"PRENOM\": \"{{ $json.prenom }}\",\n    \"SOURCE\": \"{{ $json.source }}\",\n    \"INTERET\": \"{{ $json.interet }}\",\n    \"STATUT_MEMBRE\": \"prospect\",\n    \"UTM_SOURCE\": \"{{ $json.utm_source }}\",\n    \"UTM_MEDIUM\": \"{{ $json.utm_medium }}\"\n  },\n  \"listIds\": [9],\n  \"updateEnabled\": true\n}",
+        "options": {}
+      },
+      "id": "brevo-create",
+      "name": "Brevo: Créer/MAJ contact prospect",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [690, 300],
+      "notesInFlow": true,
+      "notes": "Ajoute à liste FSY Audience (#9)\nTags: SOURCE=instagram, INTERET=<réponse quiz>\nSTATUT=prospect"
+    }
+  ],
+  "connections": {
+    "Webhook Manychat": {
+      "main": [[ { "node": "Extraire données Manychat", "type": "main", "index": 0 } ]]
+    },
+    "Extraire données Manychat": {
+      "main": [[ { "node": "Brevo: Créer/MAJ contact prospect", "type": "main", "index": 0 } ]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "description": "Quand Manychat capture un email via quiz Instagram DM → crée le contact dans Brevo avec SOURCE=instagram, INTERET=<réponse quiz>, STATUT=prospect.\n\nCONFIG REQUISE :\n- Credential HTTP Header Auth avec clé API Brevo\n- Dans Manychat : ajouter action 'External Request' dans le flow quiz\n  → POST vers l'URL webhook n8n\n  → Body : { email, first_name, interet, ig_username }\n- Le champ 'interet' doit mapper la réponse du quiz : sommeil, face_yoga, machoire, stress"
+  }
+}

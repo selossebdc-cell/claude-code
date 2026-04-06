@@ -1,0 +1,114 @@
+{
+  "name": "FSY — Stripe Annulation → Brevo churned",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stripe-fsy-annulation",
+        "responseMode": "onReceived"
+      },
+      "id": "webhook-stripe-cancel",
+      "name": "Webhook Stripe Annulation",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "stripe-fsy-annulation"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.type }}",
+              "value2": "customer.subscription.deleted"
+            }
+          ]
+        }
+      },
+      "id": "filter-cancel",
+      "name": "Filter: subscription.deleted",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const event = $input.first().json;\nconst sub = event.data?.object || event;\n\n// Récupérer l'email du customer via Stripe API\n// Note: le webhook subscription.deleted contient customer ID mais pas l'email\n// Il faut soit stocker l'email au moment de l'achat, soit appeler Stripe API\nconst customer_id = sub.customer || '';\nconst email = sub.customer_email || '';\n\nreturn [{\n  json: {\n    email,\n    customer_id,\n    cancel_date: new Date().toISOString().split('T')[0],\n    cancel_reason: sub.cancellation_details?.reason || 'non_specifie'\n  }\n}];"
+      },
+      "id": "extract-cancel",
+      "name": "Extraire données annulation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/contacts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "api-key", "value": "={{ $credentials.httpHeaderAuth.value }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"email\": \"{{ $json.email }}\",\n  \"attributes\": {\n    \"STATUT_MEMBRE\": \"churned\"\n  },\n  \"updateEnabled\": true\n}",
+        "options": {}
+      },
+      "id": "brevo-churned",
+      "name": "Brevo: STATUT → churned",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [910, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.brevo.com/v3/contacts/lists/12/contacts/remove",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "api-key", "value": "={{ $credentials.httpHeaderAuth.value }}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"emails\": [\"{{ $json.email }}\"]\n}",
+        "options": {}
+      },
+      "id": "brevo-remove-active",
+      "name": "Brevo: Retirer de Active Members (#12)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1130, 200]
+    }
+  ],
+  "connections": {
+    "Webhook Stripe Annulation": {
+      "main": [[ { "node": "Filter: subscription.deleted", "type": "main", "index": 0 } ]]
+    },
+    "Filter: subscription.deleted": {
+      "main": [
+        [ { "node": "Extraire données annulation", "type": "main", "index": 0 } ],
+        []
+      ]
+    },
+    "Extraire données annulation": {
+      "main": [[ { "node": "Brevo: STATUT → churned", "type": "main", "index": 0 } ]]
+    },
+    "Brevo: STATUT → churned": {
+      "main": [[ { "node": "Brevo: Retirer de Active Members (#12)", "type": "main", "index": 0 } ]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "description": "Quand un abonné annule sur Stripe → Brevo passe STATUT_MEMBRE à 'churned' + retire de Active Members (#12).\n\nCONFIG REQUISE :\n- Credential HTTP Header Auth avec clé API Brevo\n- Événement Stripe : customer.subscription.deleted\n- NOTE : il faut peut-être un node Stripe API pour récupérer l'email depuis le customer_id"
+  }
+}

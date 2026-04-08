@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition — Dot Market × CS Consulting Stratégique</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+  @media print {
+    body { margin: 0; padding: 20px; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+    .dashboard-preview { break-inside: avoid; }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', 'Inter', -apple-system, sans-serif;
+    color: #1e293b;
+    line-height: 1.7;
+    font-size: 15px;
+    background: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  /* === COULEURS DOT MARKET === */
+  :root {
+    --dm-teal: #0d9488;
+    --dm-teal-light: #ccfbf1;
+    --dm-teal-dark: #115e59;
+    --dm-dark: #0f172a;
+    --dm-gold: #f59e0b;
+    --dm-gold-light: #fef3c7;
+    --dm-slate: #64748b;
+    --dm-light: #f8fafc;
+    --dm-border: #e2e8f0;
+    --dm-green: #10b981;
+    --dm-red: #ef4444;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    background: var(--dm-dark);
+    border-radius: 20px;
+    margin: -40px -40px 40px;
+    padding: 80px 40px;
+  }
+  .cover-label {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--dm-teal);
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+  .cover h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .cover-company {
+    font-size: 1.4rem;
+    color: var(--dm-gold);
+    margin-bottom: 60px;
+    font-weight: 600;
+  }
+  .cover-meta {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    line-height: 2;
+  }
+  .cover-meta strong { color: #cbd5e1; }
+  .cover-line {
+    width: 60px;
+    height: 3px;
+    background: var(--dm-teal);
+    margin: 30px auto;
+    border-radius: 2px;
+  }
+  .cover-logos {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: #94a3b8;
+  }
+  .cover-logos span { opacity: 0.5; }
+
+  /* SECTIONS */
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dm-dark);
+    margin: 50px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--dm-teal);
+  }
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--dm-teal-dark);
+    margin: 30px 0 10px;
+  }
+  p { margin-bottom: 14px; }
+
+  /* OPENING */
+  .opening {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #475569;
+    padding: 30px 0;
+    border-bottom: 1px solid var(--dm-border);
+    margin-bottom: 30px;
+  }
+  .opening strong { color: var(--dm-dark); }
+
+  /* HIGHLIGHT */
+  .highlight {
+    background: var(--dm-teal-light);
+    border-left: 4px solid var(--dm-teal);
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .highlight p { margin-bottom: 0; }
+
+  ul { padding-left: 20px; margin-bottom: 16px; }
+  li { margin-bottom: 8px; padding-left: 4px; }
+  li::marker { color: var(--dm-teal); }
+
+  /* CONSTAT CARDS */
+  .constat {
+    background: var(--dm-light);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    border: 1px solid var(--dm-border);
+  }
+  .constat-title {
+    font-weight: 600;
+    color: var(--dm-dark);
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  .constat-consequence { color: var(--dm-slate); font-size: 0.9rem; }
+  .constat-cost {
+    margin-top: 8px;
+    font-weight: 600;
+    color: var(--dm-red);
+    font-size: 0.9rem;
+  }
+  .constat-roi {
+    margin-top: 6px;
+    font-weight: 600;
+    color: var(--dm-green);
+    font-size: 0.9rem;
+  }
+
+  /* PRICING */
+  .pricing {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0 30px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .pricing th {
+    background: var(--dm-dark);
+    color: #fff;
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+  }
+  .pricing td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--dm-border);
+    font-size: 0.95rem;
+  }
+  .pricing tr:last-child td { border-bottom: none; }
+  .pricing .recommended { background: var(--dm-teal-light); font-weight: 600; }
+  .pricing .price { font-weight: 700; color: var(--dm-teal); font-size: 1.1rem; }
+
+  /* PHASES */
+  .phase {
+    background: var(--dm-light);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 16px 0;
+    border: 1px solid var(--dm-border);
+  }
+  .phase-number {
+    display: inline-block;
+    background: var(--dm-teal);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  .phase-title { font-weight: 600; font-size: 1.05rem; color: var(--dm-dark); display: inline; }
+  .phase-period {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--dm-slate);
+    margin: 4px 0 14px 38px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .phase-hours {
+    display: inline-block;
+    background: var(--dm-teal);
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+
+  /* TIMELINE */
+  .timeline { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85rem; }
+  .timeline th { background: var(--dm-dark); color: #fff; padding: 10px 14px; text-align: left; font-weight: 500; }
+  .timeline td { padding: 10px 14px; border-bottom: 1px solid var(--dm-border); }
+  .timeline .total-row { background: var(--dm-teal-light); font-weight: 600; }
+  .timeline .total-row td { border-bottom: none; }
+
+  /* RESULTS */
+  .result { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid #f0f0f0; }
+  .result:last-child { border-bottom: none; }
+  .result-check {
+    flex-shrink: 0; width: 24px; height: 24px; background: var(--dm-teal);
+    border-radius: 50%; color: #fff; display: flex; align-items: center;
+    justify-content: center; font-size: 0.75rem; margin-top: 2px;
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    background: var(--dm-dark);
+    color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    margin: 40px 0;
+  }
+  .cta h3 { color: var(--dm-teal); font-size: 1.3rem; margin-bottom: 16px; font-weight: 700; }
+  .cta p { color: #94a3b8; font-size: 0.95rem; }
+  .cta a { color: var(--dm-gold); text-decoration: none; font-weight: 600; }
+  .cta .validity { margin-top: 20px; font-size: 0.8rem; color: var(--dm-slate); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center; padding: 30px 0; font-size: 0.8rem; color: #94a3b8;
+    border-top: 1px solid var(--dm-border); margin-top: 40px;
+  }
+  .footer a { color: var(--dm-teal); text-decoration: none; }
+
+  /* ========================================
+     DASHBOARD PREVIEWS — exemples visuels
+     ======================================== */
+  .dashboard-preview {
+    background: var(--dm-dark);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+    color: #fff;
+  }
+  .dashboard-preview h4 {
+    color: var(--dm-teal);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  /* KPI cards */
+  .kpi-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .kpi-card {
+    flex: 1;
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #334155;
+  }
+  .kpi-label { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+  .kpi-value { font-size: 1.5rem; font-weight: 700; margin: 6px 0; }
+  .kpi-value.teal { color: var(--dm-teal); }
+  .kpi-value.gold { color: var(--dm-gold); }
+  .kpi-value.green { color: var(--dm-green); }
+  .kpi-value.red { color: var(--dm-red); }
+  .kpi-trend { font-size: 0.75rem; }
+  .kpi-trend.up { color: var(--dm-green); }
+  .kpi-trend.down { color: var(--dm-red); }
+
+  /* Funnel / bar chart mock */
+  .funnel-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .funnel-label { font-size: 0.8rem; color: #94a3b8; width: 120px; flex-shrink: 0; }
+  .funnel-bar-bg {
+    flex: 1;
+    height: 24px;
+    background: #1e293b;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #334155;
+  }
+  .funnel-bar {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .funnel-days { font-size: 0.8rem; color: #cbd5e1; width: 50px; text-align: right; flex-shrink: 0; }
+
+  /* Table mock */
+  .mock-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 0.8rem;
+  }
+  .mock-table th {
+    text-align: left;
+    padding: 8px 10px;
+    color: #94a3b8;
+    border-bottom: 1px solid #334155;
+    font-weight: 500;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .mock-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #1e293b;
+    color: #cbd5e1;
+  }
+  .mock-table .highlight-cell { color: var(--dm-gold); font-weight: 600; }
+
+  /* ROI Box */
+  .roi-box {
+    background: linear-gradient(135deg, var(--dm-teal-dark), var(--dm-teal));
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    color: #fff;
+  }
+  .roi-box .roi-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+  .roi-box .roi-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  .roi-box .roi-detail {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-top: 6px;
+  }
+
+  /* Agent report mock */
+  .agent-report {
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 12px 0;
+    border: 1px solid #334155;
+  }
+  .agent-report .report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .agent-report .report-title { font-size: 0.85rem; font-weight: 600; color: #fff; }
+  .agent-report .report-date { font-size: 0.7rem; color: #94a3b8; }
+  .agent-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid #334155;
+  }
+  .agent-item:last-child { border-bottom: none; }
+  .agent-priority {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .agent-priority.high { background: var(--dm-gold); color: var(--dm-dark); }
+  .agent-priority.medium { background: var(--dm-teal); color: #fff; }
+  .agent-priority.low { background: #334155; color: #94a3b8; }
+  .agent-text { font-size: 0.8rem; color: #cbd5e1; }
+  .agent-impact { font-size: 0.7rem; color: var(--dm-green); margin-top: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ==========================================
+     PAGE DE COUVERTURE
+     ========================================== -->
+<div class="cover">
+  <div class="cover-label">Proposition d'accompagnement</div>
+  <h1>Data centralisée, pilotage IA<br>et amélioration continue</h1>
+  <div class="cover-company">Dot Market</div>
+  <div class="cover-line"></div>
+  <div class="cover-meta">
+    <strong>Préparée pour</strong> Kévin Jourdan & Elsa Fanjul<br>
+    <strong>Par</strong> Catherine Selosse — CS Consulting Stratégique<br>
+    <strong>Date</strong> 14 avril 2026<br>
+    <strong>Contact</strong> catherine@csbusiness.fr
+  </div>
+  <div class="cover-logos">
+    Dot Market <span>×</span> CS Consulting Stratégique
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==========================================
+     OUVERTURE
+     ========================================== -->
+<div class="opening">
+  Kévin, Elsa,<br><br>
+  Merci pour nos échanges. En quelques minutes avec Elsa, j'ai retrouvé ce que Kévin m'avait décrit : <strong>une entreprise qui fonctionne, une équipe compétente, des process en place</strong> — et une frustration claire.<br><br>
+  Vous avez construit Dot Market avec rigueur : <strong>+550 exits, 80% de succès, une équipe structurée par pôle</strong>. Tout est là. Mais la donnée — celle qui devrait vous permettre de piloter, d'anticiper, de décider en temps réel — elle est encore récoltée à la main.<br><br>
+  <strong>Le problème n'est pas votre organisation. C'est que vos outils ne travaillent pas encore ensemble.</strong><br><br>
+  Ce que je vous propose : <strong>connecter ce qui existe</strong>, y ajouter l'intelligence artificielle, et vous donner un système qui s'améliore tout seul chaque semaine.
+</div>
+
+<!-- ==========================================
+     CONSTATS + ROI
+     ========================================== -->
+<h2>Ce que j'ai observé — et ce que ça vous coûte</h2>
+
+<div class="constat">
+  <div class="constat-title">1. La donnée existe mais ne parle pas</div>
+  <div class="constat-consequence">Pipedrive contient vos deals, MemberStack vos investisseurs, Pennylane votre compta. Mais pour avoir un chiffre, la DAF doit aller le chercher manuellement. Pas d'instantanéité, pas de vision croisée.</div>
+  <div class="constat-cost">Coût : ~5h/semaine de collecte manuelle par la DAF = 260h/an = ~10 000 €/an de temps improductif</div>
+  <div class="constat-roi">ROI : ces 5h récupérées chaque semaine dès la mise en production du dashboard (S6)</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">2. Le time-to-cash est une boîte noire</div>
+  <div class="constat-consequence">Du moment où un dossier arrive chez vous jusqu'à l'encaissement — vous savez que c'est trop long, mais vous ne savez pas <em>où</em> ça bloque. C'est "empirique", comme dit Elsa.</div>
+  <div class="constat-cost">Coût : si votre time-to-cash moyen est de 90 jours et qu'on le réduit de 15 jours, sur 50 dossiers/an à 30 000 € moyen, c'est ~60 000 € de trésorerie libérée plus tôt chaque année</div>
+  <div class="constat-roi">ROI : identification précise des bottlenecks dès le 1er mois d'exploitation des données</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">3. L'IA est utilisée en silos</div>
+  <div class="constat-consequence">Deux personnes développent des solutions IA sur leur propre cloud. Le reste de l'équipe ne voit pas le gain. Les solutions développées ne vous appartiennent pas si le freelance part.</div>
+  <div class="constat-cost">Coût : duplication d'efforts + perte de propriété intellectuelle + gap croissant dans l'équipe</div>
+  <div class="constat-roi">ROI : chaque analyste gagne ~2h/dossier sur les pré-audits. Sur 100 dossiers/an = 200h récupérées</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">4. Les process ne s'améliorent pas seuls</div>
+  <div class="constat-consequence">Tout est documenté sur Notion. Mais certains process ont évolué sans être mis à jour, et il n'y a pas de mécanisme pour détecter les inefficacités de façon systématique.</div>
+  <div class="constat-cost">Coût : des micro-inefficacités qui s'accumulent — chacune semble mineure, ensemble elles pèsent</div>
+  <div class="constat-roi">ROI : 3-5 optimisations/semaine proposées, ~1-2 retenues. Effet cumulatif : +15-20% d'efficacité opérationnelle sur 6 mois</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">5. L'agence prévue ne couvrait pas le vrai besoin</div>
+  <div class="constat-consequence">Un dashboard Notion + Pipedrive, sans IA, sans amélioration continue. "Il manquait la partie IA" (Elsa). Payer pour un outil qui ne fait que 30% du travail.</div>
+  <div class="constat-cost">Coût : investissement dans un outil à refaire dans 6 mois</div>
+  <div class="constat-roi">ROI : une seule mission qui couvre data + IA + optimisation = pas de double investissement</div>
+</div>
+
+<!-- ROI GLOBAL -->
+<div class="roi-box">
+  <div class="roi-title">Retour sur investissement estimé — année 1</div>
+  <div class="roi-number">+70 000 € de valeur récupérée</div>
+  <div class="roi-detail">10 000 € (temps DAF) + 60 000 € (trésorerie time-to-cash) + gains IA analystes — estimation conservatrice, hors gains d'amélioration continue</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==========================================
+     CE QU'ON VA CONSTRUIRE — avec previews
+     ========================================== -->
+<h2>Ce qu'on va construire ensemble</h2>
+
+<!-- ---- BRIQUE 1 : DASHBOARD ---- -->
+<div class="highlight">
+  <p><strong>1. Un dashboard de pilotage connecté en temps réel</strong><br>
+  Pipedrive + MemberStack → un seul écran. Time-to-cash, pipeline, conversion, saisonnalité — filtrable par typologie de dossier (e-commerce, contenu, SaaS). Kévin et Elsa voient les chiffres en un clic.</p>
+</div>
+
+<!-- Exemple visuel : KPIs -->
+<div class="dashboard-preview">
+  <h4>Aperçu — KPIs principaux (données fictives)</h4>
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Time-to-cash moyen</div>
+      <div class="kpi-value teal">73 jours</div>
+      <div class="kpi-trend down">↓ 12 jours vs T4 2025</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Pipeline actif</div>
+      <div class="kpi-value gold">2,4 M€</div>
+      <div class="kpi-trend up">↑ +18% vs N-1</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Taux de closing</div>
+      <div class="kpi-value green">34%</div>
+      <div class="kpi-trend up">↑ +3 pts vs T4</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Dossiers en cours</div>
+      <div class="kpi-value" style="color: #fff;">47</div>
+      <div class="kpi-trend" style="color: #94a3b8;">12 SaaS · 18 e-com · 17 contenu</div>
+    </div>
+  </div>
+
+  <!-- Time-to-cash par étape -->
+  <h4 style="margin-top: 20px;">Time-to-cash — Où ça bloque ?</h4>
+  <div class="funnel-row">
+    <div class="funnel-label">Qualification</div>
+    <div class="funnel-bar-bg"><div class="funnel-bar" style="width: 20%; background: var(--dm-teal);">5j</div></div>
+    <div class="funnel-days">5 jours</div>
+  </div>
+  <div class="funnel-row">
+    <div class="funnel-label">Valorisation</div>
+    <div class="funnel-bar-bg"><div class="funnel-bar" style="width: 35%; background: var(--dm-teal);">12j</div></div>
+    <div class="funnel-days">12 jours</div>
+  </div>
+  <div class="funnel-row">
+    <div class="funnel-label">Mise en marché</div>
+    <div class="funnel-bar-bg"><div class="funnel-bar" style="width: 25%; background: var(--dm-gold);">8j</div></div>
+    <div class="funnel-days">8 jours</div>
+  </div>
+  <div class="funnel-row">
+    <div class="funnel-label">Négociation</div>
+    <div class="funnel-bar-bg"><div class="funnel-bar" style="width: 75%; background: var(--dm-red);">28j</div></div>
+    <div class="funnel-days">28 jours</div>
+  </div>
+  <div class="funnel-row">
+    <div class="funnel-label">Closing & cash</div>
+    <div class="funnel-bar-bg"><div class="funnel-bar" style="width: 55%; background: var(--dm-gold);">20j</div></div>
+    <div class="funnel-days">20 jours</div>
+  </div>
+  <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 8px; text-align: center;">↑ La négociation est le bottleneck principal — 38% du time-to-cash total. Filtrable par typologie de dossier.</p>
+</div>
+
+<!-- Exemple : top dossiers -->
+<div class="dashboard-preview">
+  <h4>Aperçu — Analyse par typologie (données fictives)</h4>
+  <table class="mock-table">
+    <tr>
+      <th>Typologie</th>
+      <th>Dossiers actifs</th>
+      <th>Time-to-cash moy.</th>
+      <th>Taux closing</th>
+      <th>CA moyen</th>
+      <th>Tendance</th>
+    </tr>
+    <tr>
+      <td>SaaS</td>
+      <td>12</td>
+      <td class="highlight-cell">62 jours</td>
+      <td>41%</td>
+      <td>85 000 €</td>
+      <td style="color: var(--dm-green);">↑ +22%</td>
+    </tr>
+    <tr>
+      <td>E-commerce</td>
+      <td>18</td>
+      <td>78 jours</td>
+      <td>35%</td>
+      <td>42 000 €</td>
+      <td style="color: var(--dm-green);">↑ +8%</td>
+    </tr>
+    <tr>
+      <td>Contenu / Média</td>
+      <td>17</td>
+      <td style="color: var(--dm-red);">91 jours</td>
+      <td>27%</td>
+      <td>28 000 €</td>
+      <td style="color: var(--dm-red);">↓ -5%</td>
+    </tr>
+  </table>
+  <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 8px; text-align: center;">Le SaaS se vend plus vite et mieux — le contenu/média ralentit le time-to-cash global. Arbitrage possible.</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ---- BRIQUE 2 : CLAUDE TEAM ---- -->
+<div class="highlight">
+  <p><strong>2. Un assistant IA dédié par pôle — Claude Team</strong><br>
+  Chaque membre de l'équipe a un assistant qui connaît son rôle, ses process, ses données. Les solutions développées en silo sont centralisées. La sécurité est intégrée dès le départ.</p>
+</div>
+
+<div class="dashboard-preview">
+  <h4>Aperçu — Claude Team par rôle (exemples de cas d'usage)</h4>
+  <table class="mock-table">
+    <tr>
+      <th>Rôle</th>
+      <th>Assistant configuré pour...</th>
+      <th>Gain estimé</th>
+    </tr>
+    <tr>
+      <td><strong>Kévin</strong> (CEO)</td>
+      <td>Vision stratégique, BP, arbitrage, synthèse des KPIs du dashboard</td>
+      <td style="color: var(--dm-green);">~3h/sem</td>
+    </tr>
+    <tr>
+      <td><strong>Elsa</strong> (COO)</td>
+      <td>Optimisation process, suivi opérationnel, prépa réunion mardi</td>
+      <td style="color: var(--dm-green);">~4h/sem</td>
+    </tr>
+    <tr>
+      <td><strong>Matys</strong> (Commercial)</td>
+      <td>Prospection, qualification de leads, création de pitch personnalisés</td>
+      <td style="color: var(--dm-green);">~3h/sem</td>
+    </tr>
+    <tr>
+      <td><strong>Analystes M&A</strong></td>
+      <td>Pré-audit de dossiers, analyse financière, création de decks</td>
+      <td class="highlight-cell">~2h/dossier</td>
+    </tr>
+    <tr>
+      <td><strong>CSM / AM</strong></td>
+      <td>Suivi satisfaction, rédaction de comptes-rendus, relances</td>
+      <td style="color: var(--dm-green);">~2h/sem</td>
+    </tr>
+    <tr>
+      <td><strong>DAF</strong></td>
+      <td>Reporting automatisé, prépa des chiffres (complément Pennylane)</td>
+      <td class="highlight-cell">~5h/sem</td>
+    </tr>
+  </table>
+  <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 8px; text-align: center;">Gain collectif estimé : 20 à 25 heures/semaine récupérées sur l'ensemble de l'équipe.</p>
+</div>
+
+<!-- ---- BRIQUE 3 : AGENT AMELIORATION CONTINUE ---- -->
+<div class="highlight">
+  <p><strong>3. Un agent d'amélioration continue — le "Process Optimizer"</strong><br>
+  Chaque lundi, un agent analyse vos données et vos process. Le mardi matin en réunion, vous avez 3 à 5 propositions d'optimisation concrètes. Kévin arbitre : go ou no-go. Votre entreprise s'améliore de façon systématique.</p>
+</div>
+
+<div class="dashboard-preview">
+  <h4>Aperçu — Rapport hebdo du Process Optimizer (exemple fictif)</h4>
+  <div class="agent-report">
+    <div class="report-header">
+      <div class="report-title">Rapport semaine 18 — 28 avril 2026</div>
+      <div class="report-date">Généré lundi 28/04 à 7h00</div>
+    </div>
+
+    <div class="agent-item">
+      <div class="agent-priority high">IMPACT FORT</div>
+      <div>
+        <div class="agent-text"><strong>Négociation e-commerce : +8 jours vs SaaS</strong><br>Les dossiers e-commerce passent en moyenne 36 jours en négociation contre 28 pour le SaaS. Cause identifiée : les acheteurs demandent systématiquement des éléments de stock non préparés en amont.</div>
+        <div class="agent-impact">→ Proposition : ajouter un checklist stock au moment de la mise en marché. Gain estimé : -5 jours de time-to-cash.</div>
+      </div>
+    </div>
+
+    <div class="agent-item">
+      <div class="agent-priority high">IMPACT FORT</div>
+      <div>
+        <div class="agent-text"><strong>3 dossiers en phase "closing" depuis +30 jours</strong><br>Dossiers #DM-2156, #DM-2189, #DM-2201 sont bloqués au-delà de la moyenne. Points communs : tous les 3 attendent une validation juridique externe.</div>
+        <div class="agent-impact">→ Proposition : relance structurée le jour J+20 pour anticiper les blocages juridiques.</div>
+      </div>
+    </div>
+
+    <div class="agent-item">
+      <div class="agent-priority medium">IMPACT MOYEN</div>
+      <div>
+        <div class="agent-text"><strong>Le taux de closing "contenu/média" baisse depuis 3 mois</strong><br>27% en avril vs 33% en janvier. Le volume de dossiers est stable, mais la qualité des leads semble baisser (score moyen de qualification : 6.2/10 vs 7.8/10 en Q4).</div>
+        <div class="agent-impact">→ Proposition : revoir les critères de qualification pour les dossiers contenu/média.</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 8px; text-align: center;">Chaque proposition est basée sur vos données réelles — pas d'opinion, du factuel. L'historique go/no-go est conservé.</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ---- BRIQUE 4 : AUTONOMIE ---- -->
+<div class="highlight">
+  <p><strong>4. Une équipe formée et autonome</strong><br>
+  Pas de dépendance. Chacun sait utiliser ses outils, comprend les enjeux de sécurité IA, et est capable d'exploiter son assistant au quotidien — y compris les personnes qui n'ont pas encore franchi le pas.</p>
+</div>
+
+<!-- ==========================================
+     PROGRAMME DÉTAILLÉ
+     ========================================== -->
+<div class="page-break"></div>
+
+<h2>Le programme — Feuille de route détaillée</h2>
+
+<div class="phase">
+  <span class="phase-number">0</span>
+  <span class="phase-title">Cadrage & Audit</span>
+  <span class="phase-hours">~12h</span>
+  <span class="phase-period">Semaines 1-2</span>
+  <ul>
+    <li><strong>Audit du stack technique</strong> — cartographie complète Pipedrive, MemberStack, Notion, Slack, Pennylane. Connexions existantes, trous, doublons.</li>
+    <li><strong>Mapping des KPIs critiques</strong> — à partir du dashboard d'Elsa + échanges avec Kévin. Tri entre les KPIs essentiels et le bruit. Définition du time-to-cash par étape.</li>
+    <li><strong>Audit des process Notion</strong> — état des lieux de la documentation, ce qui est à jour vs obsolète.</li>
+    <li><strong>Audit IA existant</strong> — récupération et évaluation des solutions développées par les 2 "électrons libres". Propriété intellectuelle, qualité, réutilisabilité.</li>
+    <li><strong>Interviews flash par pôle</strong> — 30 min avec les personnes clés pour identifier les priorités spécifiques.</li>
+  </ul>
+  <p style="margin-top: 14px; font-size: 0.9rem; color: var(--dm-slate);"><strong>Livrable :</strong> Cahier des charges validé — architecture cible, KPIs retenus, planning ajusté, quick wins identifiés.</p>
+  <p style="font-size: 0.85rem; color: var(--dm-teal); font-weight: 500;">Point Go/No-Go — Validation avant de démarrer la Phase 1.</p>
+</div>
+
+<div class="phase">
+  <span class="phase-number">1</span>
+  <span class="phase-title">Dashboard de pilotage</span>
+  <span class="phase-hours">~28h</span>
+  <span class="phase-period">Semaines 3-6</span>
+  <ul>
+    <li><strong>Architecture & maquette</strong> — structure, visualisations, validation avant développement.</li>
+    <li><strong>Connexion API Pipedrive</strong> — extraction automatique des deals, pipeline, étapes, dates, typologies.</li>
+    <li><strong>Connexion MemberStack</strong> — données investisseurs, tickets d'investissement.</li>
+    <li><strong>Développement des KPIs</strong> — time-to-cash par étape et typologie, pipeline, taux de conversion, bottlenecks récurrents, saisonnalité N/N-1, filtres dynamiques.</li>
+    <li><strong>Fréquence configurable</strong> — rafraîchissement horaire, quotidien ou hebdomadaire selon le KPI.</li>
+    <li><strong>2 cycles d'itérations</strong> — retours Elsa/Kévin intégrés.</li>
+    <li><strong>Mise en production</strong> — déploiement, documentation, formation à la lecture.</li>
+  </ul>
+  <p style="margin-top: 14px; font-size: 0.9rem; color: var(--dm-slate);"><strong>Livrable :</strong> Dashboard opérationnel, accessible par navigateur, données actualisées automatiquement.</p>
+</div>
+
+<div class="phase">
+  <span class="phase-number">2</span>
+  <span class="phase-title">Déploiement Claude Team</span>
+  <span class="phase-hours">~18h</span>
+  <span class="phase-period">Semaines 5-7 (en parallèle fin Phase 1)</span>
+  <ul>
+    <li><strong>Création de l'espace Claude Team</strong> — compte admin (Kévin), configuration organisation.</li>
+    <li><strong>Instructions personnalisées par rôle</strong> — un profil IA adapté pour chaque fonction (voir tableau ci-dessus).</li>
+    <li><strong>Migration des solutions IA existantes</strong> — rapatriement depuis les clouds personnels vers le cloud Dot Market.</li>
+    <li><strong>Stack sécurité IA</strong> — consignes anti-phishing, règles de confidentialité, interdiction d'exécution automatique depuis les mails.</li>
+    <li><strong>Projets partagés</strong> — configuration des projets Claude Team communs (process, templates, connaissances métier Dot Market).</li>
+    <li><strong>Formation collective</strong> — session de 2h avec toute l'équipe : prise en main, bonnes pratiques, cas d'usage concrets par rôle.</li>
+    <li><strong>Accompagnement individuel</strong> — sessions de 30 min pour les personnes qui en ont besoin.</li>
+  </ul>
+  <p style="margin-top: 14px; font-size: 0.9rem; color: var(--dm-slate);"><strong>Livrable :</strong> Claude Team opérationnel, équipe formée, documentation interne, stack sécurité déployé.</p>
+</div>
+
+<div class="phase">
+  <span class="phase-number">3</span>
+  <span class="phase-title">Agent d'amélioration continue</span>
+  <span class="phase-hours">~12h</span>
+  <span class="phase-period">Semaines 7-9</span>
+  <ul>
+    <li><strong>Architecture de l'agent</strong> — périmètre d'analyse (données dashboard, process Notion, usage Claude Team).</li>
+    <li><strong>Développement</strong> — agent automatisé, analyse hebdomadaire, rapport structuré.</li>
+    <li><strong>Format mardi matin</strong> — 3-5 propositions classées par impact, données factuelles, estimation effort/impact, suivi des décisions précédentes.</li>
+    <li><strong>Calibrage</strong> — 2-3 semaines de rodage pour affiner la pertinence.</li>
+    <li><strong>Mise en production</strong> — agent autonome, rapport généré chaque lundi automatiquement.</li>
+  </ul>
+  <p style="margin-top: 14px; font-size: 0.9rem; color: var(--dm-slate);"><strong>Livrable :</strong> Agent opérationnel, rapport hebdomadaire automatique, historique des décisions.</p>
+</div>
+
+<div class="phase">
+  <span class="phase-number">4</span>
+  <span class="phase-title">Stabilisation & transfert</span>
+  <span class="phase-hours">~5h</span>
+  <span class="phase-period">Semaines 9-10</span>
+  <ul>
+    <li><strong>Rodage en conditions réelles</strong> — suivi de l'ensemble du système pendant 2 semaines.</li>
+    <li><strong>Corrections & ajustements</strong> — bugs, calibrage des KPIs, ajustement des instructions IA.</li>
+    <li><strong>Documentation complète</strong> — guide d'utilisation, architecture technique, procédures de maintenance.</li>
+    <li><strong>Bilan & transfert</strong> — réunion de clôture avec Kévin et Elsa, passage en mode maintenance.</li>
+  </ul>
+  <p style="margin-top: 14px; font-size: 0.9rem; color: var(--dm-slate);"><strong>Livrable :</strong> Système stabilisé, documentation complète, équipe autonome.</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==========================================
+     TIMELINE RÉCAP
+     ========================================== -->
+<h2>Planning & estimation horaire</h2>
+
+<table class="timeline">
+  <tr>
+    <th>Phase</th>
+    <th>Durée</th>
+    <th>Heures</th>
+    <th>Période</th>
+  </tr>
+  <tr>
+    <td><strong>Phase 0</strong> — Cadrage & Audit</td>
+    <td>2 semaines</td>
+    <td>~12h</td>
+    <td>S1-S2</td>
+  </tr>
+  <tr>
+    <td><strong>Phase 1</strong> — Dashboard de pilotage</td>
+    <td>4 semaines</td>
+    <td>~28h</td>
+    <td>S3-S6</td>
+  </tr>
+  <tr>
+    <td><strong>Phase 2</strong> — Claude Team</td>
+    <td>3 semaines</td>
+    <td>~18h</td>
+    <td>S5-S7</td>
+  </tr>
+  <tr>
+    <td><strong>Phase 3</strong> — Agent amélioration continue</td>
+    <td>3 semaines</td>
+    <td>~12h</td>
+    <td>S7-S9</td>
+  </tr>
+  <tr>
+    <td><strong>Phase 4</strong> — Stabilisation & transfert</td>
+    <td>2 semaines</td>
+    <td>~5h</td>
+    <td>S9-S10</td>
+  </tr>
+  <tr class="total-row">
+    <td><strong>TOTAL MISSION</strong></td>
+    <td><strong>10 semaines</strong></td>
+    <td><strong>~75h</strong></td>
+    <td><strong>Fin avril → début juillet 2026</strong></td>
+  </tr>
+</table>
+
+<p style="font-size: 0.9rem; color: var(--dm-slate); margin-top: -10px;">Les phases 1 et 2 se chevauchent (S5-S6) pour optimiser le calendrier.</p>
+
+<h3>Jalons clés</h3>
+<ul>
+  <li><strong>Fin S2</strong> — Cahier des charges validé → Go/No-Go</li>
+  <li><strong>Fin S6</strong> — Dashboard en production, premiers KPIs exploitables</li>
+  <li><strong>Fin S7</strong> — Claude Team déployé, équipe formée</li>
+  <li><strong>Fin S9</strong> — Agent amélioration continue opérationnel</li>
+  <li><strong>Fin S10</strong> — Bilan, transfert, passage en maintenance</li>
+</ul>
+
+<!-- ==========================================
+     CE QUI EST INCLUS / PAS INCLUS
+     ========================================== -->
+<h2>Ce que la mission inclut</h2>
+
+<ul>
+  <li><strong>Développement complet</strong> du dashboard connecté (Pipedrive + MemberStack)</li>
+  <li><strong>Configuration Claude Team</strong> — espace, instructions par rôle, projets partagés, sécurité</li>
+  <li><strong>Agent d'amélioration continue</strong> — développement, déploiement, calibrage</li>
+  <li><strong>Formation collective</strong> (2h) + accompagnement individuel</li>
+  <li><strong>Support réactif</strong> pendant toute la mission — messagerie directe</li>
+  <li><strong>Documentation complète</strong> — technique et utilisateur</li>
+  <li><strong>2 cycles d'itération</strong> sur le dashboard après le premier déploiement</li>
+  <li><strong>2 semaines de stabilisation</strong> incluses après mise en production</li>
+</ul>
+
+<h2>Ce que je ne fais pas</h2>
+
+<ul>
+  <li><strong>Je ne touche pas à la partie financière pure</strong> — Pennylane, c'est le métier de votre DAF (et d'Abdennacer si vous travaillez ensemble). Je construis le pont entre les données opérationnelles et l'outil financier.</li>
+  <li><strong>Je ne restructure pas vos process</strong> — ils existent et fonctionnent. L'agent d'amélioration continue propose, vous décidez.</li>
+  <li><strong>Je ne crée pas de dépendance</strong> — le système tourne sans moi. La maintenance est optionnelle.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- ==========================================
+     INVESTISSEMENT
+     ========================================== -->
+<h2>Investissement</h2>
+
+<table class="pricing">
+  <tr>
+    <th>Poste</th>
+    <th>Détail</th>
+    <th>Montant</th>
+  </tr>
+  <tr class="recommended">
+    <td><strong>Mission projet</strong></td>
+    <td>Phases 0 à 4 — cadrage, dashboard, Claude Team, agent amélioration continue, stabilisation<br><span style="font-size: 0.85rem; color: var(--dm-slate);">~75h sur 10 semaines</span></td>
+    <td class="price">[ À DÉFINIR ] € HT</td>
+  </tr>
+  <tr>
+    <td><strong>Maintenance mensuelle</strong><br><span style="font-size: 0.85rem; color: var(--dm-slate);">(optionnelle)</span></td>
+    <td>Hébergement des automatisations, support technique, évolutions mineures, revue mensuelle avec Elsa</td>
+    <td class="price">[ À DÉFINIR ] € HT/mois</td>
+  </tr>
+</table>
+
+<!-- NOTE INTERNE CATHERINE — À SUPPRIMER AVANT ENVOI -->
+<div style="background: #fef3c7; border: 2px dashed var(--dm-gold); border-radius: 12px; padding: 20px; margin: 20px 0;">
+  <p style="font-weight: 700; color: var(--dm-dark); margin-bottom: 8px;">Note pour Catherine — À SUPPRIMER avant envoi</p>
+  <p style="font-size: 0.9rem; color: #92400e;">
+    Repères tarification :<br>
+    — 75h × 150 €/h = <strong>11 250 € HT</strong><br>
+    — 75h × 180 €/h = <strong>13 500 € HT</strong><br>
+    — 75h × 200 €/h = <strong>15 000 € HT</strong><br>
+    — Maintenance : entre 500 et 800 € HT/mois<br>
+    — Le ROI estimé (70 000 €/an) rend un tarif à 15 000 € très défendable<br>
+    — Pense à mentionner le coût Claude Team (~25 $/utilisateur/mois, à leur charge)<br>
+    — Vérifie l'email de Kévin : le transcript disait "galine@dotmarket.eu"
+  </p>
+</div>
+
+<h3>Modalités de paiement</h3>
+
+<ul>
+  <li><strong>En 3 fois sans frais</strong> : 1/3 à la signature, 1/3 à la livraison du dashboard (fin Phase 1), 1/3 à la fin de mission</li>
+</ul>
+
+<h3>En sus (à la charge de Dot Market)</h3>
+
+<ul>
+  <li><strong>Abonnement Claude Team</strong> — ~25 $/utilisateur/mois (Anthropic)</li>
+  <li><strong>Hébergement</strong> — si les automatisations sont hébergées sur le serveur CS Consulting, c'est inclus dans la maintenance. Sinon, Dot Market héberge.</li>
+</ul>
+
+<!-- ==========================================
+     ROI SYNTHÈSE
+     ========================================== -->
+
+<h2>Retour sur investissement — Synthèse</h2>
+
+<div class="roi-box" style="background: var(--dm-dark);">
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Temps DAF récupéré</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~10 000 €/an</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Trésorerie libérée (time-to-cash -15 jours)</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~60 000 €/an</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Gains IA analystes (200h récupérées)</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~10 000 €/an</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Gains équipe (Claude Team, 20h/sem)</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~40 000 €/an</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Amélioration continue (effet cumulatif)</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: #94a3b8; font-style: italic;">non quantifiable</td>
+    </tr>
+    <tr>
+      <td style="padding: 16px 0 0; color: #fff; font-weight: 700; font-size: 1rem;">Valeur totale récupérée — Année 1</td>
+      <td style="padding: 16px 0 0; text-align: right; color: var(--dm-gold); font-weight: 700; font-size: 1.3rem;">+120 000 €</td>
+    </tr>
+  </table>
+  <p style="font-size: 0.75rem; color: #64748b; margin-top: 12px;">Estimations conservatrices basées sur les échanges. Valeurs réelles à affiner lors du cadrage (Phase 0).</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==========================================
+     RÉSULTATS ATTENDUS
+     ========================================== -->
+<h2>Ce que vous pouvez attendre</h2>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Visibilité instantanée sur votre business</strong> — plus besoin de demander à la DAF. Un lien, un clic, vos KPIs sont là. Filtrés, comparés, exploitables.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Time-to-cash mesuré et optimisable</strong> — vous savez exactement où ça bloque, sur quels types de dossiers, et depuis quand.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Toute l'équipe utilise l'IA</strong> — pas en silos, pas "chacun dans son coin". Un espace commun, des instructions adaptées à chaque rôle, une sécurité en place.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Votre entreprise s'améliore chaque semaine</strong> — l'agent analyse, propose, vous décidez. Effet cumulatif garanti.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Vous êtes autonomes</strong> — le système tourne sans moi. La documentation est là, l'équipe est formée.</div>
+</div>
+
+<!-- ==========================================
+     PROCHAINES ÉTAPES
+     ========================================== -->
+<div class="cta">
+  <h3>Prochaines étapes</h3>
+  <p>
+    <strong>1.</strong> On valide cette proposition ensemble<br><br>
+    <strong>2.</strong> Elsa envoie le dashboard KPI existant + accès Pipedrive (lecture seule)<br><br>
+    <strong>3.</strong> On signe et on démarre la Phase 0 — cadrage & audit<br><br>
+    <strong>4.</strong> En 10 semaines, tout est en production<br><br><br>
+    <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a>
+  </p>
+  <div class="validity">Proposition valable 30 jours — jusqu'au 14 mai 2026</div>
+</div>
+
+<div class="footer">
+  Catherine Selosse — CS Consulting Stratégique<br>
+  43 rue de l'Estagnas, 64200 Biarritz<br>
+  <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a> · <a href="https://csbusiness.fr">csbusiness.fr</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+---
+description: Modèles Anthropic valides à utiliser dans les workflows n8n et appels API
+alwaysApply: true
+---
+
+# Modèles Anthropic — Noms valides
+
+Utiliser UNIQUEMENT les noms de modèles listés ci-dessous. Ne jamais inventer un nom ou ajouter une date qui n'existe pas.
+
+## Modèles valides (avril 2026)
+
+| Usage | Modèle API |
+|---|---|
+| Par défaut (équilibré) | `claude-sonnet-4-6` |
+| Rapide / peu cher | `claude-haiku-4-5` |
+| Tâches complexes | `claude-opus-4-6` |
+
+## Dans les workflows n8n (HTTP Request vers api.anthropic.com)
+
+```json
+{
+  "model": "claude-haiku-4-5",
+  "max_tokens": 1024
+}
+```

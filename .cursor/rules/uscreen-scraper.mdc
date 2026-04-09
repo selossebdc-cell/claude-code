@@ -1,0 +1,54 @@
+---
+description: Uscreen — extracteur de commentaires vidéo (scraper Playwright)
+globs: 03-developpement/uscreen-comments-scraper/**
+alwaysApply: false
+---
+
+# Uscreen Comments Scraper
+
+Script Python/Playwright dans `03-developpement/uscreen-comments-scraper/`.
+
+## Ce que fait le script
+
+Extrait les **5998 commentaires** de l'admin Uscreen (Face Soul Yoga) et les exporte en CSV.
+
+## Points techniques importants
+
+### Login
+- URL de login : `https://app.uscreen.tv/admin/users/sign_in` (pas `/login`)
+- Après soumission via `keyboard.press("Enter")`, attendre `**/manage/**`
+
+### Page des commentaires
+- URL : `https://app.uscreen.tv/bullet/community/comments`
+- Le contenu charge via **Turbo Frame** → attendre 6-16s après `domcontentloaded`
+- Un popup "Uscreen Connect" apparaît au chargement → fermer via `Escape`
+- Indicateur de chargement : `#bullet-root img` (doit retourner > 5 éléments)
+
+### Extraction
+- Stratégie : `innerText` du `#bullet-root` parsé ligne par ligne
+- **Ancre** : les durées vidéo (`06:37`, `01:39`…) précèdent chaque bloc commentaire
+- Structure d'un bloc : `durée → titre_vidéo → auteur → [nb_likes] → commentaire → date`
+- Les dates sont en format `April 09, 2026, 9:43 am` (pas de balise `<time>`)
+
+### Pagination
+- **600 pages** de 10 commentaires (5998 total)
+- Navigation directe par URL : `?page=N` — NE PAS utiliser le bouton "Next" (clique sur la mauvaise chose)
+- Attendre 4×4s après chaque `page.goto()` pour laisser le Turbo Frame charger
+
+### Identifiants (dans `.env`, jamais committé)
+```
+USCREEN_EMAIL=aurelia@facesoulyoga.com
+USCREEN_BASE_URL=https://app.uscreen.tv
+```
+
+## Lancer le script
+
+```bash
+cd 03-developpement/uscreen-comments-scraper
+python3 scrape_comments.py
+# ~40 minutes pour 600 pages
+```
+
+## Résultat
+CSV `uscreen_comments_YYYYMMDD_HHMMSS.csv` avec colonnes :
+`date, auteur, video_titre, commentaire, nb_likes, est_reponse`

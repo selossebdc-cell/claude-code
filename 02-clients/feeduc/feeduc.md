@@ -137,7 +137,7 @@
 - **Montant** : 1 500 EUR HT/an (option A annuelle — tarif préférentiel vs 150 €/mois)
 - **Structure** : EI Catherine Selosse (pas de TVA — art. 293 B CGI)
 - **Période** : 1er janvier → 31 décembre 2026 (tacite reconduction)
-- **Statut** : **En attente de signature** (contrat envoyé 10/03/2026)
+- **Statut** : **Signé — paiement reçu** (option A annuelle — 1 500 € HT)
 - **Obligations trimestrielles** : CR de fonctionnement des agents — incidents, performances, suggestions
 - **Paiement reçu** : 1 300 € HT le 13/03/2026 (solde final de la mission initiale)
 

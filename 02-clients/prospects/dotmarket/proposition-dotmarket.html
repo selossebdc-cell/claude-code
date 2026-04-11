@@ -470,15 +470,15 @@
 <div class="constat">
   <div class="constat-title">1. La donnée existe mais ne parle pas</div>
   <div class="constat-consequence">Pipedrive contient vos deals, MemberStack vos investisseurs, Pennylane votre compta. Mais pour avoir un chiffre, la DAF doit aller le chercher manuellement. Pas d'instantanéité, pas de vision croisée.</div>
-  <div class="constat-cost">Coût : ~5h/semaine de collecte manuelle par la DAF = 260h/an = ~10 000 €/an de temps improductif</div>
-  <div class="constat-roi">ROI : ces 5h récupérées chaque semaine dès la mise en production du dashboard (S6)</div>
+  <div class="constat-cost">Coût : ~1h/semaine de collecte manuelle par la DAF = 48h/an — du temps improductif, et surtout une vision toujours en retard</div>
+  <div class="constat-roi">ROI : ce temps récupéré dès la mise en production du dashboard — et surtout, une clarté immédiate sur les chiffres</div>
 </div>
 
 <div class="constat">
   <div class="constat-title">2. Le time-to-cash est une boîte noire</div>
   <div class="constat-consequence">Du moment où un dossier arrive chez vous jusqu'à l'encaissement — vous savez que c'est trop long, mais vous ne savez pas <em>où</em> ça bloque. C'est "empirique", comme dit Elsa.</div>
-  <div class="constat-cost">Coût : si votre time-to-cash moyen est de 90 jours et qu'on le réduit de 15 jours, sur 50 dossiers/an à 30 000 € moyen, c'est ~60 000 € de trésorerie libérée plus tôt chaque année</div>
-  <div class="constat-roi">ROI : identification précise des bottlenecks dès le 1er mois d'exploitation des données</div>
+  <div class="constat-cost">Coût : des décisions prises à l'aveugle — impossible d'agir précisément sans savoir quelle étape bloque, sur quelle typologie, et depuis quand</div>
+  <div class="constat-roi">ROI : dès le 1er mois d'exploitation, vous voyez exactement où ça bloque et vous pouvez agir de façon ciblée — sur la bonne étape, pour le bon type de dossier</div>
 </div>
 
 <div class="constat">
@@ -495,18 +495,11 @@
   <div class="constat-roi">ROI : 3-5 optimisations/semaine proposées, ~1-2 retenues. Effet cumulatif : +15-20% d'efficacité opérationnelle sur 6 mois</div>
 </div>
 
-<div class="constat">
-  <div class="constat-title">5. L'agence prévue ne couvrait pas le vrai besoin</div>
-  <div class="constat-consequence">Un dashboard Notion + Pipedrive, sans IA, sans amélioration continue. "Il manquait la partie IA" (Elsa). Payer pour un outil qui ne fait que 30% du travail.</div>
-  <div class="constat-cost">Coût : investissement dans un outil à refaire dans 6 mois</div>
-  <div class="constat-roi">ROI : une seule mission qui couvre data + IA + optimisation = pas de double investissement</div>
-</div>
-
 <!-- ROI GLOBAL -->
 <div class="roi-box">
-  <div class="roi-title">Retour sur investissement estimé — année 1</div>
-  <div class="roi-number">+70 000 € de valeur récupérée</div>
-  <div class="roi-detail">10 000 € (temps DAF) + 60 000 € (trésorerie time-to-cash) + gains IA analystes — estimation conservatrice, hors gains d'amélioration continue</div>
+  <div class="roi-title">Temps récupéré — équipe complète, année 1</div>
+  <div class="roi-number">~15h/semaine récupérées</div>
+  <div class="roi-detail">À valoriser selon votre taux horaire interne. Hors gains sur le time-to-cash, conditionnels aux décisions que vous prenez sur la base des données.</div>
 </div>
 
 <div class="page-break"></div>
@@ -642,7 +635,7 @@
     <tr>
       <td><strong>Elsa</strong> (COO)</td>
       <td>Optimisation process, suivi opérationnel, prépa réunion mardi</td>
-      <td style="color: var(--dm-green);">~4h/sem</td>
+      <td style="color: var(--dm-green);">~2h/sem</td>
     </tr>
     <tr>
       <td><strong>Matys</strong> (Commercial)</td>
@@ -662,10 +655,10 @@
     <tr>
       <td><strong>DAF</strong></td>
       <td>Reporting automatisé, prépa des chiffres (complément Pennylane)</td>
-      <td class="highlight-cell">~5h/sem</td>
+      <td style="color: var(--dm-green);">~1h/sem</td>
     </tr>
   </table>
-  <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 8px; text-align: center;">Gain collectif estimé : 20 à 25 heures/semaine récupérées sur l'ensemble de l'équipe.</p>
+  <p style="font-size: 0.75rem; color: #94a3b8; margin-top: 8px; text-align: center;">Gain collectif estimé : ~15 heures/semaine récupérées sur l'ensemble de l'équipe (hors analystes M&A).</p>
 </div>
 
 <!-- ---- BRIQUE 3 : AGENT AMELIORATION CONTINUE ---- -->
@@ -728,7 +721,7 @@
   <span class="phase-number">0</span>
   <span class="phase-title">Cadrage & Audit</span>
   <span class="phase-hours">~12h</span>
-  <span class="phase-period">Semaines 1-2</span>
+  <span class="phase-period">Semaines 1-4 — durée variable selon qualité et accès aux données</span>
   <ul>
     <li><strong>Audit du stack technique</strong> — cartographie complète Pipedrive, MemberStack, Notion, Slack, Pennylane. Connexions existantes, trous, doublons.</li>
     <li><strong>Mapping des KPIs critiques</strong> — à partir du dashboard d'Elsa + échanges avec Kévin. Tri entre les KPIs essentiels et le bruit. Définition du time-to-cash par étape.</li>
@@ -744,7 +737,7 @@
   <span class="phase-number">1</span>
   <span class="phase-title">Dashboard de pilotage</span>
   <span class="phase-hours">~28h</span>
-  <span class="phase-period">Semaines 3-6</span>
+  <span class="phase-period">Semaines 4-12</span>
   <ul>
     <li><strong>Architecture & maquette</strong> — structure, visualisations, validation avant développement.</li>
     <li><strong>Connexion API Pipedrive</strong> — extraction automatique des deals, pipeline, étapes, dates, typologies.</li>
@@ -761,15 +754,15 @@
   <span class="phase-number">2</span>
   <span class="phase-title">Déploiement Claude Team</span>
   <span class="phase-hours">~18h</span>
-  <span class="phase-period">Semaines 5-7 (en parallèle fin Phase 1)</span>
+  <span class="phase-period">Semaines 10-13 (en parallèle fin Phase 1)</span>
   <ul>
     <li><strong>Création de l'espace Claude Team</strong> — compte admin (Kévin), configuration organisation.</li>
     <li><strong>Instructions personnalisées par rôle</strong> — un profil IA adapté pour chaque fonction (voir tableau ci-dessus).</li>
     <li><strong>Migration des solutions IA existantes</strong> — rapatriement depuis les clouds personnels vers le cloud Dot Market.</li>
     <li><strong>Stack sécurité IA</strong> — consignes anti-phishing, règles de confidentialité, interdiction d'exécution automatique depuis les mails.</li>
     <li><strong>Projets partagés</strong> — configuration des projets Claude Team communs (process, templates, connaissances métier Dot Market).</li>
-    <li><strong>Formation collective</strong> — session de 2h avec toute l'équipe : prise en main, bonnes pratiques, cas d'usage concrets par rôle.</li>
-    <li><strong>Accompagnement individuel</strong> — sessions de 30 min pour les personnes qui en ont besoin.</li>
+    <li><strong>Formation individuelle</strong> — 1h par personne en one-to-one, sur les cas d'usage concrets de son rôle.</li>
+    <li><strong>Support WhatsApp</strong> — disponible pendant toute la durée du projet, puis 3 mois après l'installation de Claude Team. L'objectif : que chacun prenne le réflexe de demander à Claude quand il a une question.</li>
   </ul>
   <p style="margin-top: 14px; font-size: 0.9rem; color: var(--dm-slate);"><strong>Livrable :</strong> Claude Team opérationnel, équipe formée, documentation interne, stack sécurité déployé.</p>
 </div>
@@ -778,7 +771,7 @@
   <span class="phase-number">3</span>
   <span class="phase-title">Agent d'amélioration continue</span>
   <span class="phase-hours">~12h</span>
-  <span class="phase-period">Semaines 7-9</span>
+  <span class="phase-period">Semaines 13-15</span>
   <ul>
     <li><strong>Architecture de l'agent</strong> — périmètre d'analyse (données dashboard, process Notion, usage Claude Team).</li>
     <li><strong>Développement</strong> — agent automatisé, analyse hebdomadaire, rapport structuré.</li>
@@ -793,7 +786,7 @@
   <span class="phase-number">4</span>
   <span class="phase-title">Stabilisation & transfert</span>
   <span class="phase-hours">~5h</span>
-  <span class="phase-period">Semaines 9-10</span>
+  <span class="phase-period">Semaines 15-17</span>
   <ul>
     <li><strong>Rodage en conditions réelles</strong> — suivi de l'ensemble du système pendant 2 semaines.</li>
     <li><strong>Corrections & ajustements</strong> — bugs, calibrage des KPIs, ajustement des instructions IA.</li>
@@ -819,51 +812,51 @@
   </tr>
   <tr>
     <td><strong>Phase 0</strong> — Cadrage & Audit</td>
-    <td>2 semaines</td>
+    <td>4 semaines</td>
     <td>~12h</td>
-    <td>S1-S2</td>
+    <td>S1-S4</td>
   </tr>
   <tr>
     <td><strong>Phase 1</strong> — Dashboard de pilotage</td>
-    <td>4 semaines</td>
+    <td>8 semaines</td>
     <td>~28h</td>
-    <td>S3-S6</td>
+    <td>S4-S12</td>
   </tr>
   <tr>
     <td><strong>Phase 2</strong> — Claude Team</td>
-    <td>3 semaines</td>
+    <td>2-3 semaines</td>
     <td>~18h</td>
-    <td>S5-S7</td>
+    <td>S10-S13</td>
   </tr>
   <tr>
     <td><strong>Phase 3</strong> — Agent amélioration continue</td>
-    <td>3 semaines</td>
-    <td>~12h</td>
-    <td>S7-S9</td>
+    <td>2 semaines</td>
+    <td>~4h</td>
+    <td>S13-S15</td>
   </tr>
   <tr>
     <td><strong>Phase 4</strong> — Stabilisation & transfert</td>
     <td>2 semaines</td>
     <td>~5h</td>
-    <td>S9-S10</td>
+    <td>S15-S17</td>
   </tr>
   <tr class="total-row">
     <td><strong>TOTAL MISSION</strong></td>
-    <td><strong>10 semaines</strong></td>
-    <td><strong>~75h</strong></td>
-    <td><strong>Fin avril → début juillet 2026</strong></td>
+    <td><strong>~4 mois</strong></td>
+    <td><strong>~67h</strong></td>
+    <td><strong>Démarrage fin avril — livraison fin septembre 2026 (congés juillet/août inclus)</strong></td>
   </tr>
 </table>
 
-<p style="font-size: 0.9rem; color: var(--dm-slate); margin-top: -10px;">Les phases 1 et 2 se chevauchent (S5-S6) pour optimiser le calendrier.</p>
+<p style="font-size: 0.9rem; color: var(--dm-slate); margin-top: -10px;">Les phases 1 et 2 se chevauchent pour optimiser le calendrier. La durée réelle du cadrage (Phase 0) dépend de la qualité et de l'accès aux données — si tout est propre et accessible, on avance vite.</p>
 
 <h3>Jalons clés</h3>
 <ul>
-  <li><strong>Fin S2</strong> — Cahier des charges validé → Go/No-Go</li>
-  <li><strong>Fin S6</strong> — Dashboard en production, premiers KPIs exploitables</li>
-  <li><strong>Fin S7</strong> — Claude Team déployé, équipe formée</li>
-  <li><strong>Fin S9</strong> — Agent amélioration continue opérationnel</li>
-  <li><strong>Fin S10</strong> — Bilan, transfert, passage en maintenance</li>
+  <li><strong>Fin Phase 0</strong> — Cahier des charges validé → Go/No-Go (2 à 4 semaines selon les données)</li>
+  <li><strong>Fin Phase 1</strong> — Dashboard en production, premiers KPIs exploitables</li>
+  <li><strong>Fin Phase 2</strong> — Claude Team déployé, équipe formée</li>
+  <li><strong>Fin Phase 3</strong> — Agent amélioration continue opérationnel</li>
+  <li><strong>Fin Phase 4</strong> — Bilan, transfert, passage en maintenance optionnelle</li>
 </ul>
 
 <!-- ==========================================
@@ -875,8 +868,8 @@
   <li><strong>Développement complet</strong> du dashboard connecté (Pipedrive + MemberStack)</li>
   <li><strong>Configuration Claude Team</strong> — espace, instructions par rôle, projets partagés, sécurité</li>
   <li><strong>Agent d'amélioration continue</strong> — développement, déploiement, calibrage</li>
-  <li><strong>Formation collective</strong> (2h) + accompagnement individuel</li>
-  <li><strong>Support réactif</strong> pendant toute la mission — messagerie directe</li>
+  <li><strong>Formation individuelle</strong> — 1h par personne en one-to-one</li>
+  <li><strong>Support WhatsApp</strong> pendant le projet + 3 mois après l'installation Claude Team</li>
   <li><strong>Documentation complète</strong> — technique et utilisateur</li>
   <li><strong>2 cycles d'itération</strong> sur le dashboard après le premier déploiement</li>
   <li><strong>2 semaines de stabilisation</strong> incluses après mise en production</li>
@@ -885,7 +878,7 @@
 <h2>Ce que je ne fais pas</h2>
 
 <ul>
-  <li><strong>Je ne touche pas à la partie financière pure</strong> — Pennylane, c'est le métier de votre DAF (et d'Abdennacer si vous travaillez ensemble). Je construis le pont entre les données opérationnelles et l'outil financier.</li>
+  <li><strong>Je ne touche pas à la partie financière pure</strong> — Pennylane, c'est le métier de votre DAF (et d'Abdenasseir si vous travaillez ensemble). Je construis le pont entre les données opérationnelles et l'outil financier.</li>
   <li><strong>Je ne restructure pas vos process</strong> — ils existent et fonctionnent. L'agent d'amélioration continue propose, vous décidez.</li>
   <li><strong>Je ne crée pas de dépendance</strong> — le système tourne sans moi. La maintenance est optionnelle.</li>
 </ul>
@@ -905,30 +898,15 @@
   </tr>
   <tr class="recommended">
     <td><strong>Mission projet</strong></td>
-    <td>Phases 0 à 4 — cadrage, dashboard, Claude Team, agent amélioration continue, stabilisation<br><span style="font-size: 0.85rem; color: var(--dm-slate);">~75h sur 10 semaines</span></td>
-    <td class="price">[ À DÉFINIR ] € HT</td>
+    <td>Phases 0 à 4 — cadrage, dashboard, Claude Team, agent amélioration continue, stabilisation<br><span style="font-size: 0.85rem; color: var(--dm-slate);">~67h sur 4 mois · tarif normal 13 400 € HT — tarif préférentiel à 10 000 € HT</span></td>
+    <td class="price">10 000 € HT</td>
   </tr>
   <tr>
-    <td><strong>Maintenance mensuelle</strong><br><span style="font-size: 0.85rem; color: var(--dm-slate);">(optionnelle)</span></td>
-    <td>Hébergement des automatisations, support technique, évolutions mineures, revue mensuelle avec Elsa</td>
-    <td class="price">[ À DÉFINIR ] € HT/mois</td>
+    <td><strong>Maintenance mensuelle</strong><br><span style="font-size: 0.85rem; color: var(--dm-slate);">(optionnelle — 3 premiers mois offerts)</span></td>
+    <td>Hébergement des automatisations, support technique, évolutions mineures — modalités précises définies en fin de projet selon ce qui aura été développé</td>
+    <td class="price">~50 € HT/mois</td>
   </tr>
 </table>
-
-<!-- NOTE INTERNE CATHERINE — À SUPPRIMER AVANT ENVOI -->
-<div style="background: #fef3c7; border: 2px dashed var(--dm-gold); border-radius: 12px; padding: 20px; margin: 20px 0;">
-  <p style="font-weight: 700; color: var(--dm-dark); margin-bottom: 8px;">Note pour Catherine — À SUPPRIMER avant envoi</p>
-  <p style="font-size: 0.9rem; color: #92400e;">
-    Repères tarification :<br>
-    — 75h × 150 €/h = <strong>11 250 € HT</strong><br>
-    — 75h × 180 €/h = <strong>13 500 € HT</strong><br>
-    — 75h × 200 €/h = <strong>15 000 € HT</strong><br>
-    — Maintenance : entre 500 et 800 € HT/mois<br>
-    — Le ROI estimé (70 000 €/an) rend un tarif à 15 000 € très défendable<br>
-    — Pense à mentionner le coût Claude Team (~25 $/utilisateur/mois, à leur charge)<br>
-    — Vérifie l'email de Kévin : le transcript disait "galine@dotmarket.eu"
-  </p>
-</div>
 
 <h3>Modalités de paiement</h3>
 
@@ -952,31 +930,39 @@
 <div class="roi-box" style="background: var(--dm-dark);">
   <table style="width: 100%; border-collapse: collapse;">
     <tr>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Temps DAF récupéré</td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~10 000 €/an</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">DAF — ~1h/sem récupérée</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~48h/an</td>
     </tr>
     <tr>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Trésorerie libérée (time-to-cash -15 jours)</td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~60 000 €/an</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Kévin (CEO) — ~3h/sem</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~144h/an</td>
     </tr>
     <tr>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Gains IA analystes (200h récupérées)</td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~10 000 €/an</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Elsa (COO) — ~2h/sem</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~96h/an</td>
     </tr>
     <tr>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Gains équipe (Claude Team, 20h/sem)</td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~40 000 €/an</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Matys (Commercial) — ~3h/sem</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~144h/an</td>
     </tr>
     <tr>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Amélioration continue (effet cumulatif)</td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: #94a3b8; font-style: italic;">non quantifiable</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Analystes M&A — ~2h/dossier</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~200h/an</td>
     </tr>
     <tr>
-      <td style="padding: 16px 0 0; color: #fff; font-weight: 700; font-size: 1rem;">Valeur totale récupérée — Année 1</td>
-      <td style="padding: 16px 0 0; text-align: right; color: var(--dm-gold); font-weight: 700; font-size: 1.3rem;">+120 000 €</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">CSM / AM — ~2h/sem</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: var(--dm-green); font-weight: 700;">~96h/an</td>
+    </tr>
+    <tr>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; color: #94a3b8; font-size: 0.85rem;">Time-to-cash — visibilité sur les bottlenecks</td>
+      <td style="padding: 12px 0; border-bottom: 1px solid #334155; text-align: right; color: #94a3b8; font-style: italic;">dépend des décisions prises</td>
+    </tr>
+    <tr>
+      <td style="padding: 16px 0 0; color: #fff; font-weight: 700; font-size: 1rem;">Temps récupéré — Année 1</td>
+      <td style="padding: 16px 0 0; text-align: right; color: var(--dm-gold); font-weight: 700; font-size: 1.3rem;">~730h/an</td>
     </tr>
   </table>
-  <p style="font-size: 0.75rem; color: #64748b; margin-top: 12px;">Estimations conservatrices basées sur les échanges. Valeurs réelles à affiner lors du cadrage (Phase 0).</p>
+  <p style="font-size: 0.75rem; color: #64748b; margin-top: 12px;">Estimations à affiner lors du cadrage (Phase 0) selon les volumes réels. À vous de valoriser ces heures selon votre taux horaire interne.</p>
 </div>
 
 <div class="page-break"></div>
@@ -988,7 +974,7 @@
 
 <div class="result">
   <div class="result-check">&#10003;</div>
-  <div><strong>Visibilité instantanée sur votre business</strong> — plus besoin de demander à la DAF. Un lien, un clic, vos KPIs sont là. Filtrés, comparés, exploitables.</div>
+  <div><strong>Clarté et simplicité — le maître mot</strong> — vous gagnez du temps, c'est réel. Mais ce que vous gagnez surtout, c'est de la visibilité. Un lien, un clic, vos KPIs sont là. Plus besoin de demander, de croiser, d'attendre. Vous décidez avec des données claires.</div>
 </div>
 
 <div class="result">
@@ -1020,7 +1006,7 @@
     <strong>1.</strong> On valide cette proposition ensemble<br><br>
     <strong>2.</strong> Elsa envoie le dashboard KPI existant + accès Pipedrive (lecture seule)<br><br>
     <strong>3.</strong> On signe et on démarre la Phase 0 — cadrage & audit<br><br>
-    <strong>4.</strong> En 10 semaines, tout est en production<br><br><br>
+    <strong>4.</strong> En 6 mois, tout est en production<br><br><br>
     <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a>
   </p>
   <div class="validity">Proposition valable 30 jours — jusqu'au 14 mai 2026</div>
@@ -1028,7 +1014,6 @@
 
 <div class="footer">
   Catherine Selosse — CS Consulting Stratégique<br>
-  43 rue de l'Estagnas, 64200 Biarritz<br>
   <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a> · <a href="https://csbusiness.fr">csbusiness.fr</a>
 </div>
 

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDV Mickael — Proposition COO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #f5f5f5;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #C27A5A 0%, #a86847 100%);
+            padding: 40px 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.15);
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            font-size: 0.85em;
+            opacity: 0.85;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        section {
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #C27A5A;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #C27A5A;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .emoji {
+            font-size: 1.2em;
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+            background: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #C27A5A;
+        }
+
+        .subsection-title {
+            font-weight: 600;
+            color: #e8c4b8;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        ul, ol {
+            margin: 0 0 0 20px;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: #d0d0d0;
+        }
+
+        .highlight {
+            color: #ffc9b5;
+            font-weight: 500;
+        }
+
+        .question {
+            background: #3a3a3a;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 8px 0;
+            border-left: 3px solid #C27A5A;
+            color: #e8c4b8;
+        }
+
+        .checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .check-item {
+            background: #333333;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .check-item::before {
+            content: "✓";
+            color: #C27A5A;
+            font-weight: bold;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+
+        .box-objective {
+            background: linear-gradient(135deg, #C27A5A15 0%, #a8684715 100%);
+            border: 1px solid #C27A5A;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .box-objective ol {
+            margin-left: 20px;
+        }
+
+        .box-objective li {
+            color: #f5f5f5;
+            margin-bottom: 10px;
+        }
+
+        .attention {
+            background: #3a2a2a;
+            border-left: 4px solid #C27A5A;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .attention ul {
+            margin: 0;
+        }
+
+        .attention li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .meta {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>RDV Mickael</h1>
+            <h2 style="font-size: 1.2em; font-weight: 400; opacity: 0.95;">Proposition COO</h2>
+
+            <div class="meta">
+                <div class="meta-item">
+                    <div class="meta-label">Date</div>
+                    <div>17 avril 2026</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Durée</div>
+                    <div>1 heure</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Objectif</div>
+                    <div>Clarifier rôles & mi-temps</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- SECTION 1 -->
+            <section>
+                <div class="section-title">
+                    <span class="emoji">🎯</span>
+                    Ta vision
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Ton rôle (Catherine)</div>
+                    <ul>
+                        <li><span class="highlight">Client relationships</span> : RDV, challenges clients, propositions de solutions</li>
+                        <li><span class="highlight">Stratégie commerciale</span> : vision produits, pricing, offres</li>
+                        <li><span class="highlight">Decision final</span> : tu gardes le contrôle client et stratégie</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Rôle Mickael (COO proposé)</div>
+                    <ul>
+                        <li><span class="highlight">Déploiement</span> : prendre tes idées et les mettre en place</li>
+                        <li><span class="highlight">Process & structure</span> : optimiser comment on fonctionne (workflows, outils, timing)</li>
+                        <li><span class="highlight">Recrutement opérationnel</span> : si besoin plus de bras, c'est lui qui recrute</li>
+                        <li><span class="highlight">Challenges constructifs</span> : « On serait mieux si on faisait X » — il te pousse à améliorer</li>
+                        <li><span class="highlight">Sécurité & cybersécurité</span> : vérifier que tu développes en sécurité, que nos clients ont le meilleur en matière de protection des données</li>
+                        <li><span class="highlight">Supervision Christelle</span> : elle reste assistante, mais peut prendre des directions de lui</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 2 -->
+            <section>
+                <div class="section-title">
+                    <span class="emoji">❓</span>
+                    Points à clarifier avec Mickael
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">1. Christelle — Dynamique à 3</div>
+                    <div class="checklist">
+                        <div class="check-item">Elle continue comme assistante ?</div>
+                        <div class="check-item">Elle est ok que Mickael lui donne des tâches directement ?</div>
+                        <div class="check-item">Vous deux, vous êtes d'accord sur cette dynamique ?</div>
+                    </div>
+                    <div class="question" style="margin-top: 15px;">
+                        <strong>À décider ensemble :</strong> Si tension, on en reparle
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">2. Scope opérationnel</div>
+                    <p style="margin-bottom: 12px;">Quels domaines il prend en charge immédiatement ?</p>
+                    <ul>
+                        <li>Supabase / infrastructure ?</li>
+                        <li>N8N workflows ?</li>
+                        <li>Dashboards & automatisations ?</li>
+                        <li>Calendrier / RDV clients ?</li>
+                        <li>Checklists clients / livrables ?</li>
+                        <li>Budget / finances opérationnel ?</li>
+                    </ul>
+                    <div class="question" style="margin-top: 15px;">
+                        <strong>La vraie question :</strong> Qu'est-ce qu'il veut vraiment optimiser en priorité ?
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">3. Tempo & structure</div>
+                    <ul>
+                        <li>Fréquence réunions (daily standup ? hebdo ?)</li>
+                        <li>Comment il te challenge (comment on fait circuler les idées ?)</li>
+                        <li>Comment tu lui dis « attends, change d'approche »</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">4. Mi-temps test</div>
+                    <ul>
+                        <li>Durée de la phase test ? (1 mois ? 2 mois ?)</li>
+                        <li>Critères pour passer full-time ?</li>
+                        <li>Rémunération mi-temps (vous avez déjà discuté ?)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 3 -->
+            <section>
+                <div class="section-title">
+                    <span class="emoji">💰</span>
+                    Rémunération & horaires
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Proposition</div>
+                    <ul>
+                        <li><strong>Mi-temps test :</strong> 3h/jour × 5 jours = 60h/mois = <strong style="color: #ffc9b5;">500 EUR/mois</strong></li>
+                        <li><strong>Full-time après :</strong> 6h/jour × 5 jours = 120h/mois = <strong style="color: #ffc9b5;">1 000 EUR/mois</strong></li>
+                        <li><strong>Durée test :</strong> 1-2 mois, puis réévaluation avant passage full-time</li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Points à valider</div>
+                    <ul>
+                        <li>Ces montants lui conviennent-ils ?</li>
+                        <li>Full-time quand ? (après test réussi, ou plus tard ?)</li>
+                        <li>Possibilité d'augmentation ou bonus basé sur résultats ?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 4 -->
+            <section>
+                <div class="section-title">
+                    <span class="emoji">📋</span>
+                    Ce qu'il va probablement proposer
+                </div>
+
+                <div class="subsection">
+                    <p><em>Il va faire une proposition aussi.</em> À écouter attentivement :</p>
+                    <ul style="margin-top: 15px;">
+                        <li>Sa vision du rôle (peut être différente !)</li>
+                        <li>Ses priorités opérationnelles</li>
+                        <li>Comment lui il voit la collaboration avec Christelle</li>
+                        <li>Ses attentes en termes d'autonomie</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 4 -->
+            <section>
+                <div class="section-title">
+                    <span class="emoji">✅</span>
+                    Objectif de fin de RDV
+                </div>
+
+                <div class="box-objective">
+                    <p style="margin-bottom: 20px;"><strong>À convenir :</strong></p>
+                    <ol>
+                        <li><strong>Rôle clair</strong> : COO = déploiement + process + recrutement opérationnel</li>
+                        <li><strong>Christelle OK</strong> : elle continue, peut prendre directions de Mickael</li>
+                        <li><strong>Priorités</strong> : 3 choses qu'il optimise en premier (mois 1)</li>
+                        <li><strong>Terme test</strong> : mi-temps jusqu'à [DATE], puis rééval full-time</li>
+                        <li><strong>Rythme</strong> : comment vous bossez ensemble (réunions, feedback)</li>
+                        <li><strong>Non-négociables</strong> : tu stays front-client, il stays back-office optimization</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- SECTION 5 -->
+            <section>
+                <div class="section-title">
+                    <span class="emoji">💡</span>
+                    Points d'attention
+                </div>
+
+                <div class="attention">
+                    <ul>
+                        <li><strong>Pas de confusion des rôles</strong> : lui dit pas à un client « j'ai une idée », c'est TOI qui proposes</li>
+                        <li><strong>Christelle pas sur le côté</strong> : elle peut pas être la seule qui sait ce que Mickael fait</li>
+                        <li><strong>Challenges = positifs</strong> : si Mickael te dit « on pourrait améliorer ça », c'est comme ça qu'il apporte de la valeur</li>
+                        <li><strong>Mesurable</strong> : pense à comment vous allez <em>voir</em> que le mi-temps fonctionne (quels metrics ?)</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+---
+description: Agents Paperclip — rôles, IDs, état, configuration de chaque agent
+alwaysApply: true
+---
+
+# Agents Paperclip — CS Consulting Stratégique (CSC)
+
+| Agent | ID | Rôle | Modèle | Heartbeat |
+|---|---|---|---|---|
+| CEO | `0036acdf-6490-4759-924b-a126cbdd5b64` | ceo | claude-haiku-4-5 | 2h | 8€/mois |
+| DAF | `9d6104df-2b5d-4e48-9fe9-d66ddcba0f6b` | cfo | claude-haiku-4-5 | 24h | 1€/mois |
+| Commercial | `b8d9fa6a-b882-4d9b-98f6-8ff2d92b4e90` | general | claude-haiku-4-5 | 24h | 2€/mois |
+| Customer Success | `470998b3-57c5-4442-8bb1-d15e8dd64984` | general | claude-haiku-4-5 | 24h | 2€/mois |
+| LinkedIn Content | `838bbcb2-377b-4363-afe9-41f8556dcb64` | engineer | claude-haiku-4-5 | 24h | 1€/mois |
+| Process Optimizer | `f276b655-ba76-481f-9053-dfa871d8900a` | general | claude-haiku-4-5 | 24h | 1€/mois |
+| Session Report | `2a33641d-1133-4296-b930-72d2fe29b5fc` | engineer | claude-haiku-4-5 | 24h | 1€/mois |
+| AI Ops Engineer | `51e6ccdf-66ad-438e-989b-c810a2675909` | engineer | claude-haiku-4-5 | 24h | 2€/mois |
+
+## CS Digital Apps (CSD)
+
+| Agent | ID | Fréquence | Budget |
+|---|---|---|---|
+| ceo | `38ebc00d-a4a8-4a9a-9f69-218e9a615b0d` | 4h | 5€/mois |
+| product-manager | `8ad6814c-25e0-4bac-ab12-371c5e6906f5` | 24h | 2€/mois |
+| marketing | `b7f9543e-36fb-4d29-9cb1-557155def423` | 24h | 2€/mois |
+| developer | `2a6e2d87-c785-4831-8590-4b1066389daa` | 24h | 3€/mois |
+
+## État au 10/04/2026
+- Clé API Anthropic : déployée sur les 12 agents ✅
+- Modèle : basculé sur claude-haiku-4-5 (tous les 12 agents) le 10/04/2026 — raison : coût Sonnet trop élevé sur heartbeats fréquents
+- Architecture orchestration le 11/04/2026 : CEO CSC (2h) + CEO CSD (4h) = chefs d'orchestre. Les 10 autres agents = 1x/jour + wakeOnDemand. HEARTBEAT.md mis à jour avec logique scan → déléguer → stop si RAS.
+- Budgets mensuels fixés : CEO CSC 8€, CEO CSD 5€, autres 1-3€. Plafond total : ~31€/mois.
+- Estimation coût réel avec Haiku + nouvelles fréquences : 10-20€/mois (vs 50-60€/jour avant)
+- cwd : `/paperclip/workspaces/csc` et `/paperclip/workspaces/csd` ✅
+- Budgets : 0€ sur tous (à fixer)
+- MCP Tools (Gmail, Calendar, Supabase) : non vérifiés dans le container Docker
+- Issues CSC : 38 total, 22 blocked, 10 done, 5 in_review, 1 todo
+- Problème principal : agents bien configurés niveau instructions mais pas connectés aux outils réels

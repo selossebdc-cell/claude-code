@@ -1,0 +1,163 @@
+---
+description: Stratégie entreprise IA autonome — audit, benchmark, roadmap vers 1M€
+alwaysApply: true
+---
+
+# Stratégie CS Consulting — Entreprise IA Autonome
+
+## Feuille de route detaillee
+→ `01-entreprise/feuille-de-route-ia-autonome.md` (document vivant, 6 phases)
+
+## Objectif
+80% d'autonomie opérationnelle sur CS Consulting, 100% sur CS Digital Apps. Trajectoire vers 1M€ CA.
+
+## Business model actuel
+- 5 clients actifs : Fred (FU-Fight), Aurélia (FSY), Taïna (Guadeloupe Explor), FEEDUC, Maylis
+- Programme phare : Accélération IA 6 mois — 15 000€ HT
+- Tunnel : CS Digital Setup 149€ → Diagnostic 360° 1 200€ → Clarté 8 000€ → Accélération 15 000€
+- Pipeline : Kevin/Squared, Marion/Artisane, Jade/Masenz (bloqué)
+- CA cible 2026 : 200-250K€. Rythme actuel annualisé : ~150K€.
+
+## Modèle 3 étages vers 1M€
+1. Consulting premium (370K€) : 20 clients Accélération + 40 Diagnostics + maintenance
+2. Produits scalables (194K€) : CS Digital Setup, playbooks, Agent-as-a-Service 500€/mois
+3. Revenus récurrents haute valeur (464K€) : cohortes 8K€/pers + licence CS Digital OS 2K€/mois
+
+## Benchmark réaliste (avril 2026)
+- Polsia : $3.5M ARR self-reported, 1 fondateur, mais best company fait $50 MRR. Trustpilot 2.7/5.
+- Flowtivity (Australie) : vrai consulting, $65 AUD/jour, 309 leads, 23 crons, 7 départements. Meilleur comparatif.
+- Zero Human Corp : $207 gagnés en 30 jours pour $4 999 dépensés. Transparent et honnête.
+- Plafond ZHC documenté : $1-5M ARR. Le million est atteignable, le milliard non (en 2026).
+
+## Positionnement LinkedIn Catherine (11/04/2026) — TEXTES FINALISÉS
+
+- **Headline :** "Je mets en place des outils game-changer dans votre business — connectés à votre stratégie, pilotés par vos KPIs."
+- **Intitulé poste CS Consulting :** "Fondatrice | J'intègre l'IA dans votre stratégie — sans tout réinventer"
+- **Cible :** Dirigeants de TPE (cible confirmée — assez de clients à ce niveau)
+- **Bouton CTA LinkedIn :** setup.csbusiness.fr
+- **Sélection LinkedIn :** setup.csbusiness.fr ajouté
+- **Bannières LinkedIn :** 2 bannières (positionnement perso + CS Digital Setup) — prompts dans la conversation du 11/04
+
+### À propos (texte final)
+```
+Vous êtes dirigeant de TPE ou PME.
+Vous savez que l'IA peut transformer votre activité.
+Mais entre les outils qui s'accumulent et les données éparpillées,
+vous ne savez plus par où commencer.
+
+Alors vous ajoutez un outil de plus.
+Et 3 mois plus tard ? Il ne s'est rien passé.
+
+Le problème n'est pas l'outil. C'est que rien n'est connecté à votre stratégie.
+
+---
+
+Ma méthode :
+
+1. Audit de vos outils et process existants
+   → Ce qui fonctionne, ce qui freine, ce qui peut s'automatiser
+
+2. Connexion de ce que vous avez déjà
+   → Pas de refonte. On fait parler ce qui existe.
+
+3. KPIs vrais et actionnables
+   → Reliés à votre stratégie, pas juste des chiffres dans un tableau
+
+4. Automatisation & agents IA
+   → Vous sortir de l'opérationnel — sans embaucher
+
+---
+
+Ce qui me différencie :
+
+✔️ 20 ans chez Renault — vision industrielle, process, gestion de la complexité
+✔️ Consultante en transformation RH 7 ans — j'ai vu ce qui bloque les organisations
+✔️ Je parle stratégie ET terrain — et je branche les deux
+
+Mon objectif : que vous piloiez votre business avec les bons indicateurs,
+sans passer vos journées dans l'opérationnel.
+
+👉 Par où commencer : setup.csbusiness.fr
+```
+
+### Description expérience CS Consulting (texte final)
+```
+🎯 Mission :
+J'aide les dirigeants de TPE et PME à reprendre le contrôle de leur business —
+en faisant parler leurs outils, remonter leurs vraies données, et piloter
+leur croissance avec des KPIs actionnables.
+
+Pas de refonte totale. Pas d'outil supplémentaire.
+On part de ce que vous avez — et on le fait tourner à plein régime.
+
+🔹 Ce que je mets en place concrètement :
+✅ Audit de vos process et outils existants → identifier ce qui freine, ce qui peut s'automatiser
+✅ Connexion de vos outils → faire remonter la data utile au bon endroit
+✅ KPIs vrais et actionnables → reliés à votre stratégie, pas juste des chiffres dans un tableau
+✅ Automatisation & agents IA → supprimer les tâches répétitives, gagner en capacité sans embaucher
+✅ Accompagnement stratégique → vous sortir de l'opérationnel pour vous recentrer sur ce qui compte
+
+📌 Ma force : 20 ans chez Renault — vision industrielle, complexité à grande échelle,
+optimisation des process — transposée aux entreprises qui veulent passer un cap.
+Je parle stratégie ET terrain, et je branche les deux.
+
+---
+
+🔹 Consultante en Accompagnement RH (2016 – 2023)
+✅ Accompagnement des salariés et entreprises en transition : PSE, reconversion, mobilité.
+✅ Intervention pour différents cabinets RH, principalement dans l'industrie.
+✅ Coaching et développement des compétences (collaborateurs et managers).
+✅ Projets stratégiques en gestion des talents et cartographie des compétences.
+
+📌 Une période clé pour affiner mon expertise en transformation des organisations —
+tout en gardant un ancrage fort dans les réalités du terrain industriel.
+```
+
+## État Paperclip (11/04/2026)
+- Modèle : claude-haiku-4-5 sur les 12 agents ✅
+- Architecture orchestration : CEO CSC (2h) + CEO CSD (4h) = chefs d'orchestre. 10 autres agents = 1x/jour + wakeOnDemand ✅
+- Budgets fixés : CEO CSC 8€, CEO CSD 5€, autres 1-3€. Plafond ~31€/mois ✅
+- HEARTBEAT.md CEO CSC : scan urgence → déléguer → alertes budget Telegram → stop si RAS ✅
+- Alerte budget Telegram : bot Picsou (8209087038:AAH6dA97zbDjW_aRGba5o_JZ3dKkE1BO13s) → chat Catherine (5739925162) ✅
+- Workflow n8n recharge budget : `recharge [agent] [montant]` → PATCH Paperclip → confirmation Telegram ✅
+- Buffer MCP sur Marketing CSD : connecté (mcp.buffer.com, token 1QE3kfICdr19Aw07e7YBMIB6EBmYj_hevhO6iel7QEL) ✅
+- LinkedIn ajouté Buffer : Catherine SELOSSE (69da6aea031bfa423cf2b0b7) + CS Consulting (69da6aea031bfa423cf2b2c2) ✅
+- Issue Marketing : 4 posts LinkedIn semaine 14 avril en draft Buffer — à valider par Catherine avant départ vacances ✅
+
+## À faire urgent (avant jeudi 17/04)
+- [ ] Kevin/Dotmarket : envoyer propale (fichier : 02-clients/prospects/dotmarket/proposition-dotmarket.html) — PRIX À DÉCIDER (15 000€ ou 13 500€) + maintenance oui/non
+- [ ] Marion/Artisane : envoyer devis agents
+- [ ] Jade/Masenz : relancer ou disqualifier
+- [ ] Anthropic : désactiver auto-recharge sur console.anthropic.com/settings/billing
+- [ ] Buffer : passer au plan Essentials (4 canaux connectés, limite plan gratuit = 3)
+
+## 6 gaps identifiés (10/04/2026)
+1. Budgets agents à 0€ → fixer 50-100€/agent
+2. MCP Tools (Gmail, Calendar) pas vérifiés dans Docker
+3. Pas de projets structurés dans Paperclip (juste des issues)
+4. Pas de triggers événementiels (n8n ↔ Paperclip)
+5. Pas de mémoire partagée inter-agents
+6. CS Digital Apps = coquille vide
+
+## Phase courante : Phase 0 — Fondations (Semaine 1)
+- [ ] Fixer budgets agents (CEO/DAF 100€, autres 50€)
+- [ ] Vérifier MCP Tools dans Docker
+- [ ] Créer 3 projets Paperclip
+- [ ] Débloquer agents en erreur
+- Prochain jalon : CEO produit un briefing Telegram quotidien (Phase 1)
+
+## Securite — Regle absolue
+**Avant toute installation de plugin, repo ou template GitHub :**
+1. Verifier stars, activite, contributors
+2. Lire le code source (chercher eval(), exec(), requetes HTTP suspectes)
+3. Auditer les dependances (npm audit / pip audit)
+4. Tester en isolation avant deploiement prod
+5. Documenter dans le registre des installations (feuille de route)
+→ Detail complet dans `01-entreprise/feuille-de-route-ia-autonome.md`
+
+## Principes directeurs
+- "80% autonomie" = agents gèrent l'admin. Catherine garde 100% relation client + stratégie.
+- Commencer par 1 agent (CEO), prouver, puis ajouter les autres un par un.
+- Le consulting nourrit la machine, les produits digitaux scalent.
+- Ne PAS modifier la config Paperclip sans autorisation de Catherine.
+- Ne JAMAIS installer un plugin/repo sans audit securite prealable.

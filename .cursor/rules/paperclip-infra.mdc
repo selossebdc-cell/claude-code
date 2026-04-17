@@ -1,0 +1,37 @@
+---
+description: Infrastructure Paperclip — accès VPS, configuration, état des agents
+alwaysApply: true
+---
+
+# Paperclip — Infra & Accès
+
+## VPS Hostinger
+- Host : `srv1454821.hstgr.cloud` (IP `187.77.175.238`)
+- SSH : `ssh -i ~/.ssh/id_ed25519 root@srv1454821.hstgr.cloud`
+- Docker container : `paperclip-3b9d-paperclip-1`
+- URL publique : `https://paperclip-3b9d.srv1454821.hstgr.cloud`
+- Port interne : `40703 → 3100`
+- Version : `2026.325.0`
+- Board token : `pcp_board_8005a91dc825648c8cdb4a7d9d2fc3bdb732a7b0fe65f4b8`
+- Admin : `catherine@csbusiness.fr` (user: Cath)
+
+## API interne (depuis le VPS)
+```bash
+curl -s http://localhost:40703/api/companies -H 'Authorization: Bearer pcp_board_8005a91dc825648c8cdb4a7d9d2fc3bdb732a7b0fe65f4b8'
+```
+- PATCH agents : `PATCH /api/agents/{agentId}` (pas sous /companies/)
+
+## Companies
+| Company | ID | Prefix |
+|---|---|---|
+| CS - Consulting Stratégique | `d7d350a1-7b6a-4a3c-ba14-64d0a9ebde75` | CSC |
+| CS Digital Apps | `150045c5-5f31-4420-8308-e44a67c051d3` | CSD |
+
+## Clé API Anthropic
+Déployée le 10/04/2026 sur les 12 agents (8 CSC + 4 CSD) via `PATCH /api/agents/{id}` avec `adapterConfig.env.ANTHROPIC_API_KEY`.
+
+## CLI Paperclip (dans le container)
+```bash
+docker exec paperclip-3b9d-paperclip-1 paperclipai company export <companyId> --out /tmp/export --api-base http://localhost:3100 --api-key <TOKEN>
+docker exec paperclip-3b9d-paperclip-1 paperclipai heartbeat run --agent-id <agentId> --api-base http://localhost:3100 --api-key <TOKEN>
+```

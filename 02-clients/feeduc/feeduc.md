@@ -141,6 +141,16 @@
 - **Obligations trimestrielles** : CR de fonctionnement des agents — incidents, performances, suggestions
 - **Paiement reçu** : 1 300 € HT le 13/03/2026 (solde final de la mission initiale)
 
+## Questionnaire equipe — IA / outils numeriques (memo persistante)
+
+Fichiers : `02-clients/feeduc/questionnaire-equipe-feeduc.html` + `workflow-questionnaire-equipe-feeduc.json` (webhook n8n).
+
+- **Envoi** : c’est **Catherine** qui transmet le questionnaire (bandeau + footer le precisent), pas un envoi “neutre” côté FEEDUC seul.
+- **Périmètre du texte** : **IA, automatisations, outils numériques** au travail uniquement. Ne pas y faire figurer **Oscar CRM**, le fonctionnement interne de FEEDUC, ni des phrases du type “les autres sujets seront vus à Madrid / ailleurs” (choix explicite : pas de contraste avec la réunion d’équipe ou d’autres temps).
+- **Structure visuelle** : **4 grandes parties A, B, C, D** (pas de numeros 1–5 sur les blocs, pour ne pas doubler avec les questions). La partie **D** regroupe **Q9 à Q12** (souhaits + confort numérique + sujet à creuser en priorité — ancienne section “Pour aller plus loin” fusionnée dans D).
+- **Questions** : toujours numérotées **1. à 12.** sous les blocs A–D.
+- **Q1** : pas d’option Oscar ; inclure assistants conversationnels (ChatGPT, Claude, Copilot…), Notion, Meet, CR automatiques, email + autre.
+
 ## Historique Sessions
 > Resume cumulatif — une ligne par session
 

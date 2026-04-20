@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition d'accompagnement — Guadeloupe Explor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+  @media print {
+    body { margin: 0; }
+    .page-break { page-break-before: always; }
+    .no-print { display: none; }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: #2c2c2c;
+    line-height: 1.7;
+    font-size: 15px;
+    background: #fff;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+
+  /* COVER */
+  .cover {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+  }
+  .cover-label {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #C27A5A;
+    margin-bottom: 40px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+  .cover-company {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #C27A5A;
+    margin-bottom: 60px;
+  }
+  .cover-meta {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 2;
+  }
+  .cover-meta strong { color: #555; }
+  .cover-line {
+    width: 60px;
+    height: 3px;
+    background: #C27A5A;
+    margin: 30px auto;
+    border-radius: 2px;
+  }
+
+  /* SECTIONS */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin: 50px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #C27A5A;
+  }
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #C27A5A;
+    margin: 30px 0 10px;
+  }
+  p { margin-bottom: 14px; }
+  .opening {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+    padding: 30px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+  }
+  .opening strong { color: #1a1a1a; }
+  .highlight {
+    background: #fdf6f2;
+    border-left: 4px solid #C27A5A;
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .highlight p { margin-bottom: 0; }
+  ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  li {
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+  li::marker { color: #C27A5A; }
+
+  /* CONSTAT CARDS */
+  .constat {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+    border: 1px solid #eee;
+  }
+  .constat-title {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  .constat-consequence {
+    color: #666;
+    font-size: 0.9rem;
+  }
+  .constat-cost {
+    margin-top: 8px;
+    font-weight: 500;
+    color: #C27A5A;
+    font-size: 0.9rem;
+  }
+
+  /* PRICING TABLE */
+  .pricing {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0 30px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .pricing th {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+  }
+  .pricing td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+  }
+  .pricing tr:last-child td { border-bottom: none; }
+  .pricing .recommended {
+    background: #fdf6f2;
+    font-weight: 600;
+  }
+  .pricing .price {
+    font-weight: 700;
+    color: #C27A5A;
+    font-size: 1.1rem;
+  }
+
+  /* PHASES */
+  .phase {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 28px;
+    margin: 16px 0;
+    border: 1px solid #eee;
+  }
+  .phase-number {
+    display: inline-block;
+    background: #C27A5A;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  .phase-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #1a1a1a;
+    display: inline;
+  }
+  .phase-period {
+    display: block;
+    font-size: 0.8rem;
+    color: #999;
+    margin: 4px 0 14px 38px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* RESULTS */
+  .result {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .result:last-child { border-bottom: none; }
+  .result-check {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: #C27A5A;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    background: #1a1a1a;
+    color: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    margin: 40px 0;
+  }
+  .cta h3 {
+    color: #C27A5A;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+  .cta p { color: #aaa; font-size: 0.95rem; }
+  .cta a {
+    color: #C27A5A;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .cta .validity {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.8rem;
+    color: #aaa;
+    border-top: 1px solid #eee;
+    margin-top: 40px;
+  }
+  .footer a { color: #C27A5A; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- PAGE DE COUVERTURE -->
+<div class="cover">
+  <div class="cover-label">CS Consulting Stratégique</div>
+  <h1>Proposition d'accompagnement<br>digital personnalisé</h1>
+  <div class="cover-company">Guadeloupe Explor</div>
+  <div class="cover-line"></div>
+  <div class="cover-meta">
+    <strong>Préparée pour</strong> Taïna Tharsis<br>
+    <strong>Par</strong> Catherine Selosse — CS Consulting Stratégique<br>
+    <strong>Date</strong> 11 mars 2026<br>
+    <strong>Contact</strong> catherine@csbusiness.fr
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- OUVERTURE -->
+<div class="opening">
+  Taïna,<br><br>
+  Merci pour notre échange d'hier. Ta transparence et ton énergie m'ont vraiment marquée.<br><br>
+  En 10 ans, tu as bâti <strong>Guadeloupe Explor</strong> toute seule — du guidage terrain à l'agence de voyage, en passant par la création de ton produit phare <em>Meurtre au Paradis</em>. Tu as refusé des missions, travaillé des journées de 5h30 à 21h, et malgré tout, tu continues d'avancer.<br><br>
+  <strong>Le plus dur est fait : tu as créé une entreprise qui fonctionne.</strong><br><br>
+  Maintenant, il est temps de structurer pour que ton business tourne <em>sans que tout repose sur toi</em>.
+</div>
+
+<!-- CONSTATS -->
+<h2>Ce que j'ai observé</h2>
+
+<p>Voici les 5 constats clés de notre échange. Ce ne sont pas des critiques — c'est normal quand on fait tout soi-même pendant 10 ans. Et on peut y remédier.</p>
+
+<div class="constat">
+  <div class="constat-title">1. Tu es l'entreprise — tout repose sur toi</div>
+  <div class="constat-consequence">Tu fais le guidage, la compta, la facturation, le commercial, la logistique, le marketing. Quand un client de l'UCPA annule la veille, c'est toi qui gères. Quand il manque une info pour un guide, c'est toi qui l'envoies.</div>
+  <div class="constat-cost">Le coût caché : tu as refusé une mission récemment. Chaque mission refusée, c'est du CA perdu.</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">2. Tes process sont dans ta tête</div>
+  <div class="constat-consequence">Tu le dis toi-même : "j'ai des process, mais ils sont dans ma tête". Résultat, quand tu délègues, tu envoies 3-4 mails à la suite parce que tu penses à des choses au fil de l'eau. Ton assistante marketing ne prend pas de notes. Ton nouveau guide doit deviner comment ça fonctionne.</div>
+  <div class="constat-cost">Le coût caché : tu passes du temps à ré-expliquer, à corriger, à superviser. Tu délègues, mais sans les process, ça ne tient pas.</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">3. Pas de CRM, pas de base de données centralisée</div>
+  <div class="constat-consequence">Tu n'as rien. Tes infos clients sont éparpillées — mails, tête, carnets. Tu as une base "Meurtre au Paradis" pour les goodies, mais rien de structuré pour ton activité globale.</div>
+  <div class="constat-cost">Le coût caché : impossible de relancer, de suivre la satisfaction, de projeter le CA. Tu navigues à vue.</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">4. Un logiciel métier (Aesus) non déployé</div>
+  <div class="constat-consequence">Tu as l'outil — il pourrait gérer tes devis, ta facturation, ta logistique. Mais il n'est pas configuré. C'est une "longue histoire" et en attendant, tout se fait à la main.</div>
+  <div class="constat-cost">Le coût caché : chaque devis fait manuellement, c'est du temps qui ne va pas dans le commercial ou la stratégie.</div>
+</div>
+
+<div class="constat">
+  <div class="constat-title">5. La saisonnalité te fragilise</div>
+  <div class="constat-consequence">Des mois à fond, des mois à zéro. Pas de visibilité financière. Tu ne te paies qu'un SMIC depuis 3 ans. La banque te demande des chiffres que tu n'as pas.</div>
+  <div class="constat-cost">Le coût caché : sans structure, tu ne peux pas convaincre la banque, et tu restes bloquée dans ce cycle.</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- OBJECTIFS -->
+<h2>Ce qu'on va construire ensemble</h2>
+
+<p>5 objectifs concrets pour ton accompagnement :</p>
+
+<div class="highlight">
+  <p><strong>1. Cartographier et formaliser tes process</strong><br>
+  Parcours client (du premier contact à la satisfaction), parcours fournisseur, parcours guides — tout sort de ta tête et devient un système reproductible.</p>
+</div>
+
+<div class="highlight">
+  <p><strong>2. Mettre en place tes outils</strong><br>
+  Déployer Aesus (devis, facturation, logistique), configurer un CRM simple, installer Claude comme ton bras droit IA avec tes process intégrés.</p>
+</div>
+
+<div class="highlight">
+  <p><strong>3. Automatiser ce qui te mange du temps</strong><br>
+  Une automatisation incluse — workflow factures ou chatbot Telegram pour tes guides (infos excursions, chauffeurs, planning en temps réel).</p>
+</div>
+
+<div class="highlight">
+  <p><strong>4. Structurer ta délégation</strong><br>
+  Fiches de poste, procédures, outils de suivi pour ton assistante marketing et ton guide/assistant. Qu'ils puissent travailler sans que tu sois derrière en permanence.</p>
+</div>
+
+<div class="highlight">
+  <p><strong>5. Te rendre autonome</strong><br>
+  À la fin de l'accompagnement, tu sais utiliser tes outils, tu sais ajuster tes process, tu n'as plus besoin de moi. Tu repars CAPABLE de continuer seule.</p>
+</div>
+
+<!-- PLAN D'ACTION -->
+<h2>Le programme</h2>
+
+<div class="phase">
+  <span class="phase-number">1</span>
+  <span class="phase-title">Mise en place intensive</span>
+  <span class="phase-period">Mois 1 à 3 — 1 séance de 1h30 par semaine</span>
+  <ul>
+    <li><strong>Diagnostic approfondi</strong> — on ouvre toutes les portes, on cartographie tout. Ça peut être un peu "impressionnant" au début (on en a parlé), mais c'est nécessaire pour fermer les portes définitivement.</li>
+    <li><strong>Cartographie des process</strong> — parcours client complet, parcours fournisseur, logistique guides, facturation. Visuel, clair, utilisable par ton équipe.</li>
+    <li><strong>Déploiement des outils</strong> — Aesus configuré, CRM en place, Claude personnalisé avec tes skills (reformulation, réponse client, process guides).</li>
+    <li><strong>Automatisation</strong> — construction et déploiement de l'automatisation choisie.</li>
+  </ul>
+</div>
+
+<div class="phase">
+  <span class="phase-number">2</span>
+  <span class="phase-title">Autonomie et optimisation</span>
+  <span class="phase-period">Mois 4 à 6 (ou 9) — séances espacées (bi-mensuelles puis mensuelles)</span>
+  <ul>
+    <li><strong>Formation de ton équipe</strong> — ton assistante marketing et ton guide/assistant formés sur les outils et les process mis en place. Qu'ils soient opérationnels et autonomes.</li>
+    <li><strong>Suivi des outils</strong> — est-ce que ça tourne ? Qu'est-ce qu'on ajuste ?</li>
+    <li><strong>Optimisation des process</strong> — amélioration continue à partir des retours terrain.</li>
+    <li><strong>Résolution des blocages</strong> — ce qui coince, on le débloque ensemble.</li>
+    <li><strong>Préparation hors-saison</strong> — structurer pour que la basse saison soit productive (process, prospection, association tourisme local).</li>
+    <li><strong>Validation de l'autonomie</strong> — bilan et passage de relais.</li>
+  </ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CE QUI EST INCLUS -->
+<h2>Ce que l'accompagnement inclut</h2>
+
+<ul>
+  <li><strong>18 à 24 séances individuelles</strong> en visio (selon la formule choisie)</li>
+  <li><strong>1 ou 2 automatisations</strong> construites et déployées (valeur 1 500 - 2 500 € chacune)</li>
+  <li><strong>Support entre les séances</strong> par messagerie — tu n'es jamais seule</li>
+  <li><strong>Compte-rendu de chaque séance</strong> avec actions claires</li>
+  <li><strong>Cartographie complète de tes process</strong> (visuels réutilisables)</li>
+  <li><strong>Configuration de tes outils</strong> (Aesus, CRM, Claude IA)</li>
+  <li><strong>Guide personnalisé</strong> de ton écosystème digital</li>
+  <li><strong>Bilan de fin d'accompagnement</strong></li>
+</ul>
+
+<!-- CE QUE JE NE FAIS PAS -->
+<h2>Ce que je ne fais pas</h2>
+
+<p>Pour que ce soit clair entre nous :</p>
+
+<ul>
+  <li><strong>Je ne suis pas une agence web</strong> — je ne refais pas ton site internet.</li>
+  <li><strong>Je ne fais pas à ta place</strong> — je te rends autonome. Tu repars capable de gérer seule.</li>
+  <li><strong>Je ne suis pas ta comptable</strong> — par contre, je structure tes process pour que ta comptable ait des données propres.</li>
+  <li><strong>Je ne vends pas de la dépendance</strong> — tu n'es JAMAIS dépendante de moi. Mon objectif, c'est que tu n'aies plus besoin de moi.</li>
+</ul>
+
+<p style="margin-top: 20px; color: #666; font-style: italic;">Je suis ton architecte d'organisation et de systèmes digitaux. Ta traductrice tech-humain. Je comprends tes contraintes de dirigeante.</p>
+
+<!-- INVESTISSEMENT -->
+<h2>Investissement</h2>
+
+<table class="pricing">
+  <tr>
+    <th>Formule</th>
+    <th>Durée</th>
+    <th>Investissement</th>
+    <th>Inclus</th>
+  </tr>
+  <tr>
+    <td><strong>Accélération</strong></td>
+    <td>6 mois</td>
+    <td class="price">8 000 € HT</td>
+    <td>18 séances + 1 automatisation</td>
+  </tr>
+  <tr class="recommended">
+    <td><strong>Transformation</strong> ★ Recommandé</td>
+    <td>9 mois</td>
+    <td class="price">12 000 € HT</td>
+    <td>24 séances + 2 automatisations</td>
+  </tr>
+</table>
+
+<p style="margin-top: -10px; font-size: 0.9rem; color: #666;"><em>Avec tout ce qu'on a identifié — les process, le déploiement d'Aesus, la formation de ton équipe, la préparation hors-saison — le 9 mois est le format qui te laisse le temps de construire des fondations solides. En 6 mois on pose les bases, en 9 mois on bâtit la machine.</em></p>
+
+<h3>Modalités de paiement</h3>
+
+<ul>
+  <li><strong>Formule 6 mois — en 3 fois sans frais</strong> : 2 667 € à la signature, 2 667 € à M+1, 2 666 € à M+2</li>
+  <li><strong>Formule 9 mois — en 3 fois sans frais</strong> : 4 000 € à la signature, 4 000 € à M+1, 4 000 € à M+2</li>
+  <li><strong>Possibilité de démarrer avant le premier versement</strong> — on en a parlé, je te fais confiance.</li>
+</ul>
+
+<h3>Pourquoi c'est un investissement, pas un coût</h3>
+
+<p>Aujourd'hui, tu fais le travail de <strong>plusieurs personnes</strong>. Tu l'as dit toi-même — en déléguant, tu te rends compte du nombre de postes que tu occupais.</p>
+
+<p>Si on estime que tu passes <strong>15 heures par semaine</strong> sur des tâches qui pourraient être structurées, automatisées ou déléguées proprement — c'est <strong>780 heures par an</strong>. À 50 €/h (tarif bas pour une dirigeante), c'est <strong>39 000 € de temps perdu</strong>.</p>
+
+<p>Sans compter les missions refusées, les clients qui attendent 3 jours une réponse, et les opportunités manquées.</p>
+
+<p><strong>Le vrai coût, c'est de rester désorganisée.</strong></p>
+
+<div class="page-break"></div>
+
+<!-- RESULTATS ATTENDUS -->
+<h2>Ce que tu peux attendre</h2>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Tes process sont écrits, visuels, partageables</strong> — quand un nouveau collaborateur arrive, il a tout. Plus besoin de 4 mails.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Tes outils tournent</strong> — Aesus gère tes devis et ta facturation, Claude t'aide à reformuler et traiter tes mails, ton CRM suit tes clients.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Ton équipe est autonome</strong> — ton assistante et ton guide savent quoi faire, comment, et où trouver l'info.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Tu gagnes 10 à 15 heures par semaine</strong> — du temps que tu réinvestis dans le développement commercial et le scaling vers 1M.</div>
+</div>
+
+<div class="result">
+  <div class="result-check">&#10003;</div>
+  <div><strong>Tu repars CAPABLE de continuer seule</strong> — tu comprends tes outils, tu sais les ajuster, tu n'es dépendante de personne.</div>
+</div>
+
+<!-- PROCHAINES ETAPES -->
+<div class="cta">
+  <h3>Prochaines étapes</h3>
+  <p>
+    Si cette proposition te parle :<br><br>
+    <strong>1.</strong> Tu choisis ta formule et tu signes la dernière page<br>
+    <strong>2.</strong> On planifie notre première séance (mi-avril ou avant si tu es prête)<br>
+    <strong>3.</strong> On démarre<br><br>
+    <a href="https://fantastical.app/consulting-strategique/mon-modele-copie">Reprendre un rendez-vous si besoin</a><br><br>
+    <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a>
+  </p>
+  <div class="validity">Proposition valable 30 jours — jusqu'au 10 avril 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CONTRAT / BON DE COMMANDE -->
+<div style="border: 2px solid #1a1a1a; border-radius: 16px; padding: 40px; margin: 20px 0;">
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <div style="font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: #C27A5A; margin-bottom: 10px;">CS Consulting Stratégique</div>
+    <h2 style="border: none; margin: 0; padding: 0; font-size: 1.6rem;">Bon de commande</h2>
+    <p style="color: #888; font-size: 0.9rem;">Accompagnement digital personnalisé — Guadeloupe Explor</p>
+  </div>
+
+  <div style="background: #fafafa; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+      <tr>
+        <td style="padding: 6px 0; color: #888; width: 140px;">Prestataire</td>
+        <td style="padding: 6px 0;"><strong>Catherine Selosse</strong> — CS Consulting Stratégique<br>43 rue de l'Estagnas, 64200 Biarritz<br>catherine@csbusiness.fr</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px 0; color: #888;">Client</td>
+        <td style="padding: 6px 0;"><strong>Taïna Tharsis</strong> — Guadeloupe Explor<br>ttharsis@guadeloupe-explor.com</td>
+      </tr>
+      <tr>
+        <td style="padding: 6px 0; color: #888;">Date</td>
+        <td style="padding: 6px 0;">11 mars 2026</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top: 20px;">Formule choisie <span style="font-weight: 400; color: #888; font-size: 0.85rem;">(cocher la case)</span></h3>
+
+  <div style="display: flex; gap: 16px; margin: 16px 0 30px;">
+    <div style="flex: 1; border: 2px solid #ddd; border-radius: 12px; padding: 20px; text-align: center;">
+      <div style="width: 22px; height: 22px; border: 2px solid #aaa; border-radius: 4px; margin: 0 auto 12px;"></div>
+      <div style="font-weight: 700; font-size: 1rem;">Accélération</div>
+      <div style="color: #888; font-size: 0.85rem; margin: 4px 0;">6 mois — 18 séances</div>
+      <div style="color: #888; font-size: 0.85rem;">1 automatisation incluse</div>
+      <div style="color: #C27A5A; font-weight: 700; font-size: 1.2rem; margin-top: 10px;">8 000 € HT</div>
+      <div style="color: #999; font-size: 0.8rem;">3 × 2 667 € sans frais</div>
+    </div>
+    <div style="flex: 1; border: 2px solid #C27A5A; border-radius: 12px; padding: 20px; text-align: center; background: #fdf6f2;">
+      <div style="width: 22px; height: 22px; border: 2px solid #aaa; border-radius: 4px; margin: 0 auto 12px;"></div>
+      <div style="font-weight: 700; font-size: 1rem;">Transformation ★</div>
+      <div style="color: #888; font-size: 0.85rem; margin: 4px 0;">9 mois — 24 séances</div>
+      <div style="color: #888; font-size: 0.85rem;">2 automatisations incluses</div>
+      <div style="color: #C27A5A; font-weight: 700; font-size: 1.2rem; margin-top: 10px;">12 000 € HT</div>
+      <div style="color: #999; font-size: 0.8rem;">3 × 4 000 € sans frais</div>
+    </div>
+  </div>
+
+  <div style="background: #fafafa; border-radius: 12px; padding: 20px; margin-bottom: 24px; font-size: 0.85rem; color: #666;">
+    <strong style="color: #1a1a1a;">Conditions :</strong>
+    <ul style="margin-top: 8px; margin-bottom: 0;">
+      <li>Paiement en 3 fois sans frais : à la signature, M+1, M+2</li>
+      <li>Possibilité de démarrer avant le premier versement (sur accord mutuel)</li>
+      <li>Séances en visio — 100% à distance</li>
+      <li>Démarrage prévu : mi-avril 2026 (ou date convenue entre les parties)</li>
+      <li>TVA non applicable, article 293 B du CGI</li>
+      <li>Proposition valable jusqu'au 10 avril 2026</li>
+    </ul>
+  </div>
+
+  <div style="background: #fdf6f2; border-radius: 12px; padding: 20px; margin-bottom: 30px; font-size: 0.85rem; color: #666;">
+    <strong style="color: #1a1a1a;">Droit de rétractation :</strong>
+    <p style="margin: 8px 0 0;">Conformément aux dispositions légales en vigueur, le client dispose d'un délai de 14 jours à compter de la signature pour exercer son droit de rétractation, par courrier ou email adressé à catherine@csbusiness.fr.</p>
+  </div>
+
+  <h3 style="margin-top: 30px;">Signatures</h3>
+
+  <div style="display: flex; gap: 40px; margin-top: 16px;">
+    <div style="flex: 1;">
+      <p style="font-size: 0.85rem; color: #888; margin-bottom: 8px;">La prestataire</p>
+      <p style="font-weight: 600; margin-bottom: 4px;">Catherine Selosse</p>
+      <p style="font-size: 0.85rem; color: #888; margin-bottom: 8px;">Lu et approuvé, bon pour accord</p>
+      <div style="border-bottom: 1px solid #ccc; height: 80px; margin-bottom: 8px;"></div>
+      <p style="font-size: 0.8rem; color: #aaa;">Date : ___/___/2026</p>
+    </div>
+    <div style="flex: 1;">
+      <p style="font-size: 0.85rem; color: #888; margin-bottom: 8px;">La cliente</p>
+      <p style="font-weight: 600; margin-bottom: 4px;">Taïna Tharsis — Guadeloupe Explor</p>
+      <p style="font-size: 0.85rem; color: #888; margin-bottom: 8px;">Lu et approuvé, bon pour accord</p>
+      <div style="border-bottom: 1px solid #ccc; height: 80px; margin-bottom: 8px;"></div>
+      <p style="font-size: 0.8rem; color: #aaa;">Date : ___/___/2026</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="page-break"></div>
+
+<!-- CGV -->
+<div style="font-size: 0.8rem; color: #444; line-height: 1.6;">
+
+  <h2 style="font-size: 1.3rem;">Conditions Générales de Vente</h2>
+
+  <h3 style="font-size: 0.9rem; margin-top: 20px;">Article 1. Objet</h3>
+  <p>Les présentes Conditions Générales de Vente (ci-après les « CGV ») ont pour objet de définir les conditions dans lesquelles Catherine SELOSSE - CS – Consulting Stratégique, entreprise individuelle immatriculée sous le numéro SIREN 81971825500030, dont le siège social est situé 43 rue de l'Estagnas, 64200 BIARRITZ, France, propose des prestations de conseil en stratégie d'entreprise à des Clients particuliers ou professionnels agissant en tant que Clients.</p>
+  <p>Les présentes CGV définissent les conditions applicables à la prestation de services fournie au Client. Elles régissent les droits et obligations des parties dans le cadre de la fourniture des prestations et précisent notamment :</p>
+  <ul>
+    <li>La nature des services proposés ;</li>
+    <li>Les modalités de commande et d'exécution ;</li>
+    <li>Les conditions tarifaires et modalités de paiement ;</li>
+    <li>Les obligations et responsabilités de chacune des parties ;</li>
+    <li>Les conditions de modification, de résiliation ou d'annulation.</li>
+  </ul>
+  <p>Toute commande ou acceptation d'un devis implique l'adhésion sans réserve aux présentes CGV, lesquelles prévalent sur tout autre document, sauf accord écrit spécifique entre les parties.</p>
+
+  <h3 style="font-size: 0.9rem;">Article 2. Descriptions des services</h3>
+  <p>Le Prestataire propose des services d'accompagnement personnalisé à la mise en place de process au sein de l'entreprise du Client, à distance ou en présentiel.</p>
+  <p>L'accompagnement s'inscrit dans une démarche sur plusieurs mois, pour favoriser une mise en œuvre progressive et pérenne des actions définies. Il débute systématiquement par un diagnostic initial approfondi, afin d'analyser la situation actuelle de l'entreprise et d'identifier les axes d'amélioration prioritaires.</p>
+  <p>Ces services incluent par exemple, selon la structure et l'activité de l'entreprise, la structuration du pipeline commercial, l'optimisation et l'automatisation des tâches administratives, ainsi que l'amélioration de la visibilité financière pour un meilleur pilotage de l'activité. Le Prestataire accompagne également le Client dans la formalisation des meilleures pratiques internes.</p>
+  <p>L'objectif est de rendre les process plus fluides, efficaces et autonomes.</p>
+
+  <h3 style="font-size: 0.9rem;">Article 3. Acceptation des CGV</h3>
+  <p>Les présentes CGV sont systématiquement portées à la connaissance du Client avant toute prestation. Par cette acceptation, le Client reconnaît que, préalablement à toute Commande, il a bénéficié d'informations et conseils suffisants de la part de la Société, lui permettant de s'assurer de l'adéquation du contenu de la Commande à ses besoins. Les CGV constituent l'intégralité des droits et obligations des parties dans le cadre de leur relation contractuelle.</p>
+  <p>L'acceptation des CGV est une condition essentielle et déterminante de la relation contractuelle. Aucune condition particulière ne peut, sauf acceptation expresse et écrite, prévaloir sur les présentes CGV.</p>
+  <p>Le Client peut demander une copie de la version des CGV applicables à sa Commande à tout moment. Aucune condition spécifique, à l'initiative du Client, ne pourra venir s'ajouter et/ou se substituer aux présentes. Le Prestataire se réserve la possibilité de prévoir des conditions particulières pour ses Services, offres spéciales, garanties spéciales, etc. qui sont fournies au Client avant la Commande. Le fait pour le Prestataire, à un moment donné et pour quelque motif que ce soit, de ne pas se prévaloir d'un manquement par le Client à l'une quelconque des obligations contenues dans les présentes, ne saurait être interprété comme une renonciation à s'en prévaloir pour l'avenir.</p>
+
+  <h3 style="font-size: 0.9rem;">Article 4. Modalités de commande et d'exécution</h3>
+  <p>Le service souscrit est délivré aux tarifs en vigueur indiqués dans la proposition commerciale validée par le Client lors de l'enregistrement de la commande. Le Client peut obtenir une information actualisée sur l'ensemble des tarifs applicables et des éventuels frais en contactant le Prestataire à l'adresse : contact@csbusiness.fr.</p>
+  <p>Toute Commande parvenue à la Société est réputée ferme et définitive, entraîne adhésion et acceptation pleine et entière des CGV dans les conditions prévues, et obligation de paiement de tout Service commandé.</p>
+  <p>Le Client s'engage à fournir à la Société toutes les informations nécessaires à la bonne exécution des Services. La responsabilité de la Société ne saurait être engagée en cas d'informations erronées ou incomplètes transmises par le Client, ou en cas de retard du Client dans la communication des éléments indispensables à la réalisation des Services.</p>
+
+  <h3 style="font-size: 0.9rem;">Article 5. Conditions tarifaires et modalités de paiement</h3>
+  <p>Les prix sont indiqués en euros et tiennent compte de la TVA applicable au jour de la Commande. Tout changement du taux applicable de TVA sera automatiquement répercuté sur le prix des Services. Les prix indiqués sont fournis toutes taxes comprises. Il appartient au professionnel de procéder à toute vérification utile et de se conformer à ses obligations fiscales, notamment en matière de TVA, ce dont le Client est seul responsable.</p>
+  <p>Toute prestation fait l'objet d'un devis détaillé précisant :</p>
+  <ul>
+    <li>La nature des prestations ;</li>
+    <li>Le montant total HT et TTC ;</li>
+    <li>Le calendrier prévisionnel d'exécution ;</li>
+    <li>Les modalités de paiement.</li>
+  </ul>
+  <p>Pour régler sa Commande, le Client dispose, à son choix, de l'ensemble des modes de paiement mis à sa disposition par la Société.</p>
+
+  <h3 style="font-size: 0.9rem;">Article 6. Obligations et responsabilités des parties</h3>
+  <p><strong>6.1 Obligations du Prestataire</strong></p>
+  <p>Le Prestataire s'engage à exécuter les prestations conformément aux standards professionnels applicables et aux termes convenus dans la proposition commerciale acceptée par le Client. Il met en œuvre tous les moyens nécessaires pour assurer la qualité et la bonne exécution des services proposés, dans le cadre d'une obligation de moyen, à l'exclusion expresse de toute obligation de résultat.</p>
+  <p>Le Prestataire s'engage à :</p>
+  <ul>
+    <li>Respecter la confidentialité des informations communiquées par le Client ;</li>
+    <li>Fournir les conseils et préconisations adaptés en fonction des besoins exprimés par le Client ;</li>
+    <li>Informer le Client de toute difficulté rencontrée dans l'exécution des prestations.</li>
+  </ul>
+  <p><strong>6.2 Obligations du Client</strong></p>
+  <p>Le Client s'engage à collaborer activement avec le Prestataire et à lui fournir, en temps utile, toutes les informations et documents nécessaires à la bonne réalisation des prestations.</p>
+  <p>Le Client s'engage notamment à :</p>
+  <ul>
+    <li>Mettre à disposition l'ensemble des ressources et accès requis pour l'accomplissement des missions ;</li>
+    <li>Communiquer des informations exactes, complètes et sincères ;</li>
+    <li>Participer aux réunions et points d'avancement convenus ;</li>
+    <li>Valider les livrables ou étapes d'intervention dans les délais impartis.</li>
+  </ul>
+  <p>Le Client reste seul responsable des décisions qu'il prend sur la base des recommandations du Prestataire. Il lui appartient de vérifier l'adéquation des solutions proposées avec ses besoins propres et de s'assurer de leur mise en œuvre.</p>
+  <p><strong>6.3 Responsabilités</strong></p>
+  <p>Le Prestataire est responsable uniquement des dommages directs résultant d'une faute prouvée dans l'exécution de ses obligations contractuelles. Sa responsabilité est expressément limitée au montant total des honoraires perçus pour la prestation concernée.</p>
+  <p>En aucun cas, le Prestataire ne pourra être tenu responsable des dommages indirects, consécutifs ou immatériels, tels que la perte de chiffre d'affaires, la perte d'exploitation, la perte de données, le préjudice commercial ou l'atteinte à l'image.</p>
+  <p>La responsabilité du Prestataire ne pourra pas être engagée en cas de force majeure ou de tout autre événement indépendant de sa volonté, venant entraver la bonne exécution des prestations.</p>
+
+  <h3 style="font-size: 0.9rem;">Article 7. Annulation et report de prestation</h3>
+  <p>Toute demande d'annulation d'une prestation réservée doit être communiquée par écrit (email ou courrier recommandé avec accusé de réception).</p>
+  <p>Le report de la prestation est possible sous réserve de disponibilité et doit être demandé par écrit.</p>
+  <p>En cas de force majeure ou de tout événement indépendant de sa volonté rendant impossible la réalisation de la prestation, le Prestataire se réserve le droit d'annuler ou de reporter la prestation.</p>
+  <p>Aucune des parties ne pourra être tenue responsable en cas d'annulation ou de report dû à un cas de force majeure, tel que défini par l'article 1218 du Code civil (grève, catastrophe naturelle, épidémie, etc.).</p>
+
+  <h3 style="font-size: 0.9rem;">Article 8. Protection des données personnelles (RGPD)</h3>
+  <p>Les données personnelles collectées auprès du Client font l'objet d'un traitement informatisé destiné à assurer la gestion administrative et commerciale du contrat. Le Prestataire garantit la confidentialité de ces données et leur traitement conformément à la législation en vigueur (Règlement Général sur la Protection des Données - RGPD). Le Client dispose à tout moment d'un droit d'accès, de rectification, d'effacement ou d'opposition de ses données personnelles en adressant sa demande à : contact@csbusiness.fr.</p>
+
+  <h3 style="font-size: 0.9rem;">Article 9. Propriété intellectuelle</h3>
+  <p>Les prestations réalisées par le Prestataire demeurent sa propriété intellectuelle exclusive jusqu'au paiement intégral des sommes dues par le Client. Après paiement complet, le Client bénéficie d'un droit d'utilisation personnel, non cessible, pour ses besoins internes uniquement. Toute reproduction, transmission ou commercialisation à des tiers est soumise à l'autorisation préalable écrite du Prestataire.</p>
+
+</div>
+
+<div class="footer">
+  <strong style="color: #C27A5A;">Catherine Selosse</strong> — CS Consulting Stratégique<br>
+  Accompagnement digital pour dirigeants de TPE<br>
+  <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a> · <a href="https://csbusiness.fr">csbusiness.fr</a>
+</div>
+
+</body>
+</html>

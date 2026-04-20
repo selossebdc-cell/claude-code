@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rétro-planning Expatriation — Fred Funel</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f0f0f;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    padding: 0 0 60px;
+    min-height: 100vh;
+  }
+  .progress-bar-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #161616;
+    border-bottom: 1px solid #333;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .progress-bar-container h1 { color: #C27A5A; font-size: 1.1rem; white-space: nowrap; }
+  .progress-track { flex: 1; height: 10px; background: #333; border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #C27A5A, #22c55e); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
+  .progress-pct { color: #C27A5A; font-weight: 700; font-size: 1rem; min-width: 42px; text-align: right; }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .filter-btn, .tool-btn {
+    background: #1a1a1a;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active { background: #C27A5A; color: #fff; border-color: #C27A5A; }
+  .tool-btn { border-color: #C27A5A; color: #C27A5A; }
+  .tool-btn:hover { background: #C27A5A; color: #fff; }
+  .sep { width: 1px; height: 24px; background: #333; margin: 0 4px; }
+
+  .content { padding: 0 20px; max-width: 900px; margin: 0 auto; }
+  .phase { margin-bottom: 28px; border: 1px solid #333; border-radius: 14px; overflow: hidden; }
+  .phase-header {
+    background: #1a1a1a; padding: 16px 20px; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; user-select: none;
+  }
+  .phase-header:hover { background: #222; }
+  .phase-header h2 { color: #C27A5A; font-size: 1.1rem; }
+  .phase-stats { font-size: 0.8rem; color: #888; }
+  .chevron { color: #C27A5A; font-size: 1.2rem; transition: transform 0.3s; }
+  .phase.collapsed .phase-body { display: none; }
+  .phase.collapsed .chevron { transform: rotate(-90deg); }
+  .phase-body { padding: 0; }
+
+  .cat-group { border-top: 1px solid #222; }
+  .cat-group-title {
+    padding: 10px 20px; font-size: 0.8rem; font-weight: 600;
+    color: #888; text-transform: uppercase; letter-spacing: 0.5px; background: #141414;
+  }
+
+  .action {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 20px; border-top: 1px solid #1a1a1a; transition: background 0.2s;
+  }
+  .action:hover { background: #1a1a1a; }
+  .action.done { opacity: 0.5; }
+  .action.done .action-text { text-decoration: line-through; }
+  .action.custom { border-left: 3px solid #C27A5A; }
+  .action input[type="checkbox"] {
+    width: 18px; height: 18px; margin-top: 2px;
+    accent-color: #C27A5A; cursor: pointer; flex-shrink: 0;
+  }
+  .action-content { flex: 1; }
+  .action-text { font-size: 0.9rem; line-height: 1.4; }
+  .action-text[contenteditable="true"] { outline: 1px dashed #C27A5A; padding: 2px 4px; border-radius: 4px; }
+  .action-meta { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; align-items: center; }
+  .priority { font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .p-high { background: rgba(239,68,68,0.2); color: #ef4444; }
+  .p-medium { background: rgba(234,179,8,0.2); color: #eab308; }
+  .p-low { background: rgba(34,197,94,0.2); color: #22c55e; }
+  .cat-badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 10px; background: rgba(194,122,90,0.15); color: #C27A5A; }
+  .date-target {
+    font-size: 0.75rem; color: #666; background: #1a1a1a;
+    border: 1px solid #333; border-radius: 6px; padding: 2px 8px; cursor: pointer;
+  }
+  .date-target:hover { border-color: #C27A5A; }
+  input.date-input { font-size: 0.75rem; background: #1a1a1a; border: 1px solid #C27A5A; border-radius: 6px; padding: 2px 6px; color: #e0e0e0; width: 120px; }
+  .btn-delete {
+    background: none; border: none; color: #555; cursor: pointer; font-size: 1rem;
+    padding: 2px 6px; border-radius: 4px; transition: color 0.2s;
+  }
+  .btn-delete:hover { color: #ef4444; }
+  .priority-select {
+    font-size: 0.65rem; background: #1a1a1a; border: 1px solid #444;
+    color: #ccc; border-radius: 10px; padding: 2px 6px; cursor: pointer;
+  }
+  .cat-select {
+    font-size: 0.65rem; background: #1a1a1a; border: 1px solid #444;
+    color: #ccc; border-radius: 10px; padding: 2px 6px; cursor: pointer;
+  }
+
+  /* Modal ajout */
+  .modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7); z-index: 200; justify-content: center; align-items: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: #1a1a1a; border: 1px solid #444; border-radius: 14px;
+    padding: 24px; width: 90%; max-width: 500px;
+  }
+  .modal h3 { color: #C27A5A; margin-bottom: 16px; font-size: 1.1rem; }
+  .modal label { display: block; font-size: 0.85rem; color: #999; margin-bottom: 4px; margin-top: 12px; }
+  .modal input[type="text"], .modal select {
+    width: 100%; padding: 8px 12px; background: #0f0f0f; border: 1px solid #444;
+    border-radius: 8px; color: #e0e0e0; font-size: 0.9rem;
+  }
+  .modal input[type="text"]:focus, .modal select:focus { border-color: #C27A5A; outline: none; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+  .modal-actions button {
+    padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.85rem;
+  }
+  .btn-cancel { background: #333; color: #ccc; }
+  .btn-confirm { background: #C27A5A; color: #fff; }
+  .btn-cancel:hover { background: #444; }
+  .btn-confirm:hover { background: #a05a3a; }
+
+  .footer { text-align: center; color: #555; font-size: 0.7rem; margin-top: 40px; padding: 0 20px; }
+  @media (max-width: 600px) {
+    .progress-bar-container h1 { font-size: 0.9rem; }
+    .action { padding: 10px 14px; }
+    .content { padding: 0 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-container">
+  <h1>Expatriation HKFU</h1>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-pct" id="progressPct">0 %</div>
+</div>
+
+<div class="toolbar">
+  <button class="filter-btn active" data-cat="all">Tout</button>
+  <button class="filter-btn" data-cat="juridique">Juridique</button>
+  <button class="filter-btn" data-cat="comptable">Comptable / Fiscal</button>
+  <button class="filter-btn" data-cat="cession">Cession V8</button>
+  <button class="filter-btn" data-cat="digital">Digital / IT</button>
+  <button class="filter-btn" data-cat="bancaire">Bancaire</button>
+  <button class="filter-btn" data-cat="personnel">Personnel</button>
+  <div class="sep"></div>
+  <button class="tool-btn" id="btnAdd">+ Ajouter</button>
+</div>
+
+<!-- Modal ajout -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3>Ajouter une action</h3>
+    <label>Description</label>
+    <input type="text" id="modalText" placeholder="Ex : Contacter un avocat fiscaliste">
+    <label>Phase</label>
+    <select id="modalPhase">
+      <option value="0">T2 2026 — Lancement</option>
+      <option value="1">T3 2026 — Transition</option>
+      <option value="2">T4 2026 — Finalisation</option>
+    </select>
+    <label>Catégorie</label>
+    <select id="modalCat">
+      <option value="juridique">Juridique</option>
+      <option value="comptable">Comptable / Fiscal</option>
+      <option value="cession">Cession V8</option>
+      <option value="digital">Digital / IT</option>
+      <option value="bancaire">Bancaire</option>
+      <option value="personnel">Personnel</option>
+    </select>
+    <label>Priorité</label>
+    <select id="modalPriority">
+      <option value="high">Urgent</option>
+      <option value="medium" selected>Important</option>
+      <option value="low">Secondaire</option>
+    </select>
+    <label>Date cible (optionnel)</label>
+    <input type="text" id="modalDate" placeholder="YYYY-MM-DD">
+    <div class="modal-actions">
+      <button class="btn-cancel" id="btnCancel">Annuler</button>
+      <button class="btn-confirm" id="btnConfirm">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<div class="content" id="content"></div>
+<p class="footer">CS Consulting Stratégique — Rétro-planning session 10 du 30/03/2026</p>
+
+<script>
+const DEFAULT_DATA = [
+  {
+    phase: "T2 2026 — Lancement",
+    period: "Avril – Juin 2026",
+    actions: [
+      { id: "j1", text: "Contacter un notaire (si besoin pour SCI / cession)", cat: "juridique", priority: "low", date: "" },
+      { id: "j2", text: "Définir la structure juridique HKFU (statuts, capital, siège HK)", cat: "juridique", priority: "high", date: "" },
+      { id: "j3", text: "Lancer l'immatriculation HKFU à Hong Kong", cat: "juridique", priority: "high", date: "" },
+      { id: "j4", text: "Préparer les statuts SCI (patrimoine enfants)", cat: "juridique", priority: "medium", date: "" },
+      { id: "j5", text: "Vérifier les conventions fiscales France–HK (double imposition)", cat: "juridique", priority: "high", date: "" },
+      { id: "j6", text: "Consulter un avocat fiscaliste expatriation", cat: "juridique", priority: "medium", date: "" },
+      { id: "c1", text: "Clôturer les comptes 2024 FU Solutions (retard critique)", cat: "comptable", priority: "high", date: "" },
+      { id: "c2", text: "Rapprochement bancaire 2025 FU Solutions avec Admilink", cat: "comptable", priority: "high", date: "" },
+      { id: "c3", text: "Inventaire des contrats en cours (FU Solutions) à transférer ou résilier", cat: "comptable", priority: "medium", date: "" },
+      { id: "c4", text: "Préparer le bilan de cessation FU Solutions (prévisionnel)", cat: "comptable", priority: "medium", date: "" },
+      { id: "v1", text: "Estimer la valorisation de V8 Equipment", cat: "cession", priority: "high", date: "" },
+      { id: "v2", text: "Préparer le dossier de présentation V8 (chiffres, clients, stocks)", cat: "cession", priority: "medium", date: "" },
+      { id: "v3", text: "Identifier des repreneurs potentiels", cat: "cession", priority: "medium", date: "" },
+      { id: "d1", text: "Recenser tous les domaines OVH (12 domaines, ~300 €/an)", cat: "digital", priority: "medium", date: "" },
+      { id: "d2", text: "Décider du nom de domaine HKFU et l'acheter", cat: "digital", priority: "high", date: "" },
+      { id: "d3", text: "Configurer les emails sous domaine HKFU", cat: "digital", priority: "medium", date: "" },
+      { id: "b1", text: "Ouvrir un compte Revolut Business au nom de HKFU", cat: "bancaire", priority: "high", date: "" },
+      { id: "b2", text: "Automatiser les relevés Revolut (API disponible)", cat: "bancaire", priority: "low", date: "" },
+      { id: "p1", text: "Vérifier le visa / permis de résidence HK", cat: "personnel", priority: "high", date: "" },
+      { id: "p2", text: "Se renseigner sur la couverture santé expatrié (CFE ou privé)", cat: "personnel", priority: "medium", date: "" },
+      { id: "p3", text: "Informer les enfants du projet SCI", cat: "personnel", priority: "medium", date: "" },
+    ]
+  },
+  {
+    phase: "T3 2026 — Transition",
+    period: "Juillet – Septembre 2026",
+    actions: [
+      { id: "j7", text: "Finaliser l'immatriculation HKFU", cat: "juridique", priority: "high", date: "" },
+      { id: "j8", text: "Créer la SCI chez le notaire", cat: "juridique", priority: "high", date: "" },
+      { id: "j9", text: "Transférer les contrats fournisseurs de FU Solutions vers HKFU", cat: "juridique", priority: "medium", date: "" },
+      { id: "c5", text: "Basculer la facturation active sous HKFU", cat: "comptable", priority: "high", date: "" },
+      { id: "c6", text: "Mettre à jour l'automatisation factures (entité HKFU par défaut)", cat: "comptable", priority: "medium", date: "" },
+      { id: "c7", text: "Préparer les déclarations fiscales de sortie France", cat: "comptable", priority: "high", date: "" },
+      { id: "v4", text: "Négocier avec le(s) repreneur(s) V8", cat: "cession", priority: "high", date: "" },
+      { id: "v5", text: "Préparer le protocole de cession V8", cat: "cession", priority: "medium", date: "" },
+      { id: "d4", text: "Migrer les emails de toutes les boîtes vers domaine HKFU", cat: "digital", priority: "high", date: "" },
+      { id: "d5", text: "Résilier les domaines OVH inutiles", cat: "digital", priority: "low", date: "" },
+      { id: "d6", text: "Mettre à jour les automatisations n8n (nouveau domaine, nouvelles entités)", cat: "digital", priority: "medium", date: "" },
+      { id: "b3", text: "Transférer les prélèvements vers le compte HKFU", cat: "bancaire", priority: "high", date: "" },
+      { id: "p4", text: "Organiser le déménagement (logistique, logement HK)", cat: "personnel", priority: "medium", date: "" },
+      { id: "p5", text: "Apport des biens immobiliers à la SCI", cat: "personnel", priority: "high", date: "" },
+    ]
+  },
+  {
+    phase: "T4 2026 — Finalisation",
+    period: "Octobre – Décembre 2026",
+    actions: [
+      { id: "j10", text: "Radier FU Solutions France (CFE, URSSAF, impôts)", cat: "juridique", priority: "high", date: "" },
+      { id: "j11", text: "Vérifier la conformité fiscale de la clôture", cat: "juridique", priority: "high", date: "" },
+      { id: "c8", text: "Bilan de clôture définitif FU Solutions", cat: "comptable", priority: "high", date: "" },
+      { id: "c9", text: "Dernière liasse fiscale FU Solutions", cat: "comptable", priority: "high", date: "" },
+      { id: "v6", text: "Signer l'acte de cession V8", cat: "cession", priority: "high", date: "" },
+      { id: "v7", text: "Transférer les stocks et clients V8 au repreneur", cat: "cession", priority: "medium", date: "" },
+      { id: "d7", text: "Couper les anciens domaines / hébergements France", cat: "digital", priority: "medium", date: "" },
+      { id: "b4", text: "Clôturer les comptes bancaires France (si applicable)", cat: "bancaire", priority: "medium", date: "" },
+      { id: "p6", text: "Expatriation effective — départ vers Hong Kong", cat: "personnel", priority: "high", date: "" },
+      { id: "p7", text: "Déclarer le changement de résidence fiscale", cat: "personnel", priority: "high", date: "" },
+    ]
+  }
+];
+
+const STORAGE_KEY = 'retroplanning-fred-hkfu';
+const CUSTOM_KEY = 'retroplanning-fred-hkfu-custom';
+const DELETED_KEY = 'retroplanning-fred-hkfu-deleted';
+
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+let customActions = JSON.parse(localStorage.getItem(CUSTOM_KEY) || '[]');
+let deletedIds = JSON.parse(localStorage.getItem(DELETED_KEY) || '[]');
+
+const catLabels = {
+  juridique: 'Juridique',
+  comptable: 'Comptable / Fiscal',
+  cession: 'Cession V8',
+  digital: 'Digital / IT',
+  bancaire: 'Bancaire',
+  personnel: 'Personnel'
+};
+
+function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function saveCustom() { localStorage.setItem(CUSTOM_KEY, JSON.stringify(customActions)); }
+function saveDeleted() { localStorage.setItem(DELETED_KEY, JSON.stringify(deletedIds)); }
+
+function getMergedData() {
+  // Deep copy default data, filter deleted, merge custom
+  const data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  data.forEach(phase => {
+    phase.actions = phase.actions.filter(a => !deletedIds.includes(a.id));
+  });
+  customActions.forEach(ca => {
+    const pi = ca.phaseIndex;
+    if (data[pi]) data[pi].actions.push(ca);
+  });
+  return data;
+}
+
+function updateProgress() {
+  const all = document.querySelectorAll('.action input[type="checkbox"]');
+  const visible = [...all].filter(cb => !cb.closest('.action').classList.contains('hidden'));
+  const checked = visible.filter(cb => cb.checked).length;
+  const total = visible.length || 1;
+  const pct = Math.round((checked / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + ' %';
+  document.querySelectorAll('.phase').forEach(phaseEl => {
+    const phaseChecks = phaseEl.querySelectorAll('.action:not(.hidden) input[type="checkbox"]');
+    const pDone = [...phaseChecks].filter(c => c.checked).length;
+    const pTotal = phaseChecks.length;
+    const statEl = phaseEl.querySelector('.phase-stats');
+    if (statEl) statEl.textContent = pDone + ' / ' + pTotal;
+  });
+}
+
+function makeDate(el, id) {
+  el.addEventListener('click', function handler() {
+    const input = document.createElement('input');
+    input.type = 'date';
+    input.className = 'date-input';
+    input.value = state[id]?.date || '';
+    el.replaceWith(input);
+    input.focus();
+    const commit = () => {
+      if (!state[id]) state[id] = {};
+      state[id].date = input.value;
+      saveState();
+      const nd = document.createElement('span');
+      nd.className = 'date-target';
+      nd.dataset.id = id;
+      nd.textContent = input.value || '📅 Date cible';
+      nd.title = 'Cliquer pour modifier la date cible';
+      input.replaceWith(nd);
+      makeDate(nd, id);
+    };
+    input.addEventListener('change', commit);
+    input.addEventListener('blur', commit);
+  });
+}
+
+function deleteAction(id, actionEl, isCustom) {
+  if (!confirm('Supprimer cette action ?')) return;
+  if (isCustom) {
+    customActions = customActions.filter(c => c.id !== id);
+    saveCustom();
+  } else {
+    deletedIds.push(id);
+    saveDeleted();
+  }
+  delete state[id];
+  saveState();
+  actionEl.remove();
+  updateProgress();
+  // Update phase stats
+  document.querySelectorAll('.phase').forEach(phaseEl => {
+    const phaseChecks = phaseEl.querySelectorAll('.action:not(.hidden) input[type="checkbox"]');
+    const pDone = [...phaseChecks].filter(c => c.checked).length;
+    const pTotal = phaseChecks.length;
+    const statEl = phaseEl.querySelector('.phase-stats');
+    if (statEl) statEl.textContent = pDone + ' / ' + pTotal;
+  });
+}
+
+function render() {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const data = getMergedData();
+
+  data.forEach((phase, pi) => {
+    const phaseEl = document.createElement('div');
+    phaseEl.className = 'phase';
+    phaseEl.innerHTML = `
+      <div class="phase-header">
+        <div>
+          <h2>${phase.phase}</h2>
+          <span style="font-size:0.75rem;color:#666;">${phase.period}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="phase-stats">0 / ${phase.actions.length}</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="phase-body"></div>
+    `;
+    phaseEl.querySelector('.phase-header').addEventListener('click', () => phaseEl.classList.toggle('collapsed'));
+    const body = phaseEl.querySelector('.phase-body');
+
+    const cats = {};
+    phase.actions.forEach(a => { if (!cats[a.cat]) cats[a.cat] = []; cats[a.cat].push(a); });
+
+    for (const [cat, actions] of Object.entries(cats)) {
+      const group = document.createElement('div');
+      group.className = 'cat-group';
+      group.dataset.cat = cat;
+      group.innerHTML = `<div class="cat-group-title">${catLabels[cat] || cat}</div>`;
+
+      actions.forEach(a => {
+        const checked = state[a.id]?.done || false;
+        const savedDate = state[a.id]?.date || a.date || '';
+        const priorityClass = a.priority === 'high' ? 'p-high' : a.priority === 'medium' ? 'p-medium' : 'p-low';
+        const priorityLabel = a.priority === 'high' ? 'Urgent' : a.priority === 'medium' ? 'Important' : 'Secondaire';
+        const isCustom = a.id.startsWith('custom-');
+
+        const actionEl = document.createElement('div');
+        actionEl.className = 'action' + (checked ? ' done' : '') + (isCustom ? ' custom' : '');
+        actionEl.dataset.cat = cat;
+        actionEl.innerHTML = `
+          <input type="checkbox" ${checked ? 'checked' : ''} data-id="${a.id}">
+          <div class="action-content">
+            <div class="action-text">${a.text}</div>
+            <div class="action-meta">
+              <span class="priority ${priorityClass}">${priorityLabel}</span>
+              <span class="cat-badge">${catLabels[cat]}</span>
+              <span class="date-target" data-id="${a.id}" title="Cliquer pour définir une date cible">${savedDate || '📅 Date cible'}</span>
+            </div>
+          </div>
+          <button class="btn-delete" title="Supprimer cette action">✕</button>
+        `;
+
+        const cb = actionEl.querySelector('input[type="checkbox"]');
+        cb.addEventListener('change', () => {
+          if (!state[a.id]) state[a.id] = {};
+          state[a.id].done = cb.checked;
+          actionEl.classList.toggle('done', cb.checked);
+          saveState();
+          updateProgress();
+        });
+
+        makeDate(actionEl.querySelector('.date-target'), a.id);
+
+        actionEl.querySelector('.btn-delete').addEventListener('click', (e) => {
+          e.stopPropagation();
+          deleteAction(a.id, actionEl, isCustom);
+        });
+
+        group.appendChild(actionEl);
+      });
+      body.appendChild(group);
+    }
+    content.appendChild(phaseEl);
+  });
+  updateProgress();
+}
+
+// Filters
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.action').forEach(a => {
+      a.classList.toggle('hidden', cat !== 'all' && a.dataset.cat !== cat);
+    });
+    document.querySelectorAll('.cat-group').forEach(g => {
+      g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
+    });
+    updateProgress();
+  });
+});
+
+// Modal
+const modal = document.getElementById('modalOverlay');
+document.getElementById('btnAdd').addEventListener('click', () => {
+  modal.classList.add('show');
+  document.getElementById('modalText').value = '';
+  document.getElementById('modalDate').value = '';
+  document.getElementById('modalText').focus();
+});
+document.getElementById('btnCancel').addEventListener('click', () => modal.classList.remove('show'));
+modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
+
+document.getElementById('btnConfirm').addEventListener('click', () => {
+  const text = document.getElementById('modalText').value.trim();
+  if (!text) { document.getElementById('modalText').focus(); return; }
+  const phaseIndex = parseInt(document.getElementById('modalPhase').value);
+  const cat = document.getElementById('modalCat').value;
+  const priority = document.getElementById('modalPriority').value;
+  const date = document.getElementById('modalDate').value.trim();
+  const id = 'custom-' + Date.now();
+
+  const action = { id, text, cat, priority, date, phaseIndex };
+  customActions.push(action);
+  saveCustom();
+  modal.classList.remove('show');
+  render();
+});
+
+// Keyboard shortcut
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') modal.classList.remove('show');
+  if (e.key === 'Enter' && modal.classList.contains('show')) document.getElementById('btnConfirm').click();
+});
+
+render();
+</script>
+</body>
+</html>

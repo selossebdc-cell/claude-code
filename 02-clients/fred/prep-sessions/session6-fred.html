@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 6 — Fred | Le Reset Digital</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --terracotta: #D17C61;
+    --terracotta-dark: #B8604A;
+    --terre: #433F3C;
+    --cuivre: #AE7558;
+    --sable: #C19E8A;
+    --lin: #F3EADA;
+    --white: #FFFFFF;
+    --light-grey: #F7F6F4;
+    --red: #DC2626;
+    --green: #16A34A;
+    --blue: #2563EB;
+    --yellow: #CA8A04;
+    --orange: #EA580C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--light-grey);
+    color: var(--terre);
+    line-height: 1.6;
+  }
+
+  /* ═══ HEADER ═══ */
+  .header {
+    background: linear-gradient(135deg, var(--terre) 0%, #2D2A28 100%);
+    color: white;
+    padding: 50px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: var(--terracotta);
+    opacity: 0.08;
+    border-radius: 50%;
+  }
+  .header .overline {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .header p { font-size: 1.05rem; opacity: 0.8; }
+  .header .badges {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    backdrop-filter: blur(4px);
+  }
+  .header .badge.alert {
+    background: rgba(220,38,38,0.25);
+    border: 1px solid rgba(220,38,38,0.4);
+  }
+
+  /* ═══ NAV ═══ */
+  nav {
+    background: var(--white);
+    border-bottom: 2px solid var(--lin);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    overflow-x: auto;
+  }
+  nav a {
+    padding: 14px 20px;
+    text-decoration: none;
+    color: var(--sable);
+    font-weight: 500;
+    font-size: 0.88rem;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.active {
+    color: var(--terracotta);
+    border-bottom-color: var(--terracotta);
+  }
+
+  /* ═══ CONTAINER ═══ */
+  .container { max-width: 920px; margin: 0 auto; padding: 40px 20px; }
+
+  /* ═══ SECTIONS ═══ */
+  section {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 40px;
+    margin-bottom: 28px;
+    box-shadow: 0 1px 4px rgba(67,63,60,0.06);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--terracotta);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--lin);
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: var(--terre);
+    margin: 24px 0 12px;
+  }
+
+  /* ═══ ALERT BOX ═══ */
+  .alert-box {
+    background: #FEF2F2;
+    border: 2px solid #FECACA;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .alert-box h3 { color: var(--red); margin: 0 0 8px; font-size: 1rem; }
+  .alert-box p { font-size: 0.95rem; color: #7F1D1D; }
+  .alert-box .big-num {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--red);
+    line-height: 1;
+  }
+  .alert-box .stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .alert-box .stat { text-align: center; }
+  .alert-box .stat .num {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .alert-box .stat .label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+  }
+  .alert-box .stat.bad .num { color: var(--red); }
+  .alert-box .stat.good .num { color: var(--green); }
+
+  /* ═══ COMPARE ═══ */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 24px 0;
+  }
+  .compare-box {
+    padding: 28px;
+    border-radius: 12px;
+    border: 2px solid;
+  }
+  .compare-box.before {
+    background: #FEF2F2;
+    border-color: #FECACA;
+  }
+  .compare-box.after {
+    background: #F0FDF4;
+    border-color: #BBF7D0;
+  }
+  .compare-box h3 {
+    margin-top: 0;
+    font-size: 1.15rem;
+  }
+  .compare-box ul { padding-left: 20px; }
+  .compare-box li { margin-bottom: 8px; font-size: 0.95rem; }
+
+  /* ═══ APP CARDS ═══ */
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+  .app-card {
+    padding: 28px;
+    border-radius: 14px;
+    border: 2px solid var(--lin);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .app-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+  .app-card .app-icon { font-size: 2.8rem; margin-bottom: 12px; }
+  .app-card .app-name {
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+  }
+  .app-card .app-role {
+    color: var(--sable);
+    font-size: 0.88rem;
+    margin-bottom: 12px;
+  }
+  .app-card .app-rule {
+    background: var(--lin);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--terre);
+  }
+  .app-card .app-num {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    background: var(--terracotta);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+  .app-card.mail { border-color: #93C5FD; background: #F0F7FF; }
+  .app-card.drive { border-color: #86EFAC; background: #F0FDF4; }
+  .app-card.mdp { border-color: #C4B5FD; background: #F5F3FF; }
+  .app-card.ia { border-color: #FED7AA; background: #FFF7ED; }
+
+  /* ═══ TIMELINE ═══ */
+  .timeline { margin: 28px 0; }
+  .timeline-block {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 4px;
+    align-items: stretch;
+  }
+  .timeline-left {
+    width: 80px;
+    flex-shrink: 0;
+    text-align: right;
+    padding-top: 20px;
+  }
+  .timeline-left .time {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--terracotta);
+  }
+  .timeline-left .duration {
+    font-size: 0.75rem;
+    color: var(--sable);
+  }
+  .timeline-line {
+    width: 3px;
+    background: var(--lin);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: -5px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--terracotta);
+  }
+  .timeline-content {
+    flex: 1;
+    padding: 16px 24px 24px;
+    margin: 8px 0;
+    background: var(--white);
+    border: 1px solid var(--lin);
+    border-radius: 10px;
+  }
+  .timeline-content h4 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    color: var(--terre);
+  }
+  .timeline-content p, .timeline-content li {
+    font-size: 0.92rem;
+    color: #6B6560;
+  }
+  .timeline-content ul { padding-left: 18px; margin-top: 8px; }
+  .timeline-content li { margin-bottom: 4px; }
+
+  /* ═══ CONFIG TABLE ═══ */
+  .config-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.9rem;
+  }
+  .config-table th {
+    background: var(--terre);
+    color: white;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .config-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--lin);
+  }
+  .config-table tr:hover td { background: var(--lin); }
+
+  /* ═══ CLOUD RULE ═══ */
+  .cloud-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--lin);
+    border-radius: 10px;
+    margin: 10px 0;
+    border-left: 4px solid;
+  }
+  .cloud-rule.drive { border-left-color: var(--green); }
+  .cloud-rule.dropbox { border-left-color: var(--blue); }
+  .cloud-rule.onedrive { border-left-color: var(--red); }
+  .cloud-rule .cloud-icon { font-size: 1.8rem; }
+  .cloud-rule .cloud-name { font-weight: 700; font-size: 1rem; }
+  .cloud-rule .cloud-desc { font-size: 0.88rem; color: #6B6560; }
+  .cloud-rule .cloud-status {
+    margin-left: auto;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .cloud-rule.drive .cloud-status { background: #DCFCE7; color: var(--green); }
+  .cloud-rule.dropbox .cloud-status { background: #DBEAFE; color: var(--blue); }
+  .cloud-rule.onedrive .cloud-status { background: #FEE2E2; color: var(--red); }
+
+  /* ═══ FICHE FRED — la fiche imprimable ═══ */
+  .fiche-fred {
+    background: var(--white);
+    border: 3px solid var(--terracotta);
+    border-radius: 16px;
+    padding: 40px;
+    margin: 28px 0;
+    position: relative;
+  }
+  .fiche-fred::before {
+    content: 'FICHE FRED';
+    position: absolute;
+    top: -14px;
+    left: 30px;
+    background: var(--terracotta);
+    color: white;
+    padding: 4px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+  }
+  .fiche-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--terre);
+    text-align: center;
+    margin: 10px 0 8px;
+  }
+  .fiche-subtitle {
+    text-align: center;
+    color: var(--sable);
+    font-size: 0.95rem;
+    margin-bottom: 28px;
+  }
+  .fiche-step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin: 12px 0;
+    border-radius: 12px;
+    border: 2px solid var(--lin);
+    transition: transform 0.15s;
+  }
+  .fiche-step:hover { transform: translateX(4px); }
+  .fiche-step .step-icon { font-size: 2.4rem; flex-shrink: 0; }
+  .fiche-step .step-num {
+    background: var(--terracotta);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .fiche-step .step-text { flex: 1; }
+  .fiche-step .step-action {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--terre);
+  }
+  .fiche-step .step-detail {
+    font-size: 0.88rem;
+    color: var(--sable);
+    margin-top: 2px;
+  }
+  .fiche-rule {
+    text-align: center;
+    margin-top: 28px;
+    padding: 16px;
+    background: var(--lin);
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+  .fiche-rule strong { color: var(--terracotta); }
+
+  /* ═══ POSTPONED ═══ */
+  .postponed {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: #FAFAFA;
+    margin: 6px 0;
+    font-size: 0.9rem;
+    border: 1px solid var(--lin);
+  }
+  .postponed .p-icon { font-size: 1.2rem; opacity: 0.5; }
+  .postponed .p-when {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--sable);
+    white-space: nowrap;
+  }
+
+  /* ═══ SKILLS PREVIEW ═══ */
+  .skill-card {
+    display: flex;
+    gap: 16px;
+    padding: 18px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 2px solid var(--lin);
+    align-items: center;
+  }
+  .skill-card .skill-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--lin);
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .skill-card .skill-name { font-weight: 700; font-size: 0.95rem; }
+  .skill-card .skill-trigger {
+    font-size: 0.85rem;
+    color: var(--sable);
+    font-style: italic;
+  }
+  .skill-card .skill-output {
+    font-size: 0.85rem;
+    color: var(--terre);
+    margin-top: 2px;
+  }
+
+  /* ═══ CHECKLIST CATHERINE ═══ */
+  .catherine-only {
+    background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
+    border: 2px solid #FDE68A;
+    border-radius: 14px;
+    padding: 32px;
+    position: relative;
+  }
+  .catherine-only::before {
+    content: 'CATHERINE ONLY';
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: #F59E0B;
+    color: white;
+    padding: 3px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+  .catherine-only h2 {
+    color: #92400E;
+    border-bottom-color: #FDE68A;
+  }
+
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.93rem;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--terracotta);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ═══ TAGS ═══ */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .tag-critical { background: #FEE2E2; color: var(--red); }
+  .tag-warning { background: #FEF3C7; color: #92400E; }
+  .tag-ok { background: #DCFCE7; color: var(--green); }
+  .tag-info { background: #DBEAFE; color: var(--blue); }
+  .tag-new { background: #F3E8FF; color: #7C3AED; }
+
+  /* ═══ QUOTE ═══ */
+  .quote {
+    background: var(--lin);
+    border-left: 4px solid var(--terracotta);
+    padding: 20px 24px;
+    margin: 24px 0;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--terracotta-dark);
+    border-radius: 0 10px 10px 0;
+  }
+
+  /* ═══ DECISION BOX ═══ */
+  .decision-box {
+    background: var(--lin);
+    border: 2px solid var(--sable);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+  .decision-box strong { color: var(--terracotta); }
+
+  /* ═══ FOOTER ═══ */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--sable);
+    font-size: 0.82rem;
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 700px) {
+    .compare, .app-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 1.8rem; }
+    section { padding: 24px; }
+    nav { padding: 0 16px; }
+    nav a { padding: 12px 14px; font-size: 0.82rem; }
+    .timeline-left { width: 60px; }
+  }
+
+  /* ═══ PRINT ═══ */
+  @media print {
+    nav { display: none; }
+    .header { background: var(--terre) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    .fiche-fred { break-inside: avoid; }
+    .catherine-only { break-before: page; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- HEADER -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="header">
+  <div class="overline">CS Consulting Strategique</div>
+  <h1>Le Reset Digital</h1>
+  <p>On arrete d'empiler. On simplifie. 4 apps, c'est tout.</p>
+  <div class="badges">
+    <span class="badge">Session 6 / 18</span>
+    <span class="badge">Vendredi 6 mars 2026</span>
+    <span class="badge">10h — 11h30</span>
+    <span class="badge alert">61 actions en attente</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- NAV -->
+<!-- ═══════════════════════════════════════════ -->
+<nav>
+  <a href="#diagnostic" class="active">Diagnostic</a>
+  <a href="#vision">La Vision</a>
+  <a href="#deroulement">Deroulement</a>
+  <a href="#outlook">Outlook</a>
+  <a href="#cloud">Cloud</a>
+  <a href="#passwords">Google Passwords</a>
+  <a href="#fiche">La Fiche Fred</a>
+  <a href="#suite">Suite</a>
+  <a href="#prep">Prep Catherine</a>
+</nav>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 1 : DIAGNOSTIC -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="diagnostic">
+    <h2>Diagnostic — Pourquoi on repart a zero</h2>
+
+    <div class="alert-box">
+      <h3>Les chiffres parlent d'eux-memes</h3>
+      <div class="stats">
+        <div class="stat bad">
+          <div class="num">61</div>
+          <div class="label">Actions en attente</div>
+        </div>
+        <div class="stat good">
+          <div class="num">4</div>
+          <div class="label">Terminees en 5 sessions</div>
+        </div>
+        <div class="stat bad">
+          <div class="num">3</div>
+          <div class="label">Clouds differents</div>
+        </div>
+        <div class="stat bad">
+          <div class="num">4+</div>
+          <div class="label">Boites mail dans Chrome</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-box before">
+        <h3>Aujourd'hui — le chaos</h3>
+        <ul>
+          <li>4+ boites mail ouvertes dans Chrome</li>
+          <li>Chrome rame avec 30 onglets</li>
+          <li>3 clouds (Dropbox, Drive, OneDrive)</li>
+          <li>Fichiers eparpilles partout</li>
+          <li>Pas de gestionnaire de mots de passe</li>
+          <li>61 actions non faites = paralysie</li>
+          <li>Fred ne sait pas par ou commencer</li>
+        </ul>
+      </div>
+      <div class="compare-box after">
+        <h3>Demain — la clarte</h3>
+        <ul>
+          <li><strong>1 app</strong> pour les mails (Outlook)</li>
+          <li>Chrome = libere, juste pour naviguer</li>
+          <li><strong>1 cloud</strong> de travail (Drive FU Solutions)</li>
+          <li>Chaque fichier a SA place</li>
+          <li><strong>1 coffre-fort</strong> MDP (Google Passwords)</li>
+          <li>3 actions par semaine, c'est tout</li>
+          <li>Fred ouvre son ordi et sait quoi faire</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote">
+      "On avait 61 actions. On en garde 3. Pas parce qu'on abandonne — parce que les bonnes habitudes valent mieux que les longues listes."
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 2 : LA VISION — 4 APPS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="vision">
+    <h2>La vision — Quand tu ouvres ton ordi</h2>
+    <p style="color:var(--sable); margin-bottom:24px;">
+      4 icones sur ton bureau. Pas une de plus. Tout le reste, tu n'y touches pas.
+    </p>
+
+    <div class="app-grid">
+      <div class="app-card mail">
+        <span class="app-num">1</span>
+        <div class="app-icon">&#9993;</div>
+        <div class="app-name">Outlook</div>
+        <div class="app-role">Tous tes mails au meme endroit</div>
+        <div class="app-rule">Tu ouvres Outlook = tu vois TOUTES tes boites. Plus jamais Chrome pour les mails.</div>
+      </div>
+
+      <div class="app-card drive">
+        <span class="app-num">2</span>
+        <div class="app-icon">&#128194;</div>
+        <div class="app-name">Drive FU Solutions</div>
+        <div class="app-role">Tous tes documents de travail</div>
+        <div class="app-rule">Tout nouveau fichier = dans Drive. Un fichier, un seul endroit.</div>
+      </div>
+
+      <div class="app-card mdp">
+        <span class="app-num">3</span>
+        <div class="app-icon">&#128272;</div>
+        <div class="app-name">Google Passwords</div>
+        <div class="app-role">Tous tes mots de passe</div>
+        <div class="app-rule">Plus de post-it, plus de "j'ai oublie". Tu cliques, ca remplit tout seul.</div>
+      </div>
+
+      <div class="app-card ia">
+        <span class="app-num">4</span>
+        <div class="app-icon">&#129302;</div>
+        <div class="app-name">Claude</div>
+        <div class="app-role">Ton assistant personnel</div>
+        <div class="app-rule">"C'est quoi mes priorites aujourd'hui ?" — Il te repond, il te recadre.</div>
+      </div>
+    </div>
+
+    <div class="decision-box">
+      <strong>Regle d'or :</strong> Si ca n'entre pas dans ces 4 apps, c'est que tu n'en as pas besoin maintenant. Le reste viendra apres.
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 3 : DEROULEMENT SESSION -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="deroulement">
+    <h2>Deroulement de la session</h2>
+    <p style="color:var(--sable); margin-bottom:8px;">1h30 — 5 blocs, objectif clair : repartir avec un bureau qui a du sens</p>
+
+    <div class="timeline">
+      <div class="timeline-block">
+        <div class="timeline-left">
+          <div class="time">10h00</div>
+          <div class="duration">15 min</div>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h4>Bloc 1 — Le Reset</h4>
+          <p>Poser le constat. Deculpabiliser Fred. Presenter les 4 apps.</p>
+          <ul>
+            <li>"Fred, 61 actions c'est pas toi le probleme, c'est qu'on en a mis trop"</li>
+            <li>Montrer la page <strong>La Vision</strong> de ce document</li>
+            <li>Valider avec lui : "Ca te parle ?"</li>
+            <li>Archiver en bloc les anciennes actions</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-block">
+        <div class="timeline-left">
+          <div class="time">10h15</div>
+          <div class="duration">40 min</div>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h4>Bloc 2 — Installer Outlook <span class="tag tag-new">QUICK WIN</span></h4>
+          <p>Le changement le plus visible. Fred ne doit plus ouvrir Chrome pour ses mails.</p>
+          <ul>
+            <li>Ouvrir / installer Outlook (AnyDesk)</li>
+            <li>Ajouter fu@fusolution.fr comme compte principal</li>
+            <li>Ajouter les autres boites en comptes secondaires</li>
+            <li>Creer une signature mail FU Solutions</li>
+            <li>Tester envoyer / recevoir</li>
+            <li><strong>Epingler Outlook dans la barre des taches</strong></li>
+            <li>Supprimer les favoris Gmail de Chrome</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-block">
+        <div class="timeline-left">
+          <div class="time">10h55</div>
+          <div class="duration">15 min</div>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h4>Bloc 3 — La regle Cloud</h4>
+          <p>Trancher UN cloud de travail. Fini la confusion.</p>
+          <ul>
+            <li>Expliquer la regle : Drive = bureau, Dropbox = grenier, OneDrive = on oublie</li>
+            <li>Creer un raccourci Drive FU Solutions sur le bureau</li>
+            <li>Montrer le tableau des regles (section Cloud)</li>
+            <li>Faire UN test reel : ouvrir un fichier, le ranger dans Drive</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-block">
+        <div class="timeline-left">
+          <div class="time">11h10</div>
+          <div class="duration">15 min</div>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h4>Bloc 4 — Proton Pass</h4>
+          <p>Si le temps le permet. Sinon = action prioritaire n&deg;1 de la semaine.</p>
+          <ul>
+            <li>Installer Proton Pass (extension navigateur + app)</li>
+            <li>Creer le compte avec fu@fusolution.fr</li>
+            <li>Enregistrer les 3 premiers mots de passe</li>
+            <li>Montrer le remplissage automatique</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-block">
+        <div class="timeline-left">
+          <div class="time">11h25</div>
+          <div class="duration">5 min</div>
+        </div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h4>Bloc 5 — 3 actions, pas plus</h4>
+          <ul>
+            <li><strong>Action 1 :</strong> Ouvre Outlook chaque matin au lieu de Chrome pour tes mails</li>
+            <li><strong>Action 2 :</strong> Tout nouveau fichier → Drive FU Solutions</li>
+            <li><strong>Action 3 :</strong> Chaque mot de passe tape → Chrome propose de l'enregistrer → dis OUI</li>
+          </ul>
+          <p style="margin-top:12px;">Confirmer la prochaine session. Demander : <em>"Qu'est-ce qui t'a ete le plus utile ?"</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 4 : OUTLOOK CONFIG -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="outlook">
+    <h2>Config Outlook — Details techniques</h2>
+
+    <h3>Quel Outlook ?</h3>
+    <table class="config-table">
+      <thead>
+        <tr><th>Option</th><th>Pour</th><th>Contre</th><th>Verdict</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Outlook (new)</strong><br><span class="tag tag-ok">Gratuit</span></td>
+          <td>Natif Windows 11, moderne, leger</td>
+          <td>Moins de fonctions avancees</td>
+          <td><strong>Si W11 → 1er choix</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Outlook classique</strong><br><span class="tag tag-info">M365</span></td>
+          <td>Complet, calendrier integre, pro</td>
+          <td>~7 EUR/mois, config plus lourde</td>
+          <td>Si deja abonnement M365</td>
+        </tr>
+        <tr>
+          <td><strong>Thunderbird</strong><br><span class="tag tag-ok">Gratuit</span></td>
+          <td>Open source, puissant, IMAP natif</td>
+          <td>Interface datee, moins intuitif</td>
+          <td>Plan B si pas de budget</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="decision-box">
+      <strong>Pre-requis a verifier AVANT la session :</strong><br>
+      1. Fred est sur Windows 10 ou 11 ?<br>
+      2. fu@fusolution.fr = Gmail / Google Workspace (confirme)<br>
+      3. Fred arrive-t-il a se connecter a mail.google.com avec fu@fusolution.fr ?
+    </div>
+
+    <h3>Comptes a ajouter dans Outlook</h3>
+    <table class="config-table">
+      <thead>
+        <tr><th>Compte</th><th>Type</th><th>Role</th><th>Protocole</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>fu@fusolution.fr</strong></td>
+          <td><span class="tag tag-new">Principal</span></td>
+          <td>Email de travail quotidien, admin transversal</td>
+          <td>Google OAuth</td>
+        </tr>
+        <tr>
+          <td>Gmail personnel</td>
+          <td><span class="tag tag-info">Secondaire</span></td>
+          <td>Mails perso, anciens contacts</td>
+          <td>Google OAuth</td>
+        </tr>
+        <tr>
+          <td>V8 V8 (facturation)</td>
+          <td><span class="tag tag-info">Secondaire</span></td>
+          <td>Centralisation factures</td>
+          <td>IMAP (OVH ?)</td>
+        </tr>
+        <tr>
+          <td>Fred V8 / Contact V8</td>
+          <td><span class="tag tag-warning">A voir</span></td>
+          <td>Peut-etre a rediriger vers FU Solutions</td>
+          <td>IMAP (OVH ?)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Signature mail FU Solutions</h3>
+    <div style="background:var(--lin); border-radius:10px; padding:20px; margin-top:12px; font-size:0.92rem;">
+      <strong style="color:var(--terre);">Fred</strong><br>
+      FU Solutions<br>
+      <span style="color:var(--sable);">fu@fusolution.fr</span><br>
+      <span style="color:var(--sable);">[tel a ajouter]</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 5 : REGLES CLOUD -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="cloud">
+    <h2>Regles Cloud — Un seul endroit pour travailler</h2>
+
+    <div class="cloud-rule drive">
+      <div class="cloud-icon">&#128194;</div>
+      <div>
+        <div class="cloud-name">Google Drive FU Solutions</div>
+        <div class="cloud-desc">Ton bureau digital. Tout document de travail, partage, fichier en cours.</div>
+      </div>
+      <div class="cloud-status">QUOTIDIEN</div>
+    </div>
+
+    <div class="cloud-rule dropbox">
+      <div class="cloud-icon">&#128230;</div>
+      <div>
+        <div class="cloud-name">Dropbox (2 To)</div>
+        <div class="cloud-desc">Ton grenier. Archives, anciens fichiers, ce qui est range et termine.</div>
+      </div>
+      <div class="cloud-status">ARCHIVE</div>
+    </div>
+
+    <div class="cloud-rule onedrive">
+      <div class="cloud-icon">&#9940;</div>
+      <div>
+        <div class="cloud-name">OneDrive (100 Go)</div>
+        <div class="cloud-desc">On n'y touche plus. A vider progressivement vers Drive ou Dropbox.</div>
+      </div>
+      <div class="cloud-status">ABANDONNE</div>
+    </div>
+
+    <h3 style="margin-top:28px;">Tableau de decision rapide</h3>
+    <table class="config-table">
+      <thead>
+        <tr><th>Situation</th><th>Ou ca va</th><th>Pourquoi</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Je travaille sur un fichier</td>
+          <td><strong>Drive FU Solutions</strong></td>
+          <td>C'est ton bureau</td>
+        </tr>
+        <tr>
+          <td>Je partage un fichier avec quelqu'un</td>
+          <td><strong>Drive FU Solutions</strong></td>
+          <td>Partage natif Google</td>
+        </tr>
+        <tr>
+          <td>L'equipe Chine a besoin d'un doc</td>
+          <td><strong>Drive FU Solutions</strong></td>
+          <td>Partage par lien</td>
+        </tr>
+        <tr>
+          <td>C'est un vieux fichier que j'ouvre plus</td>
+          <td><strong>Dropbox</strong></td>
+          <td>Archive froide</td>
+        </tr>
+        <tr>
+          <td>C'est un truc perso (impots, sante)</td>
+          <td><strong>Dropbox > _PERSO</strong></td>
+          <td>Separe du pro</td>
+        </tr>
+        <tr>
+          <td>C'est sur OneDrive</td>
+          <td><strong>On migre vers Drive</strong></td>
+          <td>A faire progressivement</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="quote">
+      "En cas de doute, c'est dans Drive. Toujours."
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 6 : GOOGLE PASSWORDS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="passwords">
+    <h2>Google Passwords — Le coffre-fort MDP</h2>
+
+    <p style="margin-bottom:20px;">Fred n'a aucun gestionnaire de mots de passe. Ses MDP sont dans sa tete, sur des post-it, ou dans un fichier Excel. <strong>Bonne nouvelle : il en a deja un.</strong> Google Password Manager est integre a Chrome et a son compte fu@fusolution.fr. Zero install, zero compte supplementaire.</p>
+
+    <div class="decision-box">
+      <strong>Pourquoi Google Passwords et pas Proton Pass ?</strong><br>
+      Fred est sur Google Workspace (Gmail, Drive, Calendar). Google Password Manager est <strong>deja la</strong> — pas de compte a creer, pas d'extension a installer. Un outil de moins = moins de friction = plus de chances qu'il l'utilise.
+    </div>
+
+    <h3>Etapes en session</h3>
+    <table class="config-table">
+      <thead>
+        <tr><th>#</th><th>Etape</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Verifier que Chrome est connecte</td>
+          <td>fu@fusolution.fr doit etre le profil Chrome principal</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Activer la proposition d'enregistrement</td>
+          <td>Chrome > Parametres > Mots de passe > "Proposer d'enregistrer" = ON</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Enregistrer les 3 premiers MDP en live</td>
+          <td>Se connecter a Gmail, HSBC ou Revolut, un site fournisseur → Chrome propose d'enregistrer → cliquer OUI</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Montrer le remplissage auto</td>
+          <td>Fred va sur un site deja enregistre → Chrome remplit → "C'est tout con !"</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Importer le fichier Excel de MDP</td>
+          <td>Si Fred a son Excel : le convertir en CSV → Chrome > Parametres > Mots de passe > Importer</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="decision-box">
+      <strong>Strategie progressive :</strong> Meme sans import CSV, a chaque connexion Chrome propose d'enregistrer le MDP. En 2 semaines, les principaux seront dedans naturellement. Tout est synchronise sur son compte Google — meme depuis un autre ordi.
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 7 : FICHE FRED IMPRIMABLE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="fiche" style="background: var(--lin);">
+    <h2>La Fiche — A donner a Fred</h2>
+    <p style="color:var(--sable); margin-bottom:12px;">Imprimable. A coller a cote de l'ecran. La seule chose que Fred doit retenir.</p>
+
+    <div class="fiche-fred">
+      <div class="fiche-title">Quand j'ouvre mon ordi</div>
+      <div class="fiche-subtitle">4 reflexes. C'est tout.</div>
+
+      <div class="fiche-step">
+        <div class="step-num">1</div>
+        <div class="step-icon">&#9993;</div>
+        <div class="step-text">
+          <div class="step-action">J'ouvre OUTLOOK</div>
+          <div class="step-detail">Tous mes mails sont la. Je ne vais PLUS dans Chrome pour mes mails.</div>
+        </div>
+      </div>
+
+      <div class="fiche-step">
+        <div class="step-num">2</div>
+        <div class="step-icon">&#128194;</div>
+        <div class="step-text">
+          <div class="step-action">Mes fichiers = DRIVE FU Solutions</div>
+          <div class="step-detail">Tout nouveau document va dans Drive. Si c'est vieux et fini → Dropbox.</div>
+        </div>
+      </div>
+
+      <div class="fiche-step">
+        <div class="step-num">3</div>
+        <div class="step-icon">&#128272;</div>
+        <div class="step-text">
+          <div class="step-action">Un mot de passe ? GOOGLE le retient</div>
+          <div class="step-detail">Chrome me propose d'enregistrer → je dis OUI. Toujours.</div>
+        </div>
+      </div>
+
+      <div class="fiche-step">
+        <div class="step-num">4</div>
+        <div class="step-icon">&#129302;</div>
+        <div class="step-text">
+          <div class="step-action">Besoin d'aide ? CLAUDE</div>
+          <div class="step-detail">"C'est quoi mes priorites ?" — "Ou je range ce fichier ?" — "Resume ce mail"</div>
+        </div>
+      </div>
+
+      <div class="fiche-rule">
+        <strong>Regle d'or :</strong> Si c'est pas dans ces 4 apps, j'en ai pas besoin maintenant.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 8 : CE QU'ON REPORTE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="suite">
+    <h2>Ce qu'on reporte volontairement</h2>
+    <p style="color:var(--sable); margin-bottom:20px;">Pas abandonne. Juste pas maintenant. Les bases d'abord.</p>
+
+    <div class="postponed">
+      <span class="p-icon">&#129302;</span>
+      <span><strong>Claude + skills personnalises</strong> — Les bases (Outlook, Drive, MDP) doivent etre posees d'abord</span>
+      <span class="p-when">Session 7 ou 8</span>
+    </div>
+    <div class="postponed">
+      <span class="p-icon">&#128451;</span>
+      <span><strong>Nettoyage OneDrive 100 Go</strong> — Archive froide, pas urgent</span>
+      <span class="p-when">Session 8+</span>
+    </div>
+    <div class="postponed">
+      <span class="p-icon">&#127760;</span>
+      <span><strong>Firefox Containers</strong> — Outlook remplace le besoin de separer les mails par navigateur</span>
+      <span class="p-when">A reevaluer</span>
+    </div>
+    <div class="postponed">
+      <span class="p-icon">&#129302;</span>
+      <span><strong>Migration Botnation → Claude</strong> — Trop technique pour maintenant</span>
+      <span class="p-when">Mois 3-4</span>
+    </div>
+    <div class="postponed">
+      <span class="p-icon">&#127916;</span>
+      <span><strong>Tutos video (5 promis)</strong> — On fait AVEC lui en live, plus efficace</span>
+      <span class="p-when">Si vraiment utile</span>
+    </div>
+    <div class="postponed">
+      <span class="p-icon">&#128200;</span>
+      <span><strong>Automatisation factures (n8n + agent IA)</strong> — Le process manuel doit etre rode d'abord</span>
+      <span class="p-when">Avril</span>
+    </div>
+
+    <h3 style="margin-top:32px;">Preview — Claude + Skills pour Fred (session 7-8)</h3>
+    <p style="color:var(--sable); margin-bottom:16px;">Ce qu'on preparera quand les bases seront en place :</p>
+
+    <div class="skill-card">
+      <div class="skill-icon">&#127919;</div>
+      <div>
+        <div class="skill-name">"C'est quoi mon plan ?"</div>
+        <div class="skill-trigger">Fred ouvre Claude le matin</div>
+        <div class="skill-output">→ 3 priorites du jour, tirees de Notion. Recadrage TDAH.</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#128193;</div>
+      <div>
+        <div class="skill-name">"Ou je range ca ?"</div>
+        <div class="skill-trigger">Fred a un fichier et ne sait pas ou le mettre</div>
+        <div class="skill-output">→ Reponse en 1 ligne : Drive / Dropbox / Poubelle</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9201;</div>
+      <div>
+        <div class="skill-name">"Timer focus"</div>
+        <div class="skill-trigger">Fred a besoin de se concentrer</div>
+        <div class="skill-output">→ Pomodoro 25 min avec recap de ce qui a ete fait</div>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9993;</div>
+      <div>
+        <div class="skill-name">"Resume ce mail"</div>
+        <div class="skill-trigger">Fred recoit un mail long ou complique</div>
+        <div class="skill-output">→ Resume en 2 lignes + action suggeree</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 9 : CHECKLIST CATHERINE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section id="prep" style="padding:0;">
+    <div class="catherine-only">
+      <h2 style="margin-top:8px;">Prep Catherine — Avant vendredi</h2>
+
+      <h3>A faire AVANT la session</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"> <span>Envoyer un mail a Fred : <strong>"Connecte-toi a mail.google.com avec fu@fusolution.fr — dis-moi si ca marche"</strong></span></li>
+        <li><input type="checkbox"> <span>Verifier si Fred a son fichier Excel de MDP (pour import Google Passwords en session)</span></li>
+        <li><input type="checkbox"> <span>Imprimer la <strong>Fiche Fred</strong> (section "Quand j'ouvre mon ordi") — ou la preparer en partage d'ecran</span></li>
+        <li><input type="checkbox"> <span>Relire cette page le vendredi matin a 9h15 (creneau buffer deja bloque)</span></li>
+      </ul>
+
+      <h3 style="margin-top:24px;">Pendant la session — Points de vigilance</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"> <span><span class="tag tag-critical">IMPORTANT</span> Ne PAS deborder sur 10 sujets. 3 blocs max faits en live. Si Outlook prend 50 min → on saute Google Passwords, c'est OK.</span></li>
+        <li><input type="checkbox"> <span>Si Fred part sur une tangente ("et aussi je voudrais...") → <em>"Super idee, je la note. On y revient quand les bases sont posees."</em></span></li>
+        <li><input type="checkbox"> <span>Si l'install Outlook bloque (MDP oublie, etc.) → <strong>Plan B : configurer UNE seule boite (fu@fusolution.fr)</strong>, les autres en action inter-session</span></li>
+        <li><input type="checkbox"> <span>Penser a demander a Fred : le test Firefox Containers de la session 4 → verdict ? (pour decider si on l'abandonne officiellement)</span></li>
+        <li><input type="checkbox"> <span>Fin de session : noter la citation du jour pour pepite LinkedIn</span></li>
+      </ul>
+
+      <h3 style="margin-top:24px;">Apres la session</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"> <span>CR session avec <code>/session-report</code></span></li>
+        <li><input type="checkbox"> <span>Archiver les 61 actions dans Notion → ne garder que les nouvelles</span></li>
+        <li><input type="checkbox"> <span>Mettre a jour le fichier memoire client (fred.md)</span></li>
+        <li><input type="checkbox"> <span>Extraire pepite LinkedIn si applicable</span></li>
+        <li><input type="checkbox"> <span>Planifier session 7 dans Google Calendar</span></li>
+      </ul>
+
+      <h3 style="margin-top:24px;">Actions Catherine en attente (de sessions precedentes)</h3>
+      <table class="config-table" style="margin-top:8px;">
+        <thead>
+          <tr><th>Action</th><th>Depuis</th><th>Statut session 6</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Google Passwords — verifier que Chrome est connecte a fu@fusolution.fr</td>
+            <td>S5</td>
+            <td><span class="tag tag-ok">Simplifie : deja integre a Google</span></td>
+          </tr>
+          <tr>
+            <td>Creer diagramme visuel structure email FU Solutions</td>
+            <td>S5</td>
+            <td><span class="tag tag-warning">Remplace par la config Outlook</span></td>
+          </tr>
+          <tr>
+            <td>Envoyer schema FU Solutions par WhatsApp</td>
+            <td>S4</td>
+            <td><span class="tag tag-ok">Fait ?</span> A verifier</td>
+          </tr>
+          <tr>
+            <td>5 tutos video (cloud, Firefox, Chrome, recherche, partage)</td>
+            <td>S3</td>
+            <td><span class="tag tag-info">Remplaces par le "faire avec"</span></td>
+          </tr>
+          <tr>
+            <td>Template arborescence entreprise</td>
+            <td>S3</td>
+            <td><span class="tag tag-info">Remplace par l'arbo Drive en live</span></td>
+          </tr>
+          <tr>
+            <td>Explorer OneDrive Fred + plan nettoyage</td>
+            <td>S5</td>
+            <td><span class="tag tag-warning">Reporte session 8+</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <p>CS Consulting Strategique &middot; Session 6 — Fred &middot; 6 mars 2026</p>
+  <p style="margin-top:4px; opacity:0.6;">Document interne Catherine — Ne pas partager tel quel</p>
+</div>
+
+</body>
+</html>

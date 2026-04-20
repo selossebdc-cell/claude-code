@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadrage Kevin Dot Market</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 2.5rem;
+        }
+        h1 {
+            color: #C27A5A;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 3px solid #C27A5A;
+            padding-bottom: 0.5rem;
+        }
+        .meta {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0 2.5rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .meta strong {
+            color: #2c3e50;
+        }
+        h2 {
+            color: #C27A5A;
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0e6e0;
+        }
+        h3 {
+            color: #34495e;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #f5ede8;
+            color: #2c3e50;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #C27A5A;
+        }
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover {
+            background: #fafaf9;
+        }
+        .checklist {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #C27A5A;
+            font-weight: bold;
+        }
+        .highlight {
+            background: #fff3f0;
+            border-left: 3px solid #C27A5A;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        .timeline {
+            margin: 1.5rem 0;
+        }
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        .time {
+            font-weight: 600;
+            color: #C27A5A;
+        }
+        .content {
+            margin: 1rem 0;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .section-tag {
+            display: inline-block;
+            background: #f5ede8;
+            color: #C27A5A;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .success {
+            color: #27ae60;
+        }
+        .warning {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RÉUNION CADRAGE — Kevin JOURDAN</h1>
+
+        <div class="meta">
+            <span><strong>Date :</strong> Mercredi 20/04/2026</span>
+            <span><strong>Heure :</strong> 14h00</span>
+            <span><strong>Participants :</strong> Catherine, Kevin, Elsa</span>
+        </div>
+
+        <h2>CONTEXTE DU PROJET</h2>
+        <div class="content">
+            <p><strong>Commanditaire :</strong> Kevin Jourdan</p>
+            <p><strong>Entités :</strong> 3 (Dot Market + Dot Advisory + School Dot Market)</p>
+            <p><strong>Périmètre :</strong> 3 dashboards dédiés par entité + pilotage données & stratégie opérationnelle</p>
+            <p><strong>Devis :</strong> 10 000 EUR HT | <strong>Démarrage :</strong> 22/04/2026 | <strong>Durée :</strong> 6 mois (avec marges congés)</p>
+        </div>
+
+        <h2>SYNTHÈSE COMPRÉHENSION ACTUELLE</h2>
+
+        <h3>Entités & KPIs distincts</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Entité</th>
+                    <th>Type</th>
+                    <th>Volume</th>
+                    <th>Besoin clé</th>
+                    <th>Processus</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Dot Market</strong></td>
+                    <td>Marketplace</td>
+                    <td>50-100 clients</td>
+                    <td>Suivi ventes time-to-market</td>
+                    <td>Cycles courts</td>
+                </tr>
+                <tr>
+                    <td><strong>Dot Advisory</strong></td>
+                    <td>M&A/Consulting</td>
+                    <td>100+ dossiers</td>
+                    <td>Suivi deals time-to-cash</td>
+                    <td>Cycles longs</td>
+                </tr>
+                <tr>
+                    <td><strong>School Dot Market</strong></td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Points soulevés par Kevin (04/14)</h3>
+        <ul class="checklist">
+            <li><span class="success">✓</span> Propale OK sur vue d'ensemble</li>
+            <li><span class="warning">⚠</span> Besoin : Dot Market & Dot Advisory <strong>apparaissent distinctement</strong> dans les dashboards</li>
+            <li><span class="warning">⚠</span> KPIs différents = logique de navigation différente (pas un seul dashboard générique)</li>
+        </ul>
+
+        <div class="highlight">
+            <h3 style="margin-top: 0;">Enjeu clé identifié</h3>
+            <p><strong>Définition des données ≠ définition des dashboards</strong></p>
+            <p style="margin-top: 0.5rem;">Exemple : "time-to-cash" — quand start ? (prospect nous contacte vs client signing) — quand stop ? (paiement reçu vs projet clos ?)</p>
+            <p style="margin-top: 0.5rem;">Chaque entité aura sa propre interprétation → <strong>standardiser avant build</strong></p>
+        </div>
+
+        <h2>OBJECTIF RÉUNION</h2>
+        <p>Poser <strong>les fondations de définition des données</strong> avant d'aller interviewer l'équipe.</p>
+        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+            <li>Valider stratégie par entité</li>
+            <li>Identifier gaps & priorités données</li>
+            <li>Confirmer composition équipe (interview 1-to-1 après)</li>
+            <li>Fixer timeline & jalons</li>
+        </ul>
+
+        <h2>AGENDA PROPOSÉ (1h30)</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="time">14h00-14h15</div>
+                <div><strong>Intro & contexte</strong><br><span style="color: #666;">Kevin : résumé des 3 entités, org chart somme</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">14h15-14h40</div>
+                <div><strong>Dot Market deep dive</strong><br><span style="color: #666;">KPIs clés, processus, outils sources</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">14h40-15h05</div>
+                <div><strong>Dot Advisory deep dive</strong><br><span style="color: #666;">KPIs clés, processus, outils sources, différences vs Market</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">15h05-15h20</div>
+                <div><strong>School Dot Market</strong><br><span style="color: #666;">À couvrir (jamais mentionné avant)</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">15h20-15h30</div>
+                <div><strong>Next steps</strong><br><span style="color: #666;">Interview équipe, planning, questions</span></div>
+            </div>
+        </div>
+
+        <h2>QUESTIONS CLÉS À CLARIFIER</h2>
+
+        <h3>Structure & Équipe</h3>
+        <ul class="checklist">
+            <li>5 personnes chez Kevin ou 5 par entité ? Qui fait quoi dans chaque entité ?</li>
+            <li>School Dot Market : c'est quoi ? Lié à Dot Market ou separate business ?</li>
+            <li>Gouvernance : qui pilot les données ? (CFO, COO, CEO ?)</li>
+        </ul>
+
+        <h3>Dot Market (Marketplace)</h3>
+        <ul class="checklist">
+            <li>Volume réel (50-100 clients ?) et types (vendeurs/acheteurs/les deux ?)</li>
+            <li>"Time to market" = définition exacte pour vous ? (listing live ? first sale ??)</li>
+            <li>Outils actuels : Webflow, mais données ventes/clients où ? (CRM ? sheets ? base de données ?)</li>
+            <li>Quels sont vos <strong>problèmes aujourd'hui</strong> avec les données ? (manquent des infos ? pas de visibilité ?)</li>
+        </ul>
+
+        <h3>Dot Advisory (M&A)</h3>
+        <ul class="checklist">
+            <li>Distinction claire avec Dot Market : pourquoi "100+" vs "50-100" ?</li>
+            <li>"Time to cash" = à partir de quand commence-t-on le comptage ? (first contact ? LOI signing ? closing ?)</li>
+            <li>Processus M&A typique : combien d'étapes ? délai moyen ? (3 mois ? 12 mois ?)</li>
+            <li>Outils : même infra que Dot Market ou séparé ?</li>
+        </ul>
+
+        <h3>Infrastructures & Security</h3>
+        <ul class="checklist">
+            <li>Serveur dédié ? Webflow + Siteground suffisent ou besoin hardening ?</li>
+            <li>Données sensibles (M&A, pricing) : quelles restrictions ?</li>
+            <li>Backup / archiving policy ?</li>
+        </ul>
+
+        <h2>POINTS À DÉMONTRER</h2>
+        <ol style="margin-left: 1.5rem;">
+            <li><strong>Approche data d'abord</strong> — on ne build pas dashboard sans avoir défini les KPIs</li>
+            <li><strong>Séparation nette</strong> — 3 dashboards indépendants (pas une vue unique générique)</li>
+            <li><strong>Interview équipe</strong> — pour comprendre chaque personne = chaque vue possible</li>
+            <li><strong>Timeline réaliste</strong> — 6 mois avec marges pour congés, décisions lentes, etc.</li>
+        </ol>
+
+        <h2>LIVRABLES APRÈS RÉUNION</h2>
+        <ul class="checklist">
+            <li>Notes de cadrage (envoyées dans les 48h)</li>
+            <li>Confirmation dates interviews 1-to-1 avec équipe</li>
+            <li>Contrat + CGV à envoyer (à préparer avant mercredi)</li>
+            <li>Calendrier 3 réunions Kevin+Elsa sur 3 semaines</li>
+        </ul>
+
+        <h2>DOCUMENTS À PRÉPARER</h2>
+        <ul class="checklist">
+            <li><span class="success">✓</span> Contrat d'engagement</li>
+            <li><span class="success">✓</span> Conditions générales</li>
+            <li><span class="success">✓</span> Devis détaillé (10 000 EUR HT + scope 3 dashboards)</li>
+            <li>Calendrier proposé (réunions semaines 1/2/3 de mai)</li>
+        </ul>
+    </div>
+</body>
+</html>

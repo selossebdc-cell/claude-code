@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist Envoi — Dot Market</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .header {
+    background: #0d9488;
+    color: #fff;
+    padding: 40px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 1.05rem;
+    opacity: 0.95;
+  }
+
+  .content {
+    padding: 40px;
+  }
+
+  .info-box {
+    background: #f0f9f8;
+    border-left: 4px solid #0d9488;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  .info-box h3 {
+    color: #0d9488;
+    margin-bottom: 10px;
+  }
+  .info-box p {
+    margin: 6px 0;
+    font-size: 0.95rem;
+  }
+  .info-box strong { color: #1a1a1a; }
+
+  .section {
+    margin-bottom: 40px;
+  }
+  .section-title {
+    font-size: 1.4rem;
+    color: #0d9488;
+    border-bottom: 2px solid #0d9488;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  .task-list {
+    list-style: none;
+  }
+  .task-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background: #fafafa;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s;
+  }
+  .task-item:hover {
+    background: #f5f5f5;
+    border-color: #0d9488;
+  }
+  .task-item.done {
+    background: #f0fdf4;
+    border-color: #10b981;
+    opacity: 0.7;
+  }
+
+  .checkbox {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border: 2px solid #0d9488;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: all 0.2s;
+  }
+  .checkbox:hover {
+    background: #ccfbf1;
+  }
+  .checkbox.checked {
+    background: #0d9488;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .task-content {
+    flex: 1;
+  }
+  .task-title {
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+  .task-detail {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+  }
+  .task-detail code {
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+  }
+
+  .code-block {
+    background: #1a1a1a;
+    color: #0d9488;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    margin: 12px 0;
+    line-height: 1.4;
+  }
+
+  .highlight {
+    background: #fff3cd;
+    border-left: 4px solid #f59e0b;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-size: 0.95rem;
+  }
+  .highlight strong { color: #92400e; }
+
+  .files-box {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  .files-box h4 {
+    color: #0d9488;
+    margin-bottom: 12px;
+  }
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    margin: 6px 0;
+    font-size: 0.9rem;
+  }
+  .file-icon {
+    width: 20px;
+    height: 20px;
+    background: #0d9488;
+    color: #fff;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+  }
+
+  .footer {
+    background: #f9f9f9;
+    padding: 30px 40px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  .footer p { margin: 6px 0; }
+
+  @media print {
+    body { background: #fff; }
+    .header { page-break-after: avoid; }
+    .section { page-break-inside: avoid; }
+  }
+
+  .success-banner {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>✓ Envoi Kevin — Dot Market</h1>
+    <p>Checklist complète pour envoyer les documents ce soir</p>
+  </div>
+
+  <div class="content">
+
+    <div class="info-box">
+      <h3>📋 Contexte rapide</h3>
+      <p><strong>Prospect :</strong> Kévin Jourdan & Elsa Fanjul — Dot Market / Dot Advisory</p>
+      <p><strong>Projet :</strong> Pilotage opérationnel & stratégie données</p>
+      <p><strong>Investissement :</strong> 10 000 € HT (12 000 € TTC) — 3 × 4 000 €</p>
+      <p><strong>RDV 1 confirmé :</strong> Mercredi 22 avril 2026, 14h</p>
+      <p><strong>À envoyer ce soir :</strong> Email + 3 documents PDF (DocuSign)</p>
+    </div>
+
+    <!-- ÉTAPE 1 : PRÉPARATION -->
+    <div class="section">
+      <div class="section-title">1️⃣ Préparation des fichiers</div>
+
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Générer lien Zoom pour RDV 1 (22 avril, 14h)</div>
+            <div class="task-detail">
+              Crée l'invite Zoom et copie le lien. Durée : 1h30. Ajoute-le dans l'email de confirmation.
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Exporter les 3 documents en PDF</div>
+            <div class="task-detail">
+              <strong>Fichiers à exporter :</strong>
+              <div class="files-box">
+                <h4>📄 Documents HTML → PDF</h4>
+                <div class="file-item">
+                  <span class="file-icon">📋</span>
+                  <code>02-clients/prospects/dotmarket/bon-de-commande-dotmarket.html</code>
+                </div>
+                <div class="file-item">
+                  <span class="file-icon">📋</span>
+                  <code>02-clients/prospects/dotmarket/cgv-cs-consulting.html</code>
+                </div>
+                <div class="file-item">
+                  <span class="file-icon">📋</span>
+                  <code>02-clients/prospects/dotmarket/plan-onboarding-dotmarket.html</code>
+                </div>
+              </div>
+              <strong>Comment :</strong> Ouvrir chaque HTML dans Chrome → Imprimer (Cmd+P) → Enregistrer en PDF
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Vérifier les infos de facturation</div>
+            <div class="task-detail">
+              <strong>Prestataire :</strong> CS Consulting Stratégique — SARL (en constitution)<br>
+              <strong>Client :</strong> Kévin Jourdan & Associés — Dot Market / Dot Advisory<br>
+              ⚠️ Si infos client incomplètes → demander à Catherine avant DocuSign
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ÉTAPE 2 : DOCU SIGN -->
+    <div class="section">
+      <div class="section-title">2️⃣ Préparation DocuSign</div>
+
+      <div class="highlight">
+        <strong>⚡ Important :</strong> Les documents à signer via DocuSign sont : <strong>Bon de commande</strong> + <strong>CGV</strong> seulement. Le plan d'onboarding va dans l'email en pièce jointe (pas de signature).
+      </div>
+
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Se connecter à DocuSign</div>
+            <div class="task-detail">
+              Compte : catherine@csbusiness.fr<br>
+              <em>Si accès oublié, demander reset à Catherine</em>
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Créer un nouvel envoi DocuSign</div>
+            <div class="task-detail">
+              <strong>Étapes :</strong>
+              <ol style="margin-top: 8px; margin-left: 20px;">
+                <li>Cliquer "Send an Envelope"</li>
+                <li>Ajouter les 2 PDFs : bon-de-commande + CGV</li>
+                <li>Ajouter les destinataires</li>
+              </ol>
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Ajouter destinataires DocuSign</div>
+            <div class="task-detail">
+              <strong>Signer (ordre 1) :</strong> Kévin Jourdan<br>
+              Email : <code>kévin@dotmarket.fr</code> (vérifier auprès de Catherine)<br><br>
+              <strong>CC (ordre 2) :</strong> Elsa Fanjul<br>
+              Email : <code>elsa@dotmarket.fr</code> (vérifier auprès de Catherine)<br><br>
+              <strong>Ton email :</strong> catherine@csbusiness.fr (pour suivi)
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Définir les champs de signature</div>
+            <div class="task-detail">
+              <strong>Bon de commande :</strong> Ajouter zones signature (Kévin + date)<br>
+              <strong>CGV :</strong> Acceptation implicite (pas de signature requise)<br>
+              💡 Utiliser l'outil "Signature Field" de DocuSign
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Ajouter le message d'accompagnement DocuSign</div>
+            <div class="task-detail">
+              <strong>Subject :</strong> <code>Signature — Bon de commande Dot Market</code><br><br>
+              <strong>Message :</strong>
+              <div class="code-block">Bonjour Kévin et Elsa,
+
+Ci-joint les documents à signer pour démarrer notre collaboration.
+
+📋 À signer : Bon de commande + CGV
+
+🗓️ RDV 1 : Mercredi 22 avril, 14h (lien Zoom en bas)
+
+Des questions ? N'hésitez pas !
+
+À bientôt,
+Catherine</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Envoyer l'enveloppe DocuSign</div>
+            <div class="task-detail">
+              Cliquer "Send" et vérifier que Kévin reçoit le lien de signature
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ÉTAPE 3 : EMAIL DE CONFIRMATION -->
+    <div class="section">
+      <div class="section-title">3️⃣ Email de confirmation (avec plan d'onboarding)</div>
+
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Préparer l'email</div>
+            <div class="task-detail">
+              <strong>À :</strong> <code>kévin@dotmarket.fr</code> + <code>elsa@dotmarket.fr</code><br>
+              <strong>CC :</strong> <code>catherine@csbusiness.fr</code><br>
+              <strong>Objet :</strong> <code>RDV mercredi 22 avril — Démarrage pilotage données + plan</code>
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Copier le contenu de l'email</div>
+            <div class="task-detail">
+              Fichier source : <code>02-clients/prospects/dotmarket/email-confirmation-onboarding.md</code><br><br>
+              <strong>Contenu de l'email à copier-coller :</strong>
+              <div class="code-block">Bonjour Kévin et Elsa,
+
+Merci beaucoup pour ce call vraiment productif ! Je suis ravie de démarrer ce projet avec vous mercredi 22 avril. Voici tout ce qu'il faut avoir en main.
+
+📅 Rendez-vous de démarrage
+
+Mercredi 22 avril 2026 — 14h
+[ZOOM LINK ICI]
+
+Durée : 1h30 | Participants : Vous 2 + moi
+
+On va bien cadrer la vision sur les deux entités (Marketplace + M&A) et poser les vraies questions sur vos KPI. Pas de rendez-vous "trop pro", on va vraiment dans le détail pour que les dashboards vous soient vraiment utiles.
+
+📄 Documents à signer via DocuSign
+
+Je vous envoie séparément via DocuSign :
+1. Bon de commande — 10 000 € HT (12 000 € TTC), 3 versements sans frais
+2. Conditions Générales de Vente
+
+À faire : Signer les deux docs avant mercredi 14h, et vous êtes go !
+
+📋 Plan d'onboarding détaillé
+
+Ci-joint le plan complet (HTML) qui détaille :
+- 3 rendez-vous : 22 avril, puis à planifier
+- Interviews équipe : étalées sur 2 semaines
+- Livrables : cartographie données → dashboards itératifs
+- Timeline complète : S1 à S26 avec étapes clés
+- Scope : ce qui est inclus vs. hors scope
+
+Lis-le en détail, c'est ton roadmap complète pour les 6 mois.
+
+🔐 Accès outils & infos équipe
+
+Pour que je puisse commencer mercredi, il me faudrait :
+- CRM (lequel ? Salesforce, Pipedrive, autre ?) → accès ou export data
+- Google Sheets si vous avez des stats là-dedans
+- Webflow (accès site ou screenshot de la structure)
+- Autres outils : mail, API, outil métier → dites-moi l'essentiel
+
+Envoyez tout ça à catherine@csbusiness.fr — tout ça restera confidentiel.
+
+🎯 Avant mercredi, réfléchis à...
+
+Kévin : Tes 3 KPI prioritaires (Marketplace + M&A différentes)
+Elsa : Les 3 questions que tu dois poser à quelqu'un d'autre pour avoir les chiffres
+Ensemble : Votre plus gros pain au cul en ce moment en termes de données ?
+
+Ça m'aidera à vraiment rentrer dedans mercredi.
+
+📞 Des questions ?
+
+N'hésitez pas à me dire. Je suis dispo jusqu'à mercredi et très hype sur ce projet !
+
+À mercredi 22 avril 14h ! 🎉
+
+Bises,
+Catherine
+
+PS : Les congés arrivent, mais on va bien faire les choses. J'ai tabler sur 6 mois plutôt que 4 pour être tranquille avec les vacances d'été et autres événements. Ça nous laisse du temps pour bien faire.</div>
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Ajouter les pièces jointes</div>
+            <div class="task-detail">
+              <strong>À joindre à l'email :</strong>
+              <div class="files-box">
+                <h4>📎 Pièces jointes</h4>
+                <div class="file-item">
+                  <span class="file-icon">📄</span>
+                  <code>plan-onboarding-dotmarket.html</code> ← Le plan d'onboarding en HTML
+                </div>
+              </div>
+              <em>Les 2 autres PDFs (bon de commande + CGV) sont envoyés via DocuSign, pas en email</em>
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Insérer le lien Zoom</div>
+            <div class="task-detail">
+              Remplacer <code>[ZOOM LINK ICI]</code> par le lien Zoom généré à l'étape 1.1
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Envoyer l'email</div>
+            <div class="task-detail">
+              Vérifier : destinataires corrects, lien Zoom OK, pièce jointe OK, pas de fautes typo
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ÉTAPE 4 : SUIVI -->
+    <div class="section">
+      <div class="section-title">4️⃣ Après envoi (suivi)</div>
+
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Vérifier réception DocuSign</div>
+            <div class="task-detail">
+              Attendre 5-10 min et vérifier que Kévin a reçu l'enveloppe DocuSign. Si pas reçu → vérifier l'email ou renvoyer.
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Vérifier réception email</div>
+            <div class="task-detail">
+              Attendre confirmation que Kevin/Elsa ont reçu l'email avec le plan d'onboarding.
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Archiver les documents</div>
+            <div class="task-detail">
+              Créer un dossier <code>02-clients/dotmarket/envois</code> et y mettre les PDFs générés + confirmation d'envoi
+            </div>
+          </div>
+        </li>
+
+        <li class="task-item">
+          <div class="checkbox" onclick="toggleTask(this)"></div>
+          <div class="task-content">
+            <div class="task-title">Signaler à Catherine</div>
+            <div class="task-detail">
+              Envoyer un message à Catherine : "Documents envoyés à Kevin ce soir. DocuSign + email OK. RDV confirmé 22 avril 14h."
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- RÉCAPITULATIF FICHIERS -->
+    <div class="section">
+      <div class="section-title">📁 Fichiers à utiliser</div>
+
+      <div class="files-box">
+        <h4>Dossier source</h4>
+        <p><code>02-clients/prospects/dotmarket/</code></p>
+
+        <h4 style="margin-top: 20px;">Fichiers à envoyer</h4>
+        <div class="file-item">
+          <span class="file-icon">📋</span>
+          bon-de-commande-dotmarket.html → PDF pour DocuSign
+        </div>
+        <div class="file-item">
+          <span class="file-icon">📋</span>
+          cgv-cs-consulting.html → PDF pour DocuSign
+        </div>
+        <div class="file-item">
+          <span class="file-icon">📋</span>
+          plan-onboarding-dotmarket.html → Pièce jointe email (HTML)
+        </div>
+        <div class="file-item">
+          <span class="file-icon">📝</span>
+          email-confirmation-onboarding.md → Contenu de l'email
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p><strong>✓ Checklist complète pour envoyer ce soir</strong></p>
+    <p>Cliquer sur chaque case pour cocher au fur et à mesure</p>
+    <p style="margin-top: 16px; color: #0d9488; font-weight: 500;">Bon courage ! 🚀</p>
+  </div>
+
+</div>
+
+<script>
+function toggleTask(checkbox) {
+  const taskItem = checkbox.closest('.task-item');
+  const isChecked = checkbox.classList.contains('checked');
+
+  if (isChecked) {
+    checkbox.classList.remove('checked');
+    checkbox.textContent = '';
+    taskItem.classList.remove('done');
+  } else {
+    checkbox.classList.add('checked');
+    checkbox.textContent = '✓';
+    taskItem.classList.add('done');
+  }
+
+  // Sauvegarder l'état en localStorage
+  const taskTitle = taskItem.querySelector('.task-title').textContent;
+  const checked = checkbox.classList.contains('checked');
+  const state = JSON.parse(localStorage.getItem('dotmarket-tasks') || '{}');
+  state[taskTitle] = checked;
+  localStorage.setItem('dotmarket-tasks', JSON.stringify(state));
+}
+
+// Restaurer l'état au chargement
+window.addEventListener('DOMContentLoaded', () => {
+  const state = JSON.parse(localStorage.getItem('dotmarket-tasks') || '{}');
+  document.querySelectorAll('.task-item').forEach(item => {
+    const title = item.querySelector('.task-title').textContent;
+    if (state[title]) {
+      const checkbox = item.querySelector('.checkbox');
+      checkbox.classList.add('checked');
+      checkbox.textContent = '✓';
+      item.classList.add('done');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

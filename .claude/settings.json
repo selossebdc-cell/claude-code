@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/cath/Claude-Code log --oneline --since=2026-03-15 -- 03-developpement/)"
+    ]
+  }
+}

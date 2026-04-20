@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadrage exhaustif — Kevin Dot Market</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 3rem;
+        }
+        h1 {
+            color: #C27A5A;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 3px solid #C27A5A;
+            padding-bottom: 0.75rem;
+        }
+        .meta {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .meta strong {
+            color: #2c3e50;
+        }
+        h2 {
+            color: white;
+            background: #C27A5A;
+            font-size: 1.4rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+        }
+        h2:first-of-type {
+            margin-top: 0;
+        }
+        h3 {
+            color: #C27A5A;
+            font-size: 1.15rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0e6e0;
+        }
+        .section-block {
+            margin: 1.5rem 0;
+            padding: 0;
+        }
+        .questions {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .questions li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+        .questions li:before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #C27A5A;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .intro-section {
+            background: #fff3f0;
+            border-left: 4px solid #C27A5A;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            font-style: italic;
+            color: #555;
+        }
+        .entity-box {
+            background: #f5ede8;
+            border: 1px solid #e8d4c8;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+        .entity-box h4 {
+            color: #C27A5A;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .entity-box h4:before {
+            content: "▸";
+            font-size: 1.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #f5ede8;
+            color: #2c3e50;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #C27A5A;
+        }
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover {
+            background: #fafaf9;
+        }
+        .note {
+            background: #fffaed;
+            border-left: 3px solid #f39c12;
+            padding: 0.9rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            color: #7f6a00;
+            border-radius: 2px;
+        }
+        .priority {
+            display: inline-block;
+            background: #C27A5A;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        .checkbox-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .checkbox-list li {
+            padding: 0.6rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+        .checkbox-list li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #C27A5A;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .timeline {
+            margin: 1.5rem 0;
+        }
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #eee;
+        }
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        .time {
+            font-weight: 600;
+            color: #C27A5A;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .divider {
+            height: 2px;
+            background: #f0e6e0;
+            margin: 2rem 0;
+        }
+        .page-break {
+            page-break-after: always;
+            margin: 3rem 0;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CADRAGE EXHAUSTIF — KEVIN JOURDAN</h1>
+        <h1 style="font-size: 1.1rem; border: none; margin: 0; padding: 0; color: #666;">Dot Market / Dot Advisory / School Dot Market</h1>
+
+        <div class="meta">
+            <span><strong>Date :</strong> Mercredi 20 avril 2026 à 14h</span>
+            <span><strong>Durée :</strong> 1h30</span>
+            <span><strong>Participants :</strong> Catherine, Kevin, Elsa</span>
+        </div>
+
+        <div class="intro-section">
+            <strong>Note importante :</strong> Cette réunion pose les fondations. L'objectif n'est pas de valider une solution technique, mais de comprendre en profondeur : votre stratégie, ce qui la pilote, ce que vous mesurez (ou voulez mesurer), où est votre donnée, comment elle circule, et quels outils la portent. C'est le travail préalable à toute construction de tableau de bord.
+        </div>
+
+        <!-- ===== SECTION 1 : STRATÉGIE ===== -->
+        <h2>1. COMPRENDRE VOTRE STRATÉGIE</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Avant de parler données, on doit d'abord savoir : où allez-vous ? Qu'est-ce que vous cherchez à accomplir ? Pourquoi ?</p>
+
+        <h3>Vue d'ensemble des trois entités</h3>
+        <div class="section-block">
+            <div class="entity-box">
+                <h4>Dot Market</h4>
+                <ul class="questions">
+                    <li>En deux phrases, c'est quoi Dot Market ? (activité principale, ce que vous vendez/facilitez)</li>
+                    <li>Quel est votre modèle économique ? (commission, abonnement, freemium, autre ?)</li>
+                    <li>Où en êtes-vous dans le cycle de vie ? (launch, croissance, maturité ?)</li>
+                    <li>Quelle est votre stratégie de croissance pour les 12 prochains mois ?</li>
+                    <li>Quels sont vos grands objectifs annuels (chiffre d'affaires, nombre d'utilisateurs, volume de transactions, autre) ?</li>
+                </ul>
+            </div>
+
+            <div class="entity-box">
+                <h4>Dot Advisory</h4>
+                <ul class="questions">
+                    <li>Qu'est-ce que Dot Advisory ? Comment c'est différent de Dot Market ?</li>
+                    <li>C'est une fusion, une acquisition, une branche autonome de Dot Market ?</li>
+                    <li>Modèle économique : comment vous générez du revenu ? (honoraires, commissions, autre ?)</li>
+                    <li>Stratégie pour les 12 prochains mois ?</li>
+                    <li>Objectifs clés (chiffre d'affaires, nombre de dossiers fermés, taille moyenne des deals, autre) ?</li>
+                </ul>
+            </div>
+
+            <div class="entity-box">
+                <h4>School Dot Market</h4>
+                <ul class="questions">
+                    <li>Qu'est-ce que c'est ? (formation, produit à part, canal de distribution ?)</li>
+                    <li>Quel lien avec Dot Market et Dot Advisory ?</li>
+                    <li>Objectif stratégique (acquisition d'utilisateurs, rétention, monétisation ?) ?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 2 : LEVIERS D'ACTION ===== -->
+        <h2>2. IDENTIFIER LES LEVIERS D'ACTION</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Pour atteindre votre stratégie, qu'est-ce qui vous fait avancer ? Qu'est-ce que vous pouvez actionner, piloter, optimiser ?</p>
+
+        <h3>Pour chaque entité, quels sont les leviers clés ?</h3>
+
+        <div class="section-block">
+            <h4 style="color: #555; margin: 1.5rem 0 0.75rem;">Dot Market — Leviers possibles</h4>
+            <p style="color: #666; font-size: 0.95rem; margin-bottom: 1rem;">Exemple : acquisition de vendeurs, conversion d'acheteurs, volume moyen de transaction, taux de rétention, etc.</p>
+            <ul class="questions">
+                <li>Quel est votre principal levier de croissance en ce moment ? (acquisition, conversion, augmentation du panier moyen ?)</li>
+                <li>Combien de leviers contrôlez-vous activement ? (3 ? 5 ? 10 ?)</li>
+                <li>Pour chacun, qu'est-ce que vous mesurez déjà pour savoir si ça fonctionne ?</li>
+                <li>Quel est le levier sur lequel vous manquez le plus de visibilité ?</li>
+            </ul>
+        </div>
+
+        <div class="section-block">
+            <h4 style="color: #555; margin: 1.5rem 0 0.75rem;">Dot Advisory — Leviers possibles</h4>
+            <p style="color: #666; font-size: 0.95rem; margin-bottom: 1rem;">Exemple : génération de prospects, taux de conversion prospect → mission, valeur moyenne d'une mission, durée d'une mission, réitération client, etc.</p>
+            <ul class="questions">
+                <li>Quel est votre principal défi stratégique actuellement ?</li>
+                <li>Quels leviers actionniez-vous pour adresser ce défi ?</li>
+                <li>Avez-vous une vision claire sur le cycle de vie d'une opportunité (de prospect à closing) ?</li>
+            </ul>
+        </div>
+
+        <div class="section-block">
+            <h4 style="color: #555; margin: 1.5rem 0 0.75rem;">School Dot Market — Leviers possibles</h4>
+            <p style="color: #666; font-size: 0.95rem; margin-bottom: 1rem;">Exemple : acquisition d'apprenants, taux de complétion, rétention, satisfaction, recommandations, etc.</p>
+            <ul class="questions">
+                <li>Quel est l'objectif principal de School Dot Market ? (fournisseur de clients à Dot Market, source de revenu direct, autre ?)</li>
+                <li>Quels sont vos principaux leviers de croissance pour School ?</li>
+                <li>Comment ça fonctionne aujourd'hui (vous le piloter, ou c'est une équipe dédiée) ?</li>
+            </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 2B : ACQUISITION CLIENT ===== -->
+        <h2>2B. PROCESSUS D'ACQUISITION — PAR ENTITÉ</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Pour atteindre vos objectifs de croissance, comment vous acquérez vos clients / utilisateurs / opportunités ? Quels canaux ? Combien ça coûte ? Quel est le résultat ?</p>
+
+        <h3>Dot Market — Acquisition de vendeurs ET acheteurs</h3>
+        <div class="note">
+            <strong>Question centrale :</strong> Comment un nouveau vendeur arrive-t-il chez vous ? Comment un nouvel acheteur arrive-t-il ? C'est le même processus ou différent ?
+        </div>
+
+        <ul class="questions">
+            <li><strong>Vendeurs :</strong> Par quels canaux arrivent-ils ? (recherche naturelle, publicité, partenaires, bouche à oreille, équipe commerciale, autre ?)</li>
+            <li>Quel est le coût d'acquisition moyen d'un vendeur ? (vous le calculez ?)</li>
+            <li>Quel est le taux de conversion de vendeur inscrit → vendeur actif (au moins 1 vente) ?</li>
+            <li>Combien de temps avant la première vente ?</li>
+            <li><strong>Acheteurs :</strong> Par quels canaux arrivent-ils ?</li>
+            <li>Quel est le coût d'acquisition d'un acheteur ?</li>
+            <li>Quel est le taux de conversion de visiteur → client ayant fait au moins 1 achat ?</li>
+            <li>Combien de temps entre l'inscription et le premier achat ?</li>
+            <li>Est-ce que vous faites du marketing ciblé (email, publicité) pour activer ces utilisateurs ? Comment ça fonctionne ?</li>
+            <li>Avez-vous besoin de données détaillées sur l'origine d'un client (quel canal, quel coût) ? Est-ce que vous la tracez aujourd'hui ?</li>
+        </ul>
+
+        <h3>Dot Advisory — Acquisition de prospects / deals</h3>
+        <div class="note">
+            <strong>Question centrale :</strong> Comment une opportunité M&A arrive-t-elle chez vous ? Qui l'apporte ? Comment vous la qualifiez ? Comment vous la traitez ?
+        </div>
+
+        <ul class="questions">
+            <li>Par quels canaux arrivent vos opportunités M&A ? (inbound via site, outbound commerciale, partenaires, réseaux, autre ?)</li>
+            <li>Avez-vous une équipe commerciale dédiée ou c'est mixte avec Dot Market ?</li>
+            <li>Combien de temps en moyenne entre le premier contact et la qualification (« c'est un vrai deal ») ?</li>
+            <li>Combien de temps entre la qualification et le closing ?</li>
+            <li>Quel est le taux de conversion prospect → opportunité qualifiée → deal signé ?</li>
+            <li>Combien de deals en moyenne par an ? Volume moyen ?</li>
+            <li>Avez-vous un processus formel de scoring ou qualification d'une opportunité ? (BANT, autres critères ?)</li>
+            <li>Comment vous documentez chaque étape d'une opportunity ? (email, CRM, réunion, autre ?)</li>
+            <li>Avez-vous besoin de savoir : source d'une opp, délai par étape, raison des pertes, autre ?</li>
+        </ul>
+
+        <h3>School Dot Market — Acquisition d'apprenants</h3>
+        <div class="note">
+            <strong>Question centrale :</strong> Comment les gens découvrent School Dot Market ? Comment ils s'inscrivent ? Comment ils paient (gratuit, payant, freemium) ?
+        </div>
+
+        <ul class="questions">
+            <li>School Dot Market, c'est une formation, un cours en ligne, une certification, autre ?</li>
+            <li>C'est gratuit, payant, freemium ?</li>
+            <li>Par quels canaux acquisissez-vous les apprenants ? (Dot Market lui-même, publicité externe, partenaires, autre ?)</li>
+            <li>Quel est le coût d'acquisition d'un apprenant ?</li>
+            <li>Quel est le taux de complétion (% d'apprenants qui finissent la formation) ?</li>
+            <li>Quel est le lien avec Dot Market ? (apprendre puis vendre ? apprentissage pour les acheteurs ? autre ?)</li>
+            <li>Avez-vous besoin de mesurer : nombre d'inscrits, nombre de complétions, taux d'engagement, satisfaction, autre ?</li>
+            <li>Comment ça fonctionne techniquement ? (plateforme interne, intégration Dot Market, plateforme tierce comme Teachable ?) ?</li>
+        </ul>
+
+        <h3>Synergies entre les trois entités</h3>
+        <ul class="questions">
+            <li>Y a-t-il un flux « naturel » entre les trois ? (ex : quelqu'un prend la formation, devient vendeur sur Dot Market, puis fait appel à Dot Advisory ?)</li>
+            <li>Comment mesurez-vous ces synergies aujourd'hui ?</li>
+            <li>Faut-il voir les trois ensemble ou les trois séparé dans les KPI / tableaux de bord ?</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 3 : INDICATEURS CLÉS ===== -->
+        <h2>3. DÉFINIR LES INDICATEURS CLÉS DE PERFORMANCE</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Une fois qu'on a les leviers, on peut définir les indicateurs qui nous disent si ça marche. Avez-vous déjà des indicateurs en tête ?</p>
+
+        <h3>Situation actuelle</h3>
+        <ul class="questions">
+            <li>Avez-vous des indicateurs de performance définis aujourd'hui, par entité ?</li>
+            <li>Si oui, combien en avez-vous ? Sont-ils documentés quelque part ?</li>
+            <li>Comment vous les mesurez actuellement ? (tableur, outil, calcul manuel ?)</li>
+            <li>Avez-vous des tableaux de bord existants, quelque part ? (sur papier, en ligne, en tête ?)</li>
+        </ul>
+
+        <h3>Indicateurs idéaux — Dot Market</h3>
+        <ul class="questions">
+            <li>Quel est l'indicateur n°1 qui vous intéresse pour pilotage opérationnel quotidien ?</li>
+            <li>Quel est l'indicateur n°1 que vous montrez à votre direction / investisseurs ?</li>
+            <li>Avez-vous besoin de suivre par segment (type de vendeur, géographie, catégorie de produit ?) ?</li>
+            <li>Fréquence de suivi souhaitée : quotidienne, hebdomadaire, mensuelle ?</li>
+            <li>Qui a besoin de voir quoi ? (vous seul, l'équipe commerciale, l'équipe produit, la direction ?)</li>
+        </ul>
+
+        <h3>Indicateurs idéaux — Dot Advisory</h3>
+        <ul class="questions">
+            <li>Par rapport à Dot Market, quels indicateurs sont complètement différents ?</li>
+            <li>Avez-vous des jalons clairs dans votre processus (prospect → opportunité qualifiée → deal → closing) ?</li>
+            <li>Mesurez-vous des choses comme : temps moyen avant closing, taille moyenne de deal, taux de conclusion ?</li>
+            <li>Y a-t-il des indicateurs qui vous manquent aujourd'hui pour gérer au quotidien ?</li>
+        </ul>
+
+        <h3>Indicateurs idéaux — School Dot Market</h3>
+        <ul class="questions">
+            <li>Quel est l'indicateur n°1 pour vous ? (nombre d'inscrits, nombre de complétions, taux de complétion, satisfaction, revenu ?) ?</li>
+            <li>Quel est le lien mesurable entre School et les autres entités ? (% d'apprenants qui deviennent vendeurs après ?)</li>
+            <li>Mesurez-vous la satisfaction des apprenants ? Comment (sondage, taux de recommandation, autre) ?</li>
+            <li>Avez-vous des objectifs de croissance d'apprenants mensuels / annuels ?</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 4 : DONNÉES ===== -->
+        <h2>4. IDENTIFIER ET DÉFINIR LA DONNÉE</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Maintenant qu'on sait ce qu'on veut mesurer, où est cette donnée ? Est-elle accessible ? Est-elle de bonne qualité ?</p>
+
+        <h3>Inventaire de la donnée — Dot Market</h3>
+        <div class="note">
+            <strong>La question clé :</strong> Pour calculer l'indicateur « délai de mise en marché », d'où venons-nous chercher la donnée ? Qui la crée ? Quand ? Où est-elle stockée ?
+        </div>
+
+        <ul class="questions">
+            <li>Pour chaque indicateur que vous avez mentionné, où est la donnée brute ? (base de données, feuille de calcul, email, autre ?)</li>
+            <li>Qui crée cette donnée ? (équipe produit, équipe commerciale, l'utilisateur lui-même ?)</li>
+            <li>Depuis quand la collectez-vous ? (mois, années ?)</li>
+            <li>Est-ce que cette donnée est « propre » ? (toutes les valeurs remplies, format cohérent, absence de doublons ?)</li>
+            <li>Si elle n'est pas propre, qu'est-ce qui pose problème ? (champs vides, mauvais format, données dupliquées, autre ?)</li>
+            <li>Avez-vous besoin de la nettoyer avant de pouvoir l'utiliser ? Comment faites-vous aujourd'hui ?</li>
+        </ul>
+
+        <h3>Inventaire de la donnée — Dot Advisory</h3>
+        <ul class="questions">
+            <li>La donnée pour Dot Advisory vient des mêmes sources que Dot Market, ou séparée ?</li>
+            <li>Comment vous tracez un deal M&A du début à la fin ? Où ça vit (CRM, base de données, dossier, email) ?</li>
+            <li>Avez-vous des étapes/jalons clairement marqués qu'on peut suivre (prospect, qualifier, négocier, signer, closing) ?</li>
+            <li>Comment vous documentez les résultats (gagné/perdu, raison de la perte, délai réel) ?</li>
+        </ul>
+
+        <h3>Données qui manquent</h3>
+        <ul class="questions">
+            <li>Est-ce qu'il y a des indicateurs que vous aimeriez mesurer mais que vous ne mesurez pas aujourd'hui, faute de donnée ?</li>
+            <li>Si oui, qu'est-ce qui manque ? Et comment on pourrait la créer ou la capturer ?</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 5 : OUTILS ===== -->
+        <h2>5. CARTOGRAPHIER LES OUTILS ACTUELS</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Maintenant qu'on sait où est la donnée, voyons tous les outils qui la portent, la transforment, la communiquent.</p>
+
+        <h3>Outils de capture et de stockage de données</h3>
+        <div class="note">
+            <strong>Question centrale :</strong> Quel outil sert de « source de vérité » pour chaque type de donnée ? (ex : où vivent les infos clients ? les transactions ? les prospects ?)
+        </div>
+
+        <ul class="questions">
+            <li>Utilisez-vous un outil de gestion de relation client (type Pipedrive, Salesforce, HubSpot) ? Lequel ?</li>
+            <li>Où vivent vos données de produit ? (base de données interne, Firebase, autre ?)</li>
+            <li>Où tracez-vous les transactions / commandes ? (e-commerce, outil interne, autre ?)</li>
+            <li>Utilisez-vous des feuilles de calcul pour certaines données ? Lesquelles et pourquoi ?</li>
+            <li>Avez-vous une base de données centralisée, ou les données sont éparpillées dans plusieurs outils ?</li>
+            <li>Quel est l'outil « source de vérité » pour chaque type de donnée ? (qui « gagne » si les chiffres ne concordent pas ?)</li>
+        </ul>
+
+        <h3>Outils de communication et de partage</h3>
+        <div class="note">
+            <strong>Question centrale :</strong> Comment vous partagez l'information avec vos équipes et votre direction ? Quel est le « mode » préféré ?
+        </div>
+
+        <ul class="questions">
+            <li>Utilisez-vous un outil de communication d'équipe ? (Slack, Teams, autre ?)</li>
+            <li>Avez-vous des réunions régulières de revue des données ? Hebdo ? Mensuelle ? Comment vous les animez ?</li>
+            <li>Comment vous communiquez les chiffres à la direction ? (email, appel, document, autre ?)</li>
+            <li>Utilisez-vous des tableurs pour partager les données ? Lesquels, avec qui ?</li>
+            <li>Avez-vous besoin de tableaux de bord en temps réel, ou des rapports mensuels suffisent ?</li>
+        </ul>
+
+        <h3>Outils analytiques ou de reporting</h3>
+        <ul class="questions">
+            <li>Avez-vous un outil de tableau de bord / analytics aujourd'hui ? (Google Analytics, Mixpanel, Tableau, autre ?)</li>
+            <li>Si oui, qu'est-ce que vous y tracez ? Qui y accède ?</li>
+            <li>Êtes-vous satisfait de cet outil ? Qu'est-ce qui vous manque ?</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 6 : ÉQUIPES ET RÔLES ===== -->
+        <h2>6. COMPRENDRE LES ÉQUIPES ET LES RÔLES</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Qui dans l'organisation a besoin de quelle donnée ? Qui en crée ? Qui la valide ? Qui la communique ?</p>
+
+        <h3>Structure de l'équipe</h3>
+        <ul class="questions">
+            <li>Combien de personnes dans l'organisation en total ? Par entité (Dot Market, Dot Advisory, School) ?</li>
+            <li>Quels sont les rôles clés ? (directeur général, directeur commercial, directeur produit, directeur technique, autre ?)</li>
+            <li>Pour chacun des 5 rôles clés que vous allez détailler en entretien 1-à-1, pouvez-vous déjà nous donner le nom et le rôle ?</li>
+            <li>Reportent-ils à une même personne ou à des personnes différentes par entité ?</li>
+        </ul>
+
+        <h3>Qui a besoin de quelle donnée</h3>
+        <ul class="questions">
+            <li>Qui regarde les indicateurs de Dot Market au quotidien ? Pour quoi faire (décisions, pilotage, reporting) ?</li>
+            <li>Qui regarde les indicateurs de Dot Advisory ? Pour quoi faire ?</li>
+            <li>Y a-t-il des données qui intéressent TOUT LE MONDE (ex : chiffre d'affaires global) ?</li>
+            <li>Y a-t-il des données qui sont « secrètes » ou réservées à la direction ? (ex : marge, taux de conversion interne ?)</li>
+        </ul>
+
+        <h3>Qui crée / valide la donnée</h3>
+        <ul class="questions">
+            <li>Qui valide que les chiffres sont corrects avant de les communiquer ?</li>
+            <li>Qui a le droit de modifier la donnée ? (tous les opérationnels, un admin centralisé, autre ?)</li>
+            <li>Avez-vous des conflits de « source de vérité » ? (ex : le service commercial compte les deals différemment que la compta ?)</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 7 : PROCESSUS ===== -->
+        <h2>7. CARTOGRAPHIER LES PROCESSUS CLÉS</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Où est la donnée créée ? Comment elle circule ? Quels contrôles existent ?</p>
+
+        <h3>Processus métier Dot Market</h3>
+        <ul class="questions">
+            <li>Décrivez le parcours d'un vendeur : inscription → publication → première vente. Combien de temps en moyenne ?</li>
+            <li>Décrivez le parcours d'un acheteur : inscription → première achat. Combien de temps ?</li>
+            <li>Quels « points de données » créent-ils durant ce parcours ? (profil, article, avis, transaction ?)</li>
+            <li>Y a-t-il des validations humaines ou tout est automatisé ?</li>
+            <li>Où est-ce que le système enregistre tout ça ? (est-ce que c'est automatiqu, ou il faut remplir manuellement ?)</li>
+        </ul>
+
+        <h3>Processus métier Dot Advisory</h3>
+        <ul class="questions">
+            <li>Décrivez le processus d'une opportunité M&A : comment arrive-t-elle chez vous ? Qui la traite ? Combien de temps jusqu'au closing ?</li>
+            <li>Combien d'étapes y a-t-il ? (prospection, qualification, due diligence, négociation, closing ?) Comment elles sont nommées chez vous ?</li>
+            <li>Comment vous documentez le statut d'une opportunité ? (en ligne, email, réunion, feuille de calcul ?)</li>
+            <li>Qui a la responsabilité de remplir les données d'une opportunité ? (commercial, administrateur, le client lui-même ?)</li>
+            <li>Avez-vous des critères clairs pour passer d'une étape à l'autre ?</li>
+        </ul>
+
+        <h3>Flux de données général</h3>
+        <ul class="questions">
+            <li>Comment la donnée « remonte-t-elle » de l'opérationnel vers la direction ?</li>
+            <li>Est-ce qu'il y a des consolidations, des transformations en route ? (ex : un responsable compile les données de son équipe) ?</li>
+            <li>Combien de temps entre le moment où un événement se passe et le moment où c'est visible dans un rapport / tableau de bord ?</li>
+            <li>Avez-vous des validations régulières (ex : chaque semaine, on vérifie que les chiffres sont corrects) ?</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- ===== SECTION 8 : VISION FUTURE ===== -->
+        <h2>8. VISION FUTURE ET BLOCAGES</h2>
+
+        <p style="color: #666; margin: 1rem 0; font-style: italic;">Qu'est-ce qui vous manque ? Qu'est-ce qui vous bloque ? Qu'est-ce que vous rêveriez d'avoir ?</p>
+
+        <h3>Problèmes actuels</h3>
+        <ul class="questions">
+            <li>Quel est votre plus grand problème avec les données aujourd'hui ? (données manquantes, pas de visibilité, données sales différentes de la compta, autre ?)</li>
+            <li>Qu'est-ce que vous aimeriez mesurer mais que vous ne pouvez pas faire aujourd'hui ?</li>
+            <li>Avez-vous des indicateurs qui vous manquent pour faire une décision importante ?</li>
+            <li>Combien de temps par semaine est dépensé à compiler des données manuellement ?</li>
+        </ul>
+
+        <h3>Vision d'avenir (dans 12 mois)</h3>
+        <ul class="questions">
+            <li>Si vous aviez un tableau de bord parfait, à quoi il ressemblerait ? (quels indicateurs ? quelle fréquence ? qui y accède ?)</li>
+            <li>Aimeriez-vous qu'il soit en temps réel ou un rapport mensuel suffit ?</li>
+            <li>Aimeriez-vous pouvoir le consulter sur mobile ?</li>
+            <li>Avez-vous besoin de alertes automatiques ? (ex : si un indicateur passe sous un seuil, vous prévenir ?)</li>
+        </ul>
+
+        <h3>Infrastructure et sécurité</h3>
+        <ul class="questions">
+            <li>Avez-vous des contraintes de sécurité ou de conformité ? (données personnelles, données financières sensibles ?)</li>
+            <li>Avez-vous une politique de sauvegarde des données ?</li>
+            <li>Avez-vous besoin de conserver l'historique complet ou juste les données actuelles ?</li>
+            <li>Qui a accès aux serveurs / données aujourd'hui ? Souhaiteriez-vous plus de contrôle d'accès ?</li>
+        </ul>
+
+        <div class="divider"></div>
+
+        <!-- ===== AGENDA DE RÉUNION ===== -->
+        <h2>9. AGENDA DE RÉUNION (1h30)</h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="time">14h00-14h08</div>
+                <div><strong>Ouverture & contexte</strong><br>Rappel : on pose les fondations (stratégie → leviers → acquisition → indicateurs → donnée → outils)</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">14h08-14h28</div>
+                <div><strong>Stratégie & leviers (20 min)</strong><br>Dot Market : stratégie, leviers clés<br>Dot Advisory : stratégie, différences<br>School Dot Market : fonctionnement, objectifs</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">14h28-14h43</div>
+                <div><strong>Processus d'acquisition (15 min)</strong><br>Dot Market : comment arrivent les vendeurs et acheteurs<br>Dot Advisory : comment arrivent les deals<br>School : comment arrivent les apprenants<br>Synergies entre les trois</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">14h43-14h53</div>
+                <div><strong>Indicateurs clés (10 min)</strong><br>Quels KPI avez-vous actuellement ?<br>Quels manquent ?<br>Par entité : priorités de mesure</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">14h53-15h10</div>
+                <div><strong>Outils, donnée, processus (17 min)</strong><br>Où vivent les données (CRM, base, tableur) ?<br>Comment elles circulent ?<br>Qualité des données (propres ou à nettoyer) ?<br>Processus métier clés</div>
+            </div>
+            <div class="timeline-item">
+                <div class="time">15h10-15h30</div>
+                <div><strong>Équipes & calendrier (20 min)</strong><br>Confirmation : 5 rôles clés pour entretiens 1-à-1<br>Dates pour : réunions Kevin+Elsa (3 × 1h30)<br>Dates pour : entretiens individuels (5 × 1h)<br>Questions en suspens</div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ===== NOTES DE PRÉPARATION ===== -->
+        <h2>10. NOTES DE PRÉPARATION POUR CATHERINE</h2>
+
+        <h3>Documents à avoir sous la main</h3>
+        <ul class="checkbox-list">
+            <li>La propale révisée (avec clarification Dot Market / Dot Advisory visibles distinctement)</li>
+            <li>Calendrier proposé (3 réunions Kevin+Elsa, puis entretiens 1-à-1, puis point final)</li>
+            <li>Contrat signé (dès ce soir selon le mail de Kevin)</li>
+            <li>Formulaire de facturation (pour l'acompte)</li>
+        </ul>
+
+        <h3>À clarifier absolument</h3>
+        <ul class="questions">
+            <li>School Dot Market : existe réellement ou à clarifier ?</li>
+            <li>Les 5 rôles clés : quels sont les noms exacts et fonctions ?</li>
+            <li>Timeline : quand les entretiens 1-à-1 peuvent-ils commencer ? (semaine 1, semaine 2 de mai ?)</li>
+        </ul>
+
+        <h3>Ton d'animation recommandé</h3>
+        <p style="color: #666; line-height: 1.8; font-size: 0.95rem;">
+            C'est une réunion de <strong>découverte</strong>, pas de conviction. Vous n'avez pas besoin d'avoir toutes les réponses tout de suite. Le but : comprendre assez pour que vos entretiens 1-à-1 soient plus profonds. Si Kevin détaille quelque chose, c'est OK de prendre des notes et de dire « on reverra ça avec Elsa en entretien individuel ». C'est normal qu'à ce stade, les limites entre Dot Market et Dot Advisory soient un peu floues — c'est justement ce qu'on va clarifier dans les semaines qui viennent.
+        </p>
+
+        <h3>Attentes après la réunion</h3>
+        <ul class="checkbox-list">
+            <li>Notes de cadrage complètes (envoyées dans les 48h)</li>
+            <li>Dates confirmées pour : réunions Kevin+Elsa (3 séquences), entretiens 1-à-1 (5 rôles)</li>
+            <li>Contrat signé et acompte versé (attendu ce soir)</li>
+            <li>Accès technique (si besoin : accès aux outils, bases de données, pour l'audit)</li>
+        </ul>
+
+    </div>
+</body>
+</html>

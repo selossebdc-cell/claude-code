@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mail à Laurie — Générer les liens UTM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .email-wrapper {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #C27A5A 0%, #A0593E 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .email-header .subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .email-content {
+            padding: 40px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .greeting {
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .intro {
+            background: #f9f9f9;
+            border-left: 4px solid #C27A5A;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .steps {
+            margin: 30px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            width: 40px;
+            height: 40px;
+            background: #C27A5A;
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .step-content p {
+            margin-bottom: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .step-link {
+            display: inline-block;
+            background: #2196F3;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .step-link:hover {
+            background: #1565C0;
+        }
+
+        .utm-links {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+
+        .utm-links h3 {
+            color: #1565C0;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .utm-item {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border-left: 3px solid #2196F3;
+            font-size: 13px;
+        }
+
+        .utm-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .utm-item strong {
+            color: #1565C0;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .closing {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .closing p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .signature {
+            font-weight: 600;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .email-footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .deadline-banner {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .questions-box {
+            background: #f0f0f0;
+            border-left: 4px solid #999;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .questions-box strong {
+            color: #333;
+        }
+
+        .meta-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .meta-field {
+            font-size: 12px;
+        }
+
+        .meta-label {
+            font-weight: 700;
+            color: #C27A5A;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            color: #666;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="email-wrapper">
+            <div class="email-header">
+                <h1>📧 Mail à Laurie</h1>
+                <div class="subtitle">Demande de génération des liens UTM FSY</div>
+            </div>
+
+            <div class="email-content">
+                <div class="greeting">Salut Laurie,</div>
+
+                <div class="intro">
+                    J'ai besoin que tu crées les <strong>liens de suivi UTM</strong> pour FSY.
+                </div>
+
+                <div class="deadline-banner">
+                    ⏰ <strong>URGENT :</strong> J'ai besoin des liens générés lundi soir pour pouvoir tester toutes les automations. Lundi dernier délai!
+                </div>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Voir les liens à tracker</h3>
+                            <p>D'abord, regarde les listes qu'on doit traquer :</p>
+                            <a href="https://espace.csbusiness.fr/clients/fsy/tuto-utm-tracking.html" class="step-link">Voir le tracker</a>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Générer les UTMs</h3>
+                            <p>Ensuite, utilise le générateur pour créer les liens finalisés :</p>
+                            <a href="https://espace.csbusiness.fr/app.html" class="step-link">Aller au générateur d'UTM</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="utm-links">
+                    <h3>🎯 Les 3 liens à générer :</h3>
+                    <div class="utm-item">
+                        <strong>1. FSY Studio</strong>
+                        Lien vers le checkout FSY Studio (17€)
+                    </div>
+                    <div class="utm-item">
+                        <strong>2. Master the Method (MTM)</strong>
+                        Lien vers le checkout MTM (prix à confirmer)
+                    </div>
+                    <div class="utm-item">
+                        <strong>3. Licence MTM</strong>
+                        Lien vers le checkout Licence MTM (prix à confirmer)
+                    </div>
+                </div>
+
+                <div class="closing">
+                    <p>Une fois générés, tu mets à jour les liens <strong>partout</strong> :</p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li style="margin-bottom: 8px;">Bio Instagram</li>
+                        <li style="margin-bottom: 8px;">Mails de promo</li>
+                        <li>Landing pages</li>
+                    </ul>
+
+                    <p style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+                        Ensuite tu me renvoies les 3 liens générés et confirmé que tu les as placés partout.
+                    </p>
+
+                    <div class="questions-box">
+                        <strong>Des questions ?</strong> Appelle-moi ou envoie un message. C'est simple mais important que ce soit bien fait.
+                    </div>
+
+                    <p style="margin-top: 25px;">Merci! 🙏</p>
+
+                    <div class="signature">
+                        Catherine
+                    </div>
+                </div>
+            </div>
+
+            <div class="email-footer">
+                Email à copier/coller ou partager directement avec Laurie<br>
+                <em>Copie du brouillon officiel — générée 20 avril 2026</em>
+            </div>
+        </div>
+
+        <!-- META INFO -->
+        <div class="meta-info">
+            <div class="meta-field">
+                <span class="meta-label">À</span>
+                <span class="meta-value">Laurie</span>
+            </div>
+            <div class="meta-field">
+                <span class="meta-label">Sujet</span>
+                <span class="meta-value">UTM — Ce que j'ai besoin de toi</span>
+            </div>
+            <div class="meta-field">
+                <span class="meta-label">Deadline</span>
+                <span class="meta-value">Lundi 20 avril soir</span>
+            </div>
+            <div class="meta-field">
+                <span class="meta-label">Status</span>
+                <span class="meta-value" style="color: #f44336;">À envoyer</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadrage Kevin Dot Market — 3 réunions + entretiens 1-à-1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: #C27A5A;
+            color: white;
+            padding: 2rem;
+        }
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            background: #f5f5f5;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 1.25rem;
+            background: #f5f5f5;
+            border: none;
+            color: #2c3e50;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button:hover {
+            background: #eeeeee;
+        }
+        .tab-button.active {
+            background: white;
+            color: #C27A5A;
+            border-bottom-color: #C27A5A;
+        }
+        .tab-content {
+            display: none;
+            padding: 2.5rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h2 {
+            color: white;
+            background: #C27A5A;
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+        }
+        h2:first-child {
+            margin-top: 0;
+        }
+        h3 {
+            color: #C27A5A;
+            font-size: 1.15rem;
+            margin-top: 1.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0e6e0;
+        }
+        h4 {
+            color: #555;
+            font-size: 1rem;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+        .reunion-box {
+            background: #fff3f0;
+            border-left: 4px solid #C27A5A;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        .reunion-box h4 {
+            color: #C27A5A;
+            margin-top: 0;
+        }
+        .meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+        .meta-item {
+            background: #f5ede8;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+        }
+        .meta-item strong {
+            color: #C27A5A;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .timeline {
+            margin: 1.5rem 0;
+        }
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        .time {
+            font-weight: 600;
+            color: #C27A5A;
+        }
+        .questions {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .questions li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+        .questions li:before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #C27A5A;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .note {
+            background: #fffaed;
+            border-left: 3px solid #f39c12;
+            padding: 0.9rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            color: #7f6a00;
+            border-radius: 2px;
+        }
+        .checkbox-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .checkbox-list li {
+            padding: 0.6rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+        }
+        .checkbox-list li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #C27A5A;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #f5ede8;
+            color: #2c3e50;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #C27A5A;
+        }
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover {
+            background: #fafaf9;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .divider {
+            height: 2px;
+            background: #f0e6e0;
+            margin: 2rem 0;
+        }
+        .role-card {
+            background: #f5ede8;
+            border: 1px solid #e8d4c8;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+        }
+        .role-card h5 {
+            color: #C27A5A;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .role-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .role-card li {
+            padding: 0.4rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        .role-card li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #C27A5A;
+        }
+        .important {
+            background: #fff3f0;
+            border-left: 4px solid #e74c3c;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 2px;
+        }
+        @media print {
+            body { padding: 0; }
+            .container { box-shadow: none; }
+            .tab-button { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Cadrage — Kevin JOURDAN</h1>
+            <p>Dot Market / Dot Advisory / School Dot Market</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'reunions')">
+                Réunions Kevin+Elsa
+            </button>
+            <button class="tab-button" onclick="switchTab(event, 'one-to-one')">
+                Entretiens 1-à-1
+            </button>
+        </div>
+
+        <!-- ===== ONGLET 1 : RÉUNIONS KEVIN+ELSA ===== -->
+        <div id="reunions" class="tab-content active">
+            <h2>3 RÉUNIONS KEVIN + ELSA + CATHERINE</h2>
+
+            <p style="color: #666; margin: 1.5rem 0; font-style: italic; font-size: 0.95rem;">
+                Chaque réunion s'appuie sur la précédente. On monte progressivement en profondeur : d'abord <strong>comment ça marche</strong>, ensuite <strong>où est la donnée et comment elle circule</strong>, enfin <strong>comment on la mesure</strong>.
+            </p>
+
+            <!-- ===== RÉUNION 1 ===== -->
+            <div class="reunion-box">
+                <h4>📅 RÉUNION 1 — Mercredi 20 avril 2026, 14h00</h4>
+                <p><strong>Durée :</strong> 1h30 | <strong>Focus :</strong> Stratégie, leviers, acquisition</p>
+            </div>
+
+            <h3>Réunion 1 — Agenda (1h30)</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">14h00-14h08</div>
+                    <div><strong>Ouverture</strong><br>Rappel du déroulé : 3 réunions, puis entretiens 1-à-1, puis validation finale</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">14h08-14h25</div>
+                    <div><strong>Stratégie & leviers (17 min)</strong><br><strong>Dot Market :</strong> stratégie 12 mois, où vous en êtes, principaux leviers<br><strong>Dot Advisory :</strong> idem, différences clés vs Dot Market<br><strong>School :</strong> fonctionnement, lien avec les deux autres</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">14h25-14h50</div>
+                    <div><strong>Processus d'acquisition (25 min)</strong><br><strong>Dot Market :</strong> comment arrivent vendeurs / acheteurs ? Coûts ? Temps avant activation ?<br><strong>Dot Advisory :</strong> comment arrivent les deals ? Longueur du cycle ? Taux de fermeture ?<br><strong>School :</strong> comment arrivent les apprenants ? Lien avec Dot Market ?<br><strong>Synergies :</strong> flux entre les trois entités</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">14h50-15h10</div>
+                    <div><strong>KPI actuels (20 min)</strong><br>Avez-vous des indicateurs définis aujourd'hui ? Lesquels ?<br>Comment les mesurez-vous ? (tableur, outil, autre ?)<br>Manquez-vous de visibilité quelque part ?<br>Quel est l'indicateur n°1 par entité ?</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">15h10-15h30</div>
+                    <div><strong>Clôture & logistique (20 min)</strong><br>Confirmation des 5 rôles clés pour entretiens 1-à-1<br>Dates pour réunion 2<br>Questions en suspens</div>
+                </div>
+            </div>
+
+            <h3>Réunion 1 — Points clés à couvrir</h3>
+
+            <h4>Vision stratégique</h4>
+            <ul class="questions">
+                <li>Dot Market : où voulez-vous aller en 12 mois ? (volume, CA, nouveaux marchés, nouvelles fonctionnalités ?)</li>
+                <li>Dot Advisory : même question. C'est une acquisition récente ou une branche historique ?</li>
+                <li>School Dot Market : c'est un produit stratégique ou expérimental ? Quel rôle dans votre croissance globale ?</li>
+            </ul>
+
+            <h4>Leviers de croissance</h4>
+            <ul class="questions">
+                <li>Par entité : quels sont les 3-5 leviers clés que vous actionnez pour avancer vers vos objectifs ?</li>
+                <li>Lequel vous occupe le plus en ce moment ? Lequel marche best ?</li>
+            </ul>
+
+            <h4>Acquisition client — détail pratique</h4>
+            <ul class="questions">
+                <li><strong>Dot Market vendeurs :</strong> coût d'acquisition ? temps avant 1ère vente ? où arrivent-ils (pub, SEO, autre) ?</li>
+                <li><strong>Dot Market acheteurs :</strong> même questions</li>
+                <li><strong>Dot Advisory :</strong> d'où viennent les opportunités ? combien gagnez-vous en moyenne ? délai from prospect to closing ?</li>
+                <li><strong>School :</strong> gratuit ou payant ? canal principal d'acquisition ?</li>
+            </ul>
+
+            <h4>KPI existants</h4>
+            <ul class="questions">
+                <li>Quels indicateurs mesurez-vous aujourd'hui par entité ?</li>
+                <li>Comment ? (tableur, outil, calcul hebdo/mensuel ?)</li>
+                <li>Qui les regarde ? Comment vous les communiquez ?</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <!-- ===== RÉUNION 2 ===== -->
+            <div class="reunion-box">
+                <h4>📅 RÉUNION 2 — Une semaine après (semaine du 27 avril)</h4>
+                <p><strong>Durée :</strong> 1h30 | <strong>Focus :</strong> Données, outils, processus</p>
+            </div>
+
+            <h3>Réunion 2 — Agenda (1h30)</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">00h00-00h10</div>
+                    <div><strong>Récap réunion 1</strong><br>Points clés retenus, clarifications si besoin</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">00h10-00h35</div>
+                    <div><strong>Inventaire des outils (25 min)</strong><br>CRM / outil de gestion des deals<br>Où vivent les données (base de données, tableur, autre) ?<br>Comment elles circulent ?<br>Outils de communication / partage (Slack, email, autre)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">00h35-00h55</div>
+                    <div><strong>Données & qualité (20 min)</strong><br>Pour chaque indicateur clé : où est la donnée source ?<br>Est-elle propre (tous les champs remplis, pas de doublons) ?<br>Besoin de la nettoyer ?<br>Données qui manquent aujourd'hui ?</div>
+                </div>
+                <div class="timezone-item">
+                    <div class="time">00h55-01h20</div>
+                    <div><strong>Processus métier (25 min)</strong><br><strong>Dot Market :</strong> parcours vendeur & acheteur (étapes clés, durée, validations)<br><strong>Dot Advisory :</strong> cycle de vie d'une opportunité (étapes, jalons, qui qualifie ?)<br><strong>School :</strong> parcours apprenant<br>Qui valide la donnée ? Qui la modifie ? Gestion des conflits ?</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">01h20-01h30</div>
+                    <div><strong>Clôture</strong><br>Synthèse, dates réunion 3</div>
+                </div>
+            </div>
+
+            <h3>Réunion 2 — Points clés à couvrir</h3>
+
+            <h4>Outils actuels</h4>
+            <ul class="questions">
+                <li>Utilisez-vous un CRM ? Lequel ? Pour qui (ventes, Advisory, les deux) ?</li>
+                <li>Où vivent les données de produit (Dot Market transactions) ? Base de données interne ? Outil e-commerce ?</li>
+                <li>Avez-vous un outil de tableau de bord ou d'analytics ? (Google Analytics, Mixpanel, autre) Satisfait ?</li>
+                <li>Utilisez-vous des feuilles de calcul pour quoi ? (budgets, suivi d'opportunities, autre)</li>
+            </ul>
+
+            <h4>Source de vérité</h4>
+            <ul class="questions">
+                <li>Quel outil est la « source de vérité » pour chaque type de donnée ?</li>
+                <li>Y a-t-il des conflits de chiffres entre outils ? (ex : le sales count différemment que la compta)</li>
+            </ul>
+
+            <h4>Qualité des données</h4>
+            <ul class="questions">
+                <li>Pour vos KPI prioritaires : la donnée est-elle « complète » ? Tous les champs remplis ?</li>
+                <li>Y a-t-il des doublons, mauvais formats, valeurs incohérentes ?</li>
+                <li>Faites-vous du nettoyage régulier ? Comment ?</li>
+                <li>Y a-t-il des indicateurs que vous aimeriez mesurer mais que vous ne pouvez pas (manque de donnée) ?</li>
+            </ul>
+
+            <h4>Flux de données</h4>
+            <ul class="questions">
+                <li>Comment la donnée remonte de l'opérationnel vers la direction ?</li>
+                <li>Combien de temps entre un événement et son apparition dans un rapport ?</li>
+                <li>Avez-vous des validations / vérifications régulières des chiffres ?</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <!-- ===== RÉUNION 3 ===== -->
+            <div class="reunion-box">
+                <h4>📅 RÉUNION 3 — Une semaine après (début mai)</h4>
+                <p><strong>Durée :</strong> 1h30 | <strong>Focus :</strong> Validation + proposition KPI & dashboard</p>
+            </div>
+
+            <h3>Réunion 3 — Agenda (1h30)</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">00h00-00h15</div>
+                    <div><strong>Synthèse & questions ouvertes (15 min)</strong><br>Recap des 2 réunions précédentes<br>Clarifications finales</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">00h15-00h45</div>
+                    <div><strong>Proposition KPI par entité (30 min)</strong><br>Dot Market : KPI proposés (acquisition, conversion, volume, rétention ?)<br>Dot Advisory : KPI proposés (pipeline, closing, durée cycle ?)<br>School : KPI proposés (inscrits, complétion, engagement ?)<br>KPI transversaux (synergies, chiffre d'affaires global)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">00h45-01h15</div>
+                    <div><strong>Proposition dashboard (30 min)</strong><br>Architecture : 3 dashboards séparés ou 1 vue consolidée ?<br>Qui voit quoi ? (équipe vs direction vs public)<br>Fréquence : temps réel, quotidien, hebdo, mensuel ?<br>Format : web, mobile, rapport email, autre ?<br>Alertes automatiques ? (si un KPI > ou < seuil)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">01h15-01h30</div>
+                    <div><strong>Validation & next steps (15 min)</strong><br>Accord sur KPI et architecture dashboard<br>Planning de déploiement<br>Prochaines étapes</div>
+                </div>
+            </div>
+
+            <h3>Réunion 3 — Points clés à couvrir</h3>
+
+            <p style="color: #666; font-style: italic; margin-bottom: 1rem;">À cette étape, vous aurez synthétisé les insights des entretiens 1-à-1. Cette réunion c'est pour <strong>valider</strong> avec Kevin et Elsa que votre compréhension est juste et pour <strong>proposer</strong> une solution.</p>
+
+            <h4>KPI proposés — logique de sélection</h4>
+            <ul class="questions">
+                <li>Pour chaque entité : les KPI répondent-ils à la stratégie (comment savoir qu'on atteint nos objectifs) ?</li>
+                <li>Sont-ils actionnables (on peut les influencer avec nos leviers) ?</li>
+                <li>Sont-ils mesurables (la donnée existe ou peut être créée) ?</li>
+            </ul>
+
+            <h4>Dashboard — architecture</h4>
+            <ul class="questions">
+                <li>3 dashboards séparés (un par entité) ou dashboard parent consolidé avec drills ?</li>
+                <li>Quels indicateurs en première page vs détails secondaires ?</li>
+                <li>Besoin de comparaisons (mois à mois, année à année) ?</li>
+                <li>Besoin de segments (par région, par type, autre) ?</li>
+            </ul>
+
+            <h4>Fréquence & accès</h4>
+            <ul class="questions">
+                <li>Qui doit accéder au dashboard ? (vous, équipes opérationnelles, direction, autre)</li>
+                <li>Fréquence de consultation souhaitée (daily, hebdo, mensuel) ?</li>
+                <li>Format (web, mobile, email, autre) ?</li>
+            </ul>
+
+        </div>
+
+        <!-- ===== ONGLET 2 : ENTRETIENS 1-À-1 ===== -->
+        <div id="one-to-one" class="tab-content">
+            <h2>ENTRETIENS 1-À-1 — GUIDE POUR CATHERINE</h2>
+
+            <p style="color: #666; margin: 1.5rem 0; font-style: italic;">
+                <strong>But :</strong> Comprendre comment chaque personne fonctionne au quotidien, ce qui les frustre, ce qui les motive, ce qu'ils mesurent, de quoi ils ont besoin pour mieux travailler. C'est une conversation, pas un questionnaire.
+            </p>
+
+            <h3>Logistique</h3>
+            <div class="meta">
+                <div class="meta-item">
+                    <strong>Timing</strong>
+                    Entre réunion 1 et réunion 2 (semaine du 23-27 avril)
+                </div>
+                <div class="meta-item">
+                    <strong>Durée</strong>
+                    1h par personne
+                </div>
+                <div class="meta-item">
+                    <strong>Format</strong>
+                    1-à-1, en personne ou visio (plus intime)
+                </div>
+                <div class="meta-item">
+                    <strong>Nombre</strong>
+                    5 rôles clés à identifier avec Kevin+Elsa en réunion 1
+                </div>
+            </div>
+
+            <h3>Les 5 rôles clés à interviewer</h3>
+            <p style="color: #666; margin: 1rem 0; font-size: 0.95rem;">À confirmer avec Kevin en réunion 1. Typiquement : CEO/Fondateur, Directeur Commercial ou Ops (Dot Market), Directeur M&A ou Advisory, Responsable Produit, Responsable Finance/Opérations.</p>
+
+            <h3>Thèmes à couvrir par entretien</h3>
+
+            <h4>1. État d'esprit & contexte (10 min)</h4>
+            <p style="color: #666; margin-bottom: 1rem;"><em>Échauffement, création de confiance, comprendre leur perspective.</em></p>
+            <ul class="questions">
+                <li>Depuis combien de temps tu es chez Kevin ? Tu fais quoi exactement ?</li>
+                <li>Qu'est-ce que tu aimes le plus dans ton boulot ? Qu'est-ce qui est le plus frustrant ?</li>
+                <li>Comment tu vois la santé globale de l'entreprise en ce moment ? (stratégie claire, équipe soudée, ressources suffisantes ?)</li>
+                <li>Quel est ton plus gros défi au quotidien ?</li>
+            </ul>
+
+            <h4>2. Performance & mesure (15 min)</h4>
+            <p style="color: #666; margin-bottom: 1rem;"><em>Comment ils mesurent leur succès aujourd'hui, comment ils savent s'ils font du bon boulot.</em></p>
+            <ul class="questions">
+                <li>Comment tu sais si tu fais du bon boulot ? Qu'est-ce que tu mesures pour toi-même ?</li>
+                <li>Quel est l'indicateur le PLUS important pour ton équipe / ton domaine (ventes, produit, ops, etc.) ?</li>
+                <li>Comment tu accèdes à cet indicateur aujourd'hui ? (tableau, email, conversation, autre ?)</li>
+                <li>À quelle fréquence tu le consultes / tu y penses ? (daily, weekly, monthly ?)</li>
+                <li>Y a-t-il des indicateurs qu'on te demande de mesurer mais que tu trouves peu utiles ? Pourquoi ?</li>
+            </ul>
+
+            <h4>3. KPI actuels & besoins (15 min)</h4>
+            <p style="color: #666; margin-bottom: 1rem;"><em>Qu'est-ce qu'ils mesurent, qu'est-ce qu'il manque, de quoi auraient-ils besoin pour se challenger.</em></p>
+            <ul class="questions">
+                <li>Quels sont les 3-5 KPI que tu dois tracker pour ton domaine / ton équipe ?</li>
+                <li>Comment tu les calcules ? (Excel, outil, autre personne) ?</li>
+                <li>Combien de temps tu passes à collecter / compiler ces données chaque semaine ?</li>
+                <li>Y a-t-il un KPI que tu aimeriez mesurer mais que tu ne peux pas faire aujourd'hui (manque de donnée, trop fastidieux) ?</li>
+                <li>Si tu avais un tableaudès de bord parfait pour ton rôle, à quoi il ressemblerait ? (quels KPI ? quelle fréquence ?)</li>
+            </ul>
+
+            <h4>4. Fonctionnement quotidien (15 min)</h4>
+            <p style="color: #666; margin-bottom: 1rem;"><em>Comment ils travaillent, comment les données créées et circulent.</em></p>
+            <ul class="questions">
+                <li>Décris-moi une journée typique pour toi. Quels outils tu ouvres ? Quels processus tu suis ?</li>
+                <li>Quels outils tu utilises le plus ? (CRM, email, feuilles de calcul, Slack, autre ?)</li>
+                <li>Où tu entrepositas la donnée qui t'intéresse ? (CRM, dossier, tableur, tête ?) Comment tu la trouves après ?</li>
+                <li>Combien de fois par semaine tu dois chercher une info qui « devrait » être facile à trouver mais qui ne l'est pas ?</li>
+                <li>Comment tu rapportes tes résultats à ton manager / à la direction ? (email, réunion, document, autre)</li>
+            </ul>
+
+            <h4>5. Outils & frustrations (10 min)</h4>
+            <p style="color: #666; margin-bottom: 1rem;"><em>Ce qui marche, ce qui ne marche pas, ce qui les bloque.</em></p>
+            <ul class="questions">
+                <li>Quel est l'outil que tu utilises mais qui te fait perdre du temps ? Pourquoi ?</li>
+                <li>Y a-t-il un outil que tu aimerais qu'on utilise mais qu'on n'a pas ? Pourquoi ça t'aiderait ?</li>
+                <li>Les données qu'on a, sont-elles fiables ? Y a-t-il des chiffres qui changent d'une personne à l'autre ?</li>
+                <li>Qu'est-ce qui te donnerait plus de confiance dans les chiffres qu'on utilise pour piloter ?</li>
+            </ul>
+
+            <h4>6. Besoin de remontées / coaching (10 min)</h4>
+            <p style="color: #666; margin-bottom: 1rem;"><em>Ont-ils besoin de visibilité régulière sur les KPI pour se challenger et s'améliorer ?</em></p>
+            <ul class="questions">
+                <li>Est-ce que tu aimerais avoir une remontée de tes KPI chaque jour ? Chaque semaine ? Chaque mois ?</li>
+                <li>Quel format préférerais-tu ? (email court, dashboard, réunion, autre)</li>
+                <li>Y a-t-il des KPI sur lesquels tu aimeriez avoir un suivi plus régulier pour te challenger et t'améliorer ?</li>
+                <li>Est-ce que tu aurais besoin d'un coaching / feedback régulier basé sur tes résultats ? (ex : chaque lundi on revoit la semaine précédente) ?</li>
+            </ul>
+
+            <h3>Comment animer l'entretien</h3>
+
+            <div class="important">
+                <strong>Clés d'or :</strong>
+                <ul style="margin-top: 0.75rem; margin-left: 1.5rem;">
+                    <li><strong>C'est une conversation, pas une interrogatoire.</strong> Écoute 70%, parle 30%.</li>
+                    <li><strong>Note ce qui t'étonne.</strong> Quand quelqu'un te dit quelque chose que tu n'attendais pas, creuse (« ah ? comment ça ? »).</li>
+                    <li><strong>Cherche les patterns.</strong> Qui dit la même chose ? Qui dit l'opposé ? C'est important.</li>
+                    <li><strong>Crée un safe space.</strong> « Ce que tu me dis là, c'est confidentiel. Je le partage pas directement à Kevin / à ton collègue. »</li>
+                    <li><strong>Termine par une question ouverte.</strong> « Y a quelque chose que je n'ai pas demandé mais qui est important pour toi ? »</li>
+                </ul>
+            </div>
+
+            <h3>Après l'entretien</h3>
+            <ul class="checkbox-list">
+                <li>Prends 10 min après pour noter les insights clés (verbatim quand possible)</li>
+                <li>Identifie 3 choses : ce qui marche bien, ce qui bloque, ce qui manque</li>
+                <li>Cherche les patterns avec les autres entretiens</li>
+                <li>Prépare la synthèse pour réunion 2</li>
+            </ul>
+
+            <h3>Synthèse à faire entre R2 et R3</h3>
+
+            <p style="color: #666; margin: 1rem 0; font-style: italic;">Avant réunion 3, vous aurez synthétisé les 5 entretiens. Cette synthèse alimente votre proposition de KPI et dashboard (réunion 3).</p>
+
+            <div class="role-card">
+                <h5>Synthèse type à préparer (pour vous)</h5>
+                <ul>
+                    <li><strong>KPI clés par rôle :</strong> Qu'est-ce que chaque personne mesure vraiment ? Y a-t-il consensus ou divergence ?</li>
+                    <li><strong>Frustrations communes :</strong> Qu'est-ce que tout le monde dit qui pose problème ?</li>
+                    <li><strong>Outils utilisés :</strong> Quel est l'écosystème réel (vs. celui qu'on pense) ?</li>
+                    <li><strong>Besoin de fréquence :</strong> Qui a besoin de daily ? Qui de weekly ? Qui de monthly ?</li>
+                    <li><strong>Points manquants :</strong> Quels indicateurs manquent ? Quelles données ne sont pas tracées ?</li>
+                    <li><strong>Opportunités :</strong> Qu'est-ce qu'on pourrait faire que personne ne demande mais qui sauterait aux yeux ?</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function switchTab(evt, tabName) {
+            var tabcontents = document.querySelectorAll(".tab-content");
+            for (var i = 0; i < tabcontents.length; i++) {
+                tabcontents[i].classList.remove("active");
+            }
+
+            var tabbuttons = document.querySelectorAll(".tab-button");
+            for (var i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>

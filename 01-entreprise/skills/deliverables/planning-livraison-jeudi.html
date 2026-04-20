@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning Livraison FSY — Lundi 20 au Jeudi 23 Avril</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #C27A5A 0%, #A0593E 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .deadline-banner {
+            background: rgba(255, 193, 7, 0.95);
+            color: #333;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-left: 5px solid #C27A5A;
+        }
+
+        .section-header {
+            background: linear-gradient(to right, #f9f9f9, #ffffff);
+            padding: 25px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .section-meta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .time-estimate {
+            background: #e3f2fd;
+            border-left: 3px solid #2196F3;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1565C0;
+        }
+
+        .critical {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .section-content {
+            padding: 30px;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .subsection-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #C27A5A;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 3px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+
+        .task-list li:hover {
+            background: #f5f5f5;
+            border-left-color: #C27A5A;
+        }
+
+        .task-list li input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-right: 12px;
+            margin-top: 3px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .task-note {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        .nested-tasks {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .nested-tasks li {
+            background: white;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 8px;
+            padding: 10px;
+        }
+
+        .dependencies {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+
+        .dependencies h3 {
+            color: #856404;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .dependencies li {
+            margin-left: 20px;
+            color: #856404;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .checkpoint {
+            background: linear-gradient(135deg, #C27A5A 0%, #A0593E 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .checkpoint h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .checkpoint-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .checkpoint-item::before {
+            content: "→";
+            margin-right: 12px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .checkpoint-final {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .print-note {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #2e7d32;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #888;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .section-meta {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 Planning Livraison FSY</h1>
+            <div class="subtitle">Lundi 20 au Jeudi 23 avril</div>
+            <div class="deadline-banner">🔴 DEADLINE JEUDI 23 AVRIL SOIR</div>
+        </header>
+
+        <div class="print-note">
+            ✏️ Imprimer ou garder ouvert pendant toute la semaine
+        </div>
+
+        <!-- OBJECTIF -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">🎯 Objectif Final</div>
+            </div>
+            <div class="section-content">
+                <p style="font-size: 16px; font-weight: 600; color: #C27A5A; margin-bottom: 10px;">
+                    Jeudi soir : Automations + Migration Uscreen→Circle prêtes
+                </p>
+                <p style="color: #666; line-height: 1.8;">
+                    Aurélia peut lancer la communication (FSY Studio + MTM) et la formation (Circle) avec<br>
+                    zéro blocages, zéro dépendances Catherine, tout fonctionne en production.
+                </p>
+            </div>
+        </div>
+
+        <!-- LUNDI 20 AVRIL -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">📌 LUNDI 20 AVRIL</div>
+                <div class="section-meta">
+                    <div class="time-estimate">⏱️ 4-5 heures</div>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">1️⃣ Laurie — UTMs (CRITIQUE 🚨)</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Envoyer mail avec générateur UTM + tracker</div>
+                                <div class="task-note">Mail brouillon déjà prêt — voir brouillon-mail-laurie-utm.html</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Demander les 3 liens UTM finalisés</div>
+                                <div class="task-note">FSY Studio | MTM | Licence MTM</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Vérifier qu'elle les place partout</div>
+                                <div class="task-note">Bio Instagram | Mails de promo | Landing pages</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">2️⃣ Vidéo d'intro Circle (Aurélia)</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Enregistrer 4-5 min max</div>
+                                <div class="task-note">"Bienvenue dans Circle, voilà comment naviguer"</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Upload dans Circle</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Lier dans le 1er email d'onboarding</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">3️⃣ Vérifier Stripe → n8n Webhook</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Aller dans Stripe Dashboard → Webhooks</div>
+                                <div class="task-note">Vérifier que <code>charge.succeeded</code> envoie vers n8n</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Tester 1 paiement test Stripe</div>
+                                <div class="task-note">Vérifier que Brevo reçoit l'update et crée le contact</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">4️⃣ Config Circle — Calendrier/Événements</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Créer structure onglet Programme/Événements</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Récupérer URLs vidéos du lundi (format Circle)</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Tester : mettre 1 vidéo test</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MARDI 21 AVRIL -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">📌 MARDI 21 AVRIL</div>
+                <div class="section-meta">
+                    <div class="time-estimate">⏱️ 5-6 heures</div>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">1️⃣ Relancer Laurie (si pas de réponse)</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Check : les UTMs sont générés ?</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Check : ils sont mis à jour partout ?</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">2️⃣ Tester PARCOURS COMPLET FSY Studio (chemin critique)</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Créer contact test</div>
+                                <div class="task-note"><code>test.fsy.studio@mailinator.com</code></div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Cliquer sur lien UTM (depuis YouTube/Instagram)</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Remplir quiz Manychat</div>
+                                <div class="task-note">Vérifier création contact Brevo</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Vérifier email nurture reçu</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Payer 17€ et vérifier le flux complet</div>
+                                <div class="task-note" style="margin-top: 8px;">
+                                    ✓ Webhook Stripe → n8n OK<br>
+                                    ✓ Brevo : <code>STATUT_MEMBRE=active</code>, <code>DATE_ACHAT</code> rempli<br>
+                                    ✓ Email onboarding reçu<br>
+                                    ✓ Invitation Circle reçue<br>
+                                    ✓ Accès Circle fonctionne
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">3️⃣ Tester PARCOURS COMPLET MTM (validation)</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Créer contact test</div>
+                                <div class="task-note"><code>test.mtm@mailinator.com</code></div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Quiz + Nurture</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Payer et vérifier</div>
+                                <div class="task-note" style="margin-top: 8px;">
+                                    ✓ eSignature workflow déclenché<br>
+                                    ✓ Contrat reçu + signé OK<br>
+                                    ✓ Invitation Circle différente (groupe MTM)
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">4️⃣ Vérifier Telegram/WhatsApp</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Confirmer quelle option on choisit</div>
+                                <div class="task-note">Coût + verrouillage avec Mickaël</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MERCREDI 22 AVRIL -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">📌 MERCREDI 22 AVRIL</div>
+                <div class="section-meta">
+                    <div class="time-estimate">⏱️ 4-5 heures</div>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">1️⃣ Migration Uscreen → Circle</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Exporter CSV Uscreen</div>
+                                <div class="task-note">Email | sub_id Stripe | date renouvellement</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Importer contacts dans Circle</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Créer workflow n8n migration subscriptions</div>
+                                <div class="task-note" style="margin-top: 8px;">
+                                    ✓ Tester sur 5 contacts<br>
+                                    ✓ Vérifier dates renouvellement conservées
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">2️⃣ Corriger bugs trouvés</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Lister ce qui a échoué (lundi-mardi)</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Fixer les workflows n8n si besoin</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Mettre à jour les emails si besoin</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">3️⃣ Mail du dimanche (Aurélia)</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Récupérer historique mails dimanche</div>
+                                <div class="task-note">Derniers 3 mois</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Générer template IA</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Tester : envoyer 1 version test</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">4️⃣ Vérifier les listes Brevo</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Confirmer : listes créées en tant que déclencheurs ?</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Si non : créer listes + reconfigurer automations</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- JEUDI 23 AVRIL -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-title">📌 JEUDI 23 AVRIL</div>
+                <div class="section-meta">
+                    <div class="time-estimate critical">⏱️ 2-3 heures (FINAL)</div>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">1️⃣ Dernière validation globale</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Tester parcours FSY Studio 1× complètement</div>
+                                <div class="task-note">De zéro à Circle access</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Tester parcours MTM 1× complètement</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Vérifier : tous les mails arrivent à temps</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Vérifier : Circle access fonctionne</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">2️⃣ Documentation finale pour Aurélia</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Runbook clair : "C'est prêt, voici comment ça marche"</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Check-list avant lancer la comm</div>
+                                <div class="task-note" style="margin-top: 8px;">
+                                    ✓ Tous les liens UTM en place<br>
+                                    ✓ Stripe webhook actif<br>
+                                    ✓ Brevo automations OK<br>
+                                    ✓ n8n workflows actifs<br>
+                                    ✓ Circle accès fonctionne<br>
+                                    ✓ Mails envoyés à temps
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">3️⃣ Autorisation de lancer</div>
+                    <ul class="task-list">
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Appel rapide Aurélia : feu vert</div>
+                            </div>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <div class="task-content">
+                                <div class="task-title">Elle peut lancer</div>
+                                <div class="task-note" style="margin-top: 8px;">
+                                    ✓ Comm FSY Studio<br>
+                                    ✓ Comm MTM<br>
+                                    ✓ Accueil sur Circle<br>
+                                    ✓ Migration Uscreen (contacts + subscriptions)
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- DÉPENDANCES CRITIQUES -->
+        <div class="dependencies">
+            <h3>🚨 DÉPENDANCES CRITIQUES</h3>
+            <ol>
+                <li><strong>Laurie UTMs</strong> → tout bloqué si pas fait lundi</li>
+                <li><strong>Stripe webhook live</strong> → n8n ne reçoit rien sinon</li>
+                <li><strong>Test Parcours FSY</strong> → valide le flux complet</li>
+                <li><strong>Circle access</strong> → sinon les clients sont bloqués</li>
+            </ol>
+        </div>
+
+        <!-- CHECKPOINT -->
+        <div class="checkpoint">
+            <h3>🎯 CHECKPOINT JEUDI 18h</h3>
+            <div class="checkpoint-item">✅ FSY Studio : test OK de bout en bout</div>
+            <div class="checkpoint-item">✅ MTM : test OK de bout en bout</div>
+            <div class="checkpoint-item">✅ Mails arrivent + Circle access fonctionne</div>
+            <div class="checkpoint-item">✅ Laurie UTMs placés partout</div>
+            <div class="checkpoint-item">✅ Doc pour Aurélia prête</div>
+            <div class="checkpoint-item">✅ Mickaël chatbots OK (Telegram + WhatsApp)</div>
+            <div class="checkpoint-final">
+                → 🟢 FEU VERT : Aurélia lance la comm lundi 24 avril
+            </div>
+        </div>
+
+        <footer>
+            Planning Livraison FSY — Catherine Selosse<br>
+            Imprimer ou garder ouvert du lundi au jeudi<br>
+            <em>Dernière mise à jour : 20 avril 2026</em>
+        </footer>
+    </div>
+</body>
+</html>

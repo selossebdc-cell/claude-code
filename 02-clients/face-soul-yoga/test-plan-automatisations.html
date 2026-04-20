@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Plan — Automatisations FSY Complet</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { color: #ff9800; margin-bottom: 10px; font-size: 2em; }
+        .subtitle { color: #bbb; margin-bottom: 30px; font-size: 0.95em; }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #333;
+            padding-bottom: 0;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            background: #252a48;
+            color: #aaa;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95em;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover { color: #fff; }
+        .tab-btn.active {
+            background: transparent;
+            color: #ff9800;
+            border-bottom-color: #ff9800;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .test-phase {
+            background: #1e1e2e;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #333;
+        }
+
+        .phase-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #ff9800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .test-step {
+            background: #252a48;
+            border-left: 4px solid #4db8ff;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #4db8ff;
+            color: #1a1a2e;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 1.05em;
+            color: #fff;
+        }
+
+        .step-content {
+            margin-top: 12px;
+        }
+
+        .action {
+            background: rgba(77, 184, 255, 0.1);
+            border-left: 3px solid #4db8ff;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .action-label {
+            font-weight: 600;
+            color: #4db8ff;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .verify {
+            background: rgba(102, 187, 106, 0.1);
+            border-left: 3px solid #66bb6a;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .verify-label {
+            font-weight: 600;
+            color: #66bb6a;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .timing {
+            background: rgba(255, 152, 0, 0.1);
+            border-left: 3px solid #ffa726;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .screenshot {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px dashed #666;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .info-box {
+            background: rgba(77, 184, 255, 0.1);
+            border-left: 4px solid #4db8ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box {
+            background: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .success-box {
+            background: rgba(102, 187, 106, 0.1);
+            border-left: 4px solid #66bb6a;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .test-data {
+            background: #252a48;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .data-line {
+            padding: 6px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .data-line:last-child { border-bottom: none; }
+
+        .key { color: #4db8ff; font-weight: 600; }
+        .value { color: #66bb6a; }
+
+        .checklist {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0 20px 40px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ff9800;
+            border: 2px solid #1e1e2e;
+        }
+
+        .timeline-item.pending::before {
+            background: #666;
+        }
+
+        .timeline-item.ok::before {
+            background: #66bb6a;
+        }
+
+        .timeline-time {
+            font-size: 0.85em;
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .timeline-text {
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #ff9800;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff9800;
+            padding-bottom: 10px;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: #66bb6a;
+        }
+
+        strong { color: #ff9800; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Plan Complet — Automatisations FSY</h1>
+        <p class="subtitle">Pas à pas pour tester tous les processes end-to-end</p>
+
+        <div class="tabs" id="tabs">
+            <button class="tab-btn active" onclick="switchTab('pre-deploy')">Pré-Déploiement</button>
+            <button class="tab-btn" onclick="switchTab('test-fsy')">Test FSY Studio</button>
+            <button class="tab-btn" onclick="switchTab('test-mtm')">Test MTM</button>
+            <button class="tab-btn" onclick="switchTab('test-advanced')">Tests Avancés</button>
+            <button class="tab-btn" onclick="switchTab('rollback')">Rollback Plan</button>
+        </div>
+
+        <!-- ===== PRE-DEPLOY ===== -->
+        <div id="pre-deploy" class="tab-content active">
+            <div class="warning-box">
+                <strong>⚠️ Avant de commencer :</strong> Remplir la checklist pré-déploiement. Si quelque chose est OFF, le test échouera et on perdra du temps à chercher.
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">✅ Checklist Pré-Déploiement (30 min)</div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Vérifier Stripe Webhook</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller dans <code>Stripe Dashboard → Settings → Webhooks</code>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier</div>
+                            ✓ Un endpoint existe (ressemble à <code>https://n8n.xxx/webhook/abc123</code>)<br/>
+                            ✓ "Enabled" est ON<br/>
+                            ✓ Events : <code>charge.succeeded, charge.refunded, invoice.payment_action_required</code> sont checkés
+                        </div>
+                        <div class="screenshot">
+stripe.com/settings/webhooks
+├─ Endpoint: https://n8n.csbusiness.fr/webhook/fsy-01
+├─ Status: Active (✓)
+└─ Events:
+   ├─ charge.succeeded (✓)
+   ├─ charge.refunded (✓)
+   └─ invoice.payment_action_required (✓)
+                        </div>
+                        <div class="timing">⏱️ Si OK : continue. Si OFF : demander à Laurie d'activer</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Vérifier Brevo Automations (Sequences)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller dans <code>Brevo → Automations</code>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier que ces 8 sequences existent ET sont ON :</div>
+                            <div class="checklist">
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo1">
+                                    <label for="brevo1"><strong>Nurture Yoga</strong> (INTERET=yoga → emails #188-191) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo2">
+                                    <label for="brevo2"><strong>Nurture Générale</strong> (INTERET vide → emails #192-195) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo3">
+                                    <label for="brevo3"><strong>Onboarding FSY Studio</strong> (STATUT_MEMBRE=active + OFFRE=fsy_studio → emails #196-198) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo4">
+                                    <label for="brevo4"><strong>Bilans FSY</strong> (DATE_ACHAT + OFFRE=fsy_studio → emails #199-201) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo5">
+                                    <label for="brevo5"><strong>Nurture MTM Pré-vente</strong> (INTERET=formation → emails #154-175) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo6">
+                                    <label for="brevo6"><strong>Onboarding MTM</strong> (STATUT_MEMBRE=active + OFFRE=mtm → emails #178-183) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo7">
+                                    <label for="brevo7"><strong>Anti-Churn</strong> (STATUT_MEMBRE=churned → emails #204-205) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="brevo8">
+                                    <label for="brevo8"><strong>Pré-annulation</strong> (J-7 renouvellement → email rétention) — Status: <span style="color: #66bb6a;">ON</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timing">⏱️ Si une automation est OFF, cliquer sur elle et appuyer sur le bouton vert "Activer" ou "Start automation"</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Vérifier n8n Workflows</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller dans <code>n8n → Workflow 01, 04, 05, 07</code>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Pour chaque workflow :</div>
+                            ✓ Le toggle <strong>"Active"</strong> en haut à droite est <strong>bleu/ON</strong><br/>
+                            ✓ Pas de nœuds rouges (erreurs de configuration)<br/>
+                            ✓ Les credentials (Brevo API, Circle Token, etc.) sont assignées
+                        </div>
+                        <div class="timing">⏱️ Si OFF, cliquer sur le toggle pour l'activer</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Vérifier Circle IDs</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller dans <code>Circle → Settings</code>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Copier & vérifier :</div>
+                            <div class="test-data">
+                                <div class="data-line"><span class="key">Community ID:</span> <span class="value">503593</span></div>
+                                <div class="data-line"><span class="key">FSY Studio Group ID:</span> <span class="value">1035229</span></div>
+                                <div class="data-line"><span class="key">MTM Group ID:</span> <span class="value">1025924</span></div>
+                                <div class="data-line"><span class="key">API Token (active):</span> <span class="value">Fzj7tj11FSQiUPS3z7xAF1E8rupFNdxP</span></div>
+                            </div>
+                        </div>
+                        <div class="timing">⏱️ Si les IDs ne correspondent pas dans n8n Workflow 04, les mettre à jour</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Préparer les Données de Test</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Créer 2 comptes Stripe de test + 2 emails de test
+                        </div>
+                        <div class="test-data">
+                            <div class="data-line"><span class="key">Email FSY Studio Test:</span> <span class="value">test-fsy@example.com</span></div>
+                            <div class="data-line"><span class="key">Carte Stripe Test:</span> <span class="value">4242 4242 4242 4242 (Visa, charge OK)</span></div>
+                            <div class="data-line"><span class="key">Email MTM Test:</span> <span class="value">test-mtm@example.com</span></div>
+                            <div class="data-line"><span class="key">Stripe Mode:</span> <span class="value">Test (switch en haut à gauche Stripe Dashboard)</span></div>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Stripe est en <strong>TEST mode</strong> (non production)<br/>
+                            ✓ Brevo a au moins 5 contacts de test (pour pas polluer données réelles)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ Si tout est ✓ :</strong> Passer au test FSY Studio. Si quelque chose est OFF, corriger avant d'avancer.
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TEST FSY STUDIO ===== -->
+        <div id="test-fsy" class="tab-content">
+            <div class="warning-box">
+                <strong>⏱️ Durée totale :</strong> ~20 min (attendre emails entre étapes)
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">🧪 Test FSY Studio — Parcours Complet</div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Étape 1 : Quiz Lead (Manychat)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller sur Manychat (ou Telegram si bot actif) et remplir le quiz yoga
+                        </div>
+                        <div class="test-data">
+                            <div class="data-line"><span class="key">Email:</span> <span class="value">test-fsy@example.com</span></div>
+                            <div class="data-line"><span class="key">Intérêt:</span> <span class="value">Face Yoga ou Yoga</span></div>
+                            <div class="data-line"><span class="key">Source:</span> <span class="value">Telegram Quiz</span></div>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier dans Brevo (5-10 sec) :</div>
+                            ✓ Contact créé avec email test-fsy@example.com<br/>
+                            ✓ Attributs : <code>INTERET=yoga (ou face_yoga)</code>, <code>SOURCE=telegram_quiz</code><br/>
+                            ✓ Dans <strong>Brevo → Contacts</strong>, chercher l'email et voir les attributs
+                        </div>
+                        <div class="screenshot">
+Brevo Contacts
+├─ Email: test-fsy@example.com
+├─ INTERET: yoga ✓
+├─ SOURCE: telegram_quiz ✓
+└─ STATUT_MEMBRE: (vide, pas encore acheté)
+                        </div>
+                        <div class="timing">⏱️ Si contact n'apparaît pas après 30 sec : Check Workflow 05 logs dans n8n</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Étape 2 : Attendre Email Nurture (Brevo)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre 1-5 minutes (le temps que Brevo déclenche la sequence)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Email #188 (Nurture Yoga #1) reçu dans test-fsy@example.com<br/>
+                            ✓ Subject: "Bienvenue dans Yoga" (ou similaire)<br/>
+                            ✓ Dans Brevo, le contact a "Nurture Yoga" actif (historique automation)
+                        </div>
+                        <div class="timing">⏱️ Attendre max 5 min. Si rien : Brevo automation OFF ou INTERET mauvaise</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Étape 3 : Achat FSY Studio (Stripe)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller sur le lien Stripe FSY Studio 17€/mois, utiliser carte test <code>4242 4242 4242 4242</code>
+                        </div>
+                        <div class="test-data">
+                            <div class="data-line"><span class="key">Email:</span> <span class="value">test-fsy@example.com</span></div>
+                            <div class="data-line"><span class="key">Montant:</span> <span class="value">17 EUR (ou $)</span></div>
+                            <div class="data-line"><span class="key">Frequence:</span> <span class="value">Monthly</span></div>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier dans Stripe Dashboard :</div>
+                            ✓ Payment successful (charge créée, status = succeeded)<br/>
+                            ✓ Dans <code>Payments → Charges</code>, voir la charge 17 EUR<br/>
+                            ✓ Subscription créée (FSY Studio)
+                        </div>
+                        <div class="screenshot">
+Stripe Dashboard
+├─ Charges
+│  └─ Charge: $17.00 USD
+│     ├─ Status: Succeeded ✓
+│     ├─ Customer Email: test-fsy@example.com
+│     └─ Description: FSY Studio Monthly
+├─ Subscriptions
+│  └─ Sub: FSY Studio
+│     ├─ Status: Active ✓
+│     └─ Customer: test-fsy@example.com
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Étape 4 : Vérifier Webhook Stripe → Brevo</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre 5-10 sec (temps pour Stripe webhook → n8n → Brevo)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier dans Brevo :</div>
+                            ✓ Contact test-fsy@example.com a maintenant <code>STATUT_MEMBRE=active</code><br/>
+                            ✓ <code>OFFRE=fsy_studio</code><br/>
+                            ✓ <code>DATE_ACHAT=aujourd'hui</code><br/>
+                            ✓ Brevo Contacts → chercher le contact → attributs mis à jour
+                        </div>
+                        <div class="screenshot">
+Brevo Contact: test-fsy@example.com
+├─ INTERET: yoga ✓
+├─ SOURCE: stripe_charge
+├─ STATUT_MEMBRE: active ✓
+├─ OFFRE: fsy_studio ✓
+└─ DATE_ACHAT: 2026-04-20 ✓
+                        </div>
+                        <div class="timing">⏱️ Si STATUT pas "active" après 10 sec : Stripe webhook pas reçu par n8n. Check Stripe webhook logs.</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Étape 5 : Attendre Email Onboarding (Brevo)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre 1-5 minutes (Brevo automation Onboarding FSY)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Email #196 (Onboarding FSY #1, Bienvenue) reçu<br/>
+                            ✓ Subject contient "Bienvenue" ou "Welcome"<br/>
+                            ✓ Contient lien Circle ou guide d'accès
+                        </div>
+                        <div class="timing">⏱️ Si rien après 5 min : Onboarding automation OFF ou condition STATUT_MEMBRE/OFFRE pas bonne</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-title">Étape 6 : Vérifier Invitation Circle (Workflow 04)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre 5-15 sec (Workflow 04 invite dans Circle)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Contact reçoit email d'invitation Circle<br/>
+                            ✓ En cliquant le lien, il a accès au groupe FSY Studio (1035229)<br/>
+                            ✓ Dans Brevo attributs : <code>CIRCLE_ID</code> rempli (ID unique Circle)
+                        </div>
+                        <div class="screenshot">
+Circle Email Invitation
+To: test-fsy@example.com
+Subject: You're invited to join [FSY Studio]
+Body: Click here to join the community
+
+Brevo Contact Attributes
+└─ CIRCLE_ID: c_12345 ✓
+                        </div>
+                        <div class="timing">⏱️ Si pas d'invitation : Workflow 04 pas activé ou Circle API token mauvais</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">7</div>
+                        <div class="step-title">Étape 7 : Recevoir les autres emails Onboarding (J+3, J+7 simulations)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Les emails #197 (J+3) et #198 (J+7) s'envoient automatiquement<br/>
+                            <strong>OU</strong> forcer dans Brevo : aller dans Automations → Onboarding FSY → chercher le contact → "Trigger now"
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Email #197 reçu (ou déclenché manuellement)<br/>
+                            ✓ Email #198 reçu (ou déclenché manuellement)<br/>
+                            ✓ Les 3 emails onboarding sont dans la boîte
+                        </div>
+                        <div class="timing">⏱️ Ou attendre 3-7 jours pour voir les vraies dates. Pour tester vite, déclencher manuellement.</div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ FSY Studio Test OK si :</strong> Contact créé → Nurture reçue → Achat OK → STATUT_MEMBRE=active → Onboarding reçu → Invité Circle
+                </div>
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">📋 Checklist FSY Studio Test</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="fsy-test-1">
+                        <label for="fsy-test-1">Quiz Manychat lancé, contact créé dans Brevo</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="fsy-test-2">
+                        <label for="fsy-test-2">Email Nurture #188 reçu (5 min après quiz)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="fsy-test-3">
+                        <label for="fsy-test-3">Achat Stripe 17€ réussi (carte test 4242)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="fsy-test-4">
+                        <label for="fsy-test-4">Brevo attribué STATUT_MEMBRE=active + OFFRE=fsy_studio (10 sec après achat)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="fsy-test-5">
+                        <label for="fsy-test-5">Email Onboarding #196 reçu (5 min après achat)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="fsy-test-6">
+                        <label for="fsy-test-6">Invitation Circle reçue, accès groupe FSY Studio OK</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="fsy-test-7">
+                        <label for="fsy-test-7">Emails #197, #198 reçus (ou forcés manuellement)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TEST MTM ===== -->
+        <div id="test-mtm" class="tab-content">
+            <div class="warning-box">
+                <strong>⏱️ Durée totale :</strong> ~30 min (inclut signature eSignatures)
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">🧪 Test MTM — Parcours B2B Complet</div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Étape 1 : Quiz Lead (Manychat Formation)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Remplir le quiz MTM/Formation dans Manychat (INTERET=formation)
+                        </div>
+                        <div class="test-data">
+                            <div class="data-line"><span class="key">Email:</span> <span class="value">test-mtm@example.com</span></div>
+                            <div class="data-line"><span class="key">Intérêt:</span> <span class="value">Formation</span></div>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier dans Brevo :</div>
+                            ✓ Contact créé test-mtm@example.com<br/>
+                            ✓ <code>INTERET=formation</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Étape 2 : Attendre Nurture Pré-Vente (Brevo #154-175)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre 5 min
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Emails pré-vente #154+ reçus (présentation formation + CTA contrat)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Étape 3 : Signer Contrat eSignatures</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller dans eSignatures.com, trouver le contrat en attente pour test-mtm@example.com, signer
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Contrat signé (status = "signed" dans eSignatures)<br/>
+                            ✓ Email de confirmation reçu
+                        </div>
+                        <div class="timing">⏱️ Attendre webhook eSignatures → n8n (5-10 sec)</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Étape 4 : Vérifier Brevo (Post-Signature)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller dans Brevo, chercher test-mtm@example.com
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Contact marqué comme ayant signé (attribut custom ou liste)<br/>
+                            ✓ Historique eSignature dans Brevo (webhook reçu)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Étape 5 : Achat MTM (Stripe — post-signature)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller sur lien Stripe MTM (les prix varient), payer avec 4242 4242 4242 4242
+                        </div>
+                        <div class="test-data">
+                            <div class="data-line"><span class="key">Email:</span> <span class="value">test-mtm@example.com</span></div>
+                            <div class="data-line"><span class="key">Montant:</span> <span class="value">X EUR (prix MTM)</span></div>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier dans Stripe :</div>
+                            ✓ Charge créée (status = succeeded)<br/>
+                            ✓ Subscription MTM créée
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">6</div>
+                        <div class="step-title">Étape 6 : Vérifier Brevo + Circle (Workflow 01 + 04)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre 10 sec (Workflow 01 + 04)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier dans Brevo :</div>
+                            ✓ <code>STATUT_MEMBRE=active</code><br/>
+                            ✓ <code>OFFRE=mtm</code><br/>
+                            ✓ <code>DATE_ACHAT=aujourd'hui</code><br/>
+                            <br/>
+                            <strong>Vérifier Circle :</strong><br/>
+                            ✓ Invitation email reçue<br/>
+                            ✓ Accès groupe MTM (1025924) OK
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">7</div>
+                        <div class="step-title">Étape 7 : Attendre Email Onboarding MTM (#178-183)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre 5 min (Brevo automation Onboarding MTM)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Emails onboarding reçus (#178-183)<br/>
+                            ✓ Contiennent guides, checklist démarrage, planning
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <strong>✅ MTM Test OK si :</strong> Quiz → Nurture → Signature eSignatures → Achat Stripe → STATUT_MEMBRE=active + OFFRE=mtm → Circle invite → Onboarding reçu
+                </div>
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">📋 Checklist MTM Test</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="mtm-test-1">
+                        <label for="mtm-test-1">Quiz Formation lancé → Contact créé Brevo (INTERET=formation)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="mtm-test-2">
+                        <label for="mtm-test-2">Emails Nurture pré-vente reçus</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="mtm-test-3">
+                        <label for="mtm-test-3">Contrat eSignatures signé (webhook reçu)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="mtm-test-4">
+                        <label for="mtm-test-4">Achat Stripe MTM réussi</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="mtm-test-5">
+                        <label for="mtm-test-5">Brevo attribué STATUT_MEMBRE=active + OFFRE=mtm + DATE_ACHAT</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="mtm-test-6">
+                        <label for="mtm-test-6">Invitation Circle groupe MTM (1025924) reçue</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="mtm-test-7">
+                        <label for="mtm-test-7">Onboarding MTM emails reçus (#178-183)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ADVANCED TESTS ===== -->
+        <div id="test-advanced" class="tab-content">
+            <div class="test-phase">
+                <div class="phase-title">🔬 Tests Avancés (Cas Limites)</div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Test : Annulation Stripe → Reconquête</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Aller dans Stripe Dashboard → Subscriptions → trouver la subscription test → Cancel
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier après 10 sec :</div>
+                            ✓ Webhook charge.refunded envoyé (Workflow 02)<br/>
+                            ✓ Dans Brevo : <code>STATUT_MEMBRE=churned</code><br/>
+                            ✓ Email reconquête #204-205 déclenché après 5 min
+                        </div>
+                        <div class="timing">⏱️ Si automation Anti-Churn est ON, les emails devraient partir automatiquement</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Test : Doublon Email (Même personne 2x)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Remplir le quiz 2 fois avec le même email test-fsy@example.com
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Brevo <strong>ne crée pas de doublon</strong> (merge avec contact existant)<br/>
+                            ✓ Contact a les 2 quiz dans historique (pas 2 contacts)<br/>
+                            ✓ Pas d'email en double
+                        </div>
+                        <div class="timing">⏱️ Brevo gère ça nativement (deduplication par email)</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Test : UTM Tracking</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Créer lien UTM : <code>https://csbusiness.fr/?utm_source=instagram&utm_medium=post&utm_campaign=summer</code>
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier dans Brevo :</div>
+                            ✓ Contact a <code>UTM_SOURCE=instagram</code><br/>
+                            ✓ <code>UTM_MEDIUM=post</code><br/>
+                            ✓ <code>UTM_CAMPAIGN=summer</code>
+                        </div>
+                        <div class="timing">⏱️ Brevo capture les UTM automatiquement (Google Analytics integration)</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Test : Inactivité 14j (Workflow 08)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Créer un contact, le mettre dans Circle, mais lui mettre une DATE_ACHAT d'il y a 15 jours (manuellement dans Brevo)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier après 24h :</div>
+                            ✓ Workflow 08 déclenche (quotidien)<br/>
+                            ✓ Email alerte inactivité envoyé à Laurie + Catherine
+                        </div>
+                        <div class="timing">⏱️ Workflow 08 tourne chaque jour, il détecte les contacts inactifs 14j</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Test : Rapport Hebdo (Workflow 07)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action</div>
+                            Attendre lundi 9h (ou forcer manuellement le workflow dans n8n)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Vérifier :</div>
+                            ✓ Email rapport reçu par Catherine<br/>
+                            ✓ Contient : nouveaux contacts, conversions FSY/MTM, churn, répartition par offre<br/>
+                            ✓ Design professionnel, données correctes
+                        </div>
+                        <div class="timing">⏱️ Pour tester vite : n8n Workflow 07 → bouton Execute</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">📋 Checklist Tests Avancés</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="adv-test-1">
+                        <label for="adv-test-1">Annulation Stripe → STATUT_MEMBRE=churned + emails reconquête déclenchés</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="adv-test-2">
+                        <label for="adv-test-2">Doublon email → pas de création doublon, merge OK</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="adv-test-3">
+                        <label for="adv-test-3">UTM tracking → attributs UTM_SOURCE/MEDIUM/CAMPAIGN remplis</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="adv-test-4">
+                        <label for="adv-test-4">Inactivité 14j → alerte envoyée (Workflow 08)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="adv-test-5">
+                        <label for="adv-test-5">Rapport Hebdo → email lundi 9h avec stats OK</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ROLLBACK ===== -->
+        <div id="rollback" class="tab-content">
+            <div class="warning-box">
+                <strong>🚨 Plan de Rollback :</strong> Si quelque chose casse en prod, comment revenir en arrière rapidement.
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">⛔ Rollback — Retrouver la Situation</div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Si Emails ne s'envoient plus</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action Rapide</div>
+                            Aller Brevo → Automations → vérifier tous les interrupteurs (ON ou OFF ?)
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Hypothèses à tester :</div>
+                            1️⃣ Une automation OFF ? Cliquer le bouton vert "Activer"<br/>
+                            2️⃣ n8n workflow DOWN ? Aller n8n → vérifier les logs d'erreur<br/>
+                            3️⃣ API credentials invalide ? Tester une notification test dans Brevo<br/>
+                            4️⃣ Contact pas dans la bonne automation ? Vérifier les attributs (INTERET, STATUT_MEMBRE, OFFRE)
+                        </div>
+                        <div class="timing">⏱️ Temps résolution : 2-5 min</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Si Achat Stripe ne crée pas de STATUT_MEMBRE=active</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action Rapide</div>
+                            Stripe → Settings → Webhooks → voir si y'a des "Failed" deliveries
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Hypothèses :</div>
+                            1️⃣ Webhook OFF ? L'activer dans Stripe<br/>
+                            2️⃣ Webhook URL mauvaise ou changée ? Mettre à jour l'endpoint n8n<br/>
+                            3️⃣ n8n Workflow 01 OFF ? L'activer<br/>
+                            4️⃣ Brevo API credentials dans n8n invalides ? Les regénérer et les re-configurer
+                        </div>
+                        <div class="timing">⏱️ Temps résolution : 5-10 min</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Si Contact ne reçoit pas d'invitation Circle</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action Rapide</div>
+                            n8n → Workflow 04 → voir les logs de la dernière exécution
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Hypothèses :</div>
+                            1️⃣ Workflow 04 OFF ? L'activer<br/>
+                            2️⃣ Circle API Token expiré ? Regénérer et re-mettre dans n8n<br/>
+                            3️⃣ Erreur "Group ID invalide" ? Vérifier les IDs Circle (1035229 pour FSY, 1025924 pour MTM)<br/>
+                            4️⃣ Contact pas dans Brevo avec bon OFFRE ? Vérifier l'attribut OFFRE
+                        </div>
+                        <div class="timing">⏱️ Temps résolution : 3-8 min</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Si Contact reçoit des emails en double (ou pas du tout)</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Action Rapide</div>
+                            Brevo → Contact → voir "Email Activity" ou "Automation History"
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Hypothèses :</div>
+                            1️⃣ Email dans liste d'exclusion/blocage ? Vérifier Brevo → Suppressed contacts<br/>
+                            2️⃣ Automation lancée 2x (doublon contact) ? Faire un merge dans Brevo<br/>
+                            3️⃣ Contact ne match pas les conditions (INTERET ≠ yoga) ? Ajouter manuellement l'attribut
+                        </div>
+                        <div class="timing">⏱️ Temps résolution : 3-5 min</div>
+                    </div>
+                </div>
+
+                <div class="test-step">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Plan Contingency : Revenir à la Situation Avant</div>
+                    </div>
+                    <div class="step-content">
+                        <div class="action">
+                            <div class="action-label">Scénario Catastrophe</div>
+                            Quelque chose a vraiment cassé, on veut revenir à l'état de AVANT les tests
+                        </div>
+                        <div class="verify">
+                            <div class="verify-label">Étapes :</div>
+                            <strong>1. Désactiver les workflows n8n :</strong><br/>
+                            &nbsp;&nbsp;n8n → Workflow 01, 04, 05, 07, 08 → toggle "Active" OFF<br/>
+                            <br/>
+                            <strong>2. Désactiver les automations Brevo :</strong><br/>
+                            &nbsp;&nbsp;Brevo → Automations → cliquer sur chaque → bouton "Pause" ou OFF<br/>
+                            <br/>
+                            <strong>3. Désactiver le webhook Stripe (tempo) :</strong><br/>
+                            &nbsp;&nbsp;Stripe → Settings → Webhooks → trouver l'endpoint → cliquer sur le toggle OFF<br/>
+                            <br/>
+                            <strong>4. Supprimer les contacts de test :</strong><br/>
+                            &nbsp;&nbsp;Brevo → Contacts → chercher test-fsy@, test-mtm@ → supprimer<br/>
+                            <br/>
+                            <strong>5. Annuler les subscriptions de test dans Stripe :</strong><br/>
+                            &nbsp;&nbsp;Stripe → Subscriptions → chercher les subscriptions test → Cancel
+                        </div>
+                        <div class="timing">⏱️ Temps total : 10 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-phase">
+                <div class="phase-title">📋 Checklist Rollback</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="rollback-1">
+                        <label for="rollback-1">n8n Workflows 01, 04, 05, 07, 08 → OFF</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="rollback-2">
+                        <label for="rollback-2">Brevo Automations (8 sequences) → Pause/OFF</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="rollback-3">
+                        <label for="rollback-3">Stripe Webhook → OFF (Settings → Webhooks toggle)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="rollback-4">
+                        <label for="rollback-4">Contacts de test (test-fsy@, test-mtm@) → supprimés</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="rollback-5">
+                        <label for="rollback-5">Subscriptions Stripe de test → canceled</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>✅ Après Rollback :</strong> Aucun workflow ne tourne, aucun email n'est envoyé, Stripe ne parle pas à n8n. Vous êtes à l'état "avant tests". Vous pouvez redémarrer tranquillement après correction.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.checked);
+            });
+            if (localStorage.getItem(checkbox.id)) {
+                checkbox.checked = localStorage.getItem(checkbox.id) === 'true';
+            }
+        });
+    </script>
+</body>
+</html>

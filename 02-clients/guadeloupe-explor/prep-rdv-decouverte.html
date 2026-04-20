@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Prep RDV — Taina THARSIS / Guadeloupe Explor</title>
+<style>
+  @media print {
+    body { margin: 1.5cm; font-size: 12px; }
+    .page-break { page-break-before: always; }
+    a { color: #333; }
+    .no-print { display: none; }
+  }
+  @media screen {
+    body { max-width: 820px; margin: 40px auto; padding: 0 20px; }
+  }
+  body {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #222;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 3px solid #C27A5A;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+  .header h1 {
+    font-size: 22px;
+    color: #C27A5A;
+    margin: 0;
+  }
+  .header .meta {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+  }
+  .header .meta strong {
+    color: #C27A5A;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 15px;
+    color: #C27A5A;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
+  }
+  h3 {
+    font-size: 13px;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    color: #444;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 12px 0;
+    font-size: 12.5px;
+  }
+  th {
+    background: #f5f0ec;
+    color: #C27A5A;
+    text-align: left;
+    padding: 5px 10px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 4px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  /* Boxes */
+  .quote-box {
+    background: #FFF7ED;
+    border-left: 4px solid #C27A5A;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+    color: #555;
+  }
+  .tip-box {
+    background: #FFF7ED;
+    border-left: 4px solid #C27A5A;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .tip-box strong { color: #C27A5A; }
+  .note-box {
+    background: #f0f7ff;
+    border-left: 4px solid #3B82F6;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .warning-box {
+    background: #FEF2F2;
+    border-left: 4px solid #EF4444;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .success-box {
+    background: #F0FDF4;
+    border-left: 4px solid #22C55E;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* Phase labels */
+  .phase {
+    display: inline-block;
+    background: #C27A5A;
+    color: white;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-right: 8px;
+  }
+  .phase-time {
+    color: #999;
+    font-size: 12px;
+  }
+
+  /* Lists */
+  ol, ul { margin: 4px 0; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    margin-right: 4px;
+  }
+  .tag-red { background: #EF4444; }
+  .tag-orange { background: #F59E0B; }
+  .tag-green { background: #22C55E; }
+  .tag-blue { background: #3B82F6; }
+
+  /* Pricing */
+  .pricing-table td { text-align: center; }
+  .pricing-table td:first-child { text-align: left; }
+  .pricing-reco {
+    background: #FFF7ED;
+    font-weight: bold;
+  }
+
+  /* Checklist */
+  .checklist { list-style: none; padding-left: 2px; }
+  .checklist li { margin-bottom: 5px; }
+  .checklist li::before {
+    content: "\2610  ";
+    font-size: 15px;
+  }
+
+  /* Question style */
+  .question {
+    background: #fafafa;
+    border-left: 3px solid #ddd;
+    padding: 4px 12px;
+    margin: 4px 0;
+    font-style: italic;
+    color: #444;
+    font-size: 12.5px;
+  }
+
+  /* Two columns */
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media print {
+    .two-cols { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Prep RDV Decouverte</h1>
+    <span style="font-size:18px; font-weight:bold;">Taina THARSIS — Guadeloupe Explor</span>
+  </div>
+  <div class="meta">
+    <strong>10 mars 2026</strong><br>
+    45 minutes<br>
+    Appel decouverte
+  </div>
+</div>
+
+<!-- FICHE PROSPECT -->
+<div class="two-cols">
+  <div>
+    <h2>Fiche prospect</h2>
+    <table>
+      <tr><td>Nom</td><td>Taina THARSIS</td></tr>
+      <tr><td>Entreprise</td><td>Guadeloupe Explor</td></tr>
+      <tr><td>Secteur</td><td>Tourisme — Guadeloupe</td></tr>
+      <tr><td>Site</td><td>www.guadeloupe-explor.com</td></tr>
+      <tr><td>Email</td><td>ttharsis@guadeloupe-explor.com</td></tr>
+      <tr><td>Tel</td><td>+590 690 249 808</td></tr>
+      <tr><td>Equipe</td><td>1-3 personnes</td></tr>
+      <tr><td>CA actuel</td><td>300 — 500K EUR</td></tr>
+      <tr><td>Objectif CA</td><td><strong>1M EUR</strong> saison prochaine</td></tr>
+    </table>
+  </div>
+  <div>
+    <h2>Maturite digitale</h2>
+    <table>
+      <tr><td>Auto-evaluation</td><td>10/10</td></tr>
+      <tr><td>Outils actuels</td><td>ChatGPT</td></tr>
+      <tr><td>Notion</td><td><span class="tag tag-red">Non</span></td></tr>
+      <tr><td>Nocode</td><td><span class="tag tag-red">Non</span></td></tr>
+      <tr><td>Automatisations</td><td><span class="tag tag-red">Pas vraiment</span></td></tr>
+      <tr><td>Logiciel metier</td><td><span class="tag tag-orange">Achete, non deploye</span></td></tr>
+    </table>
+
+    <div class="success-box">
+      <strong>Profil ideal :</strong> motivation max, CA pour investir, tout a construire, embauche imminente.
+    </div>
+  </div>
+</div>
+
+<!-- VERBATIM -->
+<h2>Ce qu'elle dit</h2>
+<div class="quote-box">
+  "TOUT A FAIRE : trop dans l'operationnel : je viens de refuser une mission pour avoir le temps ! je n'ai plus le choix — mais j'ai failli le faire ! <strong>je casse tout pour refaire bien mieux ! je suis a fond !</strong>"
+</div>
+<div class="quote-box">
+  "Je manque de process car je fais tout ! et la quantite augmentant je commence a me dire que <strong>je m'y perds !</strong>"
+</div>
+
+<!-- DOULEURS & OBJECTIFS -->
+<div class="two-cols">
+  <div>
+    <h2>Douleurs identifiees</h2>
+    <ol>
+      <li><strong>Noyee dans l'operationnel</strong> — refuse des missions faute de temps</li>
+      <li><strong>Factures fournisseurs</strong> — reception, validation, controle, relances</li>
+      <li><strong>Factures clients</strong> — suivi, relances impayees</li>
+      <li><strong>Comptabilite</strong> — pieces comptables avec bons codes</li>
+      <li><strong>Zero process</strong> — tout dans sa tete, ca ne scale pas</li>
+      <li><strong>Logiciel metier</strong> — achete jamais deploye</li>
+      <li><strong>Satisfaction client</strong> — inexistant ou manuel</li>
+      <li><strong>Surcharge mails</strong></li>
+    </ol>
+  </div>
+  <div>
+    <h2>Objectifs de Taina</h2>
+    <ol>
+      <li><strong>Maintenir le CA</strong> sur ce bilan</li>
+      <li><strong>1M EUR</strong> saison prochaine</li>
+      <li><strong>Deleguer</strong> pour se concentrer sur la strategie</li>
+      <li><strong>Embaucher une assistante</strong> — personne identifiee, teletravail, besoin fiche de poste</li>
+      <li><strong>Embaucher un conseiller voyage</strong> — postulants identifies</li>
+    </ol>
+
+    <div class="tip-box">
+      <strong>Levier cle :</strong> Elle va embaucher SANS process. Si on structure avant, l'assistante est operationnelle jour 1.
+    </div>
+  </div>
+</div>
+
+<!-- DEROULEMENT RDV -->
+<div class="page-break"></div>
+<h2>Deroulement du RDV — 45 min</h2>
+
+<!-- Phase 1 -->
+<h3><span class="phase">1</span> Connexion <span class="phase-time">— 5 min</span></h3>
+<ul>
+  <li>Presenter rapidement CS Consulting</li>
+  <li>"J'ai lu tes reponses. Tu es a un moment charniere. Raconte-moi."</li>
+  <li>Laisser Taina parler de sa situation</li>
+</ul>
+
+<!-- Phase 2 -->
+<h3><span class="phase">2</span> Approfondissement des douleurs <span class="phase-time">— 15 min</span></h3>
+
+<p><strong>Sur l'operationnel :</strong></p>
+<div class="question">"Combien d'heures par semaine tu passes sur l'administratif pur ? (factures, relances, compta)"</div>
+<div class="question">"Tu as refuse combien de missions ces derniers mois a cause du manque de temps ?"</div>
+<div class="question">"Si tu devais estimer le CA perdu a cause de ca ?"</div>
+
+<p><strong>Sur les factures :</strong></p>
+<div class="question">"C'est quoi le process aujourd'hui ? Tu recois une facture fournisseur, ensuite il se passe quoi ?"</div>
+<div class="question">"Les relances clients, tu les fais a la main ? Avec quelle frequence ?"</div>
+<div class="question">"Combien de factures par mois environ (clients + fournisseurs) ?"</div>
+
+<p><strong>Sur le logiciel metier :</strong></p>
+<div class="question">"C'est quoi ce logiciel que tu as deja ? Pourquoi ca n'a pas ete deploye ?"</div>
+<div class="question">"C'est un outil metier tourisme type Orchestra, TravelSoft ?"</div>
+
+<p><strong>Sur l'embauche :</strong></p>
+<div class="question">"L'assistante, elle commence quand ? Tu as deja defini son perimetre ?"</div>
+<div class="question">"Si elle arrivait demain, tu saurais lui donner quoi comme process a suivre ?"</div>
+<p style="font-size:11px; color:#999; margin-left:15px;">→ Reponse attendue : non. C'est la que Catherine intervient.</p>
+
+<!-- Phase 3 -->
+<h3><span class="phase">3</span> Vision & projection <span class="phase-time">— 10 min</span></h3>
+<div class="question">"Imagine dans 9 mois : tu as tes process, ton assistante est autonome, tes factures tournent toutes seules. Tu fais quoi de tes journees ?"</div>
+<div class="question">"Le million, il vient d'ou ? Plus de volume ? Plus de valeur par client ? Nouveaux produits ?"</div>
+<div class="question">"Qu'est-ce qui se passe si tu ne changes rien dans les 6 prochains mois ?"</div>
+
+<!-- Phase 4 -->
+<h3><span class="phase">4</span> Presentation de l'accompagnement <span class="phase-time">— 10 min</span></h3>
+
+<div class="tip-box">
+  <strong>Positionnement :</strong><br>
+  "Je ne suis pas une consultante qui te donne un PDF et disparait."<br>
+  "Je t'accompagne pour CONSTRUIRE tes fondations digitales et tes process, pour que tu puisses scaler sereinement."<br>
+  "La feuille de route, on la construit ENSEMBLE apres 2-3 seances, quand j'ai vraiment compris ton business."
+</div>
+
+<p><strong>Ce qu'on fait concretement :</strong></p>
+<ol>
+  <li><strong>Structurer les process</strong> — avant que l'assistante arrive</li>
+  <li><strong>Deployer les outils</strong> — Notion (QG central), logiciel metier, automatisations</li>
+  <li><strong>Automatiser</strong> — 1 a 2 automatisations incluses selon la formule</li>
+  <li><strong>Former</strong> — Taina + l'assistante quand elle arrive</li>
+  <li><strong>Accompagner dans la duree</strong> — RDV reguliers, support, ajustements</li>
+</ol>
+
+<p><strong>Proposition tarifaire :</strong></p>
+<table class="pricing-table">
+  <tr>
+    <th>Formule</th>
+    <th>Duree</th>
+    <th>Prix HT</th>
+    <th>Mensuel</th>
+    <th>Automatisations</th>
+    <th>Valeur totale</th>
+  </tr>
+  <tr>
+    <td style="text-align:left;">Acceleration</td>
+    <td>6 mois</td>
+    <td>9 000 EUR</td>
+    <td>1 500 EUR/mois</td>
+    <td>1 incluse <span style="font-size:11px; color:#999;">(valeur 2 500 EUR)</span></td>
+    <td>11 500 EUR</td>
+  </tr>
+  <tr class="pricing-reco">
+    <td style="text-align:left;">Transformation ★</td>
+    <td>9 mois</td>
+    <td>13 500 EUR</td>
+    <td>1 500 EUR/mois</td>
+    <td><strong>2 incluses</strong> <span style="font-size:11px; color:#999;">(valeur 5 000 EUR)</span></td>
+    <td><strong>18 500 EUR</strong></td>
+  </tr>
+</table>
+
+<div class="success-box" style="margin-top:8px;">
+  <strong>Economie 9 mois :</strong> meme tarif mensuel, mais 3 mois d'accompagnement + la 2eme automatisation en plus = <strong>5 000 EUR de valeur supplementaire</strong> pour seulement 4 500 EUR de plus.
+</div>
+
+<p><strong>Modalites de paiement :</strong></p>
+<table>
+  <tr><th>Option</th><th>6 mois / 9 000 EUR</th><th>9 mois / 13 500 EUR</th></tr>
+  <tr class="pricing-reco">
+    <td><strong>En 3 fois</strong> (sans frais)</td>
+    <td>3 x 3 000 EUR</td>
+    <td>3 x 4 500 EUR</td>
+  </tr>
+  <tr>
+    <td>Mensuel (avec majoration)</td>
+    <td>6 x 1 650 EUR <span style="font-size:11px; color:#999;">(= 9 900 EUR, +10%)</span></td>
+    <td>9 x 1 650 EUR <span style="font-size:11px; color:#999;">(= 14 850 EUR, +10%)</span></td>
+  </tr>
+</table>
+<p style="font-size:11px; color:#999;">Paiement en 3 fois : a la signature, M+1, M+2. Paiement par virement ou CB (lien Stripe).</p>
+
+<div class="tip-box">
+  <strong>Strategie :</strong> Presenter d'abord le paiement en 3 fois (sans frais). Le mensuel est un plan B — la majoration de 10% incite a choisir le 3 fois.
+</div>
+
+<div class="note-box">
+  "Sur 9 mois, tu as le meme tarif mensuel, mais je t'inclus la 2eme automatisation et 3 mois d'accompagnement en plus. Avec tout ce que tu as a structurer — process, assistante, logiciel metier — <strong>les 9 mois te laissent le temps de tout deployer sereinement.</strong>"
+</div>
+
+<!-- Phase 5 -->
+<h3><span class="phase">5</span> Cloture <span class="phase-time">— 5 min</span></h3>
+<ul>
+  <li>"Qu'est-ce que tu en penses ?"</li>
+  <li>"Tu as des questions ?"</li>
+  <li>Ne pas forcer — elle est deja convaincue (<em>"je suis a fond"</em>)</li>
+  <li>Si elle hesite : "Prends le temps d'y reflechir. Je t'envoie un recapitulatif par mail."</li>
+  <li>Si elle valide : proposer un RDV de demarrage semaine suivante</li>
+</ul>
+
+<!-- OBJECTIONS -->
+<h2>Gestion des objections</h2>
+<table>
+  <tr><th>Objection</th><th>Reponse</th></tr>
+  <tr>
+    <td>"13,5K c'est cher"</td>
+    <td>"Tu viens de refuser une mission pour avoir le temps. Combien de CA perdu ? On va te liberer 10-15h/semaine. Et les 2 automatisations incluses valent 5 000 EUR a elles seules."</td>
+  </tr>
+  <tr>
+    <td>"Je peux le faire seule"</td>
+    <td>"Tu as le logiciel metier depuis combien de temps sans l'avoir deploye ? Le probleme n'est pas la volonte, c'est le temps et la methode."</td>
+  </tr>
+  <tr>
+    <td>"Pourquoi 9 mois ?"</td>
+    <td>"Structurer + deployer + former l'assistante + ajuster = il faut du temps. En 6 mois on fait les fondations, en 9 on batit la machine."</td>
+  </tr>
+  <tr>
+    <td>"Je suis en Guadeloupe"</td>
+    <td>"100% a distance, ca marche parfaitement. Tous mes outils sont en ligne."</td>
+  </tr>
+</table>
+
+<!-- AUTOMATISATIONS -->
+<h2>Les 2 automatisations proposees</h2>
+<div class="two-cols">
+  <div class="tip-box">
+    <strong>1. Workflow factures fournisseurs</strong><br>
+    Reception email → extraction auto → validation dans Notion → envoi compta avec bon code analytique
+  </div>
+  <div class="tip-box">
+    <strong>2. Suivi satisfaction client</strong><br>
+    Fin de prestation → questionnaire auto → alerte si insatisfaction → relance avis Google
+  </div>
+</div>
+
+<!-- CHECKLIST -->
+<h2>Checklist Catherine — Avant le RDV</h2>
+<ul class="checklist">
+  <li>Visiter www.guadeloupe-explor.com (prestations, positionnement, avis)</li>
+  <li>Regarder ses reseaux sociaux (Instagram, Facebook, TripAdvisor)</li>
+  <li>Verifier le decalage horaire Guadeloupe (UTC-4 = -5h vs France metropolitaine en mars)</li>
+  <li>Pas de slides — juste ecouter, noter, rebondir</li>
+  <li>Avoir cette fiche et la grille tarifaire sous les yeux</li>
+</ul>
+
+</body>
+</html>

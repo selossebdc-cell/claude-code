@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Deliverables — CS Consulting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #C27A5A 0%, #A0593E 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 14px;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            padding: 25px;
+            border-left: 5px solid #C27A5A;
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .card-meta {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 20px 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .card-info {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+            border-left: 3px solid #C27A5A;
+        }
+
+        .card-links {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #C27A5A;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #A0593E;
+        }
+
+        .btn-secondary {
+            background: #e3f2fd;
+            color: #1565C0;
+        }
+
+        .btn-secondary:hover {
+            background: #bbdefb;
+        }
+
+        .status {
+            display: inline-block;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .status-ready {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-draft {
+            background: #FF9800;
+            color: white;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            border-left: 5px solid #C27A5A;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #C27A5A;
+        }
+
+        .section p {
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+
+        .section ul {
+            margin-left: 20px;
+            color: #666;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #888;
+            font-size: 12px;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Skills Deliverables</h1>
+            <div class="subtitle">CS Consulting Strategique</div>
+            <div class="description">
+                Documents HTML professionnels produits pour Catherine et ses clients.
+                Tous les livrables sont organisés, versionnés, et prêts à partager.
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- PLANNING LIVRAISON -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📅</div>
+                    <div class="card-title">Planning Livraison</div>
+                    <div class="card-meta">FSY — Projet</div>
+                </div>
+                <div class="card-content">
+                    <span class="status status-ready">✅ PRÊT</span>
+                    <div class="card-description">
+                        Planning jour par jour (lundi-jeudi) pour déliver tous les workflows FSY avant le deadline.
+                    </div>
+                    <div class="card-info">
+                        Dates : 20-23 avril 2026<br>
+                        Client : Aurélia Delsol<br>
+                        Status : En cours
+                    </div>
+                    <div class="card-links">
+                        <a href="planning-livraison-jeudi.html" class="btn btn-primary">Ouvrir le planning</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAIL LAURIE -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📧</div>
+                    <div class="card-title">Mail à Laurie</div>
+                    <div class="card-meta">UTM Generator</div>
+                </div>
+                <div class="card-content">
+                    <span class="status status-ready">✅ PRÊT</span>
+                    <div class="card-description">
+                        Mail pour demander à Laurie de générer les liens UTM FSY (Studio, MTM, Licence).
+                    </div>
+                    <div class="card-info">
+                        Deadline : Lundi 20 avril<br>
+                        Destinataire : Laurie<br>
+                        Action : À envoyer
+                    </div>
+                    <div class="card-links">
+                        <a href="mail-laurie-utm.html" class="btn btn-primary">Voir le mail</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BRIEF MICHAEL -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💬</div>
+                    <div class="card-title">Brief Chatbots</div>
+                    <div class="card-meta">Mickaël — Spécifications</div>
+                </div>
+                <div class="card-content">
+                    <span class="status status-ready">✅ PRÊT</span>
+                    <div class="card-description">
+                        Spécification complète pour développement des chatbots MTM Telegram + FSY WhatsApp.
+                    </div>
+                    <div class="card-info">
+                        Timeline : 21-23 avril<br>
+                        Deliverables : 3 (Telegram doc + WhatsApp dev + Guide)<br>
+                        Validation : Dimanche 18h
+                    </div>
+                    <div class="card-links">
+                        <a href="brief-michael-chatbots.html" class="btn btn-primary">Lire le brief</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKLIST VALIDATION -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">✅</div>
+                    <div class="card-title">Checklist Validation</div>
+                    <div class="card-meta">Dimanche 23 avril</div>
+                </div>
+                <div class="card-content">
+                    <span class="status status-ready">✅ PRÊT</span>
+                    <div class="card-description">
+                        Checklist complète pour la validation finale des automations, migrations et chatbots.
+                    </div>
+                    <div class="card-info">
+                        Date : Dimanche 23 avril 18h<br>
+                        Validateur : Catherine<br>
+                        Critères : 3 niveaux (Go / Continue / Defer)
+                    </div>
+                    <div class="card-links">
+                        <a href="checklist-dimanche-validation.html" class="btn btn-primary">Ouvrir checklist</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GUIDE D'UTILISATION -->
+        <div class="section">
+            <h2>📖 Comment utiliser ces deliverables</h2>
+            <p>
+                Ces documents sont conçus pour être partagés directement avec vos clients ou collaborateurs.
+                Ils sont indépendants, prêts à l'emploi, et formatés professionnellement.
+            </p>
+            <ul>
+                <li><strong>Planning Livraison :</strong> À envoyer à l'équipe projet (imprimer ou partager via email)</li>
+                <li><strong>Mail Laurie :</strong> À copier/coller directement dans votre client email</li>
+                <li><strong>Brief Mickaël :</strong> À partager pour le briefing de développement</li>
+                <li><strong>Checklist :</strong> À utiliser pour la validation finale dimanche</li>
+            </ul>
+        </div>
+
+        <!-- SPÉCIFICATIONS -->
+        <div class="section">
+            <h2>🛠️ Spécifications techniques</h2>
+            <p>
+                Tous les documents respectent les standards de qualité CS Consulting :
+            </p>
+            <ul>
+                <li>✓ HTML5 sémantique + CSS responsive</li>
+                <li>✓ Design cohérent avec la charte (terracotta #C27A5A)</li>
+                <li>✓ Totalement autonomes (zéro dépendance externe)</li>
+                <li>✓ Prêts à imprimer (optimisés pour print)</li>
+                <li>✓ Accessibles et lisibles sur mobile</li>
+                <li>✓ Versions datées dans le footer</li>
+            </ul>
+        </div>
+
+        <footer>
+            Skills Deliverables — Mise à jour 20 avril 2026<br>
+            <em>Pour toute question ou amélioration, contacter Catherine</em>
+        </footer>
+    </div>
+</body>
+</html>

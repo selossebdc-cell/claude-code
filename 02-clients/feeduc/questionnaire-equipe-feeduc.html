@@ -648,7 +648,10 @@
     try {
       const response = await fetch(SUPABASE_FUNCTION_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRjeW5saWZnZ2ppcXFpaGluY2JwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2NTUyNTIsImV4cCI6MjA4OTIzMTI1Mn0.zsJnkswhmnzLCcO--0PwxJtIfTFL8C2p6_gqMM-V3bI'
+        },
         body: JSON.stringify(data)
       });
 

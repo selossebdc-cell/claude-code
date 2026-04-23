@@ -8,7 +8,7 @@ description: "Construit la feuille de route stratégique personnalisée d'un cli
 Tu construis la feuille de route personnalisée des clients de Catherine Selosse (CS Consulting Stratégique). La feuille de route est le livrable central de l'accompagnement : elle traduit le diagnostic en actions concrètes, phasées et réalistes.
 
 Avant de commencer, lis les références :
-- `references/structure-feuille-de-route.md` — schéma Notion, phases, propriétés
+- `references/template-feuille-de-route.md` — schéma feuille de route, phases, propriétés
 - `references/guide-cartographie-process.md` — méthodologie de cartographie des process
 - `references/template-sop.md` — template SOP, méthode d'interview "Raconte-moi ta semaine", priorisation
 
@@ -38,11 +38,11 @@ Si des infos manquent, demande à Catherine.
 
 > **Règle** : Ne JAMAIS commencer une feuille de route sans avoir lu TOUS les documents disponibles.
 
-1. Lire `clients/[prenom-nom].md` — mémoire projet du client
-2. Lire le **contrat signé** dans Notion (page "Contrat & Conditions" du dashboard client)
-3. Lire les **réponses Fillout** (CSV ou section Questionnaire de la mémoire client)
-4. Lire les **CR d'échanges initiaux** (appel découverte, session de lancement)
-5. Identifier le dashboard Notion du client et ses databases (Feuille de Route, SOP & Process)
+1. Lire `/02-clients/[prenom-nom]/NOTES.md` — mémoire projet du client
+2. Lire le **contrat signé** depuis le dossier client (fichier contrat ou STATUS.md)
+3. Lire les **réponses Fillout** (CSV ou section Questionnaire de NOTES.md)
+4. Lire les **CR d'échanges initiaux** (dans SESSIONS.md ou CR dossier client)
+5. Identifier les fichiers Google Drive du client (NOTES.md, SESSIONS.md, SUIVI.md, STATUS.md)
 
 ### Étape 2 — Diagnostic de départ
 
@@ -62,7 +62,7 @@ Si des infos manquent, demande à Catherine.
 - Outils actuels et leur niveau d'intégration (score 1-5)
 - Vision à 3 ans et priorités 12 mois
 
-**Livrable** : Remplir la section "DIAGNOSTIC DE DÉPART" de la page "Feuille de Route Stratégique" dans Notion.
+**Livrable** : Remplir la section "DIAGNOSTIC DE DÉPART" dans `/02-clients/[client]/feuille-de-route.md`.
 
 Présenter le diagnostic à Catherine pour validation avant de continuer.
 
@@ -83,16 +83,16 @@ Sources pour identifier les process :
 - Appel découverte : problématiques identifiées
 - Contrat : objectifs spécifiques du programme
 
-#### 3b — Structurer dans la database "MES SOP & PROCESS"
+#### 3b — Structurer dans `/02-clients/[client]/feuille-de-route.md`
 
-Pour chaque process identifié, créer une entrée :
+Pour chaque process identifié, documenter dans la section "PROCESS & SOP À DOCUMENTER" (Phase 1-2) :
 
 | Champ | Valeur |
 |-------|--------|
-| Name | Nom du process (ex: "Clôture comptable mensuelle") |
-| Catégorie | Finance/Compta, Commercial, RH/Équipe, Opérations, Tech/Outils |
+| Process | Nom du process (ex: "Clôture comptable mensuelle") |
 | Fréquence | Quotidien, Hebdomadaire, Mensuel, Ponctuel |
-| Statut | À documenter |
+| Propriétaire | Qui en est responsable |
+| Status | À documenter |
 
 #### 3c — Identifier les process manquants
 
@@ -105,7 +105,7 @@ Comparer avec les process essentiels pour une TPE :
 
 #### 3d — Validation Catherine
 
-Présenter la cartographie complète à Catherine. Elle valide, ajuste, priorise AVANT de construire la feuille de route.
+Présenter la cartographie complète à Catherine dans `/02-clients/[client]/feuille-de-route.md`. Elle valide, ajuste, priorise AVANT de construire les phases d'action.
 
 ### Étape 4 — Construire la feuille de route
 
@@ -133,55 +133,49 @@ Présenter la cartographie complète à Catherine. Elle valide, ajuste, priorise
 
 > Les noms de phases peuvent être adaptés au contexte du client (ex: "Nettoyage", "Systématisation", "Vision & Scale" pour un profil plus avancé).
 
-#### Peupler la database "FEUILLE DE ROUTE"
+#### Peupler la section "PHASES DÉTAILLÉES"
 
-Pour chaque action, créer une entrée :
+Pour chaque action, structurer dans `/02-clients/[client]/feuille-de-route.md` :
 
 | Champ | Valeur |
 |-------|--------|
-| Name | Titre clair et actionnable |
-| Phase | Phase 0 / 1 / 2 / 3 |
+| Titre | Titre clair et actionnable |
+| Phase | Phase 1 / 2 / 3 (ou 0 pour quick wins) |
 | Priorité | Haute / Moyenne / Basse |
-| Type | À remplir / À uploader / À lire / À réfléchir / À valider |
+| Type | À documenter / À automatiser / À déléguer / À valider |
 | Temps estimé | 5 min / 15 min / 30 min / 1h / 2h+ |
 | Ordre | Séquence dans la phase (1, 2, 3...) |
-| Fait | Non (checkbox décochée) |
+| Statut | À faire / En cours / Fait |
 
-**Présenter la feuille de route complète à Catherine pour validation avant de pousser dans Notion.**
+**Présenter la feuille de route complète à Catherine pour validation avant de démarrer l'accompagnement.**
 
-### Étape 5 — Remplir la page stratégique
+### Étape 5 — Finaliser la feuille de route Google Drive
 
-Compléter la page "Feuille de Route Stratégique" dans Notion :
+Compléter `/02-clients/[client]/feuille-de-route.md` :
 
-1. **En-tête** : dates début/fin, objectif global
+1. **En-tête** : dates début/fin (création + validation), objectif global
 2. **Diagnostic de départ** : tableau des 5 dimensions (état actuel → objectif 6 mois)
-3. **Blocages identifiés** : liste des freins principaux (depuis Fillout + découverte)
-4. **Roadmap 6 mois** : résumé narratif des 4 phases (2-3 lignes par phase)
+3. **Problèmes principaux** : liste des freins principaux (depuis Fillout + découverte)
+4. **Phases détaillées** : actions concrètes pour chaque phase (avec timing et responsabilité)
 5. **Indicateurs de succès** : 3-5 KPIs mesurables (ex: "Passer de 5h/sem à 15h/sem de stratégie")
-6. **Engagement client** : objectif 6 mois en une phrase (citation du client depuis Fillout)
+6. **Hypothèses & Risques** : identifiés durant l'audit, mitigation prévue
 
-### Étape 6 — Mettre à jour la mémoire client
+### Étape 6 — Mettre à jour NOTES.md du client
 
-1. Lire `clients/[prenom-nom].md`
-2. Mettre à jour la section **Questionnaire Fillout** (7 sections) si pas encore fait
-3. Ajouter les Notion IDs des databases Feuille de Route et SOP & Process si manquants
+1. Lire `/02-clients/[prenom-nom]/NOTES.md`
+2. Mettre à jour la section **Audit Découverte** avec les résultats du diagnostic
+3. Ajouter lien vers `/02-clients/[client]/feuille-de-route.md` dans les références du dossier client
 4. Commit + push GitHub
 
 ## Data sources de référence
 
-### Modèle (template)
-- **Feuille de Route (database)** : voir le dashboard template
-- **SOP & Process (database)** : voir le dashboard template
+### Templates Google Drive
+- **template-feuille-de-route.md** : `/01-entreprise/references/template-feuille-de-route.md`
+- **template-NOTES.md** : `/01-entreprise/references/template-NOTES.md`
 
-### Fred
-- **Dashboard** : `2efc3a2f-4255-81c0-8c3a-fd9a5b39c6c0`
-- **Feuille de Route** : (database intégrée au dashboard)
-
-### Face Soul Yoga
-- **Dashboard** : `304c3a2f-4255-80da-b8b2-fef4e17f7243`
-- **Feuille de Route (database)** : `304c3a2f-4255-8126-a334-000bb2fe5505`
-- **SOP & Process (database)** : `304c3a2f-4255-81ae-8bae-000bef8717d0`
-- **Page stratégique** : `304c3a2f-4255-814d-a857-d766711d8825`
+### Exemples de feuilles de route complètes
+- **Fred** : `/02-clients/fred-andre/feuille-de-route.md` (exemple accompagnement classique)
+- **Face Soul Yoga** : `/02-clients/face-soul-yoga/feuille-de-route.md` (exemple DAta/KPI)
 
 ## Colonnes du questionnaire Fillout (référence CSV)
 
@@ -201,7 +195,7 @@ Le CSV d'audit stratégique contient ces catégories :
 1. **NE JAMAIS sauter la cartographie des process** (étape 3) — c'est le socle de tout
 2. **Maximum 20 actions** dans la feuille de route — less is more
 3. **Toujours lire le contrat signé** pour les engagements spécifiques
-4. **Catherine valide chaque étape** avant de pousser dans Notion
+4. **Catherine valide chaque étape** avant de finaliser la feuille de route
 5. **Actions concrètes uniquement** — pas de "réfléchir à..." mais "créer X", "lister Y", "configurer Z"
 6. **Adapter les phases au profil du client** — les noms et le contenu varient selon le diagnostic
 7. **Le client doit se sentir capable** en regardant sa feuille de route, jamais submergé

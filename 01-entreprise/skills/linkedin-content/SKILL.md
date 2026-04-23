@@ -21,7 +21,7 @@ Le style-guide est la source de vérité. Chaque post doit sonner comme si Cathe
 - Catherine partage une idée, une anecdote client, un apprentissage à transformer en post
 - Catherine demande des idées de contenu
 - Catherine veut un carrousel ou une story
-- Catherine dit "traite mes posts événements" → lire l'inbox Notion (voir Mode 4)
+- Catherine dit "traite mes posts événements" → lire l'inbox Google Drive (voir Mode 4)
 - Catherine partage directement des photos + contexte d'un événement
 
 ## Positionnement
@@ -67,18 +67,17 @@ Catherine manque d'inspiration ou veut explorer des angles.
 Catherine assiste à un événement et veut en faire un post LinkedIn.
 
 **Workflow mobile → desktop :**
-1. **Sur le téléphone** : Catherine ajoute une entrée dans la base Notion "LinkedIn Inbox" (voir `references/notion-inbox.md`) avec :
-   - Nom de l'événement
-   - 1-5 photos
-   - Quelques mots sur le ton / l'ambiance / ce qui l'a marquée
+1. **Sur le téléphone** : Catherine crée un dossier dans `/01-entreprise/inbox/linkedin/[nom-evenement]/` avec :
+   - Photos de l'événement
+   - Fichier `notes.txt` avec quelques mots sur le ton / l'ambiance / ce qui l'a marquée
 2. **Sur VSCode ou claude.ai** : Catherine dit "traite mes posts événements"
-3. **Le skill** lit l'inbox Notion, puis pour chaque entrée "À traiter" :
+3. **Le skill** lit le dossier inbox LinkedIn, puis pour chaque événement "À traiter" :
    - Analyse les photos et les notes
    - Identifie l'angle le plus pertinent (apprentissage, réseau, coulisses, prise de position)
    - Rédige le post en suivant les templates événement (voir templates-posts.md)
    - Propose 2-3 variantes de hooks
    - Suggère quelles photos utiliser et dans quel ordre
-4. **Catherine valide**, le skill passe le statut Notion à "Traité"
+4. **Catherine valide**, le skill archive l'événement dans `/01-entreprise/content/linkedin/[date]-[titre].html`
 
 **Types d'événements et angles :**
 

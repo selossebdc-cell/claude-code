@@ -24,7 +24,7 @@ Avant de commencer, lis les règles de planification :
 
 ### 1. Weekly Planner (skill compagnon)
 - Si le weekly-planner a déjà été exécuté dans la conversation, utiliser ses résultats
-- Sinon, scanner rapidement les mêmes sources (voir `weekly-planner/references/sources-notion.md`)
+- Sinon, scanner rapidement les mêmes sources (Google Calendar + `/02-clients/[client]/SUIVI.md` + `/01-entreprise/inbox/`)
 
 ### 2. Google Calendar existant
 - **TOUJOURS** lire le calendrier de la semaine AVANT d'écrire
@@ -38,11 +38,10 @@ Avant de commencer, lis les règles de planification :
 - Toujours écrire dans **catherine@csbusiness.fr** (calendarId = `catherine@csbusiness.fr`)
 - Sauf si Catherine demande un autre calendrier explicitement
 
-### 3. Notion — Tâches et priorités
-- Brain Dump Central : `2edc3a2f-4255-8141-ba62-e81c6e3a7bdb`
-- Dashboard Consulting Stratégique : `191c3a2f-4255-8017-b7e0-e993a6b38417`
-- **Mes Actions Consulting** : `7b0e4d79-18c3-4efd-97af-a28b21ac2ab6` ([lien Notion](https://www.notion.so/7b0e4d7918c34efd97afa28b21ac2ab6?v=6fd4377ac4bf4bc7872e6457e32af560)) — base centrale des actions Catherine, à scanner pour identifier les tâches en attente à planifier. Propriétés : Action, Statut, Priorité, Catégorie, Client lié, Échéance, Notes, Lien Session.
-- Meeting Agendas clients : dans chaque dashboard client
+### 3. Google Drive — Tâches et priorités
+- `/01-entreprise/inbox/` — tâches en vrac et urgences à récupérer
+- `/02-clients/[client]/SUIVI.md` — actions en cours par client
+- `/02-clients/[client]/STATUS.md` — deadlines et risques par client
 
 ## Processus
 
@@ -54,7 +53,7 @@ Avant de commencer, lis les règles de planification :
 
 **Option B : Planification directe**
 1. Lire Google Calendar de la semaine (`list-events`)
-2. Scanner rapidement Notion (Dashboard Consulting Stratégique → actions prioritaires)
+2. Scanner Google Drive (SUIVI.md clients + inbox → actions prioritaires)
 3. Demander à Catherine ses priorités si pas clair
 
 ### Étape 2 — Vérifier le calendrier existant
@@ -114,7 +113,7 @@ Pour chaque tâche validée, créer un événement avec `create-event` :
 Paramètres par défaut :
 - calendarId : "catherine@csbusiness.fr"
 - summary : "[Emoji] Nom de la tâche"
-- description : Détail + contexte + lien Notion si applicable
+- description : Détail + contexte + lien Google Drive si applicable
 - start/end : Selon le créneau planifié
 - reminders : 15 min avant (par défaut)
 - colorId : Selon la priorité (voir règles ci-dessous)

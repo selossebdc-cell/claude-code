@@ -47,7 +47,7 @@ Avant de commencer, lis la charte complète :
 | Signature email | Logo Typographique Ligne (Terracotta sur fond Lin) |
 | Réseaux sociaux (avatar) | Logo Seul (Terracotta) |
 | Présentation client | Logo Horizontal (Terracotta sur fond Lin) |
-| Dashboard Notion | Logo Seul (Terracotta) |
+| Portail Client & dashboards | Logo Seul (Terracotta) |
 
 ## Règles d'utilisation
 

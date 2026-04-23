@@ -159,4 +159,4 @@ Après validation de la proposition, créer le fichier mémoire du client :
 4. Remplir la section **Audit Découverte** : problématiques identifiées, objectifs exprimés, points de douleur, motivation principale (déjà analysés aux étapes 1-2)
 5. Commit + push GitHub
 
-> Ce fichier sera enrichi par les skills `client-onboarding` (Fillout + Notion IDs) et `session-report` (patterns + historique) au fil de l'accompagnement.
+> Ce fichier sera enrichi par les skills `client-onboarding` (création NOTES.md) et `session-report` (historique SESSIONS.md) au fil de l'accompagnement.

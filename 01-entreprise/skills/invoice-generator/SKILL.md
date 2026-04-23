@@ -5,7 +5,7 @@ description: "Gère la facturation et les échéanciers de paiement CS Consultin
 
 # Invoice Generator — Facturation CS Consulting Stratégique
 
-Tu gères la facturation complète pour Catherine Selosse (CS Consulting Stratégique) : création de factures, échéanciers de paiement, liens Stripe, et suivi dans Notion.
+Tu gères la facturation complète pour Catherine Selosse (CS Consulting Stratégique) : création de factures, échéanciers de paiement, liens Stripe, et suivi dans Google Drive (STATUS.md).
 
 Avant de commencer, lis les références :
 - `references/regles-facturation.md` — tarifs, échéanciers, mentions légales, process
@@ -16,7 +16,7 @@ Avant de commencer, lis les références :
 |-------|-------|
 | **Shine** | Émission des factures officielles (numérotation, mentions légales, envoi) |
 | **Stripe** | Liens de paiement en ligne (CB) |
-| **Notion** | Suivi des paiements dans le dashboard client (page "💰 Factures & Paiements") |
+| **Google Drive** | Suivi des paiements dans `/02-clients/[client]/STATUS.md` (section Budget & Commercial) |
 
 ## Quand ce skill se déclenche
 
@@ -77,51 +77,38 @@ Pour chaque facture de l'échéancier :
    - Montant exact de l'échéance
    - Description claire pour le client
 
-### Étape 4 — Mettre à jour Notion
+### Étape 4 — Mettre à jour STATUS.md
 
-Mettre à jour la page "💰 Factures & Paiements" dans le dashboard client :
+Mettre à jour la section "💰 Budget & Commercial" dans `/02-clients/[client]/STATUS.md` :
 
-```
-## Détails du Programme
-**Programme** : [Nom du programme]
-**Investissement** : [Montant total] €
-**Date de début** : [Date]
-**Date de fin** : [Date + 6 mois]
+```markdown
+## 💰 Budget & Commercial
 
----
+| Élément | Montant | Statut |
+|---------|---------|--------|
+| **Prix total contrat** | [X] € TTC | ✅ Signé |
+| **Encaissé** | [X] € | ✅ Reçu |
+| **Reste dû** | [X] € | [Date] |
 
-## Modalités de Paiement
-Paiement en [1x/2x/3x]
-
-▶ Échéance 1 — [Montant] €
-  - **Date :** [Date]
-  - **Statut :** [✅ Payé / ⏳ En attente / 🔴 En retard]
-  - **Lien de paiement :** [Lien Stripe]
-  - **N° facture Shine :** [Numéro]
-
-▶ Échéance 2 — [Montant] €
-  - **Date :** [Date]
-  - **Statut :** [✅ Payé / ⏳ En attente]
-  - **Lien de paiement :** [Lien Stripe]
-  - **N° facture Shine :** [Numéro]
-
-▶ Échéance 3 — [Montant] €
-  - **Date :** [Date]
-  - **Statut :** [✅ Payé / ⏳ En attente]
-  - **Lien de paiement :** [Lien Stripe]
-  - **N° facture Shine :** [Numéro]
-
----
-
-## Factures
-[Liens vers les factures PDF ou Shine]
+### Échéancier
+- **Facture 1** : [X] € — [Date] — [Statut]
+  Lien Stripe : [URL]
+  N° Shine : [Numéro]
+  
+- **Facture 2** : [X] € — [Date] — [Statut]
+  Lien Stripe : [URL]
+  N° Shine : [Numéro]
+  
+- **Facture 3** : [X] € — [Date] — [Statut]
+  Lien Stripe : [URL]
+  N° Shine : [Numéro]
 ```
 
 ### Étape 5 — Suivi et relances
 
 **Suivi régulier :**
 - Vérifier les statuts de paiement dans Stripe
-- Mettre à jour les statuts dans Notion
+- Mettre à jour les statuts dans STATUS.md du client
 - Alerter Catherine si un paiement est en retard
 
 **Relance paiement (si retard > 5 jours) :**
@@ -149,7 +136,7 @@ CS — Consulting Stratégique
 - **Ne jamais envoyer de facture ou relance sans validation de Catherine** — toujours proposer un brouillon
 - **Les factures officielles sont créées dans Shine** — Claude prépare les infos, Catherine crée dans Shine
 - **Stripe pour les paiements CB** — générer les liens dans Stripe, pas ailleurs
-- **Notion pour le suivi** — toujours mettre à jour la page Factures & Paiements du client
+- **STATUS.md pour le suivi** — toujours mettre à jour `/02-clients/[client]/STATUS.md` section Budget & Commercial
 - **TVA** : Catherine est en micro-entreprise → pas de TVA (mention "TVA non applicable, art. 293 B du CGI") — SAUF si elle a dépassé le seuil et est assujettie. Toujours vérifier avec elle.
 - **Numérotation** : suivre la numérotation de Shine (ne pas inventer de numéros)
 - **Relance** : ton professionnel et bienveillant, jamais agressif

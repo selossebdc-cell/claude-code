@@ -1,0 +1,26 @@
+# Environment variables (NEVER commit)
+.env.local
+.env
+.env.*.local
+
+# Personal data (never commit)
+04-perso/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+venv/
+
+# Logs
+*.log
+npm-debug.log*

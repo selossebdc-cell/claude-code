@@ -77,10 +77,14 @@ tail -f ~/.logs/cs-daily-push.log
 
 ## ✅ Checklist Before Major Work
 
-- [ ] Run `cs-check` to verify sync status
-- [ ] Run `claude /repo-health` for full audit
+**Before ANY development or code review:**
+- [ ] `claude /secure-by-design` — Mandatory security audit (Mickaël's framework)
+- [ ] `cs-check` — Verify sync status
+- [ ] `claude /repo-health` — Full system audit
 - [ ] Verify Google Drive folder is in "Disponible hors connexion" mode
 - [ ] Check MEMORY.md has recent updates
+
+**Security-first**: Always ask "Could an attacker bypass this by modifying an HTTP request?" before writing any code.
 
 ## 🔄 Git Workflow
 

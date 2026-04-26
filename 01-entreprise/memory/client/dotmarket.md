@@ -63,13 +63,59 @@ Agent Amélioration Continue ─ Lundi : analyse données + process Notion + usa
 
 ## 📅 Planning Détaillé
 
-| Phase | Durée | Focus | Livrable |
-|-------|-------|-------|----------|
-| 0 | S1-4 (~12h) | Audit stack + KPI mapping + quick wins | Cahier charges |
-| 1 | S4-12 (~28h) | Dashboard Pipedrive + MemberStack | Production + 2 itérations |
-| 2 | S10-13 (~18h) | Claude Team setup + instructions | Équipe formée |
-| 3 | S13-15 (~4h) | Agent amélioration continue | Rapport hebdo auto |
-| 4 | S15-17 (~5h) | Stabilisation + transfert | Équipe autonome |
+| Phase | Durée | Focus | Livrable | Status |
+|-------|-------|-------|----------|--------|
+| 0 | S1-4 (~12h) | Audit stack + KPI mapping + quick wins | Cahier charges | **ONGOING** — Session 1 ✓ (22/04), ébauche dashboard + doc data en prép |
+| 1 | S4-12 (~28h) | Dashboard Pipedrive + MemberStack | Production + 2 itérations | TBD |
+| 2 | S10-13 (~18h) | Claude Team setup + instructions | Équipe formée | TBD |
+| 3 | S13-15 (~4h) | Agent amélioration continue | Rapport hebdo auto | TBD |
+| 4 | S15-17 (~5h) | Stabilisation + transfert | Équipe autonome | TBD |
+
+## 📊 Phase 0 Insights (Session 1 — 22/04/2026)
+
+### Les 3 Entités — Clarifiées en Session 1
+
+| Entité | Type | Parcours Clé | Time-to-Cash | KPI Prioritaire |
+|--------|------|--------------|--------------|-----------------|
+| **Dot Market** | Marketplace | Contact → Listing → Nego → Close | ~85j (target: 70j) | Conversions (visites → messages → close) |
+| **Dot Advisory** | M&A Cabinet | Audit → Valorisation → Nego | ~120j+ | Deal complexity, time-to-cash trends |
+| **School** | Formation | Google → Visit → Lead → Enrolled | N/A | UTM-tracked acquisition funnel |
+
+### Dashboard Architecture (Décidé)
+
+- **Structure**: Acheteur-Vendeur view (pas par-entité) + drill-down possible
+- **Accès**: Kévin, Elsa, Abdel Nasser (3 users)
+- **Refresh**: Real-time (new deals) + 1x/day (KPI) + 1x/week (trends)
+- **Historique**: 1 semaine à 1 année selon KPI
+
+### KPI Critiques (À Formaliser — Doc Data en préparation)
+
+1. **Time-to-Cash** = Closing date - Creation date (jours **calendrier client**, pas ETP)
+   - Breakdown by stage: qualification, listing, negotiation (38% du temps), closing
+   - SaaS 62j vs Content 91j = 29j écart à analyser
+
+2. **Conversion Funnel** (Dot Market)
+   - Visites → Messages reçus → Offres → Closing
+   - Visibility per deal: "500 visits, 0 messages" = signal d'un problème
+
+3. **Commission Tracking** (Advisory)
+   - CA moyen par type deal
+   - Taux commission application
+
+4. **School Acquisition**
+   - UTM-tagged leads (Google vs Site vs Partners)
+   - Lead-to-enrolled rate
+
+### Data Quality Status
+- ✓ Pipedrive: bien structuré (certaines étapes ajustées post-process)
+- ✓ MemberStack: investors OK
+- ✓ Pennylane: finance OK
+- **Aucun blocage critique identifié**
+
+### Livrables Catherine (Before Session 2)
+- [ ] Première ébauche macro (parcours + KPI proposés)
+- [ ] Document définition data (règles de calcul + corrélations)
+- [ ] Vision document (à envoyer par Kévin via PDF)
 
 ## ⚠️ Dépendances Critiques
 
@@ -86,12 +132,14 @@ Agent Amélioration Continue ─ Lundi : analyse données + process Notion + usa
 
 ## 🎯 Prochaines Actions
 
-- [ ] Signature contrat (paiement 1/3)
-- [ ] Planifier Phase 0 Audit (fin avril)
-- [ ] Elsa envoie dashboard KPI existant + accès Pipedrive
-- [ ] Appel kickoff Phase 0
+- [x] Signature contrat (2026-04-14, paiement 1/3 reçu)
+- [x] Appel kickoff Phase 0 (2026-04-22, Session 1 ✓)
+- [ ] **Catherine**: Première ébauche macro dashboard + Doc définition data → avant Session 2
+- [ ] **Kévin**: Envoyer vision document (PDF via Elsa)
+- [ ] **Elsa**: Confirmer accès API Pipedrive (lecture/écriture) + données MemberStack
+- [ ] **Session 2** (TBD): Validation ébauche, démarrage Phase 1
 
 ---
-**Dernière mise à jour**: 2026-04-26  
-**Prochaine révision**: Après Phase 0 (fin avril/début mai 2026)  
-**Proposition valable jusqu'à**: 14 mai 2026
+**Dernière mise à jour**: 2026-04-26 (Phase 0 Session 1 findings integrated)  
+**Prochaine révision**: Après Session 2 (validation ébauche dashboard)  
+**Contrat valable jusqu'à**: 2026-10-26 (fin mission)

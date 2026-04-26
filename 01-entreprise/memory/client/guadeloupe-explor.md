@@ -10,8 +10,8 @@ type: "client"
 **Entreprise**: Guadeloupe Explor  
 **Secteur**: Tourisme d'aventure / Guidage / Agence voyage  
 **Équipe**: Taïna (tout), assistante marketing (en place), guide/assistant (new)  
-**Status**: Client actif — Transformation Digitale (proposition 11 mars, démarrage mi-avril)  
-**Contrat**: 8 000 € (Accélération, 6m) ou 12 000 € (Transformation, 9m, recommandé)
+**Status**: Client actif — Transformation Digitale **DÉMARRÉE**  
+**Contrat**: ✓ Signé — 12 000 € (Transformation, 9m) — Bon de commande + CGV signés
 
 ## 🎯 Mission Essence
 
@@ -107,14 +107,28 @@ CRM simple
 - **Format** : 100% visio (elle n'a pas le temps de se déplacer).
 - **Finance** : Tarif préférentiel justifié (solo entrepreneur, revenu moyen). Paiement 3x sans frais.
 
+## 📦 Contrat & Documents
+
+**Contrats Signés**
+- ✓ `Bon-de-commande-Guadeloupe-Explor.pdf` (106KB)
+- ✓ `Proposition-Guadeloupe-Explor.pdf` (279KB)
+- ✓ `CGV-CS-Consulting.pdf` (89KB)
+
+**CRs & Suivi**
+- `cr-session1-taina.html` — CR Session 1 (diagnostic)
+
+**Status Paiement**: 1/3 signature reçu
+
 ## 🎯 Prochaines Actions
 
-- [ ] Taïna signe formule choisie (recommandé: Transformation 9m)
-- [ ] Paiement 1/3 à signature
-- [ ] Planifier mise en place intensive (Mois 1)
-- [ ] Appel kickoff avec Taïna
+- [ ] Planifier Month 1 intensive (1.5h/sem)
+- [ ] Diagnostic complet procédures
+- [ ] Cartographie parcours client
+- [ ] Setup CRM simple + Aesus config
+- [ ] Formation assistante (mois 3)
 
 ---
-**Dernière mise à jour**: 2026-04-26  
-**Proposition valable jusqu'à**: 10 avril 2026  
-**Démarrage prévu**: Mi-avril 2026
+**Dernière mise à jour**: 2026-04-26 (documents restaurés, contrat actif)  
+**Contrat Signé**: 2026-04-26  
+**Formule**: Transformation 9 mois (12 000€)  
+**Timeline**: M1-3 intensive → M4-9 espacé (24 séances)

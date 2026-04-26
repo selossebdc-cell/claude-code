@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fred — Schéma Facturation & Emails</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        h1 {
+            text-align: center;
+            color: #C27A5A;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.95rem;
+            margin-bottom: 50px;
+        }
+
+        /* Section titles */
+        .section-title {
+            font-size: 1.3rem;
+            color: #C27A5A;
+            margin: 50px 0 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #C27A5A33;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-title .num {
+            background: #C27A5A;
+            color: #0f0f0f;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* Email boxes schema */
+        .email-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .email-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .email-card:hover { transform: translateY(-3px); }
+        .email-card.primary { border-color: #C27A5A; }
+        .email-card .provider {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+        .email-card .address {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+        .email-card .role {
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.5;
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-outlook { background: #0078d420; color: #4da6ff; border: 1px solid #0078d440; }
+        .badge-gmail { background: #ea433520; color: #ff7070; border: 1px solid #ea433540; }
+        .badge-trigger { background: #C27A5A20; color: #C27A5A; border: 1px solid #C27A5A40; }
+        .badge-ovh { background: #00008820; color: #7070ff; border: 1px solid #00008840; }
+        .badge-redirect { background: #9b59b620; color: #bb8fce; border: 1px solid #9b59b640; }
+        .badge-warn { background: #e74c3c20; color: #e74c3c; border: 1px solid #e74c3c40; }
+
+        /* Redirect diagram */
+        .redirect-schema {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            position: relative;
+        }
+        .redirect-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .redirect-source {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            color: #ccc;
+            min-width: 220px;
+        }
+        .redirect-arrow-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #9b59b6;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .redirect-arrow-line .line {
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(to right, #9b59b6, #9b59b688);
+        }
+        .redirect-target {
+            background: #C27A5A15;
+            border: 2px solid #C27A5A;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            color: #C27A5A;
+            font-weight: 700;
+        }
+        .redirect-filter {
+            font-size: 0.75rem;
+            color: #9b59b6;
+            background: #9b59b610;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid #9b59b630;
+        }
+        .todo-box {
+            background: #e74c3c10;
+            border: 2px dashed #e74c3c44;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 20px 0;
+        }
+        .todo-box h4 {
+            color: #e74c3c;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .todo-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .todo-box li {
+            color: #ccc;
+            font-size: 0.85rem;
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.5;
+        }
+        .todo-box li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+        }
+
+        /* Centralization arrow */
+        .centralize-block {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        .arrow-down {
+            display: inline-block;
+            width: 4px; height: 50px;
+            background: linear-gradient(to bottom, #C27A5A, #C27A5A88);
+            position: relative;
+            margin: 0 auto;
+        }
+        .arrow-down::after {
+            content: '▼';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #C27A5A;
+            font-size: 1.2rem;
+        }
+
+        .outlook-hub {
+            background: linear-gradient(135deg, #0078d415, #0078d408);
+            border: 2px solid #0078d4;
+            border-radius: 16px;
+            padding: 25px 30px;
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .outlook-hub h3 {
+            color: #4da6ff;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .outlook-hub p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Flow diagram */
+        .flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 30px 0;
+            align-items: center;
+        }
+        .flow-step {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 18px 28px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+        .flow-step.highlight {
+            border-color: #C27A5A;
+            background: #1a1510;
+        }
+        .flow-step.success {
+            border-color: #2ecc71;
+            background: #0f1a14;
+        }
+        .flow-step .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .flow-step .step-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .flow-step .step-title {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .flow-step .step-detail {
+            color: #999;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-left: 40px;
+        }
+        .flow-arrow {
+            width: 3px; height: 30px;
+            background: linear-gradient(to bottom, #C27A5A88, #C27A5A44);
+            position: relative;
+        }
+        .flow-arrow::after {
+            content: '▾';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #C27A5A88;
+            font-size: 0.9rem;
+        }
+
+        /* Parallel branch */
+        .flow-parallel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+        .flow-parallel .flow-step { max-width: none; }
+
+        /* Timeline / recap */
+        .timeline {
+            position: relative;
+            margin: 30px 0 30px 20px;
+            padding-left: 30px;
+            border-left: 3px solid #C27A5A33;
+        }
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 4px;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #C27A5A;
+            border: 3px solid #0f0f0f;
+        }
+        .timeline-item.done::before { background: #2ecc71; }
+        .timeline-item .t-date {
+            font-size: 0.75rem;
+            color: #C27A5A;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .timeline-item .t-title {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+            margin: 4px 0;
+        }
+        .timeline-item .t-detail {
+            font-size: 0.85rem;
+            color: #999;
+            line-height: 1.5;
+        }
+
+        /* Status bar */
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .status-item {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 16px 20px;
+            border: 1px solid #333;
+        }
+        .status-item .label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .status-item .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .status-item .value.green { color: #2ecc71; }
+        .status-item .value.orange { color: #f39c12; }
+        .status-item .value.red { color: #e74c3c; }
+
+        /* Entities */
+        .entity-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .entity-tag {
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .entity-fu { background: #3498db20; color: #5dade2; border: 1px solid #3498db40; }
+        .entity-v8 { background: #2ecc7120; color: #58d68d; border: 1px solid #2ecc7140; }
+        .entity-hkff { background: #e74c3c20; color: #ec7063; border: 1px solid #e74c3c40; }
+        .entity-foo { background: #f39c1220; color: #f5b041; border: 1px solid #f39c1240; }
+
+        /* Note */
+        .note {
+            background: #C27A5A10;
+            border-left: 4px solid #C27A5A;
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        .note strong { color: #C27A5A; }
+
+        /* Keywords grid */
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .keyword-tag {
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            color: #ccc;
+            text-align: center;
+        }
+        .keyword-tag.new {
+            border-color: #2ecc7160;
+            background: #2ecc7110;
+            color: #58d68d;
+        }
+        .keyword-tag.existing {
+            border-color: #444;
+            color: #999;
+        }
+        .keyword-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #C27A5A;
+            margin: 20px 0 8px;
+            font-weight: 600;
+        }
+
+        /* Step-by-step tutorial */
+        .tuto-steps {
+            margin: 20px 0;
+            counter-reset: step-counter;
+        }
+        .tuto-step {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 12px 0;
+            position: relative;
+            counter-increment: step-counter;
+        }
+        .tuto-step::before {
+            content: 'Étape ' counter(step-counter);
+            display: inline-block;
+            background: #C27A5A;
+            color: #0f0f0f;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+        .tuto-step h4 {
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+        .tuto-step p {
+            color: #aaa;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .tuto-step code {
+            background: #C27A5A15;
+            color: #C27A5A;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-family: 'SF Mono', 'Consolas', monospace;
+        }
+        .tuto-step .path {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #222;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #ccc;
+            margin: 6px 0;
+            flex-wrap: wrap;
+        }
+        .tuto-step .path .sep {
+            color: #C27A5A;
+            font-weight: 700;
+        }
+        .tuto-step .screenshot {
+            background: #222;
+            border: 1px dashed #444;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+        }
+        .tuto-step .copy-box {
+            background: #0a0a0a;
+            border: 1px solid #C27A5A44;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 10px 0;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: #C27A5A;
+            word-break: break-all;
+            position: relative;
+            cursor: pointer;
+        }
+        .tuto-step .copy-box::after {
+            content: '📋 cliquer pour copier';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.7rem;
+            color: #666;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        .tuto-step .copy-box.copied::after {
+            content: '✅ copié !';
+            color: #2ecc71;
+        }
+        .tuto-note {
+            background: #9b59b610;
+            border-left: 3px solid #9b59b6;
+            padding: 10px 16px;
+            border-radius: 0 6px 6px 0;
+            margin: 10px 0;
+            font-size: 0.82rem;
+            color: #bb8fce;
+            line-height: 1.5;
+        }
+        .tuto-warn {
+            background: #e74c3c10;
+            border-left: 3px solid #e74c3c;
+            padding: 10px 16px;
+            border-radius: 0 6px 6px 0;
+            margin: 10px 0;
+            font-size: 0.82rem;
+            color: #ec7063;
+            line-height: 1.5;
+        }
+        .boite-recap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .boite-recap-item {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 14px 18px;
+        }
+        .boite-recap-item h5 {
+            color: #fff;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+        .boite-recap-item p {
+            color: #888;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        .boite-recap-item .method {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        .method-gmail { background: #ea433520; color: #ff7070; }
+        .method-ovh { background: #7070ff20; color: #7070ff; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            color: #555;
+            font-size: 0.8rem;
+        }
+        .footer a { color: #C27A5A; text-decoration: none; }
+
+        @media (max-width: 700px) {
+            .email-grid { grid-template-columns: 1fr; }
+            .flow-parallel { grid-template-columns: 1fr; }
+            body { padding: 20px 12px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <h1>Fred — Facturation & Emails</h1>
+        <p class="subtitle">Récapitulatif de tout ce qui a été mis en place (sessions 4 à 8)</p>
+
+        <!-- ============ SECTION 1 : EMAILS ============ -->
+        <div class="section-title">
+            <span class="num">1</span>
+            Les 4 boîtes mail de Fred
+        </div>
+
+        <div class="email-grid">
+            <div class="email-card primary">
+                <div class="provider">OVH — Adresse principale</div>
+                <div class="address">fu@fusolution.fr</div>
+                <div style="margin-bottom: 8px;">
+                    <span class="badge badge-outlook">Outlook ✓</span>
+                    <span class="badge badge-ovh">OVH</span>
+                </div>
+                <div class="role">
+                    Adresse principale FU Solutions.<br>
+                    Compte Claude Pro créé dessus.<br>
+                    Compte Firefox principal.<br>
+                    Futur compte Microsoft 365.
+                </div>
+            </div>
+
+            <div class="email-card" style="border-color: #C27A5A;">
+                <div class="provider">Google Workspace — BOÎTE CENTRALE FACTURES</div>
+                <div class="address">v8@v8-equipment.com</div>
+                <div style="margin-bottom: 8px;">
+                    <span class="badge badge-gmail">Gmail</span>
+                    <span class="badge badge-trigger">🔥 Trigger n8n</span>
+                    <span class="badge badge-redirect">Reçoit les redirections</span>
+                </div>
+                <div class="role">
+                    <strong style="color: #C27A5A;">Boîte de centralisation.</strong><br>
+                    Toutes les factures convergent ici via des filtres Gmail.<br>
+                    Label rouge "Facture" appliqué automatiquement.<br>
+                    C'est cette boîte que l'automatisation n8n scanne.
+                </div>
+            </div>
+
+            <div class="email-card">
+                <div class="provider">Google Workspace</div>
+                <div class="address">fred@v8-equipment.com</div>
+                <div style="margin-bottom: 8px;">
+                    <span class="badge badge-outlook">Outlook ✓</span>
+                    <span class="badge badge-gmail">Gmail</span>
+                    <span class="badge badge-redirect">Redirige vers v8@</span>
+                </div>
+                <div class="role">
+                    Adresse perso Fred chez V8.<br>
+                    Gmail connecté à Claude Pro.<br>
+                    Destinataire du récap hebdo factures.<br>
+                    <span style="color: #9b59b6;">Filtre : mails "facture" redirigés → v8@</span>
+                </div>
+            </div>
+
+            <div class="email-card">
+                <div class="provider">OVH</div>
+                <div class="address">contact@v8-equipment.com</div>
+                <div style="margin-bottom: 8px;">
+                    <span class="badge badge-outlook">Outlook ✓</span>
+                    <span class="badge badge-ovh">OVH</span>
+                    <span class="badge badge-redirect">Redirige vers v8@</span>
+                </div>
+                <div class="role">
+                    Adresse contact publique V8.<br>
+                    Clients et prospects écrivent ici.<br>
+                    <span style="color: #9b59b6;">Filtre : mails "facture" redirigés → v8@</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ SCHEMA REDIRECTIONS ============ -->
+        <div class="section-title">
+            <span class="num">2</span>
+            Redirections email — Le circuit des factures (session 4)
+        </div>
+
+        <div class="redirect-schema">
+            <div style="color: #888; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;">
+                Filtres Gmail : mots-clés <span class="redirect-filter">facture | invoice | receipt | reçu | bon de commande</span>
+            </div>
+
+            <div class="redirect-row">
+                <div class="redirect-source">📧 Gmail perso (FredGmail)</div>
+                <div class="redirect-arrow-line">
+                    <span class="line"></span>
+                    <span>filtre →</span>
+                </div>
+                <div class="redirect-target">📥 v8@v8-equipment.com</div>
+            </div>
+
+            <div class="redirect-row">
+                <div class="redirect-source">📧 fred@v8-equipment.com</div>
+                <div class="redirect-arrow-line">
+                    <span class="line"></span>
+                    <span>filtre →</span>
+                </div>
+                <div class="redirect-target">📥 v8@v8-equipment.com</div>
+            </div>
+
+            <div class="redirect-row">
+                <div class="redirect-source">📧 contact@v8-equipment.com</div>
+                <div class="redirect-arrow-line">
+                    <span class="line"></span>
+                    <span>filtre →</span>
+                </div>
+                <div class="redirect-target">📥 v8@v8-equipment.com</div>
+            </div>
+
+            <div class="redirect-row">
+                <div class="redirect-source">📧 fu@fusolution.fr</div>
+                <div class="redirect-arrow-line">
+                    <span class="line" style="background: #e74c3c44;"></span>
+                    <span style="color: #e74c3c;">? non vérifié</span>
+                </div>
+                <div class="redirect-target" style="border-color: #e74c3c44; color: #e74c3c88;">📥 v8@v8-equipment.com</div>
+            </div>
+
+            <div class="redirect-row">
+                <div class="redirect-source">📄 Factures papier</div>
+                <div class="redirect-arrow-line">
+                    <span class="line"></span>
+                    <span>photo →</span>
+                </div>
+                <div class="redirect-target">📥 v8@v8-equipment.com</div>
+            </div>
+
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #333;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <div class="redirect-target" style="font-size: 0.9rem;">📥 v8@v8-equipment.com</div>
+                    <span style="color: #888; font-size: 0.85rem;">→ Label <span style="color: #e74c3c; font-weight: 700;">🔴 Facture</span> appliqué automatiquement</span>
+                </div>
+                <div style="color: #666; font-size: 0.8rem;">
+                    Méthode : transfert Gmail (Paramètres > Transfert) OU filtre avec action FORWARD selon la boîte.<br>
+                    Pour les boîtes OVH (fu@, contact@) : c'est un transfert/redirection OVH, pas un filtre Gmail.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ MOTS-CLÉS COMPLETS ============ -->
+        <div style="margin-top: 30px;">
+            <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 5px;">Mots-clés pour les filtres Gmail</h3>
+            <p style="color: #888; font-size: 0.82rem; margin-bottom: 15px;">
+                La requête complète à mettre dans le champ "Contient les mots" du filtre Gmail.
+                <span style="color: #58d68d;">Vert = nouveaux mots à ajouter</span> / <span style="color: #999;">Gris = déjà en place</span>
+            </p>
+
+            <div class="keyword-category">Français — Termes courants</div>
+            <div class="keywords-grid">
+                <div class="keyword-tag existing">facture</div>
+                <div class="keyword-tag existing">factures</div>
+                <div class="keyword-tag existing">reçu</div>
+                <div class="keyword-tag existing">bon de commande</div>
+                <div class="keyword-tag new">avoir</div>
+                <div class="keyword-tag new">avoirs</div>
+                <div class="keyword-tag new">note d'honoraires</div>
+                <div class="keyword-tag new">relevé</div>
+                <div class="keyword-tag new">acompte</div>
+                <div class="keyword-tag new">échéance</div>
+                <div class="keyword-tag new">proforma</div>
+                <div class="keyword-tag new">rappel de paiement</div>
+                <div class="keyword-tag new">solde à régler</div>
+                <div class="keyword-tag new">montant dû</div>
+                <div class="keyword-tag new">relance</div>
+            </div>
+
+            <div class="keyword-category">Anglais — Fournisseurs internationaux (Chine, UPS, etc.)</div>
+            <div class="keywords-grid">
+                <div class="keyword-tag existing">invoice</div>
+                <div class="keyword-tag existing">receipt</div>
+                <div class="keyword-tag new">payment</div>
+                <div class="keyword-tag new">billing</div>
+                <div class="keyword-tag new">statement</div>
+                <div class="keyword-tag new">amount due</div>
+                <div class="keyword-tag new">purchase order</div>
+                <div class="keyword-tag new">credit note</div>
+                <div class="keyword-tag new">overdue</div>
+                <div class="keyword-tag new">remittance</div>
+            </div>
+
+            <div class="keyword-category">Fournisseurs récurrents de Fred (noms à ajouter en option)</div>
+            <div class="keywords-grid">
+                <div class="keyword-tag new">UPS</div>
+                <div class="keyword-tag new">Bouygues</div>
+                <div class="keyword-tag new">Ulys</div>
+                <div class="keyword-tag new">MITIC</div>
+                <div class="keyword-tag new">Alibaba</div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <p style="color: #888; font-size: 0.8rem; margin-bottom: 8px;">Requête complète à copier dans le filtre Gmail :</p>
+                <div class="tuto-step">
+                    <div class="copy-box" onclick="navigator.clipboard.writeText(this.innerText.replace('📋 cliquer pour copier','').replace('✅ copié !','').trim()); this.classList.add('copied'); setTimeout(() => this.classList.remove('copied'), 2000);">{facture factures avoir avoirs "note d'honoraires" relevé acompte échéance proforma "rappel de paiement" "solde à régler" "montant dû" relance reçu "bon de commande" invoice receipt payment billing statement "amount due" "purchase order" "credit note" overdue remittance}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tuto-warn">
+            <strong>Attention :</strong> Dans Gmail, les mots entre <code>{  }</code> fonctionnent comme un OU (si le mail contient AU MOINS UN de ces mots, le filtre s'active). Ne pas mettre les accolades dans les anciens filtres existants si ce n'est pas déjà fait — sinon ça ne marchera pas.
+        </div>
+
+        <!-- ============ TUTO PAS À PAS ============ -->
+        <div class="section-title" style="margin-top: 40px;">
+            <span class="num" style="font-size: 0.7rem;">2b</span>
+            Tuto — Configurer un filtre Gmail (pas à pas)
+        </div>
+
+        <p style="color: #888; font-size: 0.85rem; margin-bottom: 20px;">
+            Ce tuto s'applique aux boîtes <strong style="color: #ff7070;">Gmail</strong> de Fred (Gmail perso + fred@v8 + v8@v8).
+            Pour les boîtes <strong style="color: #7070ff;">OVH</strong> (fu@fusolution.fr, contact@v8), c'est une autre procédure (voir plus bas).
+        </p>
+
+        <div class="tuto-steps">
+            <div class="tuto-step">
+                <h4>Ouvrir Gmail dans le navigateur</h4>
+                <p>
+                    Se connecter à la boîte mail à configurer (ex : fred@v8-equipment.com) dans Firefox.<br>
+                    <strong>Important :</strong> utiliser le bon conteneur Firefox pour la bonne boîte.
+                </p>
+            </div>
+
+            <div class="tuto-step">
+                <h4>Aller dans les Paramètres</h4>
+                <p>
+                    Cliquer sur la roue dentée ⚙️ en haut à droite, puis <strong>"Voir tous les paramètres"</strong>.
+                </p>
+                <div class="path">
+                    ⚙️ <span class="sep">›</span> Voir tous les paramètres
+                </div>
+            </div>
+
+            <div class="tuto-step">
+                <h4>Aller dans l'onglet "Filtres et adresses bloquées"</h4>
+                <p>
+                    Dans la barre d'onglets en haut de la page Paramètres, cliquer sur <strong>"Filtres et adresses bloquées"</strong>.<br>
+                    Tu verras la liste des filtres existants (s'il y en a).
+                </p>
+                <div class="path">
+                    Paramètres <span class="sep">›</span> Filtres et adresses bloquées
+                </div>
+            </div>
+
+            <div class="tuto-step">
+                <h4>Créer un nouveau filtre</h4>
+                <p>
+                    En bas de la liste des filtres, cliquer sur <strong>"Créer un filtre"</strong>.<br>
+                    Un formulaire apparaît avec plusieurs champs.
+                </p>
+            </div>
+
+            <div class="tuto-step">
+                <h4>Remplir le champ "Contient les mots"</h4>
+                <p>
+                    Laisser tous les champs vides <strong>sauf</strong> le champ <strong>"Contient les mots"</strong>.<br>
+                    Coller la requête complète :
+                </p>
+                <div class="copy-box" onclick="navigator.clipboard.writeText(this.innerText.replace('📋 cliquer pour copier','').replace('✅ copié !','').trim()); this.classList.add('copied'); setTimeout(() => this.classList.remove('copied'), 2000);">{facture factures avoir avoirs "note d'honoraires" relevé acompte échéance proforma "rappel de paiement" "solde à régler" "montant dû" relance reçu "bon de commande" invoice receipt payment billing statement "amount due" "purchase order" "credit note" overdue remittance}</div>
+                <div class="tuto-note">
+                    Les <code>{</code> accolades <code>}</code> disent à Gmail : "si le mail contient <strong>au moins un</strong> de ces mots". C'est un OU logique. Ne pas oublier les accolades !
+                </div>
+                <p>
+                    Puis cliquer sur <strong>"Créer un filtre"</strong> (le bouton bleu en bas à droite du formulaire).
+                </p>
+            </div>
+
+            <div class="tuto-step">
+                <h4>Choisir les actions du filtre</h4>
+                <p>Gmail demande ce qu'il faut faire quand un mail correspond. Cocher :</p>
+                <div style="margin: 10px 0; padding: 12px 16px; background: #222; border-radius: 8px;">
+                    <div style="margin: 6px 0; color: #ccc; font-size: 0.85rem;">
+                        ☑️ <strong>Transférer à :</strong> <code>v8@v8-equipment.com</code>
+                    </div>
+                    <div style="margin: 6px 0; color: #ccc; font-size: 0.85rem;">
+                        ☑️ <strong>Appliquer le libellé :</strong> "Facture" <span style="color: #e74c3c;">(si c'est la boîte v8@ elle-même)</span>
+                    </div>
+                    <div style="margin: 6px 0; color: #888; font-size: 0.82rem;">
+                        ☐ Ne pas envoyer dans les Spams
+                    </div>
+                    <div style="margin: 6px 0; color: #888; font-size: 0.82rem;">
+                        ☐ Appliquer aussi aux messages correspondants (pour rattraper les anciens mails)
+                    </div>
+                </div>
+                <div class="tuto-warn">
+                    <strong>Première fois ?</strong> Si l'adresse de transfert n'apparaît pas dans la liste déroulante, il faut d'abord l'autoriser. Voir l'étape suivante.
+                </div>
+            </div>
+
+            <div class="tuto-step">
+                <h4>Si l'adresse de transfert n'est pas disponible</h4>
+                <p>Gmail doit vérifier que la boîte de destination accepte les transferts :</p>
+                <div class="path">
+                    Paramètres <span class="sep">›</span> Transfert et POP/IMAP <span class="sep">›</span> Ajouter une adresse de transfert
+                </div>
+                <p style="margin-top: 8px;">
+                    1. Taper <code>v8@v8-equipment.com</code><br>
+                    2. Gmail envoie un mail de vérification à v8@<br>
+                    3. Ouvrir la boîte v8@ dans un autre onglet<br>
+                    4. Trouver le mail de vérification Gmail<br>
+                    5. Cliquer sur le lien de confirmation<br>
+                    6. Revenir dans la boîte d'origine, l'adresse est maintenant disponible dans le filtre
+                </p>
+                <div class="tuto-note">
+                    Cette étape ne se fait qu'<strong>une seule fois</strong> par boîte. Une fois l'adresse vérifiée, elle reste disponible pour tous les filtres futurs.
+                </div>
+            </div>
+
+            <div class="tuto-step">
+                <h4>Valider et vérifier</h4>
+                <p>
+                    Cliquer sur <strong>"Créer un filtre"</strong> pour enregistrer.<br>
+                    Le filtre apparaît maintenant dans la liste des filtres.<br><br>
+                    <strong>Test :</strong> envoyer un mail de test avec le mot "facture" dans l'objet depuis une autre adresse. Vérifier que :<br>
+                    → Le mail arrive bien dans v8@v8-equipment.com<br>
+                    → Le label "Facture" est appliqué (si configuré)
+                </p>
+            </div>
+        </div>
+
+        <!-- ============ RECAP PAR BOÎTE ============ -->
+        <div style="margin-top: 30px;">
+            <h3 style="color: #fff; font-size: 1.05rem; margin-bottom: 15px;">Récap : quoi faire sur chaque boîte</h3>
+            <div class="boite-recap">
+                <div class="boite-recap-item">
+                    <h5>📧 Gmail perso (FredGmail)</h5>
+                    <p>Créer un filtre Gmail avec la requête complète ci-dessus.<br>Action : <strong>Transférer à v8@v8-equipment.com</strong></p>
+                    <span class="method method-gmail">Méthode : filtre Gmail</span>
+                </div>
+                <div class="boite-recap-item">
+                    <h5>📧 fred@v8-equipment.com</h5>
+                    <p>Créer un filtre Gmail avec la requête complète ci-dessus.<br>Action : <strong>Transférer à v8@v8-equipment.com</strong></p>
+                    <span class="method method-gmail">Méthode : filtre Gmail</span>
+                </div>
+                <div class="boite-recap-item">
+                    <h5>📧 v8@v8-equipment.com (boîte centrale)</h5>
+                    <p>Créer un filtre Gmail avec la requête complète ci-dessus.<br>Action : <strong>Appliquer le libellé "Facture" 🔴</strong><br>(pas de transfert — c'est déjà la boîte cible)</p>
+                    <span class="method method-gmail">Méthode : filtre Gmail</span>
+                </div>
+                <div class="boite-recap-item">
+                    <h5>📧 fu@fusolution.fr</h5>
+                    <p>Boîte OVH → pas de filtre Gmail possible.<br><strong>Option A :</strong> redirection OVH globale vers v8@<br><strong>Option B :</strong> Fred transfère manuellement</p>
+                    <span class="method method-ovh">Méthode : redirection OVH</span>
+                </div>
+                <div class="boite-recap-item">
+                    <h5>📧 contact@v8-equipment.com</h5>
+                    <p>Boîte OVH → pas de filtre Gmail possible.<br><strong>Option A :</strong> redirection OVH globale vers v8@<br><strong>Option B :</strong> Fred transfère manuellement</p>
+                    <span class="method method-ovh">Méthode : redirection OVH</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ TUTO OVH ============ -->
+        <div style="margin-top: 30px;">
+            <h3 style="color: #7070ff; font-size: 1.05rem; margin-bottom: 15px;">Pour les boîtes OVH — Configurer une redirection</h3>
+            <div class="tuto-steps">
+                <div class="tuto-step" style="border-color: #7070ff33;">
+                    <h4>Se connecter au manager OVH</h4>
+                    <p>
+                        Identifiant : <code>FF4801-OVH</code><br>
+                        Aller sur le manager OVH et se connecter avec la 2FA.
+                    </p>
+                </div>
+                <div class="tuto-step" style="border-color: #7070ff33;">
+                    <h4>Aller dans Emails > Redirections</h4>
+                    <div class="path">
+                        Emails <span class="sep">›</span> Sélectionner le domaine (v8-equipment.com ou fusolution.fr) <span class="sep">›</span> Redirections
+                    </div>
+                </div>
+                <div class="tuto-step" style="border-color: #7070ff33;">
+                    <h4>Ajouter une redirection</h4>
+                    <p>
+                        Cliquer <strong>"Ajouter une redirection"</strong> :<br>
+                        → Adresse source : <code>contact@v8-equipment.com</code> (ou <code>fu@fusolution.fr</code>)<br>
+                        → Adresse destination : <code>v8@v8-equipment.com</code><br>
+                        → Cocher <strong>"Garder une copie"</strong> (pour que le mail reste aussi dans la boîte d'origine)
+                    </p>
+                    <div class="tuto-warn">
+                        <strong>Limitation OVH :</strong> la redirection OVH transfère <strong>tous</strong> les mails, pas seulement ceux avec "facture". C'est moins précis qu'un filtre Gmail, mais c'est la seule option pour les boîtes OVH. L'automatisation n8n filtre ensuite par mots-clés côté réception — les mails non pertinents sont ignorés.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="todo-box" style="margin-top: 30px;">
+            <h4>⚠️ À VÉRIFIER EN SESSION (AnyDesk avec Fred)</h4>
+            <ul>
+                <li><strong>Gmail perso</strong> : le filtre existe-t-il ? Les mots-clés sont-ils complets ? Mettre à jour avec la requête complète ci-dessus.</li>
+                <li><strong>fred@v8-equipment.com</strong> : idem — vérifier le filtre, mettre à jour les mots-clés.</li>
+                <li><strong>v8@v8-equipment.com</strong> : vérifier que le label "Facture" 🔴 existe et que le filtre l'applique automatiquement.</li>
+                <li><strong>fu@fusolution.fr</strong> (OVH) : décider si on met une redirection OVH ou si Fred transfère manuellement. Cette boîte reçoit-elle des factures ?</li>
+                <li><strong>contact@v8-equipment.com</strong> (OVH) : vérifier si la redirection OVH est en place dans le manager.</li>
+                <li><strong>Adresse de transfert</strong> : dans chaque Gmail, vérifier que v8@ est bien autorisée comme adresse de transfert (Paramètres > Transfert).</li>
+                <li><strong>Test de bout en bout</strong> : envoyer un mail test depuis chaque boîte avec "facture" dans l'objet et vérifier qu'il arrive dans v8@ avec le label.</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <strong>2 niveaux de centralisation :</strong><br>
+            1. <strong style="color: #9b59b6;">Redirections email</strong> (session 4) — les mails "facture" des 3 autres boîtes sont transférés automatiquement vers v8@v8-equipment.com = un seul point d'entrée pour les factures.<br>
+            2. <strong style="color: #4da6ff;">Outlook Desktop</strong> (session 7) — les 4 boîtes sont visibles dans un seul client mail. Fred voit tout, mais les redirections font que les factures arrivent aussi physiquement dans v8@.
+        </div>
+
+        <div class="centralize-block">
+            <div style="color: #888; font-size: 0.85rem; margin-bottom: 10px;">En parallèle, les 4 boîtes sont aussi visibles dans ↓</div>
+            <div class="arrow-down"></div>
+        </div>
+
+        <div class="outlook-hub">
+            <h3>📧 Outlook Desktop</h3>
+            <p>Vision unifiée des 4 boîtes — toutes configurées session 7 (13 mars)<br>
+            <span style="color: #666; font-size: 0.8rem;">+ installé sur téléphone & iPad</span></p>
+        </div>
+
+        <!-- ============ SECTION 3 : ENTITES ============ -->
+        <div class="section-title">
+            <span class="num">3</span>
+            Les entités de Fred (classification des factures)
+        </div>
+
+        <div class="entity-list">
+            <span class="entity-tag entity-fu">FU Solutions</span>
+            <span class="entity-tag entity-v8">V8 Equipment</span>
+            <span class="entity-tag entity-hkff">HKFF (Holding)</span>
+            <span class="entity-tag entity-foo">Foo Fight (Taekwondo)</span>
+        </div>
+
+        <p style="color: #999; font-size: 0.85rem; margin-top: 10px;">
+            Chaque facture extraite est automatiquement classée dans une de ces 4 entités par l'IA.
+        </p>
+
+        <!-- ============ SECTION 4 : AUTOMATISATION ============ -->
+        <div class="section-title">
+            <span class="num">4</span>
+            L'automatisation factures — Comment ça marche
+        </div>
+
+        <div class="flow">
+            <div class="flow-step highlight">
+                <div class="step-header">
+                    <span class="step-icon">📨</span>
+                    <span class="step-title">Gmail v8@v8-equipment.com</span>
+                </div>
+                <div class="step-detail">
+                    n8n scanne cette boîte toutes les 15 minutes.<br>
+                    Filtre par mots-clés : facture, invoice, avoir, reçu, receipt…
+                </div>
+            </div>
+
+            <div class="flow-arrow"></div>
+
+            <div class="flow-step">
+                <div class="step-header">
+                    <span class="step-icon">📎</span>
+                    <span class="step-title">Extraction des pièces jointes</span>
+                </div>
+                <div class="step-detail">
+                    Récupère les PDF et images attachés aux emails.<br>
+                    Ignore les fichiers non pertinents (.p7s, etc.)
+                </div>
+            </div>
+
+            <div class="flow-arrow"></div>
+
+            <div class="flow-step highlight">
+                <div class="step-header">
+                    <span class="step-icon">🤖</span>
+                    <span class="step-title">Claude API — Analyse IA</span>
+                </div>
+                <div class="step-detail">
+                    Claude lit chaque facture et extrait :<br>
+                    → Fournisseur, date, n° facture<br>
+                    → Montant HT / TVA / TTC<br>
+                    → Entité (FU Solutions, V8, HKFF, Foo Fight)<br>
+                    → Mode de paiement, échéance
+                </div>
+            </div>
+
+            <div class="flow-arrow"></div>
+
+            <div class="flow-parallel">
+                <div class="flow-step success">
+                    <div class="step-header">
+                        <span class="step-icon">📊</span>
+                        <span class="step-title">Google Sheets</span>
+                    </div>
+                    <div class="step-detail">
+                        1 ligne ajoutée par facture.<br>
+                        Onglets : En cours / Archive / Dashboard
+                    </div>
+                </div>
+
+                <div class="flow-step success">
+                    <div class="step-header">
+                        <span class="step-icon">📁</span>
+                        <span class="step-title">Google Drive</span>
+                    </div>
+                    <div class="step-detail">
+                        PDF archivé automatiquement.<br>
+                        Dossier : archives-compta/<br>
+                        Nommage : YYYY-MM_fichier.pdf
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow"></div>
+
+            <div class="flow-step">
+                <div class="step-header">
+                    <span class="step-icon">📬</span>
+                    <span class="step-title">Récap hebdomadaire (lundi 8h)</span>
+                </div>
+                <div class="step-detail">
+                    1 seul email par semaine → fred@v8-equipment.com<br>
+                    Résumé : factures en retard / en attente / payées<br>
+                    <span style="color: #666;">(Pas de spam — 1 mail/facture remplacé par ce récap)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ SECTION 5 : PROCESS ACTUEL COMPTA ============ -->
+        <div class="section-title">
+            <span class="num">5</span>
+            Le process compta existant (inchangé)
+        </div>
+
+        <div class="note">
+            <strong>Avant l'automatisation, le process était :</strong><br>
+            Factures arrivent sur v8@v8equipment.com → Fred les met manuellement dans le dossier "scan facture" (Dropbox) → la compta (Virginie/Annie Link) vide le dossier → <strong style="color: #e74c3c;">Fred perd la trace</strong>.<br><br>
+            <strong>L'automatisation ne remplace pas ce process</strong> — c'est un outil <strong>parallèle</strong> pour que Fred garde la visibilité. La compta continue de récupérer les factures dans Dropbox. L'automatisation crée un double suivi dans Google Sheets + Drive.
+        </div>
+
+        <!-- ============ SECTION 6 : TESTS ============ -->
+        <div class="section-title">
+            <span class="num">6</span>
+            Résultats des tests (19 mars 2026)
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="label">Factures testées</div>
+                <div class="value green">8 / 8 correctes</div>
+            </div>
+            <div class="status-item">
+                <div class="label">Attestation filtrée</div>
+                <div class="value green">1 rejetée (Refashion) ✓</div>
+            </div>
+            <div class="status-item">
+                <div class="label">Précision extraction</div>
+                <div class="value green">100%</div>
+            </div>
+            <div class="status-item">
+                <div class="label">Statut</div>
+                <div class="value orange">Gate 3 ✓ — En attente deploy</div>
+            </div>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.85rem;">
+            <thead>
+                <tr style="border-bottom: 2px solid #333;">
+                    <th style="text-align: left; padding: 10px; color: #888;">Fournisseur</th>
+                    <th style="text-align: right; padding: 10px; color: #888;">TTC</th>
+                    <th style="text-align: left; padding: 10px; color: #888;">Catégorie</th>
+                    <th style="text-align: center; padding: 10px; color: #888;">Complexité</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">NJ ComptaExpert</td>
+                    <td style="padding: 10px; text-align: right;">462 €</td>
+                    <td style="padding: 10px; color: #888;">Comptabilité</td>
+                    <td style="padding: 10px; text-align: center;">⚪</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">MV Community (Marion)</td>
+                    <td style="padding: 10px; text-align: right;">665 €</td>
+                    <td style="padding: 10px; color: #888;">CM / Marketing</td>
+                    <td style="padding: 10px; text-align: center;">🔴 avoir -285 €</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">MITIC</td>
+                    <td style="padding: 10px; text-align: right;">1 980 €</td>
+                    <td style="padding: 10px; color: #888;">Stockage / Logistique</td>
+                    <td style="padding: 10px; text-align: center;">🟠 4 lignes</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">Loco Media</td>
+                    <td style="padding: 10px; text-align: right;">900 €</td>
+                    <td style="padding: 10px; color: #888;">Web / Digital</td>
+                    <td style="padding: 10px; text-align: center;">⚪</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">UPS (ICOD)</td>
+                    <td style="padding: 10px; text-align: right;">11,62 €</td>
+                    <td style="padding: 10px; color: #888;">Import / Douanes</td>
+                    <td style="padding: 10px; text-align: center;">🔴 HTML + TVA douanière</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">Bouygues Telecom</td>
+                    <td style="padding: 10px; text-align: right;">77,44 €</td>
+                    <td style="padding: 10px; color: #888;">Telecom</td>
+                    <td style="padding: 10px; text-align: center;">🔴 opérateur mixte</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222; opacity: 0.5;">
+                    <td style="padding: 10px;">❌ Refashion</td>
+                    <td style="padding: 10px; text-align: right;">—</td>
+                    <td style="padding: 10px; color: #888;">Attestation</td>
+                    <td style="padding: 10px; text-align: center;">Filtré ✓</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">Ulys Pro (ASF/ESCOTA)</td>
+                    <td style="padding: 10px; text-align: right;">219,54 €</td>
+                    <td style="padding: 10px; color: #888;">Transport / Péage</td>
+                    <td style="padding: 10px; text-align: center;">🔴 multi-page, 2 entités</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 10px;">Isabelle Drioton</td>
+                    <td style="padding: 10px; text-align: right;">698 €</td>
+                    <td style="padding: 10px; color: #888;">Formation</td>
+                    <td style="padding: 10px; text-align: center;">⚪</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr style="border-top: 2px solid #C27A5A44;">
+                    <td style="padding: 12px; font-weight: 700; color: #C27A5A;">TOTAL</td>
+                    <td style="padding: 12px; text-align: right; font-weight: 700; color: #C27A5A;">5 013,60 €</td>
+                    <td colspan="2" style="padding: 12px; color: #888;">8 factures extraites + 1 attestation rejetée</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <!-- ============ SECTION 7 : TIMELINE ============ -->
+        <div class="section-title">
+            <span class="num">7</span>
+            Chronologie — Ce qu'on a fait, session par session
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item done">
+                <div class="t-date">Session 4 — 22 février</div>
+                <div class="t-title">Redirections email + centralisation factures</div>
+                <div class="t-detail">
+                    <strong>Redirections configurées :</strong> Gmail perso, fred@v8, contact@v8 → filtres sur mots-clés "facture/invoice/receipt/reçu" → transfert automatique vers v8@v8-equipment.com.<br>
+                    Label rouge "Facture" créé dans v8@ pour identifier les mails entrants.<br>
+                    Factures papier : photo → email à v8@.<br>
+                    "C'est du temps que j'achète. Pour automatiser, il faut qu'on soit clair sur le process." (Fred)
+                </div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="t-date">Session 5 — 1er mars</div>
+                <div class="t-title">Process manuel stabilisé</div>
+                <div class="t-detail">
+                    Revue hebdo vendredi (15 min) : déplacer les PDF, renommer en YYYY-MM-DD_Fournisseur_Montant.pdf.<br>
+                    Phase 2 prévue : automatisation n8n + Agent IA (mars-avril).
+                </div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="t-date">Session 6 — 9 mars</div>
+                <div class="t-title">Outlook choisi + cahier des charges rédigé</div>
+                <div class="t-detail">
+                    Decision : Outlook Desktop = client mail principal (Thunderbird rejeté).<br>
+                    Fred configuré dans Outlook : FredGmail + fred@v8-equipment.com.<br>
+                    Catherine rédige le cahier des charges automatisation factures.<br>
+                    Boîte FU Solutions : config reportée (bug 2FA OVH).
+                </div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="t-date">Session 7 — 13 mars</div>
+                <div class="t-title">4 boîtes configurées + OVH récupéré</div>
+                <div class="t-detail">
+                    <strong>FU Solutions (fu@fusolution.fr)</strong> + <strong>contact@v8-equipment.com</strong> ajoutées dans Outlook ✓<br>
+                    Accès OVH récupéré : identifiant FF4801-OVH, 2FA corrigée.<br>
+                    MDP OVH partagé avec le cabinet comptable.<br>
+                    Découverte : 12 noms de domaine inutilisés (~300 €/an).<br>
+                    Phishing détecté en live.
+                </div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="t-date">Session 8 — 17 mars</div>
+                <div class="t-title">Automatisation lancée + Claude Pro</div>
+                <div class="t-detail">
+                    Fred envoie 2-3 factures d'exemple pour calibrer l'automatisation.<br>
+                    Compte Claude Pro créé (fu@fusolutions.fr).<br>
+                    Google Drive + Calendar + Gmail connectés à Claude.<br>
+                    "J'ai les épaules qui se libèrent, les sacs de plâtre qui tombent" (Fred)
+                </div>
+            </div>
+
+            <div class="timeline-item done">
+                <div class="t-date">19 mars (Catherine)</div>
+                <div class="t-title">Tests automatisation : 8/8 factures validées</div>
+                <div class="t-detail">
+                    Gate 3 validée : extraction 100% correcte sur 9 factures réelles de Fred.<br>
+                    Variable serveur corrigée. Flux simplifié. Récap hebdo créé.<br>
+                    Archivage Drive automatique ajouté.
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="t-date">Prochaine étape</div>
+                <div class="t-title">Gate 4 — Mise en production</div>
+                <div class="t-detail">
+                    Configurer OAuth2 Gmail v8@v8equipment.com dans n8n (avec Fred en session).<br>
+                    Créer la Google Sheet sur le Drive de Fred.<br>
+                    Activer les 2 workflows en production.<br>
+                    Former Fred au tableau de suivi.
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ SECTION 8 : RÉSUMÉ ============ -->
+        <div class="section-title">
+            <span class="num">8</span>
+            En résumé
+        </div>
+
+        <div class="note" style="border-left-color: #2ecc71;">
+            <strong style="color: #2ecc71;">Ce qui a été fait :</strong><br>
+            ✅ Redirections email configurées : Gmail perso, fred@v8, contact@v8 → tout vers v8@v8-equipment.com (session 4)<br>
+            ✅ 4 boîtes mail centralisées dans Outlook Desktop (session 7)<br>
+            ✅ Accès OVH récupéré (FF4801-OVH, 2FA résolue)<br>
+            ✅ Automatisation factures développée et testée (8/8 factures = 100%)<br>
+            ✅ Google Sheets + Drive + Récap hebdo prêts<br>
+            ✅ Claude Pro configuré pour Fred<br><br>
+            <strong style="color: #e74c3c;">À vérifier :</strong><br>
+            ⚠️ Les filtres/redirections email sont-ils toujours actifs et complets ? (posés session 4, jamais revérifiés)<br>
+            ⚠️ fu@fusolution.fr : redirection vers v8@ probablement jamais configurée<br>
+            ⚠️ Mots-clés des filtres : manque peut-être "avoir", "note d'honoraires", "relevé"…<br><br>
+            <strong style="color: #f39c12;">Ce qu'il reste :</strong><br>
+            ⏳ OAuth2 Gmail v8@ dans n8n (à faire avec Fred en session)<br>
+            ⏳ Sheet + Drive sur le Drive de Fred<br>
+            ⏳ Activation production (Gate 4)<br>
+            ⏳ Vérifier et compléter les filtres de redirection (en session avec Fred via AnyDesk)
+        </div>
+
+        <div class="footer">
+            CS Consulting Stratégique — Catherine Selosse<br>
+            Mis à jour le 19 mars 2026
+        </div>
+    </div>
+</body>
+</html>

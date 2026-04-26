@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Dimanche — Validation Chatbots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            background: #f5f5f5;
+            padding: 15px 20px;
+            border-left: 4px solid #9C27B0;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        .item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .item-text {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .item-note {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .time-estimate {
+            background: #e3f2fd;
+            border-left: 3px solid #2196F3;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .critical {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+
+        .status {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .status-ok {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-review {
+            background: #FF9800;
+            color: white;
+        }
+
+        .status-missing {
+            background: #f44336;
+            color: white;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
+
+        .summary h3 {
+            margin-bottom: 12px;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 8px 0;
+        }
+
+        .summary-item::before {
+            content: "→";
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ Checklist Dimanche — Validation Chatbots</h1>
+            <div class="subtitle">Dimanche 23 avril 18h — Catherine valide le travail de Mickaël</div>
+        </header>
+
+        <!-- MTM TELEGRAM -->
+        <div class="section">
+            <div class="section-header">
+                📱 MTM Telegram Chatbot <span class="status status-ok">Priority 1</span>
+            </div>
+            <div class="section-content">
+                <div class="time-estimate">⏱️ Validation: 15-20 min</div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Code chatbot bien documenté</div>
+                        <div class="item-note">Architecture + comment ça marche + où est la DB</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Intégration Brevo fonctionne</div>
+                        <div class="item-note">Les réponses chatbot → tags Brevo OK</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Guide usage pour Aurélia</div>
+                        <div class="item-note">Comment ajouter FAQ, modérer, voir stats — clair et lisible</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Test rapide : poser une question</div>
+                        <div class="item-note">Le chatbot répond? La question est capturée Brevo?</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Escalade documentée</div>
+                        <div class="item-note">Quand Aurélia doit contacter Mickaël, comment</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FSY WHATSAPP -->
+        <div class="section">
+            <div class="section-header">
+                💬 FSY WhatsApp Chatbot <span class="status status-review">Priority 2</span>
+            </div>
+            <div class="section-content">
+                <div class="time-estimate">⏱️ Validation: 20-30 min</div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Webhook WhatsApp configuré</div>
+                        <div class="item-note">Messages → endpoint → Brevo. Test: envoyer message test</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">FAQ initiales chargées</div>
+                        <div class="item-note">Au moins 5 FAQ test en place</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Logique FAQ fonctionne</div>
+                        <div class="item-note">Question → recherche → réponse OK</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Brevo sync fonctionne</div>
+                        <div class="item-note">Question reçue → contact crée/tagué dans Brevo</div>
+                    </div>
+                </div>
+
+                <div class="item critical">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Coûts expliqués et acceptés</div>
+                        <div class="item-note">~1.25€/mois clairement documenté. Aurélia a signé off?</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Guide modération pour assistante</div>
+                        <div class="item-note">Comment ajouter FAQ, modérer, vérifier les logs</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Test en vrai : envoyer message</div>
+                        <div class="item-note">WhatsApp group FSY → poser question → réponse auto arrive</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GUIDE MAINTENANCE -->
+        <div class="section">
+            <div class="section-header">
+                📚 Guide Maintenance Aurélia <span class="status status-ok">Priority 1</span>
+            </div>
+            <div class="section-content">
+                <div class="time-estimate">⏱️ Validation: 15 min (lecture rapide)</div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Mails Brevo : comment éditer</div>
+                        <div class="item-note">Clair, avec liens directs Brevo</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">UTMs : comment ajouter/modifier</div>
+                        <div class="item-note">Lien générateur inclus, Substack ajouté?</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Automations Brevo : activé/désactivé</div>
+                        <div class="item-note">Où sont les switchs, comment tester</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Circle : gestion basique</div>
+                        <div class="item-note">Inviter, modérer, voir stats</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Chatbots : ajouter FAQ</div>
+                        <div class="item-note">MTM Telegram + FSY WhatsApp avec steps clairs</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Escalade : qui contacter quand</div>
+                        <div class="item-note">Catherine, Mickaël, Laurie — rôles clairs</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Format lisible (HTML/Markdown)</div>
+                        <div class="item-note">Screenshots incluses, liens directs, pas de jargon</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GLOBAL -->
+        <div class="section">
+            <div class="section-header">
+                🎯 Global Checks
+            </div>
+            <div class="section-content">
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Tous les fichiers/docs en place</div>
+                        <div class="item-note">Dossiers organisés, noms clairs, pas de fichier "version2_final_REAL"</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Zéro dépendance à Mickaël explicitée</div>
+                        <div class="item-note">Aurélia peut maintenir seule (ou avec assistante)</div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Tous les coûts transparents</div>
+                        <div class="item-note">Rien de caché, budgets clairs (MTM gratuit, FSY 1.25€/mois)</div>
+                    </div>
+                </div>
+
+                <div class="item critical">
+                    <input type="checkbox">
+                    <div class="item-text">
+                        <div class="item-title">Rien n'est brisé par rapport à jeudi</div>
+                        <div class="item-note">Automations + Circle migration toujours en place et fonctionnelles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FINAL DECISION -->
+        <div class="summary">
+            <h3>📊 Décision finale (Dimanche 18h30)</h3>
+            <div class="summary-item">Si ✅ tous les items → <strong>Prêt pour Aurélia lundi</strong></div>
+            <div class="summary-item">Si 1-2 items ❌ → <strong>Mickaël continue jusqu'à mercredi, tu valides jeudi</strong></div>
+            <div class="summary-item">Si 3+ items ❌ → <strong>Report phase 2, tu reprends la semaine d'après</strong></div>
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);">
+                <strong>Objectif :</strong> Aurélia lance sa comm lundi 24 avril avec automations 100% opérationnelles + chatbots prêts
+            </div>
+        </div>
+
+        <footer>
+            Imprime cette checklist ou garde-la ouverte dimanche 18h<br>
+            <em>Temps total validation: ~1h (si tout est en place)</em>
+        </footer>
+    </div>
+</body>
+</html>

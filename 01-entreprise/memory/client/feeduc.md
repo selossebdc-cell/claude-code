@@ -6,10 +6,11 @@ type: "client"
 
 # Feeduc
 
-**Contact Principal**: [À compléter]  
+**Contact Principal**: [À compléter - voir proposition signé]  
 **Entreprise**: Feeduc  
 **Secteur**: Formation, coaching, développement personnel  
-**Status**: Client actif — Accompagnement Classique IA & Automatisation (depuis 2026-04-26)
+**Status**: Client actif — Accompagnement Classique IA & Automatisation  
+**Contrat**: Proposition commerciale signée (NS) — Maintenance 2026 contractualisée
 
 ## 🎯 Mission Essence
 
@@ -51,14 +52,29 @@ Cartographier l'usage IA et automatisations au sein de l'équipe → identifier 
 | Temps gagné/sem (collectif) | 0 | 5-10h |
 | Problèmes/blocages signalés | [À compter] | < 2/semaine |
 
+## 📦 Documents Contractuels & Rapports
+
+**Contrats**
+- ✓ `PROPOSITION COMMERCIALE - FEEDUC - signée NS.pdf` (989KB)
+- ✓ `contrat-maintenance-2026.html` — Accord maintenance 2026
+- `questionnaire-equipe-feeduc.html` (24KB) — Diagnostic équipe
+
+**Rapports**
+- `rapport-trimestriel-q1-2026.html` (15KB) — Q1 2026 résultats
+- `Discussion Projets Automatisation Vente Transcript.txt` (62KB) — Notes projet
+
+**CR Réunions**
+- `cr-reunion-mars2026.md` — CR réunion mars 2026
+
 ## 🎯 Prochaines Actions
 
-- [ ] Collecter et analyser réponses questionnaire
+- [ ] Analyser réponses questionnaire (12 questions équipe)
 - [ ] Synthèse blocages par département
 - [ ] Présenter findings + recommandations
-- [ ] Plan formation IA structuré
-- [ ] Déploiement + itération
+- [ ] Valider plan formation IA structuré
+- [ ] Déploiement automations + itération
 
 ---
-**Dernière mise à jour**: 2026-04-26  
+**Dernière mise à jour**: 2026-04-26 (documents restaurés)  
+**Statut Contrat**: Signé (maintenance 2026 active)  
 **Prochaine révision**: Après analyse questionnaire

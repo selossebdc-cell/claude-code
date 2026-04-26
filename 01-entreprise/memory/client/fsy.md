@@ -8,8 +8,8 @@ type: "client"
 
 **Contact Principal**: Aurélia (fondatrice/propriétaire, validation seule)  
 **Équipe Opérationnelle**: Laurie (outils + automations), Anam (VA + migration)  
-**Status**: Client actif — Projet Data/KPI/Automations (depuis 23/04/2026)  
-**Contrat**: ~17 jours sprint serré (audit 06/04 → livraison 23/04)
+**Status**: Client actif — Projet Data/KPI/Automations **LIVRÉ 23/04/2026** → Phase post-livraison  
+**Contrat**: Sprint 17 jours (audit 06/04 → livraison 23/04) ✓ COMPLÉTÉ
 
 ## 🎯 Mission Essence
 
@@ -55,7 +55,22 @@ Construire infrastructure data **sans dépendance Catherine** — tracker source
 |-----|------|-------|----------|-----------|
 | 1 | 06/04 | Audit initial | Brevo core 9 attrs, 22 templates, 9 n8n workflows | Audit report |
 | 2 | 20/04 | Livraison + test | Validation tests, Stripe webhook, migration | Planning interactif |
-| 3 | 23/04 | Livraison finale | Chatbots + formation équipe | Checklist validation |
+| 3 | 23/04 | Livraison finale | Chatbots + formation équipe | Checklist validation ✓ |
+
+## 📦 Livrables Post-Livraison (Documents Restaurés)
+
+**Runbooks & Documentation Technique**
+- `runbook-automatisations-fsy.html` (56KB) — Guide complet des automations (Brevo, n8n, Stripe)
+- `schemas-tous-workflows.html` — Diagrammes de tous les workflows
+- `schema-parcours-client-fsy.html` — Parcours client complet (visuel)
+- `brief-michael-chatbots.html` — Brief chatbots Telegram/WhatsApp
+
+**Planning & Checklists**
+- `planning-livraison-jeudi.html` — Timeline livraison (20/04)
+- `checklist-dimanche-validation.html` — Checklist validation Aurélia (23/04)
+- `test-plan-automatisations.html` — Plan de test exhaustif
+
+**Status**: Tous les runbooks documentés pour délégation à Laurie/Anam
 
 ## 🎯 Prochaines Actions
 

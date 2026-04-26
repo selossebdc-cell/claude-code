@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FSY Status Report — 23 avril 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --terracotta: #C27A5A;
+    --terracotta-light: #d4956f;
+    --bg: #0f0f0f;
+    --bg-card: #1a1a1a;
+    --white: #FFFFFF;
+    --grey-light: #b0b0b0;
+    --green: #4ade80;
+    --red: #f87171;
+    --orange: #fb923c;
+    --yellow: #fbbf24;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    line-height: 1.6;
+  }
+
+  .header {
+    background: linear-gradient(160deg, #1a1a1a 0%, #0f0f0f 50%, #1a1410 100%);
+    padding: 40px 24px;
+    border-bottom: 3px solid var(--terracotta);
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .header-subtitle {
+    color: var(--grey-light);
+    font-size: 0.95rem;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  .meta-item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .meta-label {
+    color: var(--terracotta);
+    font-weight: 600;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+
+  .alert {
+    background: rgba(248, 113, 113, 0.1);
+    border-left: 4px solid var(--red);
+    padding: 16px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+  }
+
+  .alert-title {
+    color: var(--red);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .alert-text {
+    color: var(--grey-light);
+    font-size: 0.9rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid rgba(194, 122, 90, 0.2);
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    color: var(--terracotta);
+  }
+
+  .card-stat {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .card-label {
+    color: var(--grey-light);
+    font-size: 0.85rem;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(194, 122, 90, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--terracotta);
+    transition: width 0.3s ease;
+  }
+
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(194, 122, 90, 0.3);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(194, 122, 90, 0.1);
+  }
+
+  th {
+    background: rgba(194, 122, 90, 0.08);
+    color: var(--terracotta);
+    font-weight: 600;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .status-critical {
+    background: rgba(248, 113, 113, 0.2);
+    color: var(--red);
+  }
+
+  .status-warning {
+    background: rgba(251, 146, 60, 0.2);
+    color: var(--orange);
+  }
+
+  .status-done {
+    background: rgba(74, 222, 128, 0.2);
+    color: var(--green);
+  }
+
+  .status-progress {
+    background: rgba(251, 191, 36, 0.2);
+    color: var(--yellow);
+  }
+
+  .action-list {
+    list-style: none;
+  }
+
+  .action-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    background: rgba(194, 122, 90, 0.05);
+    border-left: 3px solid rgba(194, 122, 90, 0.3);
+    border-radius: 2px;
+  }
+
+  .action-priority {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .priority-critical {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  .priority-warning {
+    background: var(--orange);
+    color: var(--white);
+  }
+
+  .priority-normal {
+    background: var(--yellow);
+    color: #000;
+  }
+
+  .timeline {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+
+  .timeline-item {
+    flex-shrink: 0;
+    padding: 12px 16px;
+    background: rgba(194, 122, 90, 0.08);
+    border: 1px solid rgba(194, 122, 90, 0.2);
+    border-radius: 6px;
+    min-width: 200px;
+    text-align: center;
+  }
+
+  .timeline-date {
+    font-weight: 600;
+    color: var(--terracotta);
+    font-size: 0.9rem;
+  }
+
+  .timeline-label {
+    color: var(--grey-light);
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    color: var(--grey-light);
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(194, 122, 90, 0.1);
+    margin-top: 40px;
+  }
+
+  @media print {
+    body { background: white; }
+    .card, .alert { background: white; }
+    .header { border-bottom: 2px solid #999; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>🧘 Face Soul Yoga</h1>
+    <p class="header-subtitle">Status Report — Livraison finale en cours</p>
+    <div class="header-meta">
+      <div class="meta-item">
+        <span class="meta-label">Date:</span>
+        <span>23 avril 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Phase:</span>
+        <span>Livraison finale (sprint critique)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Avancement:</span>
+        <span><strong>75%</strong></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ALERTE CRITIQUE -->
+  <div class="alert">
+    <div class="alert-title">🔴 DEADLINE CRITIQUE — 23/04 18h</div>
+    <div class="alert-text">
+      Livraison finale en cours aujourd'hui. Migration Circle + webhooks Stripe + chatbots validation dimanche 18h. Buffer très faible post-go-live.
+    </div>
+  </div>
+
+  <!-- KPIs CARDS -->
+  <div class="grid">
+    <div class="card">
+      <div class="card-title">Budget</div>
+      <div class="card-stat">5 250€</div>
+      <div class="card-label">Encaissé / 8 000€</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 65%"></div>
+      </div>
+      <div style="margin-top: 8px; font-size: 0.85rem; color: var(--grey-light);">2 750€ dû 17/04</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Avancement</div>
+      <div class="card-stat">75%</div>
+      <div class="card-label">3 / 4 étapes complétées</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 75%"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Livrables</div>
+      <div class="card-stat">7 / 8</div>
+      <div class="card-label">Prêts (87%)</div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 87%"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Santé projet</div>
+      <div class="card-stat" style="color: var(--red);">🔴 CRITIQUE</div>
+      <div class="card-label">Timeline très serrée</div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section">
+    <h2 class="section-title">📅 Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">06/04</div>
+        <div class="timeline-label">✅ Audit</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">20/04</div>
+        <div class="timeline-label">✅ Tests</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">23/04 (aujourd'hui)</div>
+        <div class="timeline-label">🔄 Livraison</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">26/04 lun</div>
+        <div class="timeline-label">⏳ Circle go-live</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">27/04 mar</div>
+        <div class="timeline-label">⏳ n8n data flow</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">26/04+ sem</div>
+        <div class="timeline-label">📋 Chatbots</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIONS CRITIQUES -->
+  <div class="section">
+    <h2 class="section-title">⚡ Actions Critiques (Aujourd'hui — 23/04)</h2>
+    <ul class="action-list">
+      <li class="action-item">
+        <span class="action-priority priority-critical">1</span>
+        <strong>Lori + Dev</strong> : Subscription update Stripe via Claude/n8n Edge (migrate dates + payment methods)
+      </li>
+      <li class="action-item">
+        <span class="action-priority priority-critical">2</span>
+        <strong>Catherine</strong> : Valider webhooks Stripe → n8n en production
+      </li>
+      <li class="action-item">
+        <span class="action-priority priority-critical">3</span>
+        <strong>Aurélia + Laurie</strong> : Validation go/no-go à 18h (8/8 critères OK?)
+      </li>
+    </ul>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="section">
+    <h2 class="section-title">🎯 Prochaines Étapes</h2>
+    <table>
+      <tr>
+        <th>Date</th>
+        <th>Responsable</th>
+        <th>Action</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>23/04 (maintenant)</td>
+        <td>Lori + Dev + Catherine</td>
+        <td>Subscription update + validation webhooks</td>
+        <td><span class="status-badge status-critical">EN COURS</span></td>
+      </tr>
+      <tr>
+        <td>26/04 lun matin</td>
+        <td>Anam + Laurie</td>
+        <td>Export CSV + import Circle en masse</td>
+        <td><span class="status-badge status-warning">À FAIRE</span></td>
+      </tr>
+      <tr>
+        <td>26/04 lun</td>
+        <td>Catherine</td>
+        <td>Email onboarding aux clientes Circle</td>
+        <td><span class="status-badge status-warning">À FAIRE</span></td>
+      </tr>
+      <tr>
+        <td>27/04 mar</td>
+        <td>Catherine</td>
+        <td>Connection n8n workflows + UTMs dynamiques</td>
+        <td><span class="status-badge status-warning">À FAIRE</span></td>
+      </tr>
+      <tr>
+        <td>26/04+ sem</td>
+        <td>Mickaël + Catherine</td>
+        <td>Chatbots déploiement + tests (pas tout en même temps)</td>
+        <td><span class="status-badge status-warning">REPORTER</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- BLOCAGES -->
+  <div class="section">
+    <h2 class="section-title">🚩 Blocages Actuels</h2>
+    <table>
+      <tr>
+        <th>Blocage</th>
+        <th>Impact</th>
+        <th>Responsable</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>Subscription update Stripe API</td>
+        <td><span class="status-badge status-critical">CRITIQUE</span></td>
+        <td>Lori + Dev</td>
+        <td><span class="status-badge status-progress">EN COURS</span></td>
+      </tr>
+      <tr>
+        <td>Webhooks Stripe validation</td>
+        <td><span class="status-badge status-critical">CRITIQUE</span></td>
+        <td>Catherine</td>
+        <td><span class="status-badge status-progress">EN COURS</span></td>
+      </tr>
+      <tr>
+        <td>Export CSV + import Circle bulk</td>
+        <td><span class="status-badge status-warning">IMPORTANT</span></td>
+        <td>Anam</td>
+        <td>À faire lun</td>
+      </tr>
+      <tr>
+        <td>Mickaël timeline chatbots</td>
+        <td><span class="status-badge status-warning">IMPORTANT</span></td>
+        <td>Mickaël</td>
+        <td>Reporter semaine 26</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- SATISFACTION -->
+  <div class="section">
+    <h2 class="section-title">😊 Satisfaction Client</h2>
+    <div class="card">
+      <p><strong>Aurélia :</strong> "Bravo la structure. On a enfin une vraie visibilité sur les conversions. Impatiente de voir les chatbots dimanche."</p>
+      <p style="margin-top: 12px; color: var(--grey-light); font-size: 0.9rem;">Rating: ⭐⭐⭐⭐ (satisfait)</p>
+    </div>
+  </div>
+
+  <!-- CHECKLIST CLÔTURE -->
+  <div class="section">
+    <h2 class="section-title">✅ Checklist Clôture</h2>
+    <ul class="action-list">
+      <li class="action-item">[ ] Subscription update Stripe validé</li>
+      <li class="action-item">[ ] Webhooks en production + testés</li>
+      <li class="action-item">[ ] Membres importés dans Circle</li>
+      <li class="action-item">[ ] Email onboarding envoyé</li>
+      <li class="action-item">[ ] Workflows n8n connectés + UTMs prêts</li>
+      <li class="action-item">[ ] Go/No-go dimanche 18h ✅ ou ❌</li>
+      <li class="action-item">[ ] Documentation + formation équipe</li>
+      <li class="action-item">[ ] Satisfaction Aurélia confirmée</li>
+      <li class="action-item">[ ] Monitoring 3 mois planifié</li>
+    </ul>
+    <p style="margin-top: 16px; color: var(--orange); font-weight: 600;">Status: 🔄 40% complete</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Face Soul Yoga — Status Report 23 avril 2026</p>
+  <p>CS Consulting Stratégique | Catherine Selosse</p>
+  <p style="margin-top: 8px; color: #777;">Confidential — For internal use only</p>
+</div>
+
+</body>
+</html>

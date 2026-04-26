@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte Rendu - RDV Taina</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 { font-size: 24px; margin-bottom: 8px; }
+        .meta { color: #666; margin-bottom: 24px; font-size: 14px; }
+        h2 { font-size: 18px; margin-top: 32px; margin-bottom: 12px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 8px; }
+        h3 { font-size: 16px; margin-top: 18px; margin-bottom: 10px; color: #555; }
+        ul { margin-left: 20px; margin-bottom: 12px; }
+        li { margin-bottom: 6px; }
+        .bug { background: #fff3cd; border-left: 4px solid #ff6b6b; padding: 12px; margin: 16px 0; }
+        .bug strong { color: #d63031; }
+        em { color: #666; }
+    </style>
+</head>
+<body>
+    <h1>Compte Rendu - RDV #2 Taina Tarsis</h1>
+    <div class="meta">
+        <strong>Date :</strong> 21 avril 2026 | <strong>Durée :</strong> ~2h30 | <strong>Client :</strong> Guadeloupe Explore
+    </div>
+
+    <h2>1. Infrastructure Digitale</h2>
+    <h3>iCloud & Calendrier</h3>
+    <ul>
+        <li>Sync iCloud réussie (Bureau + Documents)</li>
+        <li>Import complet boîte mail (à trier)</li>
+        <li>Calendrier Apple : CPA, Escales Ponant, Structure & Finance, Alternance</li>
+        <li>Synchronisation actif sur tous appareils</li>
+    </ul>
+
+    <h3>Fichiers & Gestion</h3>
+    <ul>
+        <li>Dossier Guadeloupe Explore : actuel en local → à migrer Cloud</li>
+        <li>Solution : ajouter aux favoris Finder pour accès rapide</li>
+        <li>Trier/organiser avec Claude (test positif)</li>
+    </ul>
+
+    <div class="bug">
+        <strong>⚠️ Tutos cassés :</strong> Les liens ressources ne fonctionnent pas depuis la resécurisation. À corriger.
+    </div>
+
+    <h2>2. Coaching : Perfectionnisme</h2>
+    <h3>Blocage Identifié</h3>
+    <ul>
+        <li>Besoin de tout garder (historique client 10 ans + attachement sentimental)</li>
+        <li>Devis doit être parfait = ralentit l'agence</li>
+        <li>Remise en question = "échec" plutôt que "apprentissage"</li>
+        <li>Attend perfection avant d'avancer → paralysie</li>
+    </ul>
+
+    <h3>Points de Travail</h3>
+    <ul>
+        <li>Définir limites acceptables : jusqu'où on garde les données ?</li>
+        <li>Perfection = inatteignable → identifier ses limites</li>
+        <li>Reframing : "il y a une marge de progression" vs "j'ai échoué"</li>
+        <li><strong>Mantra :</strong> "Action imparfaite > inaction parfaite"</li>
+        <li>Travail en cours avec coach Julien (gratitude, fierté)</li>
+    </ul>
+
+    <h2>3. Playbook & Parcours Clients</h2>
+    <h3>3 Parcours Clients</h3>
+    <ul>
+        <li><strong>B2C DIP :</strong> Lead → qualification → dispo prestataires → devis → menu → réservation → feedback</li>
+        <li><strong>B2B Ponant UCPA :</strong> Excursions touristiques + repas</li>
+        <li><strong>Web :</strong> Contacts via site (à développer)</li>
+    </ul>
+
+    <h3>Automatisations Envisagées</h3>
+    <ul>
+        <li>Inbox centralisée (email + chat) pour leads</li>
+        <li>Auto-extraction qualification (nom, date, budget, type tour)</li>
+        <li>Chatbot WhatsApp pour dispo prestataires (vs 45 min actuellement)</li>
+        <li>ESUS génère devis automatique (connexion à vérifier)</li>
+        <li>Formulaire + compilation auto menu par date/nom</li>
+        <li>Relance automatique (1 mois avant excursion pour menu, 1 mois avant pour solde 50%)</li>
+        <li>Post-excursion : formulaire feedback + Claude recap + photos</li>
+        <li>Fidélisation : email 6 mois après</li>
+    </ul>
+
+    <h3>ESUS comme CRM Central</h3>
+    <ul>
+        <li>Base données clients + colonne "Menu choisi"</li>
+        <li>Tout centralisé, pas de base parallèle</li>
+        <li>Relances auto depuis ESUS</li>
+    </ul>
+
+    <div class="bug">
+        <strong>🐛 BUG CRITIQUE - Permissions Playbook :</strong> Taina voit les tâches d'autres clients (Aurélia, Laurie, Véa) dans "Mes tâches". Problème de confidentialité/droits à corriger urgemment.
+    </div>
+
+    <div class="bug">
+        <strong>⚠️ À vérifier :</strong> ESUS + Stripe vs lien Crédit Mutuel actuel ? Comment connecter ?
+    </div>
+
+    <h2>4. Claude & Modèles AI</h2>
+    <h3>Stratégie Modèles</h3>
+    <ul>
+        <li><strong>Haiku :</strong> lire data/documents (pas cher tokens)</li>
+        <li><strong>Opus 4.7 :</strong> analyser/interpréter (sortie récente, très performant)</li>
+        <li><strong>Pattern :</strong> Haiku → Opus = combinaison coût-efficace</li>
+    </ul>
+
+    <h3>Documents Séminaire Business Max</h3>
+    <ul>
+        <li>4 PDFs (24 pages chacun) = notes séminaire Taina</li>
+        <li>Objectif : valeurs entreprise, objectifs, stratégie application</li>
+        <li>Processus : Haiku lit data → Opus 4.7 analyse → doc HTML</li>
+        <li>Résultat : doc "Équipe 3 internes + 50 prestataires" (vs "2 employés" annoncé)</li>
+    </ul>
+
+    <h3>Création Skill "Stratégie"</h3>
+    <ul>
+        <li>Basée sur doc HTML généré</li>
+        <li>Claude recadre conversations dans stratégie globale</li>
+        <li>V1 à tester à l'usage</li>
+    </ul>
+
+    <h2>5. Ressources & Contacts</h2>
+    <ul>
+        <li><strong>Michael (michael@csbusiness.fr) :</strong> développeur qui assiste sur automatisations (Playbook, ESUS, chatbots)</li>
+        <li>Peut contacter Taina directement (Catherine en copie au début)</li>
+    </ul>
+
+    <h2>6. Prochaines Étapes</h2>
+    <ul>
+        <li><strong>URGENT :</strong> Corriger bug permissions Playbook (cloisonnement clients)</li>
+        <li><strong>URGENT :</strong> Revérifier liens tutos</li>
+        <li>Taina valide doc "Stratégie/Valeurs" et intègre dans sa mémoire Claude</li>
+        <li>Finaliser skill "Stratégie" (V1 usage réel)</li>
+        <li>Vérifier ESUS + Stripe vs Crédit Mutuel</li>
+        <li>Solution enregistrement appels (native iOS ou Otter.ai)</li>
+        <li><strong>RDV #3 :</strong> mardi 28 avril 2026 à 14h</li>
+    </ul>
+
+    <h2>7. Notes Contexte</h2>
+    <ul>
+        <li>Taina travaille souvent à la dernière minute (son mode de fonctionnement)</li>
+        <li>Attachement sentimental à l'archivage = lié au perfectionnisme</li>
+        <li>Coach Julien travaille sur gratitude + fierté</li>
+        <li>Mac ancien (Monterey) → pas Sonoma/Cowork</li>
+        <li>iPhone peut nécessiter mise à jour OS pour app Claude</li>
+    </ul>
+
+</body>
+</html>

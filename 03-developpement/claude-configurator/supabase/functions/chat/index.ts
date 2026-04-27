@@ -1,4 +1,5 @@
 import Anthropic from "https://esm.sh/@anthropic-ai/sdk@0.24.3";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.0";
 import {
   getOrCreateMetadata,
   updateMetadata,
@@ -17,6 +18,10 @@ import {
 const anthropic = new Anthropic({
   apiKey: Deno.env.get("ANTHROPIC_API_KEY"),
 });
+
+// Initialize Supabase client for auth validation
+const supabase_url = Deno.env.get("SUPABASE_URL");
+const supabase_anon_key = Deno.env.get("SUPABASE_ANON_KEY");
 
 // SYSTEM PROMPT v21 — Diagnostic Agent Intelligent
 const DIAGNOSTIC_SYSTEM_PROMPT_V21 = `# Claude Configurator — Diagnostic Agent Intelligent v21
@@ -256,6 +261,80 @@ interface ChatRequest {
   client_name?: string;
 }
 
+interface AuthValidationResult {
+  valid: boolean;
+  userId?: string;
+  error?: string;
+}
+
+interface PaymentCheckResult {
+  hasPaid: boolean;
+  paidAt?: string;
+  error?: string;
+}
+
+// Validate JWT and extract user ID
+async function validateJWT(token: string): Promise<AuthValidationResult> {
+  if (!supabase_url || !supabase_anon_key) {
+    return { valid: false, error: "Supabase configuration missing" };
+  }
+
+  try {
+    const supabase = createClient(supabase_url, supabase_anon_key);
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      return { valid: false, error: "Invalid or expired JWT" };
+    }
+
+    return { valid: true, userId: user.id };
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : "JWT validation failed";
+    return { valid: false, error: errorMsg };
+  }
+}
+
+// Check if user has active payment (paid_at within last 30 days)
+async function checkPaymentStatus(userId: string): Promise<PaymentCheckResult> {
+  if (!supabase_url || !supabase_anon_key) {
+    return { hasPaid: false, error: "Supabase configuration missing" };
+  }
+
+  try {
+    const supabase = createClient(supabase_url, supabase_anon_key);
+
+    // Query diagnostics table for this user's paid_at timestamp
+    // User has access if: paid_at is not NULL AND paid_at >= NOW() - 30 days
+    const { data, error } = await supabase
+      .from("diagnostics")
+      .select("paid_at")
+      .eq("client_id", userId)
+      .not("paid_at", "is", null)
+      .gt("paid_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
+      .limit(1);
+
+    if (error) {
+      console.error("Payment check query error:", error);
+      return { hasPaid: false, error: "Payment verification failed" };
+    }
+
+    if (data && data.length > 0) {
+      return { hasPaid: true, paidAt: data[0].paid_at };
+    }
+
+    return {
+      hasPaid: false,
+      error: "No active payment. Please purchase access.",
+    };
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : "Payment check failed";
+    return { hasPaid: false, error: errorMsg };
+  }
+}
+
 // Compress old messages in conversation history
 function compressMessages(messages: Message[], keepLast = 5): Message[] {
   if (!messages || messages.length === 0) return [];
@@ -311,6 +390,38 @@ async function handler(req: Request): Promise<Response> {
     });
   }
 
+  // Extract and validate JWT
+  const authHeader = req.headers.get("authorization");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return new Response(
+      JSON.stringify({ error: "Missing or invalid Authorization header" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const token = authHeader.replace("Bearer ", "");
+  const jwtValidation = await validateJWT(token);
+  if (!jwtValidation.valid) {
+    return new Response(
+      JSON.stringify({ error: jwtValidation.error || "JWT validation failed" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  const userId = jwtValidation.userId;
+
+  // Check payment status (paid_at within last 30 days)
+  const paymentCheck = await checkPaymentStatus(userId!);
+  if (!paymentCheck.hasPaid) {
+    return new Response(
+      JSON.stringify({
+        error: paymentCheck.error || "Payment required",
+        code: "PAYMENT_REQUIRED",
+      }),
+      { status: 403, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   try {
     const body = (await req.json()) as ChatRequest;
     const { session_id, message, conversation_history = [], metadata: requestMetadata, client_name } = body;
@@ -326,12 +437,17 @@ async function handler(req: Request): Promise<Response> {
     let metadata: DiagnosticMetadata;
     try {
       metadata = await getOrCreateMetadata(session_id, client_name);
+      // Ensure metadata includes authenticated user ID for RLS isolation
+      if (!metadata.client_id) {
+        metadata.client_id = userId;
+      }
     } catch (error) {
       console.error("Error managing metadata:", error);
       // Fallback to request metadata if Supabase fails
       metadata = requestMetadata as DiagnosticMetadata || {
         session_id,
         client_name,
+        client_id: userId, // Include authenticated user ID
         started_at: new Date().toISOString(),
         turns_count: 0,
         pain_points: [],

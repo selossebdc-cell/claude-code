@@ -32,7 +32,13 @@ This is the unified knowledge base that **survives across Claude sessions** and 
 - **Quality Reference**: Fred's config standard — see `/reference/fred-config-standard.md`
 - **Methodology**: Factory BREAK > MODEL > ACT > DEBRIEF — see `/technical/factory-methodology-adoption.md`
 - **Security**: Passed Secure-by-Design audit (RLS policies, no hardcoded secrets, server-side validation)
-- **Status**: Code on disk, ready to commit via Terminal + deploy to Supabase
+- **Status**: ✅ CODE COMMITTED + PUSHED (2026-04-27) — 305 files recovered from GitHub + cleaned phantom worktree
+
+### Git & Workspace Recovery (2026-04-27)
+- **Problem**: Phantom worktree phantom broke `git status` after Claude Code exit
+- **Solution**: Deleted `.claude/worktrees/adoring-ramanujan`, recovered all files from GitHub — see `project_git-recovery-2026-04-27.md`
+- **Result**: All 305 project files now tracked, committed, and pushed — **Nothing can be lost now**
+- **Process**: Repeatable workflow documented for future incidents — see `feedback_claude-code-worktree-solution.md`
 
 ### Process Memory
 - **Skill Workflow**: 8 refactored SKILL.md (Notion → Google Drive complete)
@@ -60,6 +66,13 @@ This is the unified knowledge base that **survives across Claude sessions** and 
 01-entreprise/memory/
 ├── MEMORY.md (this file - index + rules)
 ├── growth-agent-system-prompt.md (optimized agent prompt for weekly runs)
+├── feedback_claude-code-worktree-solution.md (worktree isolation + recovery)
+├── feedback_rls-testing-methodology.md (RLS testing patterns)
+├── project_git-recovery-2026-04-27.md (phantom worktree fix — repeatable process)
+├── project_claude-configurator-v2-epics-complete.md (diagnostic v2 complete)
+├── project_portail-client-v2-future-ideas.md (V3 vision + CRM integration)
+├── project_portail-client-v2-template-isolation.md (RLS bug fixed)
+├── technical_claude-configurator-v2-architecture-decisions.md (design decisions)
 ├── client/
 │   ├── fred.md (Accompagnement 6 mois, état courant) [TBD]
 │   ├── taïna.md [TBD]
@@ -78,7 +91,8 @@ This is the unified knowledge base that **survives across Claude sessions** and 
 │   ├── skill-workflow.md (how to build/refactor SKILLs — 5 phases + standards)
 │   ├── client-onboarding.md (sales → delivery — 5 stages + checklists)
 │   ├── session-reporting.md (CRs + memory enrichment — 4 phases)
-│   └── proposal-generation.md (audit → proposal → contract — 6 phases)
+│   ├── proposal-generation.md (audit → proposal → contract — 6 phases)
+│   └── consolidation-protocol.md (cloud sync conflict resolution rules)
 └── versioning/
     ├── 2026-04.md (changelog: structural changes, decisions, blockers)
     └── DECISIONS.md (archived decisions with WHY + precedents)
@@ -171,7 +185,7 @@ See `/process/consolidation-protocol.md` for complete conflict resolution proced
 
 ---
 
-## 📌 Current Focus (2026-04-26)
+## 📌 Current Focus (2026-04-27)
 
 - [x] Git consolidation (GitHub = primary backup, source of truth established)
 - [x] Memory architecture (client/, technical/, process/, versioning/)
@@ -179,6 +193,7 @@ See `/process/consolidation-protocol.md` for complete conflict resolution proced
 - [x] Process documentation (all 4 workflows documented)
 - [x] **Cloud consolidation** (11 memory files copied OneDrive → Google Drive; consolidation-protocol.md created)
 - [x] Security Risk Assessment SKILL (mandatory before feature development)
+- [x] **Git recovery + worktree cleanup** (2026-04-27 — recovered all project files from GitHub, cleaned phantom worktree, committed 305 files + pushed)
 - [ ] Populate client memory files (extract from existing data)
 - [ ] Refactor session-report SKILL (Notion → SESSIONS.md)
 - [ ] Refactor client-onboarding SKILL (Notion → GDrive folders)

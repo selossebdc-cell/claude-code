@@ -82,6 +82,17 @@ Claude Code's worktree isolation is **a feature, not a bug**. It:
 
 ---
 
+## Solution Verified (2026-04-27)
+
+**What we did:**
+1. Quit Claude Code completely
+2. Opened Terminal (native macOS)
+3. Found phantom worktree: `.claude/worktrees/adoring-ramanujan` (leftover reference)
+4. Deleted the phantom worktree directory
+5. Git status now works perfectly
+
+**Result**: All 305 files recovered + committed + pushed to GitHub in one batch with secrets cleaned.
+
 ## Future Automation Opportunity
 
 Could create a `.claude/commands/commit-with-guide` command that:
@@ -92,3 +103,10 @@ Could create a `.claude/commands/commit-with-guide` command that:
 5. Waits for user to complete workflow
 
 **But for now**: Manual workflow + HTML checklist = reliable + transparent
+
+## Key Insight for Future
+
+If `git status` fails after exiting Claude Code with error about worktree, check:
+- `rm -rf .claude/worktrees/` (remove phantom references)
+- `git status` should then work
+- This is a cloud storage issue (Google Drive) + git worktree interaction

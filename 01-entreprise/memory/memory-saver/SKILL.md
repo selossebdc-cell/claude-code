@@ -63,6 +63,20 @@ Contenu de la mémoire
 - 🟢 **À créer** — nouvelle information sans mémoire correspondante
 - 🗑️ **À supprimer** — référence à quelque chose qui n'existe plus
 
+## Cas spécial: Processus de Récupération
+
+Quand une session résout un incident ou problème technique:
+1. **Créer une mémoire `project_`** si c'est une incident avec solution documentée
+2. **Créer une mémoire `feedback_`** si c'est une règle/pattern à retenir
+3. **Ajouter un exemple dans MEMORY.md** (section "Git & Workspace Recovery", etc.)
+
+**Exemple**: Worktree phantom (2026-04-27)
+- Créé `project_git-recovery-2026-04-27.md` avec processus complet
+- Mis à jour `feedback_claude-code-worktree-solution.md` avec solution vérifiée
+- Ajouté section dans MEMORY.md pour visibilité future
+
+**Bénéfice**: Les solutions testées deviennent répétables et les futurs incidents sont résolus 10x plus vite.
+
 ## Résumé de sortie
 
 Afficher:

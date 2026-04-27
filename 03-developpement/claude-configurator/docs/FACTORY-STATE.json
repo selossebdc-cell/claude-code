@@ -16,8 +16,8 @@
         "completedAt": "2026-04-27T17:45:00Z"
       },
       "plan": {
-        "status": "pending",
-        "completedAt": null
+        "status": "completed",
+        "completedAt": "2026-04-27T16:15:00Z"
       },
       "build": {
         "status": "pending",
@@ -35,7 +35,7 @@
     "task": 0,
     "adr": 3
   },
-  "scope": "Stripe → Magic Link → JWT → RLS + 30j retention",
+  "scope": "Stripe \u2192 Magic Link \u2192 JWT \u2192 RLS + 30j retention",
   "threat": "Attacker forges JWT or modifies HTTP request to access /chat without payment",
   "specs_generated": {
     "system": "docs/specs/system.md",

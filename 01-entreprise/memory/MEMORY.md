@@ -29,10 +29,13 @@ This is the unified knowledge base that **survives across Claude sessions** and 
 - **EPIC-1 to EPIC-5: COMPLETE** ✅ All core diagnostic components implemented + integrated + documented — see `project_claude-configurator-v2-epics-complete.md`
 - **Diagnostic Refactor**: Intelligent + adaptive (vs linear 9-block) — 9 implicit blocks as internal checklist, not visible order — see `/technical/claude-configurator-diagnostic-refactor.md`
 - **Model Choice**: Sonnet 4.6 for diagnostic — confirmed as best quality/cost balance — see `/technical/model-selection-decisions.md`
-- **Quality Reference**: Fred's config standard — see `/reference/fred-config-standard.md`
+- **Quality Reference**: Fred's config standard (Claude-native implementation) — see `/reference/fred-config-standard.md` + `/reference/fred-claude-implementation-guide.md`
+- **Fred Config Deployment**: Concrete implementation guide ready — NO Custom Instructions (OpenAI feature) — use CLAUDE.md + settings.json + memory system instead
 - **Methodology**: Factory BREAK > MODEL > ACT > DEBRIEF — see `/technical/factory-methodology-adoption.md`
 - **Security**: Passed Secure-by-Design audit (RLS policies, no hardcoded secrets, server-side validation)
 - **Status**: ✅ CODE COMMITTED + PUSHED (2026-04-27) — 305 files recovered from GitHub + cleaned phantom worktree
+- **Deployment Status** (2026-04-27 afternoon): Backend ready for Supabase (DEPLOYMENT.md Steps 1-4) — see `project_claude-configurator-v2-deployment-status.md`
+- **Frontend**: Deferred (non-critical SSE streaming changes for separate commit after backend validation)
 
 ### Git & Workspace Recovery (2026-04-27)
 - **Problem**: Phantom worktree phantom broke `git status` after Claude Code exit
@@ -40,11 +43,14 @@ This is the unified knowledge base that **survives across Claude sessions** and 
 - **Result**: All 305 project files now tracked, committed, and pushed — **Nothing can be lost now**
 - **Process**: Repeatable workflow documented for future incidents — see `feedback_claude-code-worktree-solution.md`
 
-### Process Memory
+### Process Memory & Automation
 - **Skill Workflow**: 8 refactored SKILL.md (Notion → Google Drive complete)
 - **Client Onboarding**: Manual (no automation yet)
 - **Proposal Generation**: HTML-based (not Word/PDF)
-- **Session Reporting**: Manual CRs (could be automated)
+- **Session Reporting**: 🚀 **Automation in progress** — see `project_session-report-automation-v2.md`
+  - **Problem**: Manual CR generation post-session (multiple transcript sources: Plaud, Fireflies, Fathom, notes)
+  - **Goal**: Auto-generate CR + extract actions + send proposal via WhatsApp/Telegram for validation
+  - **Status**: Requirements gathering (awaiting: validation channel choice, Portail V2 API, LinkedIn storage location)
 
 ---
 
@@ -73,8 +79,11 @@ This is the unified knowledge base that **survives across Claude sessions** and 
 ├── project_portail-client-v2-future-ideas.md (V3 vision + CRM integration)
 ├── project_portail-client-v2-template-isolation.md (RLS bug fixed)
 ├── technical_claude-configurator-v2-architecture-decisions.md (design decisions)
+├── reference/
+│   ├── fred-config-standard.md (Fred's quality baseline — Claude-native implem)
+│   └── fred-claude-implementation-guide.md (⭐ CONCRETE steps for Fred to deploy)
 ├── client/
-│   ├── fred.md (Accompagnement 6 mois, état courant) [TBD]
+│   ├── fred.md (Accompagnement 6 mois, état courant + config deployment status)
 │   ├── taïna.md [TBD]
 │   ├── aurélia.md [TBD]
 │   ├── face-soul-yoga.md [TBD]
@@ -195,19 +204,21 @@ See `/process/consolidation-protocol.md` for complete conflict resolution proced
 - [x] Security Risk Assessment SKILL (mandatory before feature development)
 - [x] **Git recovery + worktree cleanup** (2026-04-27 — recovered all project files from GitHub, cleaned phantom worktree, committed 305 files + pushed)
 - [ ] Populate client memory files (extract from existing data)
-- [ ] Refactor session-report SKILL (Notion → SESSIONS.md)
+- 🟡 **Refactor session-report SKILL + build automation** (see `project_session-report-automation-v2.md` — awaiting Catherine's clarifications)
 - [ ] Refactor client-onboarding SKILL (Notion → GDrive folders)
 - [ ] **Portail V2 — Future: AI-assisted process step generation** (see `project_portail-client-v2-future-ideas.md`)
 - [ ] First growth agent run (Monday 2026-04-28 @ 09:00)
 
 **Status Summary:**
-- ✅ Memory infrastructure ready (12 files created + 1 consolidation-protocol = 13 total)
+- ✅ Memory infrastructure ready (14 files: 12 original + 1 consolidation-protocol + 1 session-report-automation)
 - ✅ Growth agent prompt optimized for quality
 - ✅ All process workflows documented with phases + checklists
 - ✅ Cloud consolidation complete (Google Drive = source of truth, OneDrive archived)
 - ✅ Security assessment system active (mandatory before all features)
 - 🟡 Client memories need population (templates ready)
+- 🟡 Session Report Automation: In discovery phase (awaiting clarifications on validation channel, Portail V2 API, LinkedIn storage)
 - 🟡 2 SKILLs need Notion→GDrive refactor (target: 2026-04-30)
 
-**Modified:** 2026-04-26 by Claude  
+**Modified:** 2026-04-27 by Claude  
 **Next Agent Run:** Monday 2026-04-28 @ 09:00 (reads MEMORY files from Google Drive, generates 3-5 propositions)
+- [Config as Living Proposal](product_claude-configurator-v2-config-living-proposal.md) — Config must be customizable, updatable with Claude features (EPIC-6/7 requirement)

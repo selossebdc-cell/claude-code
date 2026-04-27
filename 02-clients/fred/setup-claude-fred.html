@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Claude — Fred Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8fafb;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .intro-box {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .intro-box h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .step {
+            background: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 3px solid #667eea;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        .step h2 {
+            display: inline-block;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .step-subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            padding-left: 55px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .code-header {
+            color: #667eea;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 1;
+        }
+
+        .path-info {
+            background: #f0f4ff;
+            border-left: 3px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-family: 'Monaco', monospace;
+            font-size: 0.9em;
+            color: #2c3e50;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 3px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info-box h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 3px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+
+        .checklist li.done:before {
+            content: "☑";
+            color: #27ae60;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        table tr:hover {
+            background: #f8fafb;
+        }
+
+        .agents-section {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 3px solid #764ba2;
+            margin-bottom: 30px;
+        }
+
+        .agent-card {
+            background: #f8fafb;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .agent-card h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .agent-card p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .agent-prompt {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-family: monospace;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            border-top: 1px solid #ecf0f1;
+            margin-top: 40px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 3px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .step {
+                padding: 20px;
+            }
+
+            .code-block {
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Configuration Claude</h1>
+            <p>Guide d'installation FuFight — Step-by-step</p>
+        </header>
+
+        <div class="intro-box">
+            <h2>Avant de commencer</h2>
+            <p><strong>Temps total :</strong> ~15 minutes (lecture) + 10 minutes (setup)</p>
+            <p><strong>Qu'est-ce que tu vas faire :</strong> Créer 4 fichiers simples. Claude chargera tout automatiquement à partir de là.</p>
+            <p><strong>Important :</strong> Il n'y a <strong>pas d'interface UI</strong> ("Paramètres → Instructions personnalisées"). Tout est dans des fichiers texte que tu crées une fois.</p>
+        </div>
+
+        <!-- ÉTAPE 1 -->
+        <div class="step">
+            <h2><span class="step-number">1</span>Crée le fichier CLAUDE.md</h2>
+            <div class="step-subtitle">Fichier de configuration principal — c'est ici que tu dis à Claude comment tu fonctionnes</div>
+
+            <div class="path-info">
+                Chemin : <strong>.claude/CLAUDE.md</strong> (dans ton projet Claude)
+            </div>
+
+            <p>Copie-colle ce contenu exactement :</p>
+
+            <div class="code-block">
+                <div class="code-header">📄 CLAUDE.md</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre># Ma Configuration Claude — FuFight Focus
+
+## QUI JE SUIS
+- Fred, dirigeant FuFight (Commerce/distribution Chine)
+- TDAH : besoin structure courte, recadrage bienveillant, visuels
+- Meilleure productivité : 6h-10h, deadlines = motivation
+- Priorité #1 : FuFight (la poule aux oeufs d'or)
+
+## FOCUS
+Je travaille UNIQUEMENT sur FuFight. Pas sur V8, SCI, autres projects.
+Si je me disperse, dis-moi : "C'est pas FuFight. On remet focus?"
+
+## COMMENT CLAUDE ME TRAITE
+1. **Pomodoro 25 min** — Max 25 min focus continu
+2. **Visuels** — Tableaux > texte. Schemas > descriptions. HTML > Word
+3. **Actions concrètes** — Max 2-3 par semaine. Clairement ordonnées
+4. **Recadrage bienveillant** — J'ai du TDAH, j'aime qu'on m'aide à choisir UNE seule direction
+5. **Daily briefing 7h** — TOP 3 du jour basé sur ma mémoire (voir ~/claude/memory/client/fred.md)
+
+## BLOCAGES CONNUS
+- Dispersion : Je commence une tâche, pars sur une autre idée
+- Procrastination technique : Je repousse les tâches de config. Fragmente-les en 25 min
+- Comptabilité = douleur : "Putain ces factures..." — Aide-moi à automatiser
+- 4 boites mail : Centralisées dans Outlook (FAIT), mais j'oublie parfois d'en vérifier une
+
+## ANTIPHISHING
+Je clique sur les faux emails OVH. Tu me le dis toujours : "Ce mail sent bizarre, vérifie l'URL."
+
+## RÈGLES STRICTES
+- Rien sur HKFU publiquement
+- Rien sur expatriation publiquement
+- Rien sur contrat licence publiquement
+- Avant de proposer n'importe quoi : confirme que c'est pour FuFight</pre>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Pourquoi ce fichier ?</h4>
+                <p>C'est ta "personnalité" dans Claude. Au lieu d'avoir une interface UI (qui n'existe pas dans Claude), tu décris comment tu fonctionnes dans un fichier. Claude le lit au début de chaque session et adapte son comportement.</p>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 2 -->
+        <div class="step">
+            <h2><span class="step-number">2</span>Crée le fichier settings.json</h2>
+            <div class="step-subtitle">Configuration technique — hooks, permissions, automation</div>
+
+            <div class="path-info">
+                Chemin : <strong>.claude/settings.json</strong> (dans ton projet Claude)
+            </div>
+
+            <p>Copie-colle ce contenu :</p>
+
+            <div class="code-block">
+                <div class="code-header">⚙️ settings.json</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre>{
+  "model": "claude-opus-4-7",
+  "hooks": {
+    "sessionStart": "Load ~/claude/memory/client/fred.md. Check if FuFight focus is clear.",
+    "sessionEnd": "/memory-saver"
+  },
+  "permissions": {
+    "read-only": ["contracts", "credentials", "banking"],
+    "automation": ["schedule"]
+  }
+}</pre>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Qu'est-ce que ça fait ?</h4>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>model</strong> : Utilise Opus 4.7 (meilleur qualité)</li>
+                    <li><strong>sessionStart</strong> : Au début de chaque session, Claude charge ta mémoire (priorités, blocages, contexte)</li>
+                    <li><strong>sessionEnd</strong> : À la fin de la session, Claude sauvegarde ce qu'il a appris</li>
+                    <li><strong>permissions</strong> : Tu dis à Claude que certains fichiers sont read-only (sécurité)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 3 -->
+        <div class="step">
+            <h2><span class="step-number">3</span>Crée ta mémoire opérationnelle</h2>
+            <div class="step-subtitle">Où Claude apprend tes priorités, tes blocages, ton contexte</div>
+
+            <div class="path-info">
+                Chemin : <strong>~/.claude/memory/client/fred.md</strong> (dans ton home)
+            </div>
+
+            <p>Copie-colle ce contenu :</p>
+
+            <div class="code-block">
+                <div class="code-header">📋 Memory File</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre># Fred — Mémoire Claude (FuFight Focus)
+
+## 🎯 PRIORITÉS ACTUELLES
+
+| Priorité | Quoi | Deadline | Status |
+|----------|------|----------|--------|
+| #1 | Automatisation factures (bugs n8n) | TBD | En cours |
+| #2 | Cloture comptable 2024/2025 | Mai 2026 | CRITIQUE |
+| #3 | Contrat licence FuFight | Avril 2026 | En signature |
+
+## 🚨 MES BLOCAGES
+
+| Blocage | Comment Claude m'aide |
+|---------|----------------------|
+| Dispersion | Recadre : "C'est pas FuFight, on remet focus?" |
+| Procrastination technique | Fragmente en 25 min, fait première action avec moi |
+| Comptabilité = douleur | Aide à automatiser avec n8n |
+| 4 boites mail | Rappelle les labels Outlook (FU Solutions, V8@, contact@, FredGmail) |
+
+## 📊 OÙ SONT MES DONNÉES
+
+| Donnée | Où | Accès |
+|--------|---|-------|
+| Factures reçues | 4 boites Outlook | Label "Factures" |
+| Factures auto | Google Sheets (n8n) | Drive FU Solutions |
+| Rentabilité FuFight | Excel FooFight | Drive FU Solutions |
+| Compta officielle | Admilink | Revolut releve + factures |
+
+## ✅ CE QUI MARCHE AVEC MOI
+
+- Pomodoro 25 min (double ma productivité)
+- Tutos visuels (video screen recording)
+- Tableaux de décision (pas de texte long)
+- Recadrage bienveillant
+- Outils simples (Outlook, Dropbox, Claude Pro)
+- Cowork sur Excel (tu trouves erreurs critiques)
+- Actions concrètes (j'applique entre sessions)
+
+## ⏰ MES HORAIRES
+
+- **6h-10h** : Productif (FuFight focus)
+- **10h-17h** : Operationnel (meetings, emails)
+- **17h+** : Fatigué (pas decisions complexes)
+- **Daily Briefing 7h** : TOP 3 du jour (Claude)</pre>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Important : Répertoire ~/.claude/</h4>
+                <p>Le dossier <code>~/.claude/memory/</code> doit exister sur ton ordinateur. Si ce n'est pas le cas :</p>
+                <div class="code-block" style="margin-top: 10px;">
+                    <pre>mkdir -p ~/.claude/memory/client/
+# Puis copie le fichier fred.md dedans</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 4 -->
+        <div class="step">
+            <h2><span class="step-number">4</span>Programme tes 3 tâches récurrentes</h2>
+            <div class="step-subtitle">Daily briefing 7h, Review hebdo, Compliance monthly</div>
+
+            <p>Claude peut automatiser tes tâches. Voici comment les créer :</p>
+
+            <h3 style="margin-top: 30px; color: #667eea;">🌅 Daily Briefing (7h du matin)</h3>
+            <div class="code-block">
+                <div class="code-header">Dans ton terminal Claude Code</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre>claude /schedule "daily 7h"</pre>
+            </div>
+
+            <p style="margin-top: 20px;">À la première exécution, Claude te posera une question. Réponds :</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre>Fred, TOP 3 FuFight d'aujourd'hui. Basé sur ~/claude/memory/client/fred.md (facturation, compta, contrat). Format tableau. 2 min MAX.</pre>
+            </div>
+
+            <div class="info-box">
+                <h4>💡 Qu'est-ce que ça va faire ?</h4>
+                <p>Chaque jour à 7h, Claude va te checker : "Voilà tes 3 priorités d'aujourd'hui pour FuFight." Tableau. 2 minutes. Fait.</p>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #667eea;">📊 Review Hebdomadaire (Vendredi 17h)</h3>
+            <div class="code-block">
+                <div class="code-header">Dans ton terminal Claude Code</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre>claude /schedule "weekly friday 17h"</pre>
+            </div>
+
+            <p style="margin-top: 20px;">Réponse :</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre>Fred, fin de semaine. (1) Quoi fait pour FuFight? (2) Quoi bloque? (3) Semaine prochaine, TOP 1 action. Tableau seulement. Update ~/claude/memory/client/fred.md.</pre>
+            </div>
+
+            <h3 style="margin-top: 30px; color: #667eea;">📋 Compliance Check (1er du mois, 9h)</h3>
+            <div class="code-block">
+                <div class="code-header">Dans ton terminal Claude Code</div>
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre>claude /schedule "monthly 1st 9h"</pre>
+            </div>
+
+            <p style="margin-top: 20px;">Réponse :</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copier</button>
+                <pre>Fred, check mensuel. (1) Factures du mois importées? (2) Compta à jour? (3) Contrats à revoir? Alerte si CRITIQUE.</pre>
+            </div>
+
+            <div class="success-box">
+                <h4>✅ Résultat</h4>
+                <p>À partir de maintenant :</p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>7h chaque jour</strong> → Briefing automatique (pas besoin de demander)</li>
+                    <li><strong>Vendredi 17h</strong> → Review automatique (tu sais où tu en es)</li>
+                    <li><strong>1er du mois</strong> → Alerte si quelque chose cloche</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- AGENTS -->
+        <div class="agents-section">
+            <h2 style="color: #764ba2; margin-bottom: 30px;">🤖 Étape 5 : Les Agents Spécialisés (Optionnel)</h2>
+            <p style="margin-bottom: 30px;">Si tu veux que Claude ait des "rôles" différents selon ce que tu demandes, crée ces SKILLs. Sinon, saute cette étape pour l'instant.</p>
+
+            <div class="agent-card">
+                <h4>Agent FuFight Coach</h4>
+                <p><strong>Quand l'utiliser :</strong> "Je veux faire mon debrief hebdo" ou "J'ai besoin d'un recadrage"</p>
+                <p><strong>Ce qu'il fait :</strong> T'aide à réfléchir sur ta semaine FuFight, tes blocages, et ce qui marche</p>
+                <div class="agent-prompt">
+Rôle : Tu es le coach FuFight de Fred. TDAH = besoin de structure courte et recadrage bienveillant.
+Methode: (1) Recapitulatif semaine en TABLEAU (Fait / Bloque / Prochaine action)
+(2) Recadrage: "C'est pas FuFight? On remet focus?"
+(3) Pomodoro: Si blocage, fragmente en 25 min
+Style: Direct, pragmatique, visuels, pas de texte long
+Toujours update ~/claude/memory/client/fred.md après
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <h4>Agent Factures</h4>
+                <p><strong>Quand l'utiliser :</strong> "Analyse mes factures" ou "Où en suis-je sur l'auto-factures?"</p>
+                <p><strong>Ce qu'il fait :</strong> Analyse tes factures, trouve les erreurs, aide à automatiser avec n8n</p>
+                <div class="agent-prompt">
+Rôle : Expert automatisation factures (n8n + Google Sheets).
+Methode: (1) Audit factures reçues (emails, Sheets)
+(2) Identify blocages n8n (bugs, non-reconnus, categories)
+(3) Propose solution step-by-step (max 3 actions)
+Format: Tableau. Code a copier-coller si besoin.
+Critical: Compta 2024-2025 = blocage #1. Avant de proposer, confirme que c'est pour FuFight.
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <h4>Agent Antiphishing</h4>
+                <p><strong>Quand l'utiliser :</strong> Toujours — tu dis "C'est un email", je vérifier</p>
+                <p><strong>Ce qu'il fait :</strong> Scan tes emails suspects, t'avertit avant tu cliques</p>
+                <div class="agent-prompt">
+Rôle : Antiphishing strict. Fred clique sur faux emails OVH.
+Methode: (1) Check URL (pas "mail.google.com" qui redirige?)
+(2) Check sender email (fred@domain ou fr3d@d0main?)
+(3) Check demandes (paiement urgent? Code de verification? Credential?)
+Si suspect: "STOP. Ce mail sent bizarre. Regarde [URL/sender/demand]. C'est normal?"
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; color: #666;"><strong>Comment créer ces agents :</strong> Demande à Catherine comment créer des SKILLs personnalisées. Pour l'instant, tu peux juste utiliser Claude normalement — il va adapter son comportement basé sur CLAUDE.md.</p>
+        </div>
+
+        <!-- CHECKLIST FINALE -->
+        <div class="step">
+            <h2><span class="step-number">✓</span>Checklist de Déploiement</h2>
+            <p>Avant de dire "c'est bon", vérifie que tu as tout fait :</p>
+
+            <ul class="checklist">
+                <li>Créé <code>.claude/CLAUDE.md</code> avec ton profil (Copie exacte ci-dessus)</li>
+                <li>Créé <code>.claude/settings.json</code> avec ta config (Copie exacte ci-dessus)</li>
+                <li>Créé <code>~/.claude/memory/client/fred.md</code> avec ta mémoire (Copie exacte ci-dessus)</li>
+                <li>Programmé Daily Briefing 7h (commande <code>claude /schedule ...</code>)</li>
+                <li>Programmé Review Vendredi 17h (commande <code>claude /schedule ...</code>)</li>
+                <li>Programmé Compliance 1er du mois (commande <code>claude /schedule ...</code>)</li>
+                <li>Lancé une nouvelle session Claude (ferme et rouvre l'app) pour que ça charge</li>
+                <li>Verifié que le daily briefing arrive demain matin à 7h</li>
+            </ul>
+
+            <div class="success-box" style="margin-top: 30px;">
+                <h4>✅ Si tout est coché, tu es bon</h4>
+                <p>Claude chargera ta config automatiquement à partir de maintenant. Chaque session, il lira :</p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>CLAUDE.md (qui tu es, comment tu fonctionnes)</li>
+                    <li>~/.claude/memory/client/fred.md (tes priorités actuelles)</li>
+                </ul>
+                <p style="margin-top: 10px;">Et il adaptera son comportement en conséquence. FuFight focus. Pomodoro 25 min. Visuels. Recadrage bienveillant.</p>
+            </div>
+        </div>
+
+        <!-- TROUBLESHOOTING -->
+        <div class="step">
+            <h2><span class="step-number">?</span>Troubleshooting</h2>
+
+            <div style="margin-bottom: 30px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">❓ "Memory not loading at session start"</h4>
+                <p>Vérifiez que <code>~/.claude/memory/client/fred.md</code> existe et est lisible.</p>
+                <div class="code-block">
+                    <pre>ls ~/.claude/memory/client/fred.md</pre>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">❓ "Scheduled tasks not running"</h4>
+                <p>Vérifiez que la commande <code>claude /schedule list</code> montre vos tâches active.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">❓ "Claude ne respecte pas les règles de CLAUDE.md"</h4>
+                <p>Fermez et relancez Claude Code. Le fichier doit être rechargé.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">❓ "Je veux mettre à jour mes priorités mid-semaine"</h4>
+                <p>Éditez directement <code>~/.claude/memory/client/fred.md</code>. À la prochaine session, Claude aura le contexte à jour.</p>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p><strong>Configuration Claude — Votre setup personnalisé</strong></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Créé le 27 avril 2026 | Version 1.0</p>
+            <p style="margin-top: 20px; color: #999; font-size: 0.85em;">Support : Contactez Catherine (catherine@csbusiness.fr)</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(button) {
+            const codeBlock = button.parentElement;
+            const code = codeBlock.innerText.replace('📄 CLAUDE.md\nCopier\n', '')
+                                          .replace('⚙️ settings.json\nCopier\n', '')
+                                          .replace('📋 Memory File\nCopier\n', '')
+                                          .replace('Dans ton terminal Claude Code\nCopier\n', '')
+                                          .replace('Réponse :\nCopier\n', '')
+                                          .replace('Copier', '');
+
+            const pre = codeBlock.querySelector('pre');
+            if (pre) {
+                const textToCopy = pre.innerText;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    button.textContent = '✓ Copié!';
+                    setTimeout(() => {
+                        button.textContent = 'Copier';
+                    }, 2000);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

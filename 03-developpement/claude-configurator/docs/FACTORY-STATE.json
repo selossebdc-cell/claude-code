@@ -1,0 +1,51 @@
+{
+  "evolutionVersion": 1,
+  "evolutionMode": "greenfield-auth",
+  "requirementsFile": "input/requirements-auth-stripe.md",
+  "pipeline": {
+    "status": "model-phase",
+    "startedAt": "2026-04-27T00:00:00Z",
+    "completedAt": null,
+    "phases": {
+      "break": {
+        "status": "completed",
+        "completedAt": "2026-04-27T15:30:00Z"
+      },
+      "model": {
+        "status": "completed",
+        "completedAt": "2026-04-27T17:45:00Z"
+      },
+      "plan": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "build": {
+        "status": "pending",
+        "completedAt": null
+      },
+      "debrief": {
+        "status": "pending",
+        "completedAt": null
+      }
+    }
+  },
+  "counters": {
+    "epic": 0,
+    "us": 0,
+    "task": 0,
+    "adr": 3
+  },
+  "scope": "Stripe → Magic Link → JWT → RLS + 30j retention",
+  "threat": "Attacker forges JWT or modifies HTTP request to access /chat without payment",
+  "specs_generated": {
+    "system": "docs/specs/system.md",
+    "domain": "docs/specs/domain.md",
+    "api": "docs/specs/api.md",
+    "stack_reference": "docs/specs/stack-reference.md"
+  },
+  "adr_generated": [
+    "docs/adr/ADR-0001-webhook-idempotence.md",
+    "docs/adr/ADR-0002-jwt-strategy.md",
+    "docs/adr/ADR-0003-rls-policy-design.md"
+  ]
+}

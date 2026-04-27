@@ -221,4 +221,7 @@ See `/process/consolidation-protocol.md` for complete conflict resolution proced
 
 **Modified:** 2026-04-27 by Claude  
 **Next Agent Run:** Monday 2026-04-28 @ 09:00 (reads MEMORY files from Google Drive, generates 3-5 propositions)
+
+### Design & Positioning References
 - [Config as Living Proposal](product_claude-configurator-v2-config-living-proposal.md) — Config must be customizable, updatable with Claude features (EPIC-6/7 requirement)
+- [Blackbook for Claude Benchmark](reference_blackbook-claude-benchmark.md) — High-converting SaaS landing page (8.6/10) — gap analysis, social proof, urgency, pricing anchoring for Configurator v3 redesign

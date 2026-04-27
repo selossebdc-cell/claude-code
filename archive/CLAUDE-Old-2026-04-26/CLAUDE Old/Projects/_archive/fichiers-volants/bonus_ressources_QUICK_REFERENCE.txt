@@ -1,0 +1,142 @@
+================================================================================
+BONUS & RESSOURCES - QUICK REFERENCE FOR RECREATION
+================================================================================
+
+SECTION 1: 🎓 ACADÉMIE - Tutos Vidéo
+================================================================================
+
+Opening Quote: "Tous les tutos dont tu as besoin pour maîtriser tes outils et processus"
+
+MODULE 1: 📚 Productivité Personnelle
+  • 🎯 Setup Dashboard Notion (7 min)
+  • ⏰ Time-blocking & Calendrier (12 min)
+  • 🌅 Routines du Dirigeant (10 min)
+
+MODULE 2: 🛠️ Outils & Automatisation
+  • 🔐 Dashlane - Gestionnaire de Mots de Passe (8 min)
+  • 📧 Filtres Email & Inbox Zero (15 min)
+  • 🤖 Agents IA - ChatGPT & Claude (12 min)
+  • 📸 Banana.io - Retouche Photos Rapide (5 min)
+    [LINK: http://banana.io/]
+
+MODULE 3: 👥 Délégation & Process
+  • 📋 RACI & Fiches de Poste (10 min)
+  • 📝 SOP - Standard Operating Procedures (12 min)
+  • ✅ Check-lists Opérationnelles (8 min)
+
+
+SECTION 2: 📄 TEMPLATES & GUIDES
+================================================================================
+
+SUBSECTION: 🎯 Templates Notion (à dupliquer)
+  [CTA BUTTON] "Dupliquer tous les templates"
+
+SUBSECTION: 📚 Guides PDF
+  • 📘 Guide Filtres Email (Gmail + Outlook)
+  • 📗 Guide Installation Dashlane + Import CSV
+  • 📙 Guide Time-blocking pour Dirigeants
+  • 📕 Guide Création Annonces Leboncoin
+  • 📔 Guide Agent IA - Configuration
+  [CTA BUTTON] "Télécharger le pack complet"
+
+SUBSECTION: 🤖 Prompts IA (Copier-Coller)
+  • Annonces Leboncoin
+  • Agent CEO/Éclaireur
+  • Découpage Tâche "Everest"
+  • Réponse Email Rapide
+  • Préparation Réunion
+  [CTA BUTTON] "Télécharger les 10 prompts"
+
+
+SECTION 3: 🏫 ACCÈS COMMUNAUTÉ SKOOL
+================================================================================
+
+SUBSECTION: 🎓 Transformation Dirigeant - Académie
+
+  [LINK/CTA] "👉 Rejoindre la communauté Skool"
+  
+  Text: "Dans la communauté, tu trouveras :"
+
+  TIER 1: 🎯 Fondations (Semaines 1-6)
+    • Tous les tutos vidéo Module 1
+    • Forum Q&A productivité
+    • Défis hebdomadaires
+
+  TIER 2: 🚀 Délégation (Semaines 7-12)
+    • Tous les tutos vidéo Module 3
+    • Templates avancés
+    • Études de cas
+
+  TIER 3: 👑 Leadership (Semaines 13-18)
+    • Masterclasses exclusives
+    • Groupe de pairs dirigeants
+    • Sessions bonus
+
+  BONUS: 🛠️ Boîte à Outils
+    • Bibliothèque complète templates
+    • Base de données SOPs
+    • Prompts IA mise à jour
+
+SUBSECTION: 📞 Support
+
+  Text: "Questions sur les tutos ?"
+  
+  Contact Methods:
+    • 💬 Dans Skool : Forum Q&A
+    • 📧 Email : catherine@csbusiness.fr [mailto:catherine@csbusiness.fr]
+    • ⏱️ Réponse sous 48h
+  
+  Final Tip: "⚡ Astuce : Épingle cette page en favori pour accéder rapidement aux tutos !"
+
+
+QUICK STATS
+================================================================================
+- Total H1 Sections: 3
+- Total H2 Subsections: 8
+- Total H3 Sub-items: 18
+- Video Tutorials: 10 (with durations)
+- PDF Guides: 5
+- AI Prompts: 5
+- CTA Buttons: 4
+- External Links: 2 (1 direct link, 1 email)
+
+
+FORMATTING NOTES FOR NOTION RECREATION
+================================================================================
+
+1. Quotes: Use Notion's "Quote" block type for subtitle text
+2. Headings: H1 (Heading 1), H2 (Heading 2), H3 (Heading 3)
+3. Bullets: Use bulleted list items for all "•" items
+4. Links: Use inline links for URLs and mailto
+5. CTAs: Consider using button blocks or highlighted text for actions
+6. Emojis: All are preserved and should be included as-is
+
+
+CONTENT INVENTORY
+================================================================================
+
+VIDEO TUTORIALS (by module):
+Module 1 (3 videos, 29 min total)
+Module 2 (4 videos, 35 min total)
+Module 3 (3 videos, 30 min total)
+
+PDF GUIDES (5 total):
+- Gmail/Outlook focused
+- Dashlane focused
+- Time management focused
+- Leboncoin focused
+- AI Agent setup focused
+
+AI PROMPTS (5 total):
+- Sales/Listings
+- Leadership/Vision
+- Task Management
+- Communication
+- Meeting Prep
+
+SKOOL COMMUNITY CONTENT:
+- 4 learning tiers (Foundations, Delegation, Leadership, Toolkit)
+- Each tier has 3 benefit items
+- Support includes 3 contact channels + response time
+
+================================================================================

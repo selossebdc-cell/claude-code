@@ -1,0 +1,46 @@
+Process,Etape,Description,Owner,Outil,Couleur,Statut
+P1 - Onboarding Client,1. Client paie,Confirmation paiement automatique,Systeme,Uscreen/Kajabi,green,OK
+P1 - Onboarding Client,2. Email bienvenue,"B2C: 1 email Uscreen / B2B: 3 emails Kajabi",Systeme,Uscreen/Kajabi,green,OK
+P1 - Onboarding Client,3. Acces plateforme,Automatique apres paiement,Systeme,Uscreen/Kajabi,green,OK
+P1 - Onboarding Client,4. Guide demarrage,Inclus dans email bienvenue,Systeme,Email,green,OK
+P1 - Onboarding Client,⚠️ 5. Suivi J+3,"TROU : rien en place depuis migration Mailchimp/Brevo",PERSONNE,RIEN,red,TROU
+P1 - Onboarding Client,⚠️ 6. Suivi J+7,TROU : idem,PERSONNE,RIEN,red,TROU
+P1 - Onboarding Client,7. Suivi J+30,Inexistant — a creer pour retention,A definir,A definir,gray,A CREER
+P2 - Gestion Emails,ACTUEL: Aurelia lit TOUT,Pas de tri pas de delegation,Aurelia,Email,red,DOULEUR
+P2 - Gestion Emails,ACTUEL: Aurelia repond a tout,Standards + complexes melanges,Aurelia,Email,red,DOULEUR
+P2 - Gestion Emails,CIBLE: Tri auto (regles email),Labels : urgent / FAQ / technique / admin,Systeme,Gmail/Brevo,green,CIBLE
+P2 - Gestion Emails,CIBLE: FAQ → Agent IA,Questions recurrentes auto. ManyChat pour DM,Agent IA,IA sur-mesure,green,CIBLE
+P2 - Gestion Emails,CIBLE: Technique → Laurie,Acces plateforme problemes techniques,Laurie,Email/Notion,blue,CIBLE
+P2 - Gestion Emails,CIBLE: Complexe → Aurelia,Uniquement expertise requise,Aurelia,Email,orange,CIBLE
+P2 - Gestion Emails,CIBLE: Archiver/classer,Classification structuree,Laurie,Email+Drive,blue,CIBLE
+P3 - Publication RS,ACTUEL: Decide quoi poster CHAQUE JOUR,Pas de calendrier editorial = fatigue decisionnelle,Aurelia,Instagram,red,DOULEUR
+P3 - Publication RS,ACTUEL: Cree le visuel,Canva / CapCut — tout a la main,Aurelia,Canva/CapCut,red,DOULEUR
+P3 - Publication RS,ACTUEL: Publie en direct,Pas de programmation = stress permanent,Aurelia,Instagram,red,DOULEUR
+P3 - Publication RS,ACTUEL: Gere commentaires/DM,Poster = vendre. Stop poster = stop vendre,Aurelia,Instagram,red,DOULEUR
+P3 - Publication RS,CIBLE: LUNDI themes semaine (30 min),Aurelia definit 5 themes + angles,Aurelia,Notion (calendrier),orange,CIBLE
+P3 - Publication RS,CIBLE: Brief → Antoine,Template standardise : sujet angle format refs,Aurelia,Template Notion,orange,CIBLE
+P3 - Publication RS,CIBLE: Antoine cree visuels/reels,45 reels / 3 mois en cours,Antoine,CapCut/Canva,blue,CIBLE
+P3 - Publication RS,CIBLE: Laurie redige legendes,Avec aide Claude AI. Aurelia valide le ton,Laurie,Claude AI/Notion,blue,CIBLE
+P3 - Publication RS,CIBLE: Aurelia valide (5 min/post),Quick review : OK / ajustement / refaire,Aurelia,Notion,purple,CIBLE
+P3 - Publication RS,CIBLE: Programmer la semaine,Tout programme en avance. Zero a l'arrache,Laurie,Meta Business/Buffer,blue,CIBLE
+P3 - Publication RS,CIBLE: DM auto → ManyChat,Auto-reponses DM + qualification leads,Systeme,ManyChat,green,CIBLE
+P4 - Gestion Laurie,ACTUEL: Pas de brief structure,Taches au fil de l'eau pas de vision semaine,Aurelia,Rien,red,DOULEUR
+P4 - Gestion Laurie,ACTUEL: Laurie execute sans cadre,Pas de deadlines pas de priorites,Laurie,Rien,red,DOULEUR
+P4 - Gestion Laurie,ACTUEL: Aurelia re-fait si insatisfaite,Pas de validation intermediaire → reprend tout,Aurelia,Rien,red,DOULEUR
+P4 - Gestion Laurie,CIBLE: LUNDI brief Aurelia (15 min),Liste taches priorites deadlines livrables,Aurelia,Template Notion,orange,CIBLE
+P4 - Gestion Laurie,CIBLE: Brief visio 15-30 min,Aurelia explique Laurie pose ses questions,Aurelia+Laurie,Meet,purple,CIBLE
+P4 - Gestion Laurie,CIBLE: Laurie execute + note blocages,Chaque tache = checkbox. Blocages dans Notion,Laurie,Notion,blue,CIBLE
+P4 - Gestion Laurie,CIBLE: MERCREDI point rapide 5 min,"Async : j'en suis la j'ai un blocage sur X",Laurie,Notion/WhatsApp,blue,CIBLE
+P4 - Gestion Laurie,CIBLE: VENDREDI validation livrables,OK ou feedback precis (pas 'c'est pas bien'),Aurelia,Notion,purple,CIBLE
+P5 - Parcours Client,1. Prospect voit post Instagram,Canal UNIQUE = risque si algo change,Prospect,Instagram,gray,RISQUE
+P5 - Parcours Client,2. Like / Follow / DM,Manifestation d'interet,Prospect,Instagram,gray,OK
+P5 - Parcours Client,3. ManyChat auto-reponse,Lien vers offre ou lead magnet,Systeme,ManyChat,green,OK
+P5 - Parcours Client,⚠️ 4. TROU : pas de nurturing,Pas de sequence email. Acheter ou disparaitre,PERSONNE,RIEN,red,TROU
+P5 - Parcours Client,5. Achat abo 17€/mois,613 abonnes courants,Prospect,Uscreen/Kajabi,gray,OK
+P5 - Parcours Client,6. Onboarding → voir P1,Process partiellement documente,Systeme,Voir P1,green,PARTIEL
+P5 - Parcours Client,7. Contenu hebdo,~600 videos ~550 Go. Passage evergreen decide,Aurelia,Uscreen/Kajabi,orange,EN COURS
+P5 - Parcours Client,8. Communaute WhatsApp,"238+184 membres. Clientes se repondent entre elles. MAIS pas de cadre",Aurelia,WhatsApp,orange,DOULEUR
+P5 - Parcours Client,⚠️ 9. TROU : pas d'upsell structure,Pas de sequence abo → programme 299€,PERSONNE,RIEN,red,TROU
+P5 - Parcours Client,10. Programme 299-500€,Vente directe pas automatisee,Aurelia,Vente directe,orange,MANUEL
+P5 - Parcours Client,⚠️ 11. TROU : pas de retention,Pas de suivi churn ni campagne reactivation,PERSONNE,RIEN,red,TROU
+P5 - Parcours Client,12. FUTUR : Premium 3-15K€,Aurelia Del Sol — Mastermind ou 1:1,A definir,Nouvelle marque,purple,FUTUR

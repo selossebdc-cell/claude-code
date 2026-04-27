@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposition d'accompagnement — Julie Aymé</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 15mm;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --magenta: #D91E8C;
+    --magenta-dark: #A6136A;
+    --magenta-light: #FBE5F2;
+    --vert: #87C540;
+    --vert-dark: #5E9B1F;
+    --vert-light: #EEF8DE;
+    --beige: #F5F0E8;
+    --beige-dark: #E8DFCF;
+    --text: #2B2B2B;
+    --text-light: #6B6B6B;
+    --white: #FFFFFF;
+    --danger: #C23B3B;
+    --danger-light: #FBEAEA;
+  }
+
+  html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.55;
+    color: var(--text);
+    background: var(--beige);
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm 18mm;
+    background: var(--beige);
+    page-break-after: always;
+    position: relative;
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+  }
+
+  /* ---------- COVER ---------- */
+  .cover {
+    background: linear-gradient(135deg, #D91E8C 0%, #A6136A 60%, #6E0A48 100%);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 35mm 22mm;
+  }
+
+  .cover-top {
+    font-size: 10pt;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  .cover-title {
+    font-size: 38pt;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 15mm 0 8mm;
+  }
+
+  .cover-title strong {
+    font-weight: 700;
+    color: var(--vert);
+  }
+
+  .cover-sub {
+    font-size: 14pt;
+    font-weight: 300;
+    opacity: 0.92;
+    margin-bottom: 15mm;
+    max-width: 150mm;
+    line-height: 1.45;
+  }
+
+  .cover-client {
+    font-size: 22pt;
+    font-weight: 600;
+    margin-bottom: 3mm;
+  }
+
+  .cover-activite {
+    font-size: 12pt;
+    opacity: 0.8;
+    margin-bottom: 20mm;
+  }
+
+  .cover-footer {
+    border-top: 1px solid rgba(255,255,255,0.3);
+    padding-top: 6mm;
+    font-size: 10pt;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0.9;
+  }
+
+  /* ---------- TYPOGRAPHY ---------- */
+  h1 {
+    font-size: 24pt;
+    color: var(--magenta);
+    font-weight: 700;
+    margin-bottom: 3mm;
+    line-height: 1.15;
+  }
+
+  h1 .accent {
+    color: var(--vert);
+  }
+
+  h2 {
+    font-size: 16pt;
+    color: var(--magenta);
+    font-weight: 700;
+    margin: 8mm 0 4mm;
+    padding-bottom: 2mm;
+    border-bottom: 2px solid var(--vert);
+    display: inline-block;
+  }
+
+  h3 {
+    font-size: 13pt;
+    color: var(--magenta-dark);
+    font-weight: 700;
+    margin: 5mm 0 2mm;
+  }
+
+  h4 {
+    font-size: 11pt;
+    color: var(--vert-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2mm;
+  }
+
+  p {
+    margin-bottom: 3mm;
+  }
+
+  strong {
+    color: var(--magenta-dark);
+    font-weight: 700;
+  }
+
+  .intro-label {
+    display: inline-block;
+    background: var(--magenta);
+    color: var(--white);
+    padding: 2mm 5mm;
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 5mm;
+    border-radius: 2px;
+  }
+
+  .page-title {
+    margin-bottom: 8mm;
+  }
+
+  /* ---------- BULLETS ---------- */
+  ul.custom {
+    list-style: none;
+    padding: 0;
+    margin: 3mm 0;
+  }
+
+  ul.custom li {
+    padding-left: 8mm;
+    position: relative;
+    margin-bottom: 2.5mm;
+    line-height: 1.55;
+  }
+
+  ul.custom li::before {
+    content: "▪";
+    color: var(--vert);
+    font-size: 14pt;
+    position: absolute;
+    left: 0;
+    top: -1mm;
+  }
+
+  /* ---------- KPI BAR ---------- */
+  .kpi-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3mm;
+    margin: 6mm 0 8mm;
+  }
+
+  .kpi-card {
+    background: var(--white);
+    padding: 5mm 4mm;
+    border-radius: 4px;
+    text-align: center;
+    border-top: 3px solid var(--vert);
+  }
+
+  .kpi-value {
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--magenta);
+    line-height: 1.1;
+  }
+
+  .kpi-label {
+    font-size: 8.5pt;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2mm;
+    line-height: 1.3;
+  }
+
+  /* ---------- BEFORE / AFTER BLOCK ---------- */
+  .ba-block {
+    background: var(--white);
+    border-radius: 4px;
+    margin-bottom: 5mm;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+
+  .ba-header {
+    padding: 4mm 6mm;
+    background: var(--magenta);
+    color: var(--white);
+    font-size: 12pt;
+    font-weight: 700;
+  }
+
+  .ba-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ba-cell {
+    padding: 5mm 6mm;
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+
+  .ba-cell.before {
+    background: var(--danger-light);
+    border-right: 1px solid var(--beige-dark);
+  }
+
+  .ba-cell.after {
+    background: var(--vert-light);
+  }
+
+  .ba-label {
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 2mm;
+  }
+
+  .ba-cell.before .ba-label {
+    color: var(--danger);
+  }
+
+  .ba-cell.after .ba-label {
+    color: var(--vert-dark);
+  }
+
+  .ba-metric {
+    font-size: 14pt;
+    font-weight: 700;
+    margin-bottom: 1.5mm;
+    line-height: 1.2;
+  }
+
+  .ba-cell.before .ba-metric {
+    color: var(--danger);
+  }
+
+  .ba-cell.after .ba-metric {
+    color: var(--vert-dark);
+  }
+
+  /* ---------- PAIN BLOCKS ---------- */
+  .pain-block {
+    background: var(--white);
+    border-left: 5px solid var(--magenta);
+    padding: 6mm 7mm;
+    margin-bottom: 5mm;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .pain-block h3 {
+    margin-top: 0;
+    color: var(--magenta);
+    font-size: 12pt;
+  }
+
+  .pain-row {
+    margin-top: 3mm;
+    display: grid;
+    grid-template-columns: 28mm 1fr;
+    gap: 3mm;
+    font-size: 10pt;
+    line-height: 1.45;
+  }
+
+  .pain-row .label {
+    font-weight: 700;
+    color: var(--vert-dark);
+    text-transform: uppercase;
+    font-size: 8.5pt;
+    letter-spacing: 1px;
+    padding-top: 0.5mm;
+  }
+
+  .pain-row .content {
+    color: var(--text);
+  }
+
+  .cost-line {
+    margin-top: 3mm;
+    padding: 2mm 4mm;
+    background: var(--magenta-light);
+    border-radius: 3px;
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--magenta-dark);
+  }
+
+  /* ---------- MODULES ---------- */
+  .module {
+    background: var(--white);
+    margin-bottom: 6mm;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  .module-header {
+    background: linear-gradient(90deg, var(--magenta) 0%, var(--magenta-dark) 100%);
+    color: var(--white);
+    padding: 4mm 6mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .module-header h3 {
+    color: var(--white);
+    font-size: 13pt;
+    margin: 0;
+  }
+
+  .module-tag {
+    background: var(--vert);
+    color: var(--white);
+    padding: 1mm 4mm;
+    font-size: 9pt;
+    font-weight: 700;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .module-tag.prio {
+    background: #FFC107;
+    color: #6B4A00;
+  }
+
+  .module-body {
+    padding: 5mm 6mm;
+    font-size: 10pt;
+  }
+
+  .module-body p {
+    margin-bottom: 2.5mm;
+  }
+
+  .module-body .roles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin: 3mm 0;
+  }
+
+  .role {
+    padding: 3mm 4mm;
+    border-radius: 3px;
+    font-size: 9.5pt;
+    line-height: 1.4;
+  }
+
+  .role-julie {
+    background: var(--magenta-light);
+    border-left: 3px solid var(--magenta);
+  }
+
+  .role-catherine {
+    background: var(--vert-light);
+    border-left: 3px solid var(--vert);
+  }
+
+  .role-label {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 8pt;
+    letter-spacing: 1px;
+    margin-bottom: 1.5mm;
+    display: block;
+  }
+
+  .role-julie .role-label {
+    color: var(--magenta-dark);
+  }
+
+  .role-catherine .role-label {
+    color: var(--vert-dark);
+  }
+
+  .impact-line {
+    margin-top: 3mm;
+    padding: 3mm 4mm;
+    background: var(--beige);
+    border-radius: 3px;
+    font-size: 9.5pt;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .impact-line strong {
+    color: var(--vert-dark);
+    font-style: normal;
+  }
+
+  /* ---------- RGPD WARNING BOX ---------- */
+  .rgpd-box {
+    margin-top: 3mm;
+    padding: 4mm 5mm;
+    background: #FFF8E1;
+    border-left: 4px solid #E6A800;
+    border-radius: 3px;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+
+  .rgpd-box .rgpd-title {
+    font-weight: 700;
+    color: #8B6500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 8.5pt;
+    margin-bottom: 2mm;
+  }
+
+  /* ---------- PRIORITIES ---------- */
+  .prio-list {
+    counter-reset: prio;
+    margin-top: 5mm;
+  }
+
+  .prio-item {
+    background: var(--white);
+    padding: 5mm 6mm;
+    margin-bottom: 4mm;
+    border-radius: 4px;
+    position: relative;
+    border-left: 5px solid var(--vert);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .prio-item::before {
+    counter-increment: prio;
+    content: "Priorité " counter(prio);
+    display: block;
+    background: var(--magenta);
+    color: var(--white);
+    padding: 2mm 4mm;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    line-height: 1;
+    margin-bottom: 3mm;
+    width: fit-content;
+  }
+
+  .prio-item h3 {
+    margin-top: 0;
+    color: var(--magenta);
+    font-size: 12pt;
+    margin-bottom: 2mm;
+    font-weight: 700;
+  }
+
+  .prio-item p {
+    font-size: 10pt;
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  /* ---------- FORMULES ---------- */
+  .formules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4mm;
+    margin-top: 6mm;
+  }
+
+  .formule-card {
+    background: var(--white);
+    border-radius: 5px;
+    padding: 6mm 5mm;
+    position: relative;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .formule-card.featured {
+    border-color: var(--magenta);
+    background: linear-gradient(180deg, #FFFFFF 0%, #FEF5FA 100%);
+  }
+
+  .formule-card.featured::before {
+    content: "RECOMMANDÉ";
+    position: absolute;
+    top: -4mm;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--vert);
+    color: var(--white);
+    padding: 1mm 5mm;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border-radius: 3px;
+  }
+
+  .formule-tier {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--vert-dark);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 2mm;
+  }
+
+  .formule-name {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--magenta);
+    margin-bottom: 4mm;
+    line-height: 1.2;
+  }
+
+  .formule-amount {
+    font-size: 26pt;
+    font-weight: 700;
+    color: var(--magenta-dark);
+    line-height: 1;
+  }
+
+  .formule-amount small {
+    font-size: 11pt;
+    font-weight: 400;
+    color: var(--text-light);
+  }
+
+  .formule-sub {
+    font-size: 9pt;
+    color: var(--text-light);
+    margin-top: 1mm;
+    margin-bottom: 5mm;
+  }
+
+  .formule-features {
+    list-style: none;
+    padding: 0;
+    font-size: 9.5pt;
+    flex-grow: 1;
+  }
+
+  .formule-features li {
+    padding: 1.8mm 0;
+    padding-left: 7mm;
+    position: relative;
+    border-bottom: 1px dashed var(--beige-dark);
+    line-height: 1.4;
+  }
+
+  .formule-features li:last-child {
+    border-bottom: none;
+  }
+
+  .formule-features li::before {
+    content: "✓";
+    color: var(--vert);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 1.8mm;
+  }
+
+  .formule-features li.excluded {
+    color: var(--text-light);
+    opacity: 0.55;
+  }
+
+  .formule-features li.excluded::before {
+    content: "—";
+    color: var(--text-light);
+  }
+
+  .subscription-box {
+    margin-top: 6mm;
+    padding: 4mm 6mm;
+    background: var(--white);
+    border-radius: 4px;
+    border-left: 4px solid var(--vert);
+    font-size: 10pt;
+  }
+
+  .subscription-box strong {
+    color: var(--vert-dark);
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline {
+    margin-top: 6mm;
+    position: relative;
+  }
+
+  .phase {
+    background: var(--white);
+    padding: 5mm 6mm 5mm 10mm;
+    margin-bottom: 4mm;
+    border-radius: 4px;
+    position: relative;
+    border-left: 5px solid var(--magenta);
+  }
+
+  .phase-label {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--vert-dark);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1mm;
+  }
+
+  .phase-title {
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--magenta);
+    margin-bottom: 3mm;
+  }
+
+  .phase-content {
+    font-size: 10pt;
+    line-height: 1.55;
+  }
+
+  .phase-content ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 2mm;
+  }
+
+  .phase-content ul li {
+    padding-left: 6mm;
+    position: relative;
+    margin-bottom: 1.5mm;
+  }
+
+  .phase-content ul li::before {
+    content: "▸";
+    color: var(--vert);
+    position: absolute;
+    left: 0;
+  }
+
+  /* ---------- CLARIFICATIONS ---------- */
+  .clarif-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+    margin-top: 6mm;
+  }
+
+  .clarif-box {
+    background: var(--white);
+    padding: 6mm;
+    border-radius: 4px;
+  }
+
+  .clarif-box.yes {
+    border-top: 4px solid var(--vert);
+  }
+
+  .clarif-box.no {
+    border-top: 4px solid var(--danger);
+  }
+
+  .clarif-title {
+    font-size: 13pt;
+    font-weight: 700;
+    margin-bottom: 4mm;
+  }
+
+  .clarif-box.yes .clarif-title {
+    color: var(--vert-dark);
+  }
+
+  .clarif-box.no .clarif-title {
+    color: var(--danger);
+  }
+
+  .clarif-box ul {
+    list-style: none;
+    padding: 0;
+    font-size: 10pt;
+  }
+
+  .clarif-box ul li {
+    padding: 2mm 0 2mm 7mm;
+    position: relative;
+    line-height: 1.45;
+    border-bottom: 1px solid var(--beige);
+  }
+
+  .clarif-box ul li:last-child {
+    border-bottom: none;
+  }
+
+  .clarif-box.yes ul li::before {
+    content: "✓";
+    color: var(--vert);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 2mm;
+  }
+
+  .clarif-box.no ul li::before {
+    content: "✗";
+    color: var(--danger);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 2mm;
+  }
+
+  /* ---------- RESULTS + CTA ---------- */
+  .results-list {
+    background: var(--white);
+    padding: 6mm 8mm;
+    border-radius: 4px;
+    margin-top: 4mm;
+  }
+
+  .results-list ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .results-list li {
+    padding: 3mm 0 3mm 10mm;
+    position: relative;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    border-bottom: 1px dashed var(--beige-dark);
+  }
+
+  .results-list li:last-child {
+    border-bottom: none;
+  }
+
+  .results-list li::before {
+    content: "→";
+    color: var(--magenta);
+    font-weight: 700;
+    font-size: 14pt;
+    position: absolute;
+    left: 0;
+    top: 2mm;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--magenta) 0%, var(--magenta-dark) 100%);
+    color: var(--white);
+    padding: 8mm 10mm;
+    border-radius: 5px;
+    margin-top: 6mm;
+  }
+
+  .cta-box h3 {
+    color: var(--white);
+    font-size: 16pt;
+    margin-bottom: 3mm;
+  }
+
+  .cta-box p {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    opacity: 0.95;
+    margin-bottom: 3mm;
+  }
+
+  .cta-contact {
+    margin-top: 5mm;
+    padding-top: 4mm;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    font-size: 10pt;
+  }
+
+  .cta-contact strong {
+    color: var(--white);
+  }
+
+  .cta-contact a {
+    color: var(--vert);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .next-steps {
+    margin-top: 6mm;
+    background: var(--white);
+    padding: 6mm 8mm;
+    border-radius: 4px;
+    border-left: 5px solid var(--vert);
+  }
+
+  .next-steps h3 {
+    margin-bottom: 3mm;
+  }
+
+  .next-steps ol {
+    padding-left: 5mm;
+    font-size: 10pt;
+    line-height: 1.7;
+  }
+
+  .next-steps ol li {
+    margin-bottom: 1.5mm;
+  }
+
+  .validity {
+    margin-top: 6mm;
+    font-size: 9pt;
+    color: var(--text-light);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ---------- MISC ---------- */
+  .highlight-yellow {
+    background: linear-gradient(180deg, transparent 55%, #FBE5F2 55%);
+    padding: 0 2px;
+  }
+
+  .key-stat {
+    display: inline-block;
+    background: var(--vert-light);
+    color: var(--vert-dark);
+    padding: 1mm 3mm;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 10pt;
+  }
+
+  .footer-note {
+    margin-top: 8mm;
+    font-size: 9pt;
+    color: var(--text);
+    text-align: center;
+    border-top: 1px solid var(--beige-dark);
+    padding-top: 3mm;
+  }
+
+  /* Print */
+  @media print {
+    html, body {
+      background: var(--beige);
+    }
+    .page {
+      page-break-after: always;
+      margin: 0;
+    }
+    .page:last-child {
+      page-break-after: auto;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 : COVER ============ -->
+<section class="page cover">
+  <div>
+    <div class="cover-top">CS Consulting Stratégique</div>
+    <div class="cover-title">
+      Proposition<br>
+      d'accompagnement<br>
+      <strong>stratégique</strong>
+    </div>
+    <div class="cover-sub">
+      De 300 k€ à 420 k€, sans passer ta vie dans l'opérationnel.<br>
+      L'objectif : <strong style="color: var(--vert);">25 h/semaine max</strong>.
+    </div>
+  </div>
+  <div>
+    <div class="cover-client">Julie Aymé</div>
+    <div class="cover-activite">Coaching Stratégique & Transformation en Leader</div>
+    <div class="cover-footer">
+      <span>Préparée par Catherine Selosse</span>
+      <span>20 avril 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 2 : DIAGNOSTIC INTRO + KPIs ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Diagnostic</span>
+    <h1>Ce que j'ai entendu <span class="accent">le 17 avril</span></h1>
+  </div>
+
+  <p>Julie, tu as bâti quelque chose de remarquable en deux ans. <strong>300 k€ de CA prévisionnel en 2025</strong>, un lancement en mars qui a amené <strong>50 nouvelles clientes d'un coup</strong>, une méthodologie qui fait vraiment bouger les choses pour tes clientes. Tu as fait le plus dur : tu as prouvé que ton offre marche.</p>
+
+  <p>Le revers : tu es aujourd'hui <strong>le goulot d'étranglement de ton propre business</strong>. Tout passe par toi. Tu sais ce qu'il faudrait faire pour respirer — tu n'as juste plus le temps de le mettre en place. Voilà les chiffres que tu m'as donnés.</p>
+
+  <div class="kpi-bar">
+    <div class="kpi-card">
+      <div class="kpi-value">300 k€</div>
+      <div class="kpi-label">CA prévi. 2025</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">420 k€</div>
+      <div class="kpi-label">Objectif 2026</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">54 %</div>
+      <div class="kpi-label">Temps sur l'opé</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">25 h</div>
+      <div class="kpi-label">Cible / semaine</div>
+    </div>
+  </div>
+
+  <h2>Le vrai problème, en une phrase</h2>
+
+  <p style="font-size: 13pt; line-height: 1.55; color: var(--magenta-dark); font-weight: 300; margin: 5mm 0; padding: 7mm 9mm; background: white; border-left: 5px solid var(--vert); border-radius: 3px;">
+    Tu passes <span class="highlight-yellow"><strong>54 % de ton temps</strong></span> sur des tâches que tu pourrais automatiser ou déléguer (analyse questionnaires, mails, lives) — ce qui te laisse à peine 20 % pour ce qui fait vraiment ta valeur : la <strong>stratégie, les vidéos et les lives</strong>. Et le mois de mars, avec 50 nouvelles clientes, a montré les limites du système. À 50-60 clientes, comme tu me l'as dit toi-même, c'est « trop ».
+  </p>
+</section>
+
+<!-- ============ PAGE 3 : AVANT / APRÈS ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Avant / Après</span>
+    <h1>Les 4 bascules <span class="accent">qu'on vise</span></h1>
+  </div>
+
+  <p>Quatre indicateurs concrets que tu as cités pendant notre session. Voilà la trajectoire qu'on construit ensemble.</p>
+
+  <div class="ba-block">
+    <div class="ba-header">Analyse d'un questionnaire Tally</div>
+    <div class="ba-body">
+      <div class="ba-cell before">
+        <div class="ba-label">Aujourd'hui</div>
+        <div class="ba-metric">40 min</div>
+        <div>Lecture, analyse, synthèse à la main. Script vidéo (20 min) + mise en page programme (1 h). Total : <strong>1 h 30 par cliente</strong>.</div>
+      </div>
+      <div class="ba-cell after">
+        <div class="ba-label">Cible</div>
+        <div class="ba-metric">5 min</div>
+        <div>L'agent Claude pré-analyse selon ta méthodologie. Tu valides, tu ajustes si besoin. Tu gardes la vidéo de 20 min (c'est ta valeur).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ba-block">
+    <div class="ba-header">Délai de livraison du programme à la cliente</div>
+    <div class="ba-body">
+      <div class="ba-cell before">
+        <div class="ba-label">Aujourd'hui</div>
+        <div class="ba-metric">3 à 4 semaines</div>
+        <div>La cliente attend. L'élan retombe. Tu culpabilises. Risque d'attrition élevé.</div>
+      </div>
+      <div class="ba-cell after">
+        <div class="ba-label">Cible</div>
+        <div class="ba-metric">Diagnostic : 24-48h<br>Approfondis : 3-4 semaines</div>
+        <div>Première livraison rapide = satisfaction immédiate. Deuxième livraison avec vidéo dès réception des tests sanguins.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ba-block">
+    <div class="ba-header">Taux de conversion des appels découverte</div>
+    <div class="ba-body">
+      <div class="ba-cell before">
+        <div class="ba-label">Aujourd'hui</div>
+        <div class="ba-metric">30 %</div>
+        <div>Porte ouverte via lien YouTube : tout-venant, prospects tièdes, pas de liste d'attente. Tu acceptes tout le monde.</div>
+      </div>
+      <div class="ba-cell after">
+        <div class="ba-label">Cible</div>
+        <div class="ba-metric">50 %+</div>
+        <div>Filtre de qualification en amont, 20 créneaux/mois max, uniquement des prospects chauds qui ont lu le positionnement.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ba-block">
+    <div class="ba-header">Mails clients reçus par jour</div>
+    <div class="ba-body">
+      <div class="ba-cell before">
+        <div class="ba-label">Aujourd'hui</div>
+        <div class="ba-metric">10+ / jour</div>
+        <div>Toi seule peux répondre (analyses, compléments, tests). « J'en ai 5 d'un coup » → charge mentale ininterrompue.</div>
+      </div>
+      <div class="ba-cell after">
+        <div class="ba-label">Cible</div>
+        <div class="ba-metric">25-30 % auto</div>
+        <div>FAQ Telegram traite 25-30 % des messages. Le reste disponible pour toi ou ton assistante.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 4 : PAIN POINTS DÉTAILLÉS ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Points de douleur</span>
+    <h1>Ce qui te coûte <span class="accent">aujourd'hui</span></h1>
+  </div>
+
+  <div class="pain-block">
+    <h3>1. L'analyse des questionnaires Tally te bouffe la semaine</h3>
+    <div class="pain-row">
+      <span class="label">Problème</span>
+      <span class="content">40 min d'analyse + 20 min de vidéo retour (script mot à mot) + 1 h de mise en page = <strong>1 h 30 par cliente</strong>. Puis analyse approfondie quand les résultats des tests sanguins reviennent (« parfois 5 demandes d'un coup »).</span>
+    </div>
+    <div class="pain-row">
+      <span class="label">Conséquence</span>
+      <span class="content">À 40 clientes c'est déjà limite tenable. À 50-60 clientes (ta trajectoire), c'est mathématiquement impossible. Tes clientes attendent 3-4 semaines — l'élan retombe, la satisfaction baisse.</span>
+    </div>
+    <div class="cost-line">Coût caché : ta capacité à scaler est plafonnée à 420 k€ sans aide technique</div>
+  </div>
+
+  <div class="pain-block">
+    <h3>2. Les appels découverte ne sont plus qualifiés</h3>
+    <div class="pain-row">
+      <span class="label">Problème</span>
+      <span class="content">Avant : liste d'attente → <strong>50 %+ de conversion</strong>. Maintenant : lien YouTube ouvert à tous → <strong>30 %</strong>. Tu as testé 20 min (trop court), 45 min (trop long), tu es à 30 min, mais le fond du problème c'est la qualification en amont.</span>
+    </div>
+    <div class="pain-row">
+      <span class="label">Conséquence</span>
+      <span class="content">Des heures passées avec des prospects tièdes qui ne signeront pas. Tu finis tes semaines épuisée sans avoir avancé sur ton CA.</span>
+    </div>
+    <div class="cost-line">Coût caché : ~180 h/an perdues + dilution de ton énergie commerciale</div>
+  </div>
+
+  <div class="pain-block">
+    <h3>3. Pas de système evergreen — tout dépend des lancements live</h3>
+    <div class="pain-row">
+      <span class="label">Problème</span>
+      <span class="content">Tes revenus dépendent uniquement de tes ateliers live. Pas de lead magnet, pas de séquence de nurture, pas de pipeline qui tourne en arrière-plan. Un mois sans atelier = un mois sans entrées.</span>
+    </div>
+    <div class="pain-row">
+      <span class="label">Conséquence</span>
+      <span class="content">Variabilité énorme de CA, obligation de pousser en permanence sur l'acquisition, 70-80 % des prospects YouTube/Instagram qui ne reviennent jamais.</span>
+    </div>
+    <div class="cost-line">Coût caché : pas de récurrence, pas de prédictibilité → difficile de planifier ta croissance</div>
+  </div>
+
+  <div class="pain-block">
+    <h3>4. Les mails et Telegram arrivent par vagues et tu es seule à pouvoir répondre</h3>
+    <div class="pain-row">
+      <span class="label">Problème</span>
+      <span class="content">10+ mails/jour, majorité de questions répétitives (« j'ai acheté tes compléments », « que faire avec mes résultats », « quand est le prochain live »). Ton assistante ne peut pas répondre sans ton expertise.</span>
+    </div>
+    <div class="pain-row">
+      <span class="label">Conséquence</span>
+      <span class="content">Tu réponds le soir, la charge mentale ne redescend jamais. Telegram explose en parallèle. Tu es en réactif permanent.</span>
+    </div>
+    <div class="cost-line">Coût caché : 8 à 12 h/semaine en pur réactif + épuisement progressif</div>
+  </div>
+</section>
+
+<!-- ============ PAGE 5 : APPROCHE ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Approche</span>
+    <h1>Pas un accompagnement 6 mois. <span class="accent">Des modules à tiroir.</span></h1>
+  </div>
+
+  <p>Julie, je ne te propose pas un package 6 mois où je bloque 2 h/semaine dans ton agenda (tu n'en as pas besoin et tu n'en veux pas). Je te propose <strong>3 modules indépendants</strong>, chacun pensé pour régler un blocage précis. Tu choisis lesquels, tu choisis quand.</p>
+
+  <p>Chaque module est autonome : il fonctionne seul, il produit son résultat seul. Tu peux démarrer par le Module 1 (le plus critique), ajouter le Module 2 ou 3 plus tard, ou tout prendre maintenant pour aller vite.</p>
+
+  <h2>Les 4 priorités qu'on a identifiées</h2>
+
+  <div class="prio-list">
+    <div class="prio-item">
+      <h3>Automatiser l'analyse Tally (gain de temps immédiat pour toi)</h3>
+      <p>C'est la priorité majeure. Tu passes de 1 h 30 à 5 min de validation par cliente — c'est du temps libéré tout de suite. Tes clientes reçoivent un diagnostic détaillé en 24-48 h, puis la vidéo approfondis 3-4 semaines après avec les résultats des tests.</p>
+    </div>
+    <div class="prio-item">
+      <h3>Filtrer les appels découverte (max 20/mois)</h3>
+      <p>Fermer la porte ouverte. Filtre de qualification en amont, scoring automatique, uniquement des prospects qualifiés. Ta conversion doit remonter vers 50 %.</p>
+    </div>
+    <div class="prio-item">
+      <h3>Guide gratuit + lead magnet evergreen</h3>
+      <p>Sortir de la dépendance aux lancements live. Pipeline d'acquisition qui tourne en continu. <strong>Tu crées le contenu, je construis la mécanique derrière.</strong></p>
+    </div>
+    <div class="prio-item">
+      <h3>Chatbot Telegram FAQ (slash commands)</h3>
+      <p>Plus fluide mais moins urgent. Commandes /faq, /planning, /replay, /help, /rules. 25-30 % des messages traités auto.</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 6mm; font-size: 10.5pt;">Les 3 modules de la proposition répondent directement aux priorités 1, 3 et 4. La priorité 2 (qualification appels) est intégrée au Module 3 — c'est la mécanique cohérente à ce stade.</p>
+</section>
+
+<!-- ============ PAGE 6 : MODULE 1 ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Module 1</span>
+    <h1>Analyse Tally assistée <span class="accent">par IA</span></h1>
+  </div>
+
+  <p>Le Module 1 crée deux livrables séquentiels :</p>
+  <ul style="margin: 3mm 0 4mm 15mm; font-size: 10pt;">
+    <li><strong>Première livraison (dans la semaine)</strong> : diagnostic pré-rempli et analyse détaillée du questionnaire Tally — sans vidéo. La cliente reçoit rapidement son diagnostic.</li>
+    <li><strong>Deuxième livraison (3-4 semaines après)</strong> : vidéo d'approfondissement de 20 min enregistrée une fois les résultats des tests sanguins reçus. C'est ta valeur irremplaçable.</li>
+  </ul>
+
+  <p>L'analyse et la mise en page sont remplacées par un agent Claude entraîné sur <strong>ta méthodologie</strong> (pas une méthode générique — la tienne).</p>
+
+  <div class="module">
+    <div class="module-header">
+      <h3>Module 1 — Analyse Tally assistée</h3>
+      <span class="module-tag prio">PRIORITÉ 1</span>
+    </div>
+    <div class="module-body">
+      <p><strong>Ce qu'on construit :</strong></p>
+      <ul class="custom" style="font-size: 10pt;">
+        <li>Agent Claude entraîné sur ta méthodologie d'analyse (workshop de 2 h avec toi)</li>
+        <li>Workflow Tally → agent → document diagnostic structuré</li>
+        <li>Template de programme pré-rempli automatiquement</li>
+        <li>Interface de validation en 5 min (tu lis, tu ajustes, tu valides)</li>
+        <li>Pré-analyse Claude à la <strong>réception des résultats de tests sanguins</strong> pour approfondir le diagnostic</li>
+      </ul>
+
+      <div class="roles">
+        <div class="role role-julie">
+          <span class="role-label">Julie</span>
+          Transmet sa méthodologie d'analyse, valide les trames générées (5 min), enregistre les vidéos de 20 min (sa valeur irremplaçable).
+        </div>
+        <div class="role role-catherine">
+          <span class="role-label">Catherine</span>
+          Entraîne l'agent, construit les workflows, sécurise les données, forme l'assistante, documente l'ensemble.
+        </div>
+      </div>
+
+      <div class="rgpd-box">
+        <div class="rgpd-title">Sécurité / RGPD — données sensibles</div>
+        Les questionnaires intègrent des <strong>résultats de tests sanguins</strong> (données de santé, catégorie sensible au sens RGPD art. 9). Architecture dédiée : chiffrement au repos et en transit, accès restreint, pas de stockage en clair, conformité RGPD complète. Registre des traitements fourni, mentions à jour sur Tally et dans la relation cliente.
+      </div>
+
+      <div class="rgpd-box" style="background: #FFF8E1; border-left: 4px solid #E6A800;">
+        <div class="rgpd-title" style="color: #8B6500;">À noter</div>
+        <p style="margin: 0; font-size: 9.5pt; line-height: 1.5;">Ce process à deux livrables (diag rapide + vidéo approfondis après tests) est en phase de validation. On pourra l'affiner au démarrage selon tes retours clients.</p>
+      </div>
+
+      <div class="impact-line"><strong>Impact :</strong> Première livraison en 24-48 h = satisfaction immédiate. Vidéo d'approfondissement 3-4 semaines après basée sur les vrais résultats des tests.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 7 : MODULE 2 + 3 ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Modules 2 & 3</span>
+    <h1>Chatbot Telegram <span class="accent">& Evergreen</span></h1>
+  </div>
+
+  <div class="module">
+    <div class="module-header">
+      <h3>Module 2 — Chatbot Telegram FAQ</h3>
+      <span class="module-tag">CONFORT</span>
+    </div>
+    <div class="module-body">
+      <p>Bot Telegram 24/7 qui répond aux questions récurrentes via <strong>slash commands</strong> simples.</p>
+
+      <ul class="custom" style="font-size: 9.5pt;">
+        <li><strong>/faq</strong> — 20 questions fréquentes</li>
+        <li><strong>/planning</strong> — prochains lives</li>
+        <li><strong>/replay</strong> — liens replays</li>
+        <li><strong>/help</strong> — contacter Julie/assistante</li>
+        <li><strong>/rules</strong> — règles groupe</li>
+      </ul>
+
+
+      <div class="roles">
+        <div class="role role-julie">
+          <span class="role-label">Julie</span>
+          Fournit 20 FAQ, valide wordings.
+        </div>
+        <div class="role role-catherine">
+          <span class="role-label">Catherine</span>
+          Configure bot, commandes, escalade, intègre Telegram.
+        </div>
+      </div>
+
+      <div class="impact-line"><strong>Impact :</strong> 25-30 % des messages auto = <strong>2 à 4 h/semaine libérées.</strong></div>
+    </div>
+  </div>
+
+  <div class="module">
+    <div class="module-header">
+      <h3>Module 3 — Lead magnet evergreen</h3>
+      <span class="module-tag">CROISSANCE</span>
+    </div>
+    <div class="module-body">
+      <p>Sortir de la dépendance aux lancements live. Système 24/7 : le prospect remplit un mini-questionnaire, reçoit un <strong>guide personnalisé en automatique</strong>, puis accès à un appel découverte qualifié.</p>
+
+      <div class="roles">
+        <div class="role role-julie">
+          <span class="role-label">Julie crée le CONTENU</span>
+          Guide PDF haute valeur, variantes réponses selon profil, critères de qualification. Tu gardes la main sur le message.
+        </div>
+        <div class="role role-catherine">
+          <span class="role-label">Catherine construit et automatise TOUT</span>
+          Landing page, formulaire, MailerLite, UTM tracking, qualification auto, dashboard ROI. Tu ne crées pas la landing page.
+        </div>
+      </div>
+
+      <p style="margin-top: 2mm; font-size: 9.5pt;"><strong>Qualification</strong> : seuls les prospects qualifiés → Calendly (20 créneaux/mois). Autres → nurture auto.</p>
+
+      <div class="impact-line">
+        <strong>ROI potentiel :</strong> +10-15 prospects/mois → 30 % conversion = <span class="key-stat">potentiel +3-4 clientes = +4500-6000 €/mois</span> selon les résultats et la qualité du contenu. <strong>Amortissement envisagé : 1-2 mois.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 8 : FORMULES ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Investissement</span>
+    <h1>3 formules, <span class="accent">tu choisis ton rythme</span></h1>
+  </div>
+
+  <p>Les 3 formules correspondent aux combinaisons de modules. Tu peux commencer par le <strong>Module 1 seul</strong> (gain de temps immédiat), ajouter le reste plus tard, ou tout prendre maintenant pour aller vite. La <strong>formule C</strong> est celle que je recommande — c'est la seule qui adresse aussi la croissance (Module 3) et qui s'amortit rapidement.</p>
+
+  <div class="formules-grid">
+
+    <div class="formule-card">
+      <div class="formule-tier">Formule A</div>
+      <div class="formule-name">Essentiel</div>
+      <div class="formule-amount">2 900 <small>€ HT</small></div>
+      <div class="formule-sub">Module 1 seul — paiement 2x possible</div>
+      <ul class="formule-features">
+        <li>Module 1 — Analyse Tally assistée</li>
+        <li>Agent Claude sur ta méthodologie</li>
+        <li>Workflow Tally → diagnostic → programme</li>
+        <li>Pré-analyse tests sanguins (2e vidéo)</li>
+        <li>Architecture RGPD sécurisée</li>
+        <li>Formation assistante incluse</li>
+        <li class="excluded">Module 2 — Chatbot Telegram</li>
+        <li class="excluded">Module 3 — Lead magnet evergreen</li>
+      </ul>
+    </div>
+
+    <div class="formule-card">
+      <div class="formule-tier">Formule B</div>
+      <div class="formule-name">Gain de temps</div>
+      <div class="formule-amount">4 200 <small>€ HT</small></div>
+      <div class="formule-sub">Modules 1 + 2 — paiement 2x ou 3x</div>
+      <ul class="formule-features">
+        <li>Module 1 — Analyse Tally assistée</li>
+        <li>Module 2 — Chatbot Telegram FAQ</li>
+        <li>5 slash commands + escalade</li>
+        <li>Architecture RGPD sécurisée</li>
+        <li>Formation assistante renforcée</li>
+        <li>Documentation complète</li>
+        <li class="excluded">Module 3 — Lead magnet evergreen</li>
+        <li class="excluded">Pipeline croissance passive</li>
+      </ul>
+    </div>
+
+    <div class="formule-card featured">
+      <div class="formule-tier">Formule C</div>
+      <div class="formule-name">Scaling complet</div>
+      <div class="formule-amount">5 800 <small>€ HT</small></div>
+      <div class="formule-sub">Modules 1 + 2 + 3 — paiement 3x sans frais</div>
+      <ul class="formule-features">
+        <li>Module 1 — Analyse Tally assistée</li>
+        <li>Module 2 — Chatbot Telegram FAQ</li>
+        <li>Module 3 — Lead magnet evergreen</li>
+        <li>Landing page + MailerLite complet</li>
+        <li>Qualification auto + Calendly</li>
+        <li>UTM tracking + dashboard ROI</li>
+        <li>Architecture RGPD sécurisée</li>
+        <li>Formation assistante renforcée</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="subscription-box">
+    <strong>+ Abonnement tokens & infrastructure : 50 € HT/mois</strong> — Couvre les tokens Claude nécessaires à l'agent d'analyse, l'hébergement de la landing page (formule C), la maintenance légère. Résiliable à tout moment avec 30 jours de préavis.
+  </div>
+
+  <div style="margin-top: 5mm; padding: 4mm 5mm; background: var(--vert-light); border-radius: 4px; font-size: 10pt;">
+    <strong style="color: var(--vert-dark);">Le ROI de la formule C :</strong><br>
+    Le Module 3 ramène en régime de croisière <strong>+3 à +4 clientes/mois</strong>. À 1 490 € HT par cliente, c'est <strong>+4 500 à +6 000 € de CA récurrent</strong> chaque mois. L'investissement s'amortit rapidement grâce à cette croissance immédiate et prévisible.
+  </div>
+</section>
+
+<!-- ============ PAGE 9 : TIMELINE ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Timeline</span>
+    <h1>Comment on déroule <span class="accent">concrètement</span></h1>
+  </div>
+
+  <p>On construit progressivement selon <strong>ton timing personnel</strong> et ta disponibilité. Tu restes impliquée à chaque étape.</p>
+
+  <div class="timeline">
+
+    <div class="phase">
+      <div class="phase-label">Phase 1</div>
+      <div class="phase-title">Cadrage & capture de méthode</div>
+      <div class="phase-content">
+        <p>Une session de <strong>2 h avec toi</strong> pour capturer ta méthodologie d'analyse Tally et valider les accès.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">Phase 2</div>
+      <div class="phase-title">Construction & formation de ton assistante</div>
+      <div class="phase-content">
+        <p>Je construis les modules en arrière-plan et forme ton assistante en visio (2 sessions de 1 h).</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">Phase 3</div>
+      <div class="phase-title">Mise en production</div>
+      <div class="phase-content">
+        <p>On passe en live. Tu testes sur les 3-5 premières clientes, on ajuste, on stabilise.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-label">Phase 4</div>
+      <div class="phase-title">Lancement evergreen (formule C uniquement)</div>
+      <div class="phase-content">
+        <p>Tu me livres le contenu du guide et des emails. Je branche la mécanique et mets en ligne.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ PAGE 10 : CLARIFICATIONS ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Clarifications</span>
+    <h1>Ce qu'on fait, <span class="accent">ce qu'on ne fait pas</span></h1>
+  </div>
+
+  <p>Pour qu'on évite tout malentendu avant de démarrer, voici le périmètre noir sur blanc. Mon rôle : <strong>concevoir et mettre en place l'infrastructure technique</strong>. Tu restes la voix, l'expertise, le contenu.</p>
+
+  <div class="clarif-grid">
+
+    <div class="clarif-box yes">
+      <div class="clarif-title">Ce que je fais</div>
+      <ul>
+        <li>Entraînement de l'agent Claude sur ta méthodologie</li>
+        <li>Workflows Tally → diagnostic → programme pré-rempli</li>
+        <li>Configuration bot Telegram + FAQ + escalade</li>
+        <li>Landing page technique + formulaires + intégrations</li>
+        <li>Configuration MailerLite, UTM, dashboard ROI</li>
+        <li>Sécurisation RGPD des données sensibles (tests sanguins)</li>
+        <li>Formation de ton assistante sur les process</li>
+        <li>Documentation complète (SOP) de chaque système</li>
+        <li>Support technique sur 30 jours post-livraison</li>
+      </ul>
+    </div>
+
+    <div class="clarif-box no">
+      <div class="clarif-title">Ce que je ne fais pas</div>
+      <ul>
+        <li>Rédiger le contenu du guide gratuit (c'est toi l'experte)</li>
+        <li>Écrire tes emails de séquence (ta voix, pas la mienne)</li>
+        <li>Enregistrer les vidéos retour à ta place</li>
+        <li>Créer des visuels ou du design marketing</li>
+        <li>Intervenir sur ton positionnement ou ta stratégie</li>
+        <li>Répondre à la place de ton assistante aux clientes</li>
+        <li>Développement sur mesure (outils custom hors périmètre)</li>
+        <li>Conseil juridique, fiscal, médical ou comptable</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 6mm; padding: 5mm 6mm; background: white; border-left: 4px solid var(--magenta); border-radius: 3px;">
+    <strong style="color: var(--magenta);">Pour le dire simplement :</strong> <span style="font-size: 10.5pt;">je construis l'infrastructure technique qui tourne en arrière-plan. Tu décides du contenu et du message. C'est ce partage de rôles qui va te permettre de scaler sans te diluer — parce que tu restes 100 % maîtresse du positionnement et de la relation client, pendant que les systèmes tournent automatiquement.</span>
+  </div>
+</section>
+
+<!-- ============ PAGE 11 : RÉSULTATS + CTA ============ -->
+<section class="page">
+  <div class="page-title">
+    <span class="intro-label">Résultats attendus</span>
+    <h1>À quoi ressemble <span class="accent">ta semaine après</span></h1>
+  </div>
+
+  <div class="results-list">
+    <ul>
+      <li>Tu passes potentiellement <strong>de 1 h 30 à 5 min</strong> de validation par cliente sur l'analyse questionnaire. C'est un gain de temps important.</li>
+      <li>Tes clientes reçoivent un <strong>diagnostic détaillé en 24-48 h</strong>, puis une <strong>vidéo d'approfondis 3-4 semaines après</strong> (dès résultats tests) — satisfaction immédiate + analyse affinée par les vrais résultats.</li>
+      <li>Ton taux de conversion sur les appels découverte devrait remonter vers <strong>50 %</strong> (vs 30 % actuellement) grâce à la qualification amont.</li>
+      <li><strong>25-30 % des messages Telegram</strong> sont traités par le bot FAQ.</li>
+      <li>Ton système evergreen peut ramener <strong>+3 à +4 clientes/mois</strong> selon les résultats = potentiel de +4 500 à +6 000 € de CA mensuel supplémentaire.</li>
+      <li>Tu tiens ton objectif <strong>25 h/semaine max</strong> en travaillant sur ta stratégie plutôt que sur l'opérationnel.</li>
+    </ul>
+  </div>
+
+  <div class="cta-box">
+    <h3>Prête à reprendre le contrôle ?</h3>
+    <p>Julie, tu as fait la partie la plus difficile : tu as construit un business qui marche et qui change des vies. La suite, c'est de la mécanique — et cette mécanique, c'est précisément ce que je mets en place pour des dirigeantes comme toi.</p>
+    <p>On se parle pour valider ta formule. C'est validé, on commence. À chaque étape tu restes impliquée.</p>
+    <div class="cta-contact">
+      <strong>Catherine Selosse</strong> — CS Consulting Stratégique<br>
+      <a href="mailto:catherine@csbusiness.fr">catherine@csbusiness.fr</a> · espace.csbusiness.fr
+    </div>
+  </div>
+
+  <div class="next-steps">
+    <h3>Prochaines étapes</h3>
+    <ol>
+      <li>Tu choisis la formule (A, B ou C) et tu me le confirmes par mail.</li>
+      <li>Je t'envoie le bon de commande DocuSign (signature électronique, 2 min).</li>
+      <li>Acompte 50 % à la signature, solde à la livraison des modules commandés.</li>
+      <li>On cale la session de cadrage (2 h avec toi).</li>
+      <li>Je construis les modules et forme ton assistante.</li>
+    </ol>
+  </div>
+
+  <div class="validity">
+    Cette proposition est valable 30 jours à compter du 20 avril 2026.
+  </div>
+
+  <div class="footer-note">
+    CS Consulting Stratégique · Catherine Selosse · catherine@csbusiness.fr
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+# Secrets et credentials
+.env
+*.key
+credentials.json
+oauth_token.json
+token.json
+config.json
+secrets/
+
+# Dépendances
+node_modules/
+__pycache__/
+venv/
+.venv/
+
+# Fichiers système
+.DS_Store
+*.log
+
+# IDE
+.vscode/settings.json
+git add package.json package-lock.json tsconfig.json
+git commit -m "⚙️ Configuration: npm, TypeScript et scripts"
+git add docs/claude.md
+git commit -m "📚 Documentation: Création du claude.md vivant"
+git remote add origin https://github.com/selossebdc-cell/mes-agents-mcp.git
+git branch -M main
+git push -u origin main

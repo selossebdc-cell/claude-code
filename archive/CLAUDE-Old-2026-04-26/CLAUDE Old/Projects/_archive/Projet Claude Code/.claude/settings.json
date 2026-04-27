@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/cath/Claude_Access/business/**)",
+      "Read(//Users/cath/.claude/**)"
+    ]
+  }
+}
+

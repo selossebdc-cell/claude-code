@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "https://esm.sh/@anthropic-ai/sdk@0.24.3": "https://esm.sh/@anthropic-ai/sdk@0.24.3"
+  },
+  "tasks": {
+    "test": "deno test --allow-net --allow-env",
+    "dev": "deno run --allow-net --allow-env --allow-read chat/index.ts"
+  }
+}

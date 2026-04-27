@@ -1,0 +1,615 @@
+{
+  "meta": {
+    "title": "Face Soul Yoga — Process Maps (5 prioritaires)",
+    "client": "Aurelia — Face Soul Yoga",
+    "date": "2026-03-05",
+    "usage": "Import Miro : coller les sticky notes par swimlane (Aurelia = orange, Laurie = bleu, Automatise = vert, A definir = gris)",
+    "color_legend": {
+      "aurelia": "#F7B500",
+      "laurie": "#4ECDC4",
+      "automatise": "#A8E6CF",
+      "a_definir": "#D3D3D3",
+      "point_douleur": "#FF6B6B",
+      "decision": "#C084FC"
+    }
+  },
+
+  "processes": [
+    {
+      "id": "P1",
+      "name": "Onboarding Client",
+      "departement": "Commercial",
+      "frequence": "A chaque nouveau client",
+      "temps_actuel": "Variable — qualifie de 'flou'",
+      "temps_cible": "30 min + sequence automatisee",
+      "declencheur": "Paiement recu / inscription validee",
+      "definition_of_done": "Client a acces + guide recu + check-in J+7 fait",
+      "statut_documentation": "Partiellement rempli par Aurelia/Laurie",
+      "automatisable": "Oui, totalement",
+      "swimlanes": ["Aurelia", "Laurie", "Systeme"],
+      "steps": [
+        {
+          "id": "P1-1",
+          "label": "Client paie",
+          "type": "declencheur",
+          "owner": "Systeme",
+          "tool": "Uscreen / Kajabi",
+          "color": "#A8E6CF",
+          "detail": "Confirmation de paiement automatique"
+        },
+        {
+          "id": "P1-2",
+          "label": "Email de bienvenue",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "Uscreen (B2C: 1 email) / Kajabi (B2B: 3 emails)",
+          "color": "#A8E6CF",
+          "detail": "Rempli par Aurelia : B2C = 1 email Uscreen, B2B = serie de 3 emails Kajabi"
+        },
+        {
+          "id": "P1-3",
+          "label": "Acces plateforme",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "Uscreen / Kajabi",
+          "color": "#A8E6CF",
+          "detail": "Automatique apres paiement"
+        },
+        {
+          "id": "P1-4",
+          "label": "Guide de demarrage",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "Email de bienvenue",
+          "color": "#A8E6CF",
+          "detail": "Inclus dans l'email de bienvenue"
+        },
+        {
+          "id": "P1-5",
+          "label": "⚠️ TROU : Suivi J+3",
+          "type": "point_douleur",
+          "owner": "Personne",
+          "tool": "RIEN",
+          "color": "#FF6B6B",
+          "detail": "Aurelia : 'Il n'y a rien en place a ce jour sur Uscreen (c'etait en place avec Mailchimp puis Brevo & Zapier)'"
+        },
+        {
+          "id": "P1-6",
+          "label": "⚠️ TROU : Suivi J+7",
+          "type": "point_douleur",
+          "owner": "Personne",
+          "tool": "RIEN",
+          "color": "#FF6B6B",
+          "detail": "Idem — perdu lors de la migration d'outil"
+        },
+        {
+          "id": "P1-7",
+          "label": "Suivi J+30 ?",
+          "type": "a_definir",
+          "owner": "A definir",
+          "tool": "A definir",
+          "color": "#D3D3D3",
+          "detail": "Inexistant — a creer pour la retention"
+        }
+      ],
+      "connections": [
+        {"from": "P1-1", "to": "P1-2"},
+        {"from": "P1-2", "to": "P1-3"},
+        {"from": "P1-2", "to": "P1-4"},
+        {"from": "P1-3", "to": "P1-5"},
+        {"from": "P1-5", "to": "P1-6"},
+        {"from": "P1-6", "to": "P1-7"}
+      ],
+      "cible": {
+        "description": "Sequence automatisee post-achat",
+        "steps_cible": [
+          {"jour": "J0", "action": "Email bienvenue + acces plateforme", "owner": "Systeme", "tool": "Kajabi + Brevo"},
+          {"jour": "J+1", "action": "SMS/WhatsApp de bienvenue personnalise", "owner": "Systeme", "tool": "Brevo ou ManyChat"},
+          {"jour": "J+3", "action": "Email 'Comment ca se passe ? Besoin d'aide ?'", "owner": "Systeme", "tool": "Brevo (sequence auto)"},
+          {"jour": "J+7", "action": "Email feedback + lien vers communaute", "owner": "Systeme", "tool": "Brevo"},
+          {"jour": "J+14", "action": "Check-in Laurie (message perso si pas d'activite)", "owner": "Laurie", "tool": "WhatsApp ou email"},
+          {"jour": "J+30", "action": "Email bilan 1 mois + proposition upsell", "owner": "Systeme", "tool": "Brevo (sequence auto)"}
+        ]
+      }
+    },
+
+    {
+      "id": "P2",
+      "name": "Gestion Emails & Questions Clients",
+      "departement": "Operations",
+      "frequence": "Quotidien",
+      "temps_actuel": "Chronophage — tache n°1 citee dans Fillout",
+      "temps_cible": "30 min/jour max (creneaux definis)",
+      "declencheur": "Arrivee d'un email / message client",
+      "definition_of_done": "Inbox a zero en fin de journee, temps de reponse < 24h",
+      "statut_documentation": "Template vide — Aurelia fait TOUT",
+      "automatisable": "Oui, partiellement (FAQ IA + ManyChat + regles email)",
+      "swimlanes": ["Aurelia", "Laurie", "Agent IA"],
+      "steps_actuels": [
+        {
+          "id": "P2-A1",
+          "label": "Email/message arrive",
+          "type": "declencheur",
+          "owner": "Systeme",
+          "color": "#A8E6CF"
+        },
+        {
+          "id": "P2-A2",
+          "label": "⚠️ Aurelia lit TOUT",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "color": "#FF6B6B",
+          "detail": "Pas de tri, pas de delegation. Aurelia traite les FAQ comme les demandes complexes."
+        },
+        {
+          "id": "P2-A3",
+          "label": "Aurelia repond a tout",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "color": "#FF6B6B",
+          "detail": "Reponses standards + cas complexes melanges. Temps explose."
+        },
+        {
+          "id": "P2-A4",
+          "label": "Pas d'archivage structure",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "color": "#FF6B6B"
+        }
+      ],
+      "connections_actuels": [
+        {"from": "P2-A1", "to": "P2-A2"},
+        {"from": "P2-A2", "to": "P2-A3"},
+        {"from": "P2-A3", "to": "P2-A4"}
+      ],
+      "steps_cibles": [
+        {
+          "id": "P2-C1",
+          "label": "Email/message arrive",
+          "type": "declencheur",
+          "owner": "Systeme",
+          "color": "#A8E6CF"
+        },
+        {
+          "id": "P2-C2",
+          "label": "Tri automatique (regles email)",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "Regles Gmail/Brevo",
+          "color": "#A8E6CF",
+          "detail": "Labels auto : urgent / FAQ / technique / admin"
+        },
+        {
+          "id": "P2-C3",
+          "label": "FAQ → Agent IA repond",
+          "type": "action",
+          "owner": "Agent IA",
+          "tool": "Agent IA sur-mesure (inclus contrat)",
+          "color": "#A8E6CF",
+          "detail": "Questions recurrentes traitees automatiquement. ManyChat pour DM Instagram."
+        },
+        {
+          "id": "P2-C4",
+          "label": "Questions techniques → Laurie",
+          "type": "action",
+          "owner": "Laurie",
+          "tool": "Email / Notion",
+          "color": "#4ECDC4",
+          "detail": "Acces plateforme, problemes techniques, suivi commandes"
+        },
+        {
+          "id": "P2-C5",
+          "label": "Cas complexes / strategie → Aurelia",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "Email",
+          "color": "#F7B500",
+          "detail": "Uniquement les demandes qui necessitent l'expertise d'Aurelia"
+        },
+        {
+          "id": "P2-C6",
+          "label": "Archiver / classer",
+          "type": "action",
+          "owner": "Laurie",
+          "tool": "Email + Drive",
+          "color": "#4ECDC4"
+        }
+      ],
+      "connections_cibles": [
+        {"from": "P2-C1", "to": "P2-C2"},
+        {"from": "P2-C2", "to": "P2-C3", "condition": "Si FAQ"},
+        {"from": "P2-C2", "to": "P2-C4", "condition": "Si technique"},
+        {"from": "P2-C2", "to": "P2-C5", "condition": "Si complexe/strategie"},
+        {"from": "P2-C3", "to": "P2-C6"},
+        {"from": "P2-C4", "to": "P2-C6"},
+        {"from": "P2-C5", "to": "P2-C6"}
+      ]
+    },
+
+    {
+      "id": "P3",
+      "name": "Publication RS (Instagram)",
+      "departement": "Marketing",
+      "frequence": "Quotidien (actuel) → Hebdo batch (cible)",
+      "temps_actuel": "Tres chronophage — source principale d'epuisement",
+      "temps_cible": "2h/semaine en batch le lundi",
+      "declencheur": "Calendrier editorial / batch lundi",
+      "definition_of_done": "Publications de la semaine programmees en avance, zero post 'a l'arrache'",
+      "statut_documentation": "Template vide — aucune etape formalisee",
+      "automatisable": "Oui, partiellement (programmation, auto-reponses DM, IA)",
+      "swimlanes": ["Aurelia", "Antoine", "Laurie", "Systeme"],
+      "steps_actuels": [
+        {
+          "id": "P3-A1",
+          "label": "⚠️ Aurelia decide quoi poster CHAQUE JOUR",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "color": "#FF6B6B",
+          "detail": "Pas de calendrier editorial. Decision quotidienne = fatigue decisionnelle."
+        },
+        {
+          "id": "P3-A2",
+          "label": "Aurelia cree le visuel",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "Canva / CapCut",
+          "color": "#F7B500"
+        },
+        {
+          "id": "P3-A3",
+          "label": "Aurelia redige la legende",
+          "type": "action",
+          "owner": "Aurelia",
+          "color": "#F7B500"
+        },
+        {
+          "id": "P3-A4",
+          "label": "Aurelia publie en direct",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "tool": "Instagram",
+          "color": "#FF6B6B",
+          "detail": "Pas de programmation. Publication reactive = stress permanent."
+        },
+        {
+          "id": "P3-A5",
+          "label": "Aurelia gere les commentaires/DM",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "tool": "Instagram / ManyChat",
+          "color": "#FF6B6B",
+          "detail": "Dependance : poster = vendre. Si elle ne poste pas, elle ne vend pas."
+        }
+      ],
+      "connections_actuels": [
+        {"from": "P3-A1", "to": "P3-A2"},
+        {"from": "P3-A2", "to": "P3-A3"},
+        {"from": "P3-A3", "to": "P3-A4"},
+        {"from": "P3-A4", "to": "P3-A5"}
+      ],
+      "steps_cibles": [
+        {
+          "id": "P3-C1",
+          "label": "LUNDI : Definir themes de la semaine",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "Calendrier editorial (Notion)",
+          "color": "#F7B500",
+          "detail": "30 min. Aurelia definit 5 themes + angles. C'est sa valeur ajoutee (expertise)."
+        },
+        {
+          "id": "P3-C2",
+          "label": "Brief contenu → Antoine",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "Template brief (Notion)",
+          "color": "#F7B500",
+          "detail": "Template standardise : sujet, angle, format (reel/carousel/story), refs visuelles"
+        },
+        {
+          "id": "P3-C3",
+          "label": "Antoine cree les visuels/reels",
+          "type": "action",
+          "owner": "Antoine",
+          "tool": "CapCut / Canva",
+          "color": "#4ECDC4",
+          "detail": "Antoine produit. 45 reels / 3 mois en cours."
+        },
+        {
+          "id": "P3-C4",
+          "label": "Laurie redige les legendes",
+          "type": "action",
+          "owner": "Laurie",
+          "tool": "Claude AI / Notion",
+          "color": "#4ECDC4",
+          "detail": "Avec l'aide de l'IA. Aurelia valide le ton."
+        },
+        {
+          "id": "P3-C5",
+          "label": "Aurelia valide (5 min/post)",
+          "type": "decision",
+          "owner": "Aurelia",
+          "color": "#C084FC",
+          "detail": "Quick review : OK / ajustement mineur / refaire. Pas de reecriture."
+        },
+        {
+          "id": "P3-C6",
+          "label": "Programmer la semaine",
+          "type": "action",
+          "owner": "Laurie",
+          "tool": "Meta Business Suite / Buffer",
+          "color": "#4ECDC4",
+          "detail": "Tout est programme en avance. Zero publication 'a l'arrache'."
+        },
+        {
+          "id": "P3-C7",
+          "label": "DM auto → ManyChat",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "ManyChat",
+          "color": "#A8E6CF",
+          "detail": "Auto-reponses DM. Qualification leads. Redirection vers offres."
+        }
+      ],
+      "connections_cibles": [
+        {"from": "P3-C1", "to": "P3-C2"},
+        {"from": "P3-C2", "to": "P3-C3"},
+        {"from": "P3-C2", "to": "P3-C4"},
+        {"from": "P3-C3", "to": "P3-C5"},
+        {"from": "P3-C4", "to": "P3-C5"},
+        {"from": "P3-C5", "to": "P3-C6"},
+        {"from": "P3-C6", "to": "P3-C7"}
+      ]
+    },
+
+    {
+      "id": "P4",
+      "name": "Gestion Laurie (briefs & suivi)",
+      "departement": "RH / Equipe",
+      "frequence": "Hebdomadaire",
+      "temps_actuel": "Informel — pas de process de brief ni de suivi",
+      "temps_cible": "30 min brief hebdo + suivi async via Notion",
+      "declencheur": "Lundi matin (rituel hebdomadaire)",
+      "definition_of_done": "Laurie sait quoi faire + livrables valides + zero tache tombee",
+      "statut_documentation": "Template vide",
+      "automatisable": "Partiellement (template brief recurrent, rappels auto)",
+      "swimlanes": ["Aurelia", "Laurie", "Systeme"],
+      "steps_actuels": [
+        {
+          "id": "P4-A1",
+          "label": "⚠️ Pas de brief structure",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "color": "#FF6B6B",
+          "detail": "Les taches arrivent au fil de l'eau. Pas de vision semaine."
+        },
+        {
+          "id": "P4-A2",
+          "label": "⚠️ Laurie execute sans cadre",
+          "type": "point_douleur",
+          "owner": "Laurie",
+          "color": "#FF6B6B",
+          "detail": "Pas de deadlines claires. Pas de priorites. Questions non tracees."
+        },
+        {
+          "id": "P4-A3",
+          "label": "⚠️ Aurelia re-fait si insatisfaite",
+          "type": "point_douleur",
+          "owner": "Aurelia",
+          "color": "#FF6B6B",
+          "detail": "Pas de validation intermediaire → Aurelia reprend le travail → delegation echouee → cycle toxique"
+        }
+      ],
+      "connections_actuels": [
+        {"from": "P4-A1", "to": "P4-A2"},
+        {"from": "P4-A2", "to": "P4-A3"},
+        {"from": "P4-A3", "to": "P4-A1", "label": "Boucle : Aurelia reprend tout"}
+      ],
+      "steps_cibles": [
+        {
+          "id": "P4-C1",
+          "label": "LUNDI MATIN : Aurelia prepare le brief",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "Template Notion",
+          "color": "#F7B500",
+          "detail": "15 min. Liste des taches, priorites, deadlines, livrables attendus."
+        },
+        {
+          "id": "P4-C2",
+          "label": "Brief 15-30 min (visio ou presentiel)",
+          "type": "action",
+          "owner": "Aurelia + Laurie",
+          "tool": "Meet / Presentiel",
+          "color": "#C084FC",
+          "detail": "Aurelia explique les priorites. Laurie pose ses questions. On clarifie les livrables."
+        },
+        {
+          "id": "P4-C3",
+          "label": "Laurie execute + note les blocages",
+          "type": "action",
+          "owner": "Laurie",
+          "tool": "Notion (checklist)",
+          "color": "#4ECDC4",
+          "detail": "Chaque tache = checkbox. Blocages notes dans Notion, pas par WhatsApp."
+        },
+        {
+          "id": "P4-C4",
+          "label": "MERCREDI : Point rapide 5 min",
+          "type": "action",
+          "owner": "Laurie → Aurelia",
+          "tool": "Notion / WhatsApp",
+          "color": "#4ECDC4",
+          "detail": "Async ou message rapide. 'J'en suis la, j'ai un blocage sur X.'"
+        },
+        {
+          "id": "P4-C5",
+          "label": "VENDREDI : Validation livrables",
+          "type": "decision",
+          "owner": "Aurelia",
+          "tool": "Notion",
+          "color": "#C084FC",
+          "detail": "Aurelia valide OU donne un feedback precis (pas 'c'est pas bien' mais 'change X')."
+        },
+        {
+          "id": "P4-C6",
+          "label": "Checklist fermee → semaine terminee",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "Notion",
+          "color": "#A8E6CF",
+          "detail": "Toutes les checkboxes cochees. Aucune tache tombee entre les mailles."
+        }
+      ],
+      "connections_cibles": [
+        {"from": "P4-C1", "to": "P4-C2"},
+        {"from": "P4-C2", "to": "P4-C3"},
+        {"from": "P4-C3", "to": "P4-C4"},
+        {"from": "P4-C4", "to": "P4-C5"},
+        {"from": "P4-C5", "to": "P4-C3", "condition": "Si ajustement necessaire"},
+        {"from": "P4-C5", "to": "P4-C6", "condition": "Si valide"}
+      ]
+    },
+
+    {
+      "id": "P5",
+      "name": "Parcours Client Global (macro)",
+      "departement": "Transversal",
+      "frequence": "Continu",
+      "temps_actuel": "Fragmente — chaque etape est un silo",
+      "temps_cible": "Parcours fluide et partiellement automatise",
+      "declencheur": "Un prospect decouvre Face Soul Yoga",
+      "definition_of_done": "Le client passe de decouverte a ambassadeur sans intervention manuelle a chaque etape",
+      "statut_documentation": "Inexistant comme vue globale",
+      "swimlanes": ["Prospect", "Aurelia", "Laurie", "Systeme"],
+      "steps": [
+        {
+          "id": "P5-1",
+          "label": "DECOUVERTE : Prospect voit un post Instagram",
+          "type": "action",
+          "owner": "Prospect",
+          "tool": "Instagram",
+          "color": "#D3D3D3",
+          "detail": "Canal unique = Instagram. Risque : si l'algo change, tout s'ecroule."
+        },
+        {
+          "id": "P5-2",
+          "label": "INTERET : Like / Follow / DM",
+          "type": "action",
+          "owner": "Prospect",
+          "tool": "Instagram / ManyChat",
+          "color": "#D3D3D3"
+        },
+        {
+          "id": "P5-3",
+          "label": "CAPTURE : ManyChat auto-reponse DM",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "ManyChat",
+          "color": "#A8E6CF",
+          "detail": "Auto-reponse avec lien vers offre ou lead magnet"
+        },
+        {
+          "id": "P5-4",
+          "label": "⚠️ TROU : Pas de lead magnet / email capture",
+          "type": "point_douleur",
+          "owner": "Personne",
+          "color": "#FF6B6B",
+          "detail": "Pas de sequence de nurturing. Le prospect doit acheter tout de suite ou il disparait."
+        },
+        {
+          "id": "P5-5",
+          "label": "ACHAT : Abonnement 17€/mois",
+          "type": "action",
+          "owner": "Prospect",
+          "tool": "Uscreen / Kajabi",
+          "color": "#D3D3D3",
+          "detail": "Produit d'entree. 613 abonnes courants."
+        },
+        {
+          "id": "P5-6",
+          "label": "ONBOARDING → voir Process P1",
+          "type": "action",
+          "owner": "Systeme",
+          "tool": "Voir P1",
+          "color": "#A8E6CF"
+        },
+        {
+          "id": "P5-7",
+          "label": "EXPERIENCE : Contenu hebdo (videos, lives...)",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "Uscreen / Kajabi",
+          "color": "#F7B500",
+          "detail": "~600 videos, ~550 Go. Passage evergreen decide (fin lives hebdo)."
+        },
+        {
+          "id": "P5-8",
+          "label": "COMMUNAUTE : WhatsApp",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "WhatsApp (238 + 184 membres)",
+          "color": "#F7B500",
+          "detail": "Les clientes se repondent entre elles (bon signe). MAIS pas de cadre → 'les gens me prennent pour l'epicerie'."
+        },
+        {
+          "id": "P5-9",
+          "label": "⚠️ TROU : Pas d'upsell structure",
+          "type": "point_douleur",
+          "owner": "Personne",
+          "color": "#FF6B6B",
+          "detail": "Pas de sequence abo 17€ → programme 299€. L'upsell depend du bouche a oreille interne."
+        },
+        {
+          "id": "P5-10",
+          "label": "UPSELL : Programme 299-500€",
+          "type": "action",
+          "owner": "Aurelia",
+          "tool": "Vente directe (pas automatise)",
+          "color": "#F7B500",
+          "detail": "Architecture decidee session 2 : 28j programmes transformationnels."
+        },
+        {
+          "id": "P5-11",
+          "label": "⚠️ TROU : Pas de retention structuree",
+          "type": "point_douleur",
+          "owner": "Personne",
+          "color": "#FF6B6B",
+          "detail": "Pas de suivi churn. Pas de campagne de reactivation. On ne sait pas pourquoi les gens partent."
+        },
+        {
+          "id": "P5-12",
+          "label": "PREMIUM (futur) : Mastermind 3-6K€ / 1:1 10-15K€",
+          "type": "a_definir",
+          "owner": "A definir",
+          "tool": "Aurelia Del Sol (nouvelle marque)",
+          "color": "#C084FC",
+          "detail": "Phase 4 de la feuille de route. 'Inhabit your face, inhabit your life'."
+        }
+      ],
+      "connections": [
+        {"from": "P5-1", "to": "P5-2"},
+        {"from": "P5-2", "to": "P5-3"},
+        {"from": "P5-3", "to": "P5-4", "label": "TROU"},
+        {"from": "P5-3", "to": "P5-5", "label": "Si achat direct"},
+        {"from": "P5-4", "to": "P5-5", "label": "Si conversion quand meme"},
+        {"from": "P5-5", "to": "P5-6"},
+        {"from": "P5-6", "to": "P5-7"},
+        {"from": "P5-7", "to": "P5-8"},
+        {"from": "P5-8", "to": "P5-9", "label": "TROU"},
+        {"from": "P5-8", "to": "P5-10", "label": "Si upsell spontane"},
+        {"from": "P5-10", "to": "P5-11", "label": "TROU"},
+        {"from": "P5-10", "to": "P5-12", "label": "Futur"}
+      ],
+      "trous_identifies": [
+        "Pas de lead magnet / nurturing entre decouverte et achat",
+        "Pas de suivi J+3 / J+7 apres onboarding",
+        "Pas de sequence upsell structuree (abo → programme)",
+        "Pas de suivi retention / churn",
+        "Canal unique (Instagram) = dependance critique"
+      ]
+    }
+  ],
+
+  "csv_sticky_notes": "Voir fichier miro-fsy-stickies.csv pour import rapide dans Miro"
+}

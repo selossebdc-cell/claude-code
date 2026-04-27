@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 2 — Face Soul Yoga / Aurélia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --terracotta: #D17C61;
+      --terre: #433F3C;
+      --cuivre: #AE7558;
+      --sable: #C19E8A;
+      --lin: #F3EADA;
+      --blanc: #FFFFFF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--terre);
+      background: var(--lin);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--blanc);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: var(--terre);
+      color: var(--blanc);
+      padding: 36px 48px 30px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .header-brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .header-session {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: var(--terracotta);
+      padding: 5px 14px;
+      border-radius: 3px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .header h1 span {
+      color: var(--terracotta);
+    }
+
+    .header-meta {
+      font-size: 14px;
+      opacity: 0.7;
+      font-weight: 300;
+    }
+
+    /* ── BARRE INFO ── */
+    .info-bar {
+      display: flex;
+      background: var(--lin);
+      border-bottom: 1px solid var(--sable);
+    }
+
+    .info-item {
+      flex: 1;
+      padding: 14px 20px;
+      text-align: center;
+      border-right: 1px solid rgba(193,158,138,0.4);
+    }
+
+    .info-item:last-child { border-right: none; }
+
+    .info-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--cuivre);
+      margin-bottom: 3px;
+    }
+
+    .info-value {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      padding: 36px 48px;
+    }
+
+    /* ── SECTION BLOC ── */
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--lin);
+    }
+
+    .section-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--terracotta);
+      line-height: 1;
+      min-width: 30px;
+    }
+
+    .section-title-group {
+      flex: 1;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--terre);
+      line-height: 1.2;
+    }
+
+    .section-duration {
+      font-size: 12px;
+      color: var(--sable);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .section p,
+    .section li {
+      margin-bottom: 5px;
+    }
+
+    .section ul, .section ol {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .section li {
+      padding-left: 4px;
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--lin);
+      border-left: 3px solid var(--terracotta);
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 14px;
+      color: #5a5550;
+    }
+
+    .callout strong {
+      color: var(--terracotta);
+    }
+
+    .callout em {
+      font-style: italic;
+    }
+
+    /* ── ALERT CALLOUT ── */
+    .callout-alert {
+      background: #fdf2ee;
+      border-left: 3px solid var(--terracotta);
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 14px;
+    }
+
+    .callout-alert strong {
+      color: var(--terracotta);
+    }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      margin: 14px 0;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    thead th {
+      background: var(--terre);
+      color: var(--blanc);
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    tbody td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--lin);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #faf8f5;
+    }
+
+    .status-check {
+      color: var(--cuivre);
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    /* ── DECISION BOX ── */
+    .decision-box {
+      border: 2px solid var(--terracotta);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 18px 0;
+    }
+
+    .decision-box-header {
+      background: var(--terracotta);
+      color: var(--blanc);
+      padding: 10px 18px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .decision-box-content {
+      padding: 16px 18px;
+    }
+
+    .decision-box-content p {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      padding: 8px 12px;
+      background: var(--lin);
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .option-letter {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      color: var(--terracotta);
+      min-width: 18px;
+    }
+
+    /* ── COMPARATIF MINI ── */
+    .comparatif {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .compa-card {
+      border: 1px solid var(--sable);
+      border-radius: 6px;
+      padding: 16px;
+      font-size: 13px;
+    }
+
+    .compa-card.recommended {
+      border-color: var(--terracotta);
+      border-width: 2px;
+      position: relative;
+    }
+
+    .compa-card.recommended::after {
+      content: 'RECO';
+      position: absolute;
+      top: -9px;
+      right: 12px;
+      background: var(--terracotta);
+      color: var(--blanc);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      padding: 2px 10px;
+      border-radius: 2px;
+    }
+
+    .compa-card h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--terre);
+    }
+
+    .compa-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .compa-card li {
+      padding: 3px 0;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .compa-card li::before {
+      margin-right: 6px;
+    }
+
+    .pro::before { content: '+'; color: #5a8a5a; font-weight: 700; }
+    .con::before { content: '\2212'; color: var(--terracotta); font-weight: 700; }
+
+    /* ── CIRCLE OFFER ── */
+    .circle-offer {
+      background: #f7f4f0;
+      border: 1px solid var(--sable);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .circle-offer h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--terre);
+      margin-bottom: 12px;
+    }
+
+    .circle-offer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .circle-offer-item {
+      background: var(--blanc);
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .circle-offer-item .label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cuivre);
+      margin-bottom: 4px;
+    }
+
+    .circle-offer-item .value {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .circle-offer-item .value strong {
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    .circle-offer-details {
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    .circle-offer-details ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .circle-offer-details li {
+      margin-bottom: 3px;
+      line-height: 1.5;
+    }
+
+    /* ── LAURIE INSIGHTS ── */
+    .laurie-box {
+      background: var(--lin);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 16px 0;
+    }
+
+    .laurie-box h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--terre);
+      margin-bottom: 10px;
+    }
+
+    .laurie-box table {
+      font-size: 13px;
+    }
+
+    .laurie-box thead th {
+      background: var(--cuivre);
+      font-size: 10px;
+      padding: 8px 10px;
+    }
+
+    .laurie-box tbody td {
+      padding: 7px 10px;
+    }
+
+    .prio-num {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .prio-high { background: #fde8e0; color: var(--terracotta); }
+    .prio-mid { background: #fef3e8; color: var(--cuivre); }
+    .prio-low { background: var(--lin); color: var(--sable); }
+
+    /* ── ACTIONS RECAP ── */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .action-col {
+      background: var(--lin);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .action-col h4 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--sable);
+    }
+
+    .action-col li {
+      font-size: 13.5px;
+      line-height: 1.55;
+      margin-bottom: 5px;
+      list-style: none;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .action-col li::before {
+      content: '\25CB';
+      position: absolute;
+      left: 0;
+      color: var(--cuivre);
+      font-size: 10px;
+      top: 2px;
+    }
+
+    .action-col ul { padding: 0; }
+
+    /* ── NOTES PERSO ── */
+    .notes-perso {
+      background: #fdf6f0;
+      border: 1px dashed var(--sable);
+      border-radius: 8px;
+      padding: 22px;
+      margin-top: 10px;
+    }
+
+    .notes-perso h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 15px;
+      color: var(--cuivre);
+      margin-bottom: 12px;
+    }
+
+    .notes-perso li {
+      font-size: 13.5px;
+      margin-bottom: 7px;
+      line-height: 1.55;
+    }
+
+    .notes-perso ul {
+      padding-left: 18px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--terre);
+      color: var(--blanc);
+      padding: 16px 48px;
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: center;
+      letter-spacing: 0.8px;
+    }
+
+    /* ── HIGHLIGHT ── */
+    .highlight {
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .tag-done { background: #e8f0e8; color: #4a7a4a; }
+    .tag-todo { background: #fef3e8; color: var(--cuivre); }
+    .tag-progress { background: #e8eef8; color: #4a6a9a; }
+    .tag-alert { background: #fde8e0; color: var(--terracotta); }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--lin);
+      margin: 28px 0;
+    }
+
+    @media print {
+      body { background: white; font-size: 13px; }
+      .page { box-shadow: none; }
+      .section { page-break-inside: avoid; }
+    }
+
+    @media (max-width: 640px) {
+      .header, .content { padding: 24px; }
+      .info-bar { flex-direction: column; }
+      .info-item { border-right: none; border-bottom: 1px solid var(--sable); }
+      .comparatif, .actions-grid, .circle-offer-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="header-brand">CS Consulting Strategique</div>
+      <div class="header-session">Session 2 / 19</div>
+    </div>
+    <h1>Decision migration &<br><span>suite du cadrage</span></h1>
+    <div class="header-meta">Face Soul Yoga &mdash; Aurelia &nbsp;&middot;&nbsp; Programme Clarte & Autonomie</div>
+  </div>
+
+  <!-- BARRE INFO -->
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">Date</div>
+      <div class="info-value">Lundi 2 mars 2026</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Horaire</div>
+      <div class="info-value">10h30 &mdash; 1h</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Format</div>
+      <div class="info-value">Visio</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">Pilier</div>
+      <div class="info-value">Automatisation & Outils</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- 1. CHECK-IN -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title-group">
+          <div class="section-title">Check-in & celebrations</div>
+          <div class="section-duration">5 minutes</div>
+        </div>
+      </div>
+      <ul>
+        <li>Comment tu vas ? Comment s'est passee cette quinzaine ?</li>
+        <li>Quelles victoires depuis la session 1, meme petites ?</li>
+        <li>Est-ce que Laurie et toi avez pu avancer ensemble sur les SOP ?</li>
+      </ul>
+    </div>
+
+    <!-- 2. REVUE ACTIONS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title-group">
+          <div class="section-title">Revue des actions &mdash; Session 1</div>
+          <div class="section-duration">10 minutes</div>
+        </div>
+      </div>
+
+      <p style="margin-bottom: 12px;">Depuis le 19 fevrier, voici l'etat des actions :</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Qui</th>
+              <th>Statut</th>
+              <th>Question a poser</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Lister abonnements & couts</td>
+              <td>Aurelia</td>
+              <td><span class="tag tag-done">Fait</span></td>
+              <td>Resultat ? Montant total mensuel ?</td>
+            </tr>
+            <tr>
+              <td>Call Laurie + Aurelia &mdash; SOP</td>
+              <td>Ensemble</td>
+              <td><span class="tag tag-done">Fait</span></td>
+              <td>Comment ca s'est passe ?</td>
+            </tr>
+            <tr>
+              <td>Relancer Circle + retour</td>
+              <td>Laurie</td>
+              <td><span class="tag tag-done">Fait</span></td>
+              <td>Voir offre Circle ci-dessous</td>
+            </tr>
+            <tr>
+              <td>Remplir templates SOP</td>
+              <td>Aurelia + Laurie</td>
+              <td><span class="tag tag-progress">En cours</span></td>
+              <td>Combien de process cartographies ?</td>
+            </tr>
+            <tr>
+              <td>Bloquer 2h/sem CEO time</td>
+              <td>Aurelia</td>
+              <td><span class="tag tag-todo">A verifier</span></td>
+              <td class="status-check">C'est dans l'agenda ? Respecte ?</td>
+            </tr>
+            <tr>
+              <td>Documenter parcours client B2C + B2B</td>
+              <td>Aurelia</td>
+              <td><span class="tag tag-todo">A verifier</span></td>
+              <td>Commence ou pas encore ?</td>
+            </tr>
+            <tr>
+              <td>Structure prix B2C (299&euro; + upsells)</td>
+              <td>Aurelia</td>
+              <td><span class="tag tag-todo">A verifier</span></td>
+              <td>Des reflexions ?</td>
+            </tr>
+            <tr>
+              <td>Benchmark prix revente B2B</td>
+              <td>Aurelia</td>
+              <td><span class="tag tag-todo">A verifier</span></td>
+              <td>Fait ?</td>
+            </tr>
+            <tr>
+              <td>Evergreen formation B2B</td>
+              <td>Aurelia</td>
+              <td><span class="tag tag-todo">A verifier</span></td>
+              <td>Decision prise ?</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-alert">
+        <strong>Questionnaire migration :</strong> Aurelia n'a pas rempli sa partie. Seule Laurie a repondu. A mentionner avec bienveillance &mdash; comprendre pourquoi (manque de temps ? pas su comment faire ? pas pris le temps de se poser ?). C'est un signal sur la charge.
+      </div>
+
+      <div class="callout">
+        Pas de jugement &mdash; on fait le point pour ajuster les priorites. Ce qui n'a pas ete fait n'est pas un echec, c'est une information sur la charge reelle.
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 3. NOUVEAU : CE QUE CIRCLE PROPOSE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title-group">
+          <div class="section-title">Ce que Circle propose &mdash; offre recue</div>
+          <div class="section-duration">5 minutes &mdash; partage d'info avant la decision</div>
+        </div>
+      </div>
+
+      <p style="margin-bottom: 12px;">Laurie a recu un Scope of Work detaille de Circle. Voici le resume :</p>
+
+      <div class="circle-offer">
+        <h4>Offre Circle &mdash; Migration cle en main</h4>
+        <div class="circle-offer-grid">
+          <div class="circle-offer-item">
+            <div class="label">Migration Uscreen &rarr; Circle</div>
+            <div class="value"><strong>$2 500 USD</strong> (~2 300&euro;)</div>
+          </div>
+          <div class="circle-offer-item">
+            <div class="label">Migration Kajabi &rarr; Circle</div>
+            <div class="value"><strong>Offerte</strong> (si plan Business Annual)</div>
+          </div>
+          <div class="circle-offer-item">
+            <div class="label">Delai estime</div>
+            <div class="value"><strong>~15 jours ouvres</strong></div>
+          </div>
+          <div class="circle-offer-item">
+            <div class="label">Perimetre</div>
+            <div class="value">~600 videos + 620 membres</div>
+          </div>
+        </div>
+        <div class="circle-offer-details">
+          <strong>Ce qui est inclus :</strong>
+          <ul>
+            <li>Migration des ~600 videos + contenu associe dans Circle</li>
+            <li>Migration des programmes structures (series sequentielles)</li>
+            <li>Migration des collections / categories</li>
+            <li>Tentative de migration des commentaires Uscreen</li>
+            <li>Import des ~620 membres avec champs personnalises</li>
+            <li>Migration du cours B2B depuis Kajabi (offerte)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout-alert">
+        <strong>Ce que ca change :</strong> Circle prend en charge la migration. Ca reduit considerablement la charge pour Aurelia et Laurie. En revanche, les videos sont hebergees PAR Circle (pas sur Bunny) &mdash; donc la question du lock-in reste posee. A creuser : est-ce que Circle permet d'heberger des videos externes (embed Bunny) ?
+      </div>
+    </div>
+
+    <!-- 4. RETOURS LAURIE QUESTIONNAIRE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title-group">
+          <div class="section-title">Retours de Laurie &mdash; questionnaire</div>
+          <div class="section-duration">Contexte pour la decision</div>
+        </div>
+      </div>
+
+      <div class="laurie-box">
+        <h4>Ce que Laurie dit d'Uscreen</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Reponse Laurie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ce qui marche</td>
+              <td><strong>Calendrier & Badge.</strong> Facile de creer des collections et des filtres.</td>
+            </tr>
+            <tr>
+              <td>Ce qui frustre</td>
+              <td>Les outils d'analyse et la mise en place du <strong>calendrier manuel chaque mois</strong>.</td>
+            </tr>
+            <tr>
+              <td>Ce qui manque</td>
+              <td>Possibilite d'avoir des <strong>articles, documents, audios</strong>. Actuellement seulement PDF en piece jointe. Ex : partager des recettes facilement.</td>
+            </tr>
+            <tr>
+              <td>Simplifier quoi</td>
+              <td><strong>Upload</strong> et <strong>mise en place calendrier</strong>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="laurie-box">
+        <h4>Priorites de Laurie (classement)</h4>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:50px">Rang</th>
+              <th>Fonctionnalite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="prio-num prio-high">1</span></td><td>Paiements recurrents (abonnements, membership)</td></tr>
+            <tr><td><span class="prio-num prio-high">2</span></td><td>Heberger et diffuser les videos (500+)</td></tr>
+            <tr><td><span class="prio-num prio-high">2</span></td><td>Parcours de formation structure (modules, progression)</td></tr>
+            <tr><td><span class="prio-num prio-mid">4</span></td><td>Email marketing (sequences, newsletters)</td></tr>
+            <tr><td><span class="prio-num prio-mid">5</span></td><td>App mobile pour les membres</td></tr>
+            <tr><td><span class="prio-num prio-mid">6</span></td><td>Gamification (points, badges, niveaux)</td></tr>
+            <tr><td><span class="prio-num prio-low">7</span></td><td>Analytics / suivi progression</td></tr>
+            <tr><td><span class="prio-num prio-low">8</span></td><td>Site web / landing pages</td></tr>
+            <tr><td><span class="prio-num prio-low">9</span></td><td>Communaute / espace d'echange</td></tr>
+            <tr><td><span class="prio-num prio-low">10</span></td><td>Lives / webinaires avec replay</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <strong>A noter :</strong> Laurie met la communaute en 9e position et les lives en 10e. Circle brille justement sur la communaute &mdash; est-ce un besoin reel pour leurs clientes, ou un "nice to have" ?
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 5. DECISION MIGRATION -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title-group">
+          <div class="section-title">Decision migration &mdash; on tranche</div>
+          <div class="section-duration">15 minutes</div>
+        </div>
+      </div>
+
+      <div class="circle-offer" style="margin-bottom: 18px;">
+        <h4>Infomaniak &mdash; deja dans la stack d'Aurelia</h4>
+        <p style="margin-bottom: 10px; font-size: 14px;">Aurelia et Laurie ont deja leurs <strong>comptes mails</strong> chez Infomaniak. Mais Infomaniak propose aussi une <strong>plateforme VOD/AOD</strong> qui pourrait remplacer Bunny.net pour heberger les videos :</p>
+        <div class="circle-offer-grid">
+          <div class="circle-offer-item">
+            <div class="label">Service</div>
+            <div class="value">VOD/AOD &mdash; stockage, encodage, diffusion video</div>
+          </div>
+          <div class="circle-offer-item">
+            <div class="label">A partir de</div>
+            <div class="value"><strong>~48 CHF/mois</strong> (~50&euro;) &mdash; streaming illimite</div>
+          </div>
+          <div class="circle-offer-item">
+            <div class="label">Formats</div>
+            <div class="value">HLS, DASH, MP4 &mdash; 720p, 1080p, 4K</div>
+          </div>
+          <div class="circle-offer-item">
+            <div class="label">Integration</div>
+            <div class="value">Player embed (iframe), player personnalisable</div>
+          </div>
+        </div>
+        <div class="circle-offer-details">
+          <strong>Pourquoi c'est interessant :</strong>
+          <ul>
+            <li>Elles ont <strong>deja un compte</strong> Infomaniak &mdash; un seul fournisseur pour mails + videos</li>
+            <li>Hebergement <strong>suisse</strong> (souverainete des donnees, RGPD natif)</li>
+            <li>Videos portables : embed via iframe dans n'importe quelle plateforme (Kajabi, Circle, autre)</li>
+            <li>Encodage multi-bitrate automatique (adapte au debit de chaque utilisatrice)</li>
+            <li>Essai gratuit 30 jours</li>
+          </ul>
+          <p style="margin-top: 8px; font-size: 13px;"><strong>A verifier en session :</strong> est-ce qu'elles connaissent cette offre ? Est-ce qu'elles utilisent deja d'autres services Infomaniak (kDrive, newsletter) ?</p>
+        </div>
+      </div>
+
+      <p style="margin-bottom: 14px;">Avec l'offre Circle, Infomaniak VOD et les retours de Laurie, voici le comparatif mis a jour :</p>
+
+      <!-- Mini comparatif -->
+      <div class="comparatif" style="grid-template-columns: 1fr 1fr;">
+        <div class="compa-card">
+          <h4>A &middot; Circle + Brevo</h4>
+          <ul>
+            <li class="pro">Migration cle en main ($2 500)</li>
+            <li class="pro">Meilleure communaute</li>
+            <li class="pro">Articles, audios, docs</li>
+            <li class="con">Lock-in videos (hebergees par Circle)</li>
+            <li class="con">Besoin Brevo pour email marketing</li>
+            <li class="con">Communaute = priorite 9/10 pour Laurie</li>
+          </ul>
+        </div>
+        <div class="compa-card">
+          <h4>B &middot; Kajabi seul</h4>
+          <ul>
+            <li class="pro">Simplicite maximale (1 outil)</li>
+            <li class="pro">Email marketing inclus</li>
+            <li class="pro">Deja en test</li>
+            <li class="con">Lock-in videos</li>
+            <li class="con">Refaire l'erreur Uscreen</li>
+          </ul>
+        </div>
+      </div>
+      <div class="comparatif" style="grid-template-columns: 1fr 1fr;">
+        <div class="compa-card recommended">
+          <h4>C &middot; Kajabi + Bunny</h4>
+          <ul>
+            <li class="pro">Videos portables</li>
+            <li class="pro">Kajabi pour le quotidien</li>
+            <li class="pro">Email marketing inclus</li>
+            <li class="pro">Bunny = ~5&euro;/mois</li>
+            <li class="con">Migration a faire soi-meme</li>
+          </ul>
+        </div>
+        <div class="compa-card" style="border-color: var(--cuivre); border-width: 2px; position: relative;">
+          <h4>D &middot; Kajabi + Infomaniak VOD</h4>
+          <ul>
+            <li class="pro">Videos portables</li>
+            <li class="pro">Deja clientes Infomaniak</li>
+            <li class="pro">Hebergement suisse / RGPD</li>
+            <li class="pro">1 fournisseur (mails + videos)</li>
+            <li class="con">~50&euro;/mois (vs ~5&euro; Bunny)</li>
+            <li class="con">A tester (pas de retour d'XP)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3 decisions -->
+      <div class="decision-box">
+        <div class="decision-box-header">Question 1 &mdash; Ou vivent les videos ?</div>
+        <div class="decision-box-content">
+          <p>C'est <strong>la</strong> decision structurante. ~600 videos = l'actif le plus lourd a migrer.</p>
+          <div class="option">
+            <span class="option-letter">A</span>
+            <span>Dans la plateforme (Kajabi ou Circle) &mdash; simple, mais lock-in. Si l'outil change ses prix, des jours d'extraction.</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">B</span>
+            <span>Sur <strong>Bunny.net</strong> &mdash; portable, ~5&euro;/mois. Le jour ou on change de plateforme, les videos ne bougent pas.</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">C</span>
+            <span>Sur <strong>Infomaniak VOD</strong> &mdash; portable, ~50&euro;/mois. Deja clientes, hebergement suisse, 1 seul fournisseur pour mails + videos. Plus cher que Bunny mais ecosysteme connu.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision-box">
+        <div class="decision-box-header">Question 2 &mdash; Quelle plateforme principale ?</div>
+        <div class="decision-box-content">
+          <div class="option">
+            <span class="option-letter">A</span>
+            <span><strong>Kajabi</strong> &mdash; tout-en-un (cours, email, funnels). Deja en test. Migration par nos soins.</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">B</span>
+            <span><strong>Circle</strong> &mdash; meilleure communaute, migration incluse ($2 500). Mais email via Brevo.</span>
+          </div>
+          <p style="margin-top: 8px;"><em>Demander a Aurelia : qu'est-ce qui t'a plu / decu dans Kajabi quand tu as teste ?</em></p>
+        </div>
+      </div>
+
+      <div class="decision-box">
+        <div class="decision-box-header">Question 3 &mdash; Quel niveau de complexite pour Laurie ?</div>
+        <div class="decision-box-content">
+          <div class="option">
+            <span class="option-letter">1</span>
+            <span>1 outil (Kajabi seul) &mdash; le plus simple</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">2</span>
+            <span>2 outils (Kajabi + Bunny, Kajabi + Infomaniak VOD, ou Circle + Brevo) &mdash; acceptable</span>
+          </div>
+          <div class="option">
+            <span class="option-letter">3</span>
+            <span>3+ outils (Circle + Bunny/Infomaniak + Brevo) &mdash; le plus portable, le plus lourd</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Si hesitation :</strong> "Tu sors d'Uscreen justement parce que tu es bloquee. Est-ce que tu veux prendre ce risque a nouveau ?"
+      </div>
+    </div>
+
+    <!-- 6. PLAN MIGRATION NEXT STEPS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">6</div>
+        <div class="section-title-group">
+          <div class="section-title">Plan de migration &mdash; next steps</div>
+          <div class="section-duration">10 minutes</div>
+        </div>
+      </div>
+
+      <p style="margin-bottom: 12px;">Une fois la decision prise, definir les premieres actions concretes :</p>
+
+      <ul>
+        <li><strong>Calendrier :</strong> rappel Session 1 &mdash; Kajabi garde jusqu'en juin, Uscreen jusqu'en aout</li>
+        <li><strong>Si Circle :</strong> valider le devis $2 500, envoyer l'inventaire video, lancer la migration (~15j ouvres)</li>
+        <li><strong>Si Kajabi + Bunny/Infomaniak VOD :</strong> creer le compte (Bunny.net ou activer VOD Infomaniak), tester l'upload de quelques videos, comparer la qualite du player</li>
+        <li><strong>Repartition :</strong> qui fait quoi entre Aurelia, Laurie et Catherine ?</li>
+      </ul>
+
+      <div class="callout">
+        Objectif : que la migration ne soit pas un projet de plus qui s'accumule, mais une action concrete lancee des cette semaine.
+      </div>
+    </div>
+
+    <!-- 7. PRIORITES -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">7</div>
+        <div class="section-title-group">
+          <div class="section-title">Cadrage priorites &mdash; 2 prochaines semaines</div>
+          <div class="section-duration">5 minutes</div>
+        </div>
+      </div>
+
+      <p style="margin-bottom: 12px;">Recentrer sur <strong class="highlight">2-3 actions max</strong>. Pas de dispersion.</p>
+
+      <div class="actions-grid">
+        <div class="action-col">
+          <h4>Aurelia + Laurie</h4>
+          <ul>
+            <li>Premieres actions migration (selon decision)</li>
+            <li>Continuer cartographie SOP (3 process prioritaires)</li>
+            <li>Bloquer CEO time si pas encore fait</li>
+            <li>Aurelia : remplir sa partie du questionnaire migration</li>
+          </ul>
+        </div>
+        <div class="action-col">
+          <h4>Catherine</h4>
+          <ul>
+            <li>Accompagner premiers tests migration</li>
+            <li>Preparer session 3</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Rappel :</strong> migration + process = le socle. Le pricing, le parcours client et l'evergreen B2B viendront apres. On ne disperse pas.
+      </div>
+    </div>
+
+    <!-- 8. CLOSING -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">8</div>
+        <div class="section-title-group">
+          <div class="section-title">Closing</div>
+          <div class="section-duration">5 minutes</div>
+        </div>
+      </div>
+
+      <ul>
+        <li>Resumer les decisions prises (migration + prochaines actions)</li>
+        <li>Confirmer les 3 actions max pour chacune</li>
+        <li>Caler la date de la session 3</li>
+        <li>Mot de fin : <em>"Comment tu te sens par rapport a la direction qu'on prend ?"</em></li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- NOTES PERSO -->
+    <div class="notes-perso">
+      <h3>Notes pour Catherine &mdash; pense-bete perso</h3>
+      <ul>
+        <li><strong>Questionnaire vide :</strong> Aurelia n'a pas rempli sa partie. Ne pas en faire un reproche mais comprendre &mdash; c'est probablement un signe de surcharge. Signal a observer sur la duree.</li>
+        <li><strong>Offre Circle vs reco initiale :</strong> la migration cle en main a $2 500 change la donne. Ca reduit la charge mais pose la question du lock-in video. Rester ouverte.</li>
+        <li><strong>Infomaniak VOD :</strong> option interessante (deja clientes, suisse, portable) mais ~50&euro;/mois vs ~5&euro; Bunny. Ecart x10. Justifie uniquement si la simplification 1 fournisseur ou le RGPD suisse a de la valeur pour elles. Ne pas pousser si le budget est serre.</li>
+        <li><strong>CEO time :</strong> est-ce qu'elle l'a pris ? C'est un indicateur fort de son engagement dans le changement de posture.</li>
+        <li><strong>Syndrome imposteur :</strong> si le sujet prix revient, ne pas le laisser filer. Blocage structurel (200&euro;/h en presentiel vs 299&euro; pour 28j en ligne).</li>
+        <li><strong>Laurie :</strong> elle a fait sa part (questionnaire + call Circle). Valider qu'elle monte en puissance, pas juste executante.</li>
+        <li><strong>Formation IA :</strong> repoussee &mdash; a faire plus tard quand tu connaitras mieux leurs besoins pour du sur-mesure.</li>
+        <li><strong>Pepites LinkedIn :</strong> etre attentive aux phrases-cles. 5 pepites deja extraites de la session 1, aucune utilisee.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    CS Consulting Strategique &nbsp;&middot;&nbsp; Catherine Selosse &nbsp;&middot;&nbsp; Confidentiel
+  </div>
+
+</div>
+
+</body>
+</html>

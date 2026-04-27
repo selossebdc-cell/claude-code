@@ -225,3 +225,4 @@ See `/process/consolidation-protocol.md` for complete conflict resolution proced
 ### Design & Positioning References
 - [Config as Living Proposal](product_claude-configurator-v2-config-living-proposal.md) — Config must be customizable, updatable with Claude features (EPIC-6/7 requirement)
 - [Blackbook for Claude Benchmark](reference_blackbook-claude-benchmark.md) — High-converting SaaS landing page (8.6/10) — gap analysis, social proof, urgency, pricing anchoring for Configurator v3 redesign
+- [Exact Deliverables & Pricing](product_claude-configurator-v2-deliverables.md) — **LOCKED**: €149 standard (early bird €40–€69 TBD). Defines every component customers receive: 6 agents + synthesis + Ma Mémoire + routines + guarantee. Benchmark-aligned (outcome-focused, gap-closing, specific value)

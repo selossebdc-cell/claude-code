@@ -8,6 +8,7 @@ const app_url = Deno.env.get("APP_URL");
 
 interface CheckoutRequest {
   email?: string;
+  priceId?: string;
 }
 
 interface StripeCheckoutSession {
@@ -15,8 +16,10 @@ interface StripeCheckoutSession {
   id: string;
 }
 
-async function createStripeCheckout(email: string): Promise<StripeCheckoutSession | null> {
-  if (!stripe_secret_key || !stripe_price_id) {
+async function createStripeCheckout(email: string, priceId?: string): Promise<StripeCheckoutSession | null> {
+  const selectedPriceId = priceId || stripe_price_id;
+
+  if (!stripe_secret_key || !selectedPriceId) {
     console.error("Stripe configuration missing");
     return null;
   }
@@ -27,7 +30,7 @@ async function createStripeCheckout(email: string): Promise<StripeCheckoutSessio
       mode: "payment",
       line_items: JSON.stringify([
         {
-          price: stripe_price_id,
+          price: selectedPriceId,
           quantity: 1,
         },
       ]),
@@ -139,8 +142,8 @@ Deno.serve(async (req) => {
     );
   }
 
-  // Create Stripe checkout session
-  const session = await createStripeCheckout(email);
+  // Create Stripe checkout session (with optional priceId)
+  const session = await createStripeCheckout(email, body.priceId);
   if (!session) {
     return new Response(
       JSON.stringify({ error: "Failed to create checkout session" }),

@@ -1,0 +1,5 @@
+[functions.dev-mint-token]
+verify_jwt = false
+
+[functions.test-session]
+verify_jwt = false

@@ -28,10 +28,25 @@ async function verifyStripeSignature(
     return null;
   }
 
-  // Verify HMAC-SHA256 signature
+  // Stripe signature format: t=<timestamp>,v1=<signature>
+  const signatureParts = signature.split(",");
+  const timestamp = signatureParts
+    .find((s) => s.startsWith("t="))
+    ?.split("=")[1];
+  const v1Sig = signatureParts
+    .find((s) => s.startsWith("v1="))
+    ?.split("=")[1];
+
+  if (!timestamp || !v1Sig) {
+    console.error("Invalid signature format");
+    return null;
+  }
+
+  // Signed content is: {timestamp}.{body}
+  const signedContent = `${timestamp}.${body}`;
   const encoder = new TextEncoder();
   const secretBytes = encoder.encode(stripe_webhook_secret);
-  const messageBytes = encoder.encode(body);
+  const messageBytes = encoder.encode(signedContent);
 
   const key = await crypto.subtle.importKey(
     "raw",
@@ -42,26 +57,12 @@ async function verifyStripeSignature(
   );
 
   const computedSignature = await crypto.subtle.sign("HMAC", key, messageBytes);
-  const computedHex =
-    "t=" +
-    new Date().toISOString().split("T")[0].replace(/-/g, "") +
-    "," +
-    Array.from(new Uint8Array(computedSignature))
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join("");
-
-  // Stripe signature format: t=<timestamp>,v1=<signature>
-  const signatureParts = signature.split(",");
-  const v1Sig = signatureParts.find((s) => s.startsWith("v1="))?.split("=")[1];
-
-  if (!v1Sig) {
-    console.error("Invalid signature format");
-    return null;
-  }
+  const computedHex = Array.from(new Uint8Array(computedSignature))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 
   // Compare signatures using timing-safe comparison
-  const expected = computedHex.split(",")[1];
-  const matches = timingSafeEqual(v1Sig, expected);
+  const matches = timingSafeEqual(v1Sig, computedHex);
 
   if (!matches) {
     console.error("Signature verification failed");
@@ -96,22 +97,29 @@ async function createMagicLink(email: string): Promise<string | null> {
   const supabase = createClient(supabase_url, supabase_service_role_key);
 
   try {
-    // Invite user (creates auth user if not exists)
-    const { error } = await supabase.auth.admin.inviteUserByEmail(email, {
-      redirectTo: `${app_url}/auth/callback`,
-      data: {
-        invited_at: new Date().toISOString(),
+    // Generate magic link
+    const { data, error } = await supabase.auth.admin.generateLink({
+      type: "magiclink",
+      email,
+      options: {
+        redirectTo: `${app_url}/auth/callback`,
       },
     });
 
     if (error) {
-      console.error("Invite error:", error);
+      console.error("Generate link error:", error);
       return null;
     }
 
-    return email;
+    if (!data?.properties?.action_link) {
+      console.error("No magic link generated");
+      return null;
+    }
+
+    console.log(`Magic link generated for ${email}`);
+    return data.properties.action_link;
   } catch (err) {
-    console.error("Exception inviting user:", err);
+    console.error("Exception generating magic link:", err);
     return null;
   }
 }
@@ -219,18 +227,22 @@ Deno.serve(async (req) => {
 
   try {
     // Handle Stripe events
-    if (event.type === "checkout.session.completed") {
-      const clientEmail = event.data.object.customer_email;
-      if (!clientEmail) {
-        throw new Error("No customer email in checkout session");
+    if (event.type === "payment_intent.succeeded") {
+      const metadata = event.data.object.metadata as Record<string, string> | undefined;
+      const emailFromMetadata = metadata?.email;
+      const emailFromCustomer = event.data.object.customer_email;
+      const finalEmail = emailFromMetadata || emailFromCustomer;
+
+      if (!finalEmail) {
+        throw new Error("No customer email in payment intent");
       }
 
-      const magicLinkEmail = await createMagicLink(clientEmail);
+      const magicLinkEmail = await createMagicLink(finalEmail);
       if (!magicLinkEmail) {
         throw new Error("Failed to create magic link");
       }
 
-      console.log(`Magic link sent to ${clientEmail}`);
+      console.log(`Magic link sent to ${finalEmail}`);
     } else if (event.type === "charge.failed") {
       console.log(`Charge failed for ${clientEmail}`);
       // Could send notification email here

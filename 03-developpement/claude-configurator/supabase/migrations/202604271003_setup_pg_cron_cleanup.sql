@@ -8,6 +8,13 @@ CREATE EXTENSION IF NOT EXISTS pg_cron;
 -- Step 2: Schedule daily cleanup job at 2 AM UTC
 -- Deletes diagnostics where paid_at < NOW() - 30 days
 -- Preserves auth.users rows (for user to re-purchase if needed)
+DO $$
+BEGIN
+  PERFORM cron.unschedule('delete-expired-diagnostics');
+EXCEPTION WHEN OTHERS THEN
+  NULL;
+END $$;
+
 SELECT cron.schedule(
   'delete-expired-diagnostics',
   '0 2 * * *',  -- Daily at 2 AM UTC (cron format: minute hour day month weekday)
@@ -16,6 +23,13 @@ SELECT cron.schedule(
 
 -- Step 3: Optional - Schedule monthly audit log cleanup (stripe_events)
 -- Keep stripe_events for 90 days for debugging
+DO $$
+BEGIN
+  PERFORM cron.unschedule('delete-old-stripe-events');
+EXCEPTION WHEN OTHERS THEN
+  NULL;
+END $$;
+
 SELECT cron.schedule(
   'delete-old-stripe-events',
   '0 3 1 * *',  -- Monthly on 1st day at 3 AM UTC

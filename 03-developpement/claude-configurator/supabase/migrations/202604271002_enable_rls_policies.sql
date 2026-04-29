@@ -8,6 +8,7 @@ ALTER TABLE diagnostics ENABLE ROW LEVEL SECURITY;
 -- Step 2: CREATE SELECT policy
 -- Users can see their own diagnostics
 -- Admins can see all diagnostics (admin account verification required separately)
+DROP POLICY IF EXISTS "Users see own diagnostics" ON diagnostics;
 CREATE POLICY "Users see own diagnostics"
   ON diagnostics
   FOR SELECT
@@ -19,6 +20,7 @@ CREATE POLICY "Users see own diagnostics"
 -- Step 3: CREATE INSERT policy
 -- Only authenticated users can insert (prevents anonymous writes)
 -- client_id is set from auth.uid() during insert
+DROP POLICY IF EXISTS "Users can create diagnostics" ON diagnostics;
 CREATE POLICY "Users can create diagnostics"
   ON diagnostics
   FOR INSERT
@@ -27,6 +29,7 @@ CREATE POLICY "Users can create diagnostics"
 -- Step 4: CREATE UPDATE policy
 -- Users can update their own rows
 -- Admins can update any row
+DROP POLICY IF EXISTS "Users update own diagnostics" ON diagnostics;
 CREATE POLICY "Users update own diagnostics"
   ON diagnostics
   FOR UPDATE
@@ -42,6 +45,7 @@ CREATE POLICY "Users update own diagnostics"
 -- Step 5: CREATE DELETE policy
 -- Users can delete their own rows
 -- Admins can delete any row
+DROP POLICY IF EXISTS "Users delete own diagnostics" ON diagnostics;
 CREATE POLICY "Users delete own diagnostics"
   ON diagnostics
   FOR DELETE
@@ -54,12 +58,14 @@ CREATE POLICY "Users delete own diagnostics"
 ALTER TABLE stripe_events ENABLE ROW LEVEL SECURITY;
 
 -- Only admin can read stripe_events (for debugging webhooks)
+DROP POLICY IF EXISTS "Admin only access to stripe_events" ON stripe_events;
 CREATE POLICY "Admin only access to stripe_events"
   ON stripe_events
   FOR SELECT
   USING (auth.role() = 'admin');
 
 -- Only admin can insert (via service_role during webhook processing)
+DROP POLICY IF EXISTS "Admin only insert stripe_events" ON stripe_events;
 CREATE POLICY "Admin only insert stripe_events"
   ON stripe_events
   FOR INSERT

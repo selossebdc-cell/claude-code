@@ -9,6 +9,94 @@ const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+/** Prefer compact diagnostic arrays above this JSON size (bytes, UTF-8 approximation). */
+const METADATA_DIAGNOSTIC_SOFT_LIMIT = 2048;
+/** Postgres JSONB is fine with large payloads; avoid pathological payloads for Edge payloads. */
+const METADATA_HARD_LIMIT_BYTES = 95000;
+
+function truncateText(value: string, max: number): string {
+  if (!value || value.length <= max) return value;
+  return `${value.slice(0, Math.max(0, max - 3))}...`;
+}
+
+function compressGeneratedPackage(metadata: DiagnosticMetadata): void {
+  const gp = metadata.generated_package;
+  if (!gp || typeof gp !== "object") return;
+  const rec = gp as Record<string, unknown>;
+  if (typeof rec.markdown_bundle === "string") {
+    rec.markdown_bundle = truncateText(rec.markdown_bundle, 8000);
+  }
+}
+
+function compressLivingProposal(metadata: DiagnosticMetadata): void {
+  const lp = metadata.living_proposal;
+  if (!lp) return;
+
+  for (const agent of lp.agents || []) {
+    agent.prompt = truncateText(agent.prompt || "", 900);
+    agent.why_for_you = truncateText(agent.why_for_you || "", 400);
+    agent.expected_outcome = truncateText(agent.expected_outcome || "", 350);
+  }
+  for (const routine of lp.routines || []) {
+    routine.prompt = truncateText(routine.prompt || "", 450);
+    routine.expected_output = truncateText(routine.expected_output || "", 250);
+    routine.title = truncateText(routine.title || "", 120);
+  }
+  for (const section of lp.memory_sections || []) {
+    section.description = truncateText(section.description || "", 220);
+  }
+  lp.custom_instructions_draft = truncateText(lp.custom_instructions_draft || "", 3500);
+  for (const impact of lp.expected_impacts || []) {
+    impact.rationale = truncateText(impact.rationale || "", 280);
+    impact.expected_change = truncateText(impact.expected_change || "", 120);
+  }
+  if (lp.benchmark_signals) {
+    lp.benchmark_signals.founder_authority_block = truncateText(
+      lp.benchmark_signals.founder_authority_block || "",
+      400
+    );
+    lp.benchmark_signals.social_proof_placeholders = (
+      lp.benchmark_signals.social_proof_placeholders || []
+    ).map((s) => truncateText(s, 160));
+    lp.benchmark_signals.cta_strategy_slots = (
+      lp.benchmark_signals.cta_strategy_slots || []
+    ).map((s) => truncateText(s, 120));
+  }
+}
+
+function compressMetadataSize(metadata: DiagnosticMetadata): DiagnosticMetadata {
+  let working: DiagnosticMetadata =
+    structuredClone(metadata) as DiagnosticMetadata;
+
+  if (JSON.stringify(working).length > METADATA_DIAGNOSTIC_SOFT_LIMIT) {
+    working.claude_opportunities = (working.claude_opportunities || []).slice(0, 5);
+    working.patterns_detected = (working.patterns_detected || []).slice(0, 3);
+    working.pain_points = (working.pain_points || []).slice(0, 6);
+  }
+
+  let attempts = 0;
+  while (JSON.stringify(working).length > METADATA_HARD_LIMIT_BYTES && attempts < 6) {
+    attempts += 1;
+    compressGeneratedPackage(working);
+    compressLivingProposal(working);
+    working.claude_opportunities = (working.claude_opportunities || []).slice(0, 4);
+    working.patterns_detected = (working.patterns_detected || []).slice(0, 2);
+    working.pain_points = (working.pain_points || []).slice(0, 4);
+    if (attempts >= 3 && working.living_proposal) {
+      delete working.living_proposal;
+      console.warn("Metadata still too large after compression — dropped living_proposal");
+      break;
+    }
+    if (attempts >= 5 && working.generated_package) {
+      delete working.generated_package;
+      console.warn("Metadata still too large — dropped generated_package snapshot");
+      break;
+    }
+  }
+
+  return working;
+}
+
 // Type definitions
 export interface PainPoint {
   id?: string;
@@ -54,9 +142,70 @@ export interface ClaudeOpportunity {
   implemented?: boolean;
 }
 
+export interface ConfiguredAgent {
+  id: string;
+  role: string;
+  mandatory: boolean;
+  selected: boolean;
+  recommended: boolean;
+  editable: boolean;
+  trigger: string;
+  prompt: string;
+  why_for_you: string;
+  expected_outcome: string;
+}
+
+export interface ConfiguredRoutine {
+  id: string;
+  cadence: "daily" | "weekly" | "monthly" | "as_needed";
+  title: string;
+  trigger_timing: string;
+  prompt: string;
+  expected_output: string;
+  effort_estimate: "low" | "medium" | "high";
+  linked_agents: string[];
+  recommended: boolean;
+  editable: boolean;
+}
+
+export interface MemorySection {
+  id: string;
+  title: string;
+  description: string;
+  recommended: boolean;
+  editable: boolean;
+}
+
+export interface ExpectedImpact {
+  id: string;
+  area: string;
+  metric: string;
+  timeframe: string;
+  expected_change: string;
+  rationale: string;
+}
+
+export interface LivingProposal {
+  proposal_version: string;
+  generated_at: string;
+  source_session_id: string;
+  update_reason: string;
+  agents: ConfiguredAgent[];
+  routines: ConfiguredRoutine[];
+  memory_sections: MemorySection[];
+  custom_instructions_draft: string;
+  expected_impacts: ExpectedImpact[];
+  benchmark_signals: {
+    social_proof_placeholders: string[];
+    founder_authority_block: string;
+    cta_strategy_slots: string[];
+  };
+}
+
 export interface DiagnosticMetadata {
   session_id: string;
   started_at: string;
+  client_id?: string;
   client_name?: string;
   turns_count: number;
   pain_points: PainPoint[];
@@ -84,6 +233,14 @@ export interface DiagnosticMetadata {
     questions_asked?: number;
     blockers_identified?: number;
   };
+  synthesis?: {
+    understanding: string;
+    transformation: string;
+    config_preview: string;
+  };
+  diagnostic_status?: string;
+  living_proposal?: LivingProposal;
+  generated_package?: Record<string, unknown>;
   metadata_version: string;
   last_updated: string;
 }
@@ -197,39 +354,34 @@ export async function updateMetadata(
 
   const currentMetadata = data?.metadata || {};
 
-  // Merge updates
-  const updatedMetadata: DiagnosticMetadata = {
+  const mergedMetadata = {
     ...currentMetadata,
     ...updates,
+  } as DiagnosticMetadata;
+
+  // Merge updates
+  const updatedMetadata: DiagnosticMetadata = {
+    ...mergedMetadata,
     turns_count: (currentMetadata.turns_count || 0) + 1,
     last_updated: new Date().toISOString(),
     coverage_tracking: {
-      ...(currentMetadata.coverage_tracking || {}),
-      coverage_percentage: calculateCoverage(currentMetadata),
+      ...(mergedMetadata.coverage_tracking || {}),
+      coverage_percentage: calculateCoverage(mergedMetadata),
       last_updated: new Date().toISOString(),
     },
   };
 
-  // Validate size constraint (< 2KB)
-  const metadataSize = JSON.stringify(updatedMetadata).length;
-  if (metadataSize > 2048) {
-    console.warn(
-      `Metadata size ${metadataSize} exceeds 2KB limit — compressing`
-    );
-    // Keep only top 5 opportunities, top 3 patterns
-    updatedMetadata.claude_opportunities = (
-      updatedMetadata.claude_opportunities || []
-    ).slice(0, 5);
-    updatedMetadata.patterns_detected = (
-      updatedMetadata.patterns_detected || []
-    ).slice(0, 3);
+  const payload = compressMetadataSize(updatedMetadata);
+  const metadataSize = JSON.stringify(payload).length;
+  if (metadataSize > METADATA_DIAGNOSTIC_SOFT_LIMIT) {
+    console.warn(`Metadata JSON size ${metadataSize} bytes after compression`);
   }
 
   // Persist to Supabase
   const { error: updateError } = await supabase
     .from("diagnostics")
     .update({
-      metadata: updatedMetadata,
+      metadata: payload,
       updated_at: new Date().toISOString(),
     })
     .eq("session_id", sessionId);
@@ -239,7 +391,7 @@ export async function updateMetadata(
     throw updateError;
   }
 
-  return updatedMetadata;
+  return payload;
 }
 
 /**

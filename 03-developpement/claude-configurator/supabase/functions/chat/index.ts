@@ -13,6 +13,8 @@ import {
   generateSynthesis,
   validateSynthesisQuality,
 } from "./synthesis-generator.ts";
+import { generateLivingProposal } from "./living-proposal-generator.ts";
+import { isPaymentCheckSkipped } from "../_shared/payment-bypass.ts";
 
 // Initialize Anthropic client
 const anthropic = new Anthropic({
@@ -378,7 +380,8 @@ async function handler(req: Request): Promise<Response> {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, X-Configurator-Dev-Key",
       },
     });
   }
@@ -410,16 +413,17 @@ async function handler(req: Request): Promise<Response> {
 
   const userId = jwtValidation.userId;
 
-  // Check payment status (paid_at within last 30 days)
-  const paymentCheck = await checkPaymentStatus(userId!);
-  if (!paymentCheck.hasPaid) {
-    return new Response(
-      JSON.stringify({
-        error: paymentCheck.error || "Payment required",
-        code: "PAYMENT_REQUIRED",
-      }),
-      { status: 403, headers: { "Content-Type": "application/json" } }
-    );
+  if (!isPaymentCheckSkipped(req)) {
+    const paymentCheck = await checkPaymentStatus(userId!);
+    if (!paymentCheck.hasPaid) {
+      return new Response(
+        JSON.stringify({
+          error: paymentCheck.error || "Payment required",
+          code: "PAYMENT_REQUIRED",
+        }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
   }
 
   try {
@@ -490,7 +494,7 @@ async function handler(req: Request): Promise<Response> {
 
     // Call Claude API with streaming
     const stream = anthropic.messages.stream({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-6",
       max_tokens: 800,
       temperature: 0.7,
       system: DIAGNOSTIC_SYSTEM_PROMPT_V21,
@@ -578,10 +582,14 @@ async function handler(req: Request): Promise<Response> {
           }
         }
 
-        // Update metadata with new turn + detected patterns + opportunities + synthesis
-        await updateMetadata(session_id, {
+        const metadataWithProposal = {
           ...metadataWithSynthesis,
-          turns_count: (metadata.turns_count || 0) + 1,
+          living_proposal: generateLivingProposal(metadataWithSynthesis),
+        };
+
+        // Update metadata with new turn + detected patterns + opportunities + synthesis + proposal
+        await updateMetadata(session_id, {
+          ...metadataWithProposal,
           conversation_quality_metrics: {
             ...metadata.conversation_quality_metrics,
             turns_count: (metadata.turns_count || 0) + 1,
@@ -601,6 +609,8 @@ async function handler(req: Request): Promise<Response> {
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, X-Configurator-Dev-Key",
       },
     });
 

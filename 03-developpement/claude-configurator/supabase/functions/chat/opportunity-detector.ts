@@ -302,8 +302,8 @@ export function identifyOpportunities(
     }
   });
 
-  // Sort by priority
-  return opportunities.sort((a, b) => a.priority - b.priority);
+  // Sort by priority (higher priority first: 5 -> 1)
+  return opportunities.sort((a, b) => (b.priority || 0) - (a.priority || 0));
 }
 
 function filterOpportunitiesByPainPoint(painPointArea: string): OpportunityDefinition[] {

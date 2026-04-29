@@ -209,7 +209,7 @@ export async function generateSynthesis(
 
     // Call Claude to generate synthesis
     const response = await anthropic.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-4-6",
       max_tokens: 1500,
       temperature: 0.7,
       messages: [
@@ -227,7 +227,8 @@ export async function generateSynthesis(
     const synthesis = parseSynthesisResponse(synthesisText);
 
     // Calculate metrics
-    const clarityScore = calculateClarityMetrics(metadata, []);
+    const clarityScore =
+      metadata.conversation_quality_metrics?.clarity_score ?? 0;
     const coverage = metadata.coverage_tracking?.coverage_percentage || 0;
     const painPointCount = metadata.pain_points?.length || 0;
     const opportunityCount = metadata.claude_opportunities?.length || 0;

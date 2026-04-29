@@ -16,6 +16,32 @@
 3. **ANTHROPIC_API_KEY** ready
    - Get from your Anthropic account (https://console.anthropic.com/)
 
+## Quick Start Secrets (1Password)
+
+Use this workflow before any local dev, deploy, or function test.
+
+1. Store secrets in 1Password vault `APIs` with standardized items:
+   - `Claude Configurator - Anthropic - Prod`
+   - `Claude Configurator - Supabase - Prod`
+   - `Claude Configurator - Stripe - Prod`
+2. Keep `.env.local` with `op://...` references only (no raw keys).
+3. Run commands through 1Password env resolution:
+
+```bash
+op run --env-file=.env.local -- <command>
+```
+
+Example checks:
+
+```bash
+op run --env-file=.env.local -- env | grep -E "ANTHROPIC|SUPABASE|STRIPE"
+op run --env-file=.env.local -- supabase functions list --project-ref ptksijwyvecufcvcpntp
+```
+
+Rules:
+- `.env.example` must contain placeholders only.
+- If a secret was exposed in plain text, rotate it immediately.
+
 ## Deployment Steps
 
 ### Step 1: Apply Database Migration (EPIC-4)
@@ -46,6 +72,24 @@ supabase functions list --project-ref ptksijwyvecufcvcpntp
 # Should show: chat (public)
 ```
 
+### Step 2b: Deploy Generate-Config Edge Function (EPIC-7)
+
+```bash
+supabase functions deploy generate-config --project-ref ptksijwyvecufcvcpntp
+```
+
+Same auth rules as `chat` (JWT + paiement actif). Call after diagnostic metadata contains `synthesis` and `living_proposal`:
+
+```bash
+curl -X POST https://ptksijwyvecufcvcpntp.supabase.co/functions/v1/generate-config \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer <YOUR_SUPABASE_USER_JWT>" \
+  -d '{"session_id":"<SESSION_UUID>"}'
+```
+
+Réponse JSON : pack complet (`markdown_bundle`, `structured`, `validation`). Sans `Accept: application/json`, la réponse est un flux SSE avec événements `progress` puis `complete`.
+
 ### Step 3: Set Environment Secrets
 
 ```bash
@@ -55,9 +99,12 @@ supabase secrets set ANTHROPIC_API_KEY=sk-ant-... --project-ref ptksijwyvecufcvc
 
 ### Step 4: Test the Deployment
 
+The `chat` function expects a **paid** diagnostic row (`paid_at` within 30 days) and a valid **JWT**:
+
 ```bash
 curl -X POST https://ptksijwyvecufcvcpntp.supabase.co/functions/v1/chat \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <YOUR_SUPABASE_USER_JWT>" \
   -d '{
     "session_id": "test-session-001",
     "message": "Hello, I am an engineer managing electronics export.",
@@ -66,7 +113,78 @@ curl -X POST https://ptksijwyvecufcvcpntp.supabase.co/functions/v1/chat \
   }'
 ```
 
-Expected response: SSE stream of Claude's response
+Expected response: SSE stream (text/event-stream). Without `Authorization` or payment, expect `401` / `403`.
+
+---
+
+## Liens application (production)
+
+| Page | URL |
+|------|-----|
+| Setup / tunnel principal | **https://setup.csbusiness.fr** |
+| Chat diagnostic | **https://setup.csbusiness.fr/chat.html** |
+
+`APP_URL` en prod doit être `https://setup.csbusiness.fr` (Stripe success/cancel + magic links).
+
+---
+
+## Tester sans payer ni ouvrir le navigateur (QA interne)
+
+Pour éviter `Invalid JWT` ou `PAYMENT_REQUIRED` pendant les tests :
+
+### A — Bypass paiement (Edge secrets)
+
+Dans Supabase → Project Settings → Edge Functions → Secrets (ou CLI) :
+
+```bash
+supabase secrets set SKIP_PAYMENT_CHECK=true --project-ref ptksijwyvecufcvcpntp
+```
+
+Ou, plus contrôlé : définir une clé opaque puis envoyer un header sur **chaque** requête `chat` / `generate-config` :
+
+```bash
+supabase secrets set CONFIGURATOR_DEV_KEY='une-longue-chaine-secrete' --project-ref ptksijwyvecufcvcpntp
+```
+
+```bash
+curl ... -H "X-Configurator-Dev-Key: une-longue-chaine-secrete"
+```
+
+**À retirer en production** (`SKIP_PAYMENT_CHECK` vide ou `false`, secret rotation si exposé).
+
+### B — Obtenir un vrai JWT depuis le terminal (`dev-mint-token`)
+
+1. Définir un mot de passe partagé pour les comptes mintés :
+
+```bash
+supabase secrets set DEV_LOGIN_PASSWORD='MotDePasseFortPourQAUniquement' --project-ref ptksijwyvecufcvcpntp
+```
+
+`CONFIGURATOR_DEV_KEY` doit être défini (même valeur que ci-dessus pour la section A).
+
+2. Déployer la fonction :
+
+```bash
+supabase functions deploy dev-mint-token --project-ref ptksijwyvecufcvcpntp
+```
+
+3. Mint :
+
+```bash
+curl -s -X POST "https://ptksijwyvecufcvcpntp.supabase.co/functions/v1/dev-mint-token" \
+  -H "Content-Type: application/json" \
+  -H "X-Configurator-Dev-Key: une-longue-chaine-secrete" \
+  -d '{"email":"ton-email@csbusiness.fr"}'
+```
+
+La réponse JSON contient :
+- **`access_token`** (JWT à utiliser dans `Authorization: Bearer ...`)
+- **`latest_sessions`** (5 dernières sessions diagnostics)
+- **`preferred_session_id`** (session la plus récente quand disponible)
+
+Utilise `preferred_session_id` pour ton premier test `generate-config`.
+
+`Authorization: Bearer <access_token>`
 
 ---
 

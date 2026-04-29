@@ -35,6 +35,22 @@ Demande à Catherine :
 9. **Les CGV sont signées ?** (si non, rappeler de les envoyer)
 10. **☐ Prise en charge OPCO ?** (oui/non)
 
+### Étape 1bis — Créer la structure dossier client (avec transcripts)
+
+Dès l'onboarding, créer/valider une structure standard dans `02-clients/[client]/`:
+
+1. `NOTES.md`
+2. `STATUS.md`
+3. `SESSIONS.md`
+4. `SUIVI.md`
+5. `documents/` (sous-dossiers selon besoin)
+6. `transcripts/README.md` + dossier `transcripts/` pour stocker les verbatims de session
+
+Règle systématique:
+- Après chaque session, déposer au moins un transcript brut dans `transcripts/`
+- Utiliser un nom explicite `YYYY-MM-DD_session-N_source_client.ext`
+- Référencer le transcript utilisé dans `SESSIONS.md`
+
 #### Si OPCO = oui :
 Le client doit fournir **sous 10 jours** :
 1. **Attestation de cotisation de formation** — disponible sur leur profil URSSAF (site URSSAF > Mon profil)
@@ -116,7 +132,7 @@ Si le fichier n'existe pas → le créer depuis `clients/_TEMPLATE.md`.
 Après l'envoi du kit, vérifier avec Catherine :
 - Le client a-t-il rempli le questionnaire Fillout ?
 - A-t-il réservé sa Session #1 (min. 5 jours ouvrés après le questionnaire) ?
-- A-t-il ouvert Notion ?
+- A-t-il ouvert son espace client (portail/documents) ?
 
 Si non, proposer un email de relance doux.
 

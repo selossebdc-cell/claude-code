@@ -1,0 +1,8 @@
+00:00:00 Laurie
+Hello Catherine, juste un petit message, je suis sur Brevo.
+00:00:07 Laurie
+Voilà, juste un petit message pour dire que j'ai pas l'option. Enfin, je peux mettre un filtre pour commencer les journeys d'email, les automations. Je peux mettre un filtre avec les attributs, mais en fait, ça ne ça n'enclenche pas l'automation. Directement en fait, ça va lire tous les jours à midi ou à une heure précise s'il y a quelqu'un de nouveau sur cet attribut et ça l'ajoute. La seule option que j'ai pour que l'automation s'enclenche directement dès que les gens deviennent membres ou sign up ou quelque chose, c'est si ils rentrent dans une liste.
+00:00:53 Laurie
+Donc je voulais juste voir avec toi si c'était OK de mettre ça comme point d'entrée pour les différentes, voilà les différentes journeys que tu as créé.
+00:01:06 Laurie
+Dis-moi.

@@ -753,7 +753,7 @@ Session 11+ : À planifier
         <div class="section">
             <div class="section-title">
                 <div class="section-number">4</div>
-                <div>Créer les 4 Agents Spécialisés</div>
+                <div>Créer les 5 Agents Spécialisés</div>
             </div>
 
             <p style="margin-bottom: 25px;">Les agents sont des <strong>sous-entités IA</strong> dans chaque projet. Quand Fred demande quelque chose, l'agent spécialisé répond.</p>
@@ -849,13 +849,46 @@ MÉTHODE:
 RESPONSE: "STOP. Ce mail sent bizarre. Vérifiez [URL/sender]"
 CONFIDENTIALITÉ: Rien public sur données sensibles</div>
             </div>
+
+            <!-- AGENT 5 -->
+            <div class="agent-spec">
+                <h4>🧠 Agent 5 : MD Optimizer</h4>
+                <p><strong>Quand l'utiliser :</strong> "Améliore nos .md de la semaine" ou "Fais un audit qualité des docs"</p>
+
+                <p style="margin-top: 15px;"><strong>Responsabilités:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Analyser les usages réels de la semaine</li>
+                    <li>Proposer des améliorations concrètes des fichiers .md</li>
+                    <li>Identifier doublons, ambiguïtés et sections manquantes</li>
+                    <li>Prioriser les améliorations à fort impact</li>
+                </ul>
+
+                <div class="agent-prompt">Tu es MD Optimizer pour FuFight.
+
+RÔLE: améliorer la qualité des documents .md selon l'usage réel.
+MÉTHODE:
+  1. Relever ce qui a été utilisé cette semaine (prompts, routines, docs)
+  2. Identifier frictions et manques dans les .md
+  3. Proposer un plan d'amélioration en 3 priorités max
+  4. Rédiger une version "avant/après" des sections à corriger
+
+FORMAT:
+- Tableau "Constat -> Impact -> Correction"
+- Puis "Top 3 actions" seulement
+
+CONTRAINTE:
+- Ne pas ajouter de complexité inutile
+- Rester compatible avec l'usage direct dans Claude.ai
+
+UPDATE: Knowledge projet</div>
+            </div>
         </div>
 
         <!-- SECTION 5: ROUTINES -->
         <div class="section">
             <div class="section-title">
                 <div class="section-number">5</div>
-                <div>Programmer les 6 Routines Automatisées</div>
+                <div>Programmer les 7 Routines Automatisées</div>
             </div>
 
             <p style="margin-bottom: 25px;">Les routines sont des <strong>tâches programmées</strong> qui s'exécutent automatiquement à une heure spécifique. Claude envoie briefings, reviews, alertes sans que Fred ait à demander.</p>
@@ -995,6 +1028,34 @@ UPDATE: Knowledge projet</pre>
                 </div>
             </div>
 
+            <!-- ROUTINE 7 -->
+            <div class="step-item">
+                <h4>🧠 Routine 7 : Weekly MD Improvements (Vendredi 16h30)</h4>
+                <p><strong>Fréquence:</strong> Tous les vendredis à 16h30</p>
+                <p><strong>Qui l'exécute:</strong> Projet Operations (avec persona MD Optimizer)</p>
+                <p><strong>Prompt:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Weekly MD Improvements.
+
+Objectif: améliorer les .md selon l'utilisation réelle de la semaine.
+
+1) Ce qui a été le plus utilisé (sections, routines, prompts)
+2) Où il y a eu friction ou ambiguïté
+3) Propositions d'amélioration des .md:
+   - Correction proposée
+   - Impact attendu
+   - Priorité (Haute/Moyenne/Basse)
+
+Sortie attendue:
+- Tableau "Constat -> Correction -> Impact -> Priorité"
+- Top 3 actions maximum pour la semaine suivante
+- Proposition de texte prêt à coller dans les .md
+
+UPDATE: Knowledge projet</pre>
+                </div>
+            </div>
+
             <!-- COMMENT METTRE EN PLACE -->
             <div class="highlight-yellow" style="margin-top: 40px;">
                 <strong>🔧 Comment programmer ces routines :</strong>
@@ -1005,7 +1066,7 @@ UPDATE: Knowledge projet</pre>
                     <li>Action: "Send prompt below to Finance + Coach"</li>
                     <li>Paste prompt ci-dessus</li>
                     <li>Save & Activate</li>
-                    <li>Répéter pour les 5 autres routines</li>
+                    <li>Répéter pour les 6 autres routines</li>
                 </ol>
             </div>
         </div>
@@ -1137,19 +1198,21 @@ STYLE ATTENDU:
                 <li>Sections remplies : Priorités, Blocages, Données, Contexte</li>
                 <li>Mise à jour après chaque décision importante</li>
 
-                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">🤖 AGENTS (4 à configurer)</li>
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">🤖 AGENTS (5 à configurer)</li>
                 <li>Configuré Finance Analyst (dans projet Finance)</li>
                 <li>Configuré Strategic Planner (dans projet Strategy)</li>
                 <li>Configuré Operations Manager (dans projet Operations)</li>
                 <li>Configuré Security Guard (dans projet Security)</li>
+                <li>Configuré MD Optimizer (dans projet Operations)</li>
 
-                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">📅 ROUTINES (6 à programmer)</li>
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">📅 ROUTINES (7 à programmer)</li>
                 <li>Programmé Daily Briefing (7h, tous les jours)</li>
                 <li>Programmé Mid-Week Review (17h, mercredis)</li>
                 <li>Programmé Weekly Retrospective (17h, vendredis)</li>
                 <li>Programmé Monthly Finance Audit (9h, 1er du mois)</li>
                 <li>Programmé Weekly Security Check (9h, lundis)</li>
                 <li>Programmé Quarterly Strategy Review (14h, 1er du mois)</li>
+                <li>Programmé Weekly MD Improvements (16h30, vendredis)</li>
 
                 <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">⚙️ WORKFLOWS CO-WORK</li>
                 <li>Testé un cas Finance directement dans Claude</li>

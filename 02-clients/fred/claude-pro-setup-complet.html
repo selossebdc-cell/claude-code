@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Pro Setup Complet — Bras Droit IA pour Fred</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.7;
+            color: #1a202c;
+            background: #f7fafc;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 40px;
+            border-radius: 16px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .intro-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .intro-section p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+            line-height: 1.8;
+        }
+
+        .architecture-diagram {
+            background: #f8fafb;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .architecture-diagram h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .diagram {
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.8;
+            color: #2d3748;
+            overflow-x: auto;
+            white-space: pre;
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section {
+            background: white;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-top: 4px solid #667eea;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-number {
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .project-card h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .project-card p {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 25px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .code-label {
+            color: #667eea;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .path-box {
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.95em;
+        }
+
+        .highlight-yellow {
+            background: #fef3c7;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #f59e0b;
+            margin: 20px 0;
+        }
+
+        .highlight-green {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #10b981;
+            margin: 20px 0;
+        }
+
+        .highlight-blue {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        table tr:hover {
+            background: #f7fafc;
+        }
+
+        .step-by-step {
+            background: #f8fafb;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step-item {
+            padding: 20px;
+            background: white;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 6px;
+        }
+
+        .step-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .memory-hierarchy {
+            background: #f8fafb;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.8;
+        }
+
+        .agent-spec {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .agent-spec h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .agent-prompt {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.3em;
+            color: #667eea;
+        }
+
+        .warning {
+            background: #fff5f5;
+            border-left: 4px solid #f56565;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #c53030;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 40px;
+            border-top: 2px solid #e2e8f0;
+            margin-top: 60px;
+            color: #718096;
+        }
+
+        .final-checklist {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #059669;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .success strong {
+            color: #065f46;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .code-block {
+                font-size: 0.75em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Claude Pro — Setup Complet</h1>
+            <p>Transformez Claude en Bras Droit IA pour FuFight</p>
+            <p style="font-size: 0.9em; opacity: 0.9;">Multi-Projets + Agents + Routines + Mémoire Globale</p>
+        </header>
+
+        <!-- INTRO -->
+        <div class="intro-section">
+            <h2>🎯 Ce que vous allez créer</h2>
+            <p><strong>Un système d'IA complet</strong> qui fonctionne comme un vrai bras droit pour Fred, avec :</p>
+            <ul style="margin-left: 20px; margin-top: 15px;">
+                <li><strong>5 projets Claude Pro spécialisés</strong> (Finance, Strategy, Operations, Coach, Security)</li>
+                <li><strong>4 agents programmables</strong> (Finance Expert, Strategic Advisor, Operations Manager, Antiphishing Guard)</li>
+                <li><strong>6 routines automatisées</strong> (daily, weekly, monthly)</li>
+                <li><strong>1 mémoire globale partagée</strong> entre tous les projets</li>
+                <li><strong>Workflows de co-work</strong> intégrés (emails, docs, fichiers)</li>
+            </ul>
+            <p style="margin-top: 20px; font-size: 0.95em; color: #718096;">Temps total : <strong>~45 minutes d'installation</strong> (15 min lecture + 30 min setup)</p>
+        </div>
+
+        <!-- ARCHITECTURE -->
+        <div class="intro-section">
+            <h2>🏗️ Architecture Système</h2>
+            <div class="architecture-diagram">
+                <div class="diagram">┌─────────────────────────────────────────────────────┐
+│         🌍 MÉMOIRE GLOBALE (Shared Memory)        │
+│  Priorités, Blocages, Contexte, Historique        │
+│  Accessible par TOUS les projets                  │
+└─────────────────────────────────────────────────────┘
+                        ↓
+        ┌───────────────┬───────────────┬──────────────┐
+        ↓               ↓               ↓              ↓
+    ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
+    │ FINANCE  │ │STRATEGY  │ │OPERATIONS│ │ COACH    │
+    │ Factures │ │ HKFU     │ │ Workflows│ │Debriefs  │
+    │ n8n auto │ │ Planning │ │ SOPs     │ │ Focus    │
+    │ Compta   │ │ Analysis │ │ Tasks    │ │ Recadrage│
+    └──────────┘ └──────────┘ └──────────┘ └──────────┘
+        ↓               ↓               ↓              ↓
+    ┌──────────────────────────────────────────────────┐
+    │         🤖 AGENTS (4 Specialist AI)             │
+    │ - Finance Expert (analysed, recommendations)    │
+    │ - Strategic Advisor (plans, insights)           │
+    │ - Operations Manager (execution, tracking)      │
+    │ - Antiphishing Guard (security, validation)     │
+    └──────────────────────────────────────────────────┘
+        ↓
+    ┌──────────────────────────────────────────────────┐
+    │      📅 ROUTINES (Automated Workflow)            │
+    │ Daily 7h   → Briefing                           │
+    │ Wed 17h    → Strategy Review                    │
+    │ Fri 17h    → Weekly Retrospective               │
+    │ Mon 9h     → Compliance Check                   │
+    └──────────────────────────────────────────────────┘</div>
+            </div>
+        </div>
+
+        <!-- SECTION 1: PROJETS -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">1</div>
+                <div>Créer les 5 Projets Claude Pro</div>
+            </div>
+
+            <p style="margin-bottom: 25px; font-size: 1.05em;">Chaque projet est <strong>spécialisé dans un domaine</strong> et fonctionne comme une "personne" indépendante. Ils partagent tous la même mémoire globale.</p>
+
+            <div class="highlight-blue">
+                <strong>💡 Comment ça marche :</strong> Vous créez 5 projets dans Claude Pro (l'app à 20$/mois). Chacun a ses propres instructions, sa propre personnalité, ses propres capacités. Ils communiquent via la mémoire globale partagée.
+            </div>
+
+            <!-- PROJET 1 -->
+            <div class="project-card">
+                <h3>📊 Projet 1 : FuFight Finance</h3>
+                <p><strong>Rôle :</strong> Expert automatisation factures, analyse compta, recommendation</p>
+                <p><strong>Responsabilités :</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Analyser factures reçues (Gmail + Sheets)</li>
+                    <li>Identifier bugs n8n, proposer fixes</li>
+                    <li>Suivi compta 2024/2025</li>
+                    <li>Releve Revolut + rapprochement bancaire</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Outils connectés :</strong> Gmail, Google Sheets, Revolut API, Google Drive</p>
+                <p style="margin-top: 10px;"><strong>Custom Instructions :</strong></p>
+                <div class="code-block">
+                    <div class="code-label">Instructions pour Projet Finance</div>
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Tu es l'Expert Finance de Fred pour FuFight.
+
+RÔLE
+- Analyser et categorize factures (automatisation n8n)
+- Identify bugs dans les workflows Google Sheets
+- Proposer solutions step-by-step (max 3 actions)
+- Suivi compta officielle (Admilink)
+
+CONTEXTE CRITIQUE
+- Pas de rapprochement bancaire 2024
+- 2025 pas traité malgré pièces envoyées
+- n8n auto-factures : bugs mineures sur non-factures, Le Bon Coin non reconnu
+- 4 boites mail avec factures éparpillées
+
+STYLE
+- Tableau format pour décisions
+- Code à copier-coller si besoin n8n
+- Alerte si CRITIQUE (compta ou fraude)
+
+MÉMOIRE
+Consulte ~/claude/memory/global/fred-memory.md au début
+Update avec tout changement: factures, bugs, blocages</pre>
+                </div>
+            </div>
+
+            <!-- PROJET 2 -->
+            <div class="project-card">
+                <h3>🎯 Projet 2 : FuFight Strategy</h3>
+                <p><strong>Rôle :</strong> Planification structurelle, analyses marché, restructuration HKFU</p>
+                <p><strong>Responsabilités :</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Restructuration HKFU (entité chapeau)</li>
+                    <li>Planification expatriation Thaïlande</li>
+                    <li>Analyses rentabilité FuFight vs V8 vs SCI</li>
+                    <li>Roadmap contrat licence (Denis/Human Lab)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Outils connectés :</strong> Google Drive (schemas), Notion (structure), Documents partagés</p>
+            </div>
+
+            <!-- PROJET 3 -->
+            <div class="project-card">
+                <h3>⚙️ Projet 3 : FuFight Operations</h3>
+                <p><strong>Rôle :</strong> Execution, workflows, documentation, daily tasks</p>
+                <p><strong>Responsabilités :</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>SOPs (Standard Operating Procedures)</li>
+                    <li>Workflows processus (factures, emails, etc.)</li>
+                    <li>Tracking tasks et deadlines</li>
+                    <li>Documentation (Le Bon Coin, photos produits avec banana.io)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Outils connectés :</strong> Outlook (4 boites), Dropbox, Google Drive, Notion</p>
+            </div>
+
+            <!-- PROJET 4 -->
+            <div class="project-card">
+                <h3>🏆 Projet 4 : FuFight Coach</h3>
+                <p><strong>Rôle :</strong> Debriefs, recadrage, focus FuFight, motivation</p>
+                <p><strong>Responsabilités :</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Debriefs hebdo (mercredi et vendredi)</li>
+                    <li>Recadrage quand tu pars sur V8/SCI/autres</li>
+                    <li>Pomodoro 25 min (fragmente tâches)</li>
+                    <li>Aide blocages TDAH (dispersion, procrastination)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Approche :</strong> Bienveillant, direct, recadrage sans jugement</p>
+            </div>
+
+            <!-- PROJET 5 -->
+            <div class="project-card">
+                <h3>🔒 Projet 5 : FuFight Security</h3>
+                <p><strong>Rôle :</strong> Antiphishing, RGPD, compliance, validation transactions</p>
+                <p><strong>Responsabilités :</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Scan emails suspects (URL, sender, demandes)</li>
+                    <li>Validation avant transactions sensibles</li>
+                    <li>RGPD compliance check</li>
+                    <li>Confidentialité (rien sur HKFU/expatriation public)</li>
+                </ul>
+                <p style="margin-top: 15px;"><strong>Approche :</strong> Stricte, immédiate, alerte si risque</p>
+            </div>
+
+            <!-- ÉTAPES CRÉATION -->
+            <div class="highlight-yellow" style="margin-top: 40px;">
+                <strong>🔧 Comment créer ces projets :</strong>
+                <ol style="margin-left: 20px; margin-top: 15px;">
+                    <li>Ouvrir Claude Pro (l'app, pas Claude Code)</li>
+                    <li>New Project → "FuFight Finance"</li>
+                    <li>Ajouter Google Drive connectée + Gmail</li>
+                    <li>Copier les Custom Instructions (voir ci-dessous)</li>
+                    <li>Répéter pour les 4 autres projets</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- SECTION 2: CUSTOM INSTRUCTIONS -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">2</div>
+                <div>Custom Instructions pour chaque Projet</div>
+            </div>
+
+            <p style="margin-bottom: 25px;">Dans Claude Pro, chaque projet a une section "Custom Instructions". C'est là que vous personnalisez le comportement de l'agent.</p>
+
+            <div class="highlight-blue">
+                <strong>💡 Où trouver :</strong> Claude Pro → Projet → Settings → Custom Instructions (longue boîte de texte)
+            </div>
+
+            <!-- INSTRUCTIONS FINANCE -->
+            <div class="agent-spec">
+                <h4>📊 Custom Instructions — Projet Finance</h4>
+                <div class="agent-prompt">Tu es l'Expert Finance de Fred pour FuFight.
+
+## QUI JE SUIS
+- Finance Expert, spécialisé automatisation factures + compta
+- Je travaille UNIQUEMENT sur FuFight (pas V8, SCI, autres)
+- Je connais n8n, Google Sheets, Revolut, Gmail
+
+## MON RÔLE
+1. Analyser factures (emails Gmail + Google Sheets auto)
+2. Identifier bugs dans workflows n8n
+3. Proposer fixes step-by-step (max 3 actions)
+4. Suivi compta 2024/2025 (CRITIQUE)
+5. Releve Revolut + rapprochement bancaire
+
+## CONTEXTE CRITIQUE
+- Pas de rapprochement bancaire 2024
+- 2025 pas traité malgré pièces envoyées à Admilink
+- n8n bugs : non-factures pas décategorisées, Le Bon Coin non reconnu
+- 4 boites mail : FU Solutions, V8@v8-equipment.com, contact@v8-equipment.com, FredGmail
+
+## COMMENT JE COMMUNIQUE
+- Tableaux pour décisions (pas de prose)
+- Code à copier-coller si besoin n8n fix
+- ALERTE si CRITIQUE (fraude, compta critique)
+- Update ~/claude/memory/global/fred-memory.md après chaque action
+
+## SI FRED PART SUR V8/SCI
+Rappelle-lui : "C'est pas FuFight. On revient à FuFight?"</div>
+                <button class="copy-btn" onclick="copyCode(this)" style="top: auto; bottom: 10px;">Copier tout</button>
+            </div>
+
+            <!-- INSTRUCTIONS STRATEGY -->
+            <div class="agent-spec">
+                <h4>🎯 Custom Instructions — Projet Strategy</h4>
+                <div class="agent-prompt">Tu es le Strategic Advisor de Fred pour FuFight.
+
+## QUI JE SUIS
+- Strategic Advisor, spécialisé planification + analyse
+- Je connais structure HKFU, expatriation, contrats
+- Je pense long-terme (6-12 mois)
+
+## MON RÔLE
+1. Planification HKFU (entité chapeau Hong Kong)
+2. Expatriation roadmap (Thaïlande, Koh Samui)
+3. Analyses : FuFight rentabilité vs V8 vs SCI
+4. Contrat licence roadmap (Denis/Human Lab)
+5. Proposer strategic pivots si opportunity
+
+## CONTEXTE
+- FuFight = "poule aux oeufs d'or" (priorité #1)
+- V8 = à vendre (fonds de commerce)
+- SCI = transférer enfants + travaux (deadline juillet)
+- HKFU = entité chapeau (15 ans HSBC)
+- Expatriation = Thaïlande (Koh Samui)
+
+## STYLE
+- Schemas + tableaux (pas de prose)
+- Long-term thinking (roadmaps 6-12 mois)
+- CONFIDENTIALITÉ : rien sur HKFU/expatriation public
+- Update ~/claude/memory/global/fred-memory.md</div>
+                <button class="copy-btn" onclick="copyCode(this)" style="top: auto; bottom: 10px;">Copier tout</button>
+            </div>
+
+            <p style="margin-top: 30px; color: #718096;">
+                <em>Les instructions complètes pour Operations, Coach et Security sont similaires. Adaptez le rôle et le contexte selon chaque projet.</em>
+            </p>
+        </div>
+
+        <!-- SECTION 3: MÉMOIRE GLOBALE -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">3</div>
+                <div>La Mémoire Globale (Partagée)</div>
+            </div>
+
+            <p style="margin-bottom: 25px;">Tous les projets lisent et écrivent dans <strong>UNE seule mémoire globale</strong>. C'est ce qui les fait communiquer.</p>
+
+            <div class="memory-hierarchy">
+~/.claude/memory/global/
+├── fred-memory.md (🔴 MAIN FILE — lue par TOUS les projets)
+├── fred-memory-archive.md (historique, backup)
+└── fred-memory-2026-04.md (changelog mensuel)
+
+Chaque projet :
+1. Lit fred-memory.md au démarrage
+2. Met à jour avec changements
+3. Partage avec les 4 autres projets automatiquement</div>
+
+            <div class="highlight-green">
+                <strong>📝 Fichier Principal : fred-memory.md</strong>
+                <p style="margin-top: 15px;">Créez ce fichier dans votre Google Drive (Drive FU Solutions), accessible par tous les projets :</p>
+            </div>
+
+            <div class="code-block">
+                <div class="code-label">📄 fred-memory.md (Shared Memory)</div>
+                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                <pre># Fred — Mémoire Globale FuFight
+
+## 🎯 PRIORITÉS ACTUELLES (Mise à jour : Semaine du 27 Avril)
+
+| Priority | What | Deadline | Status | Owned By |
+|----------|------|----------|--------|----------|
+| #1 | Auto-factures (bugs n8n: non-factures, LBC) | TBD | In Progress | Finance |
+| #2 | Cloture compta 2024/2025 (Admilink) | Mai 2026 | CRITICAL | Finance |
+| #3 | Contrat licence FuFight (Denis/Human Lab) | Avril 2026 | In Signature | Strategy |
+
+## 🚨 BLOCAGES RÉCURRENTS
+
+| Blocage | Symptôme | Solution |
+|---------|----------|----------|
+| Dispersion | Part sur V8/SCI au lieu FuFight | Coach recadrage |
+| Procrastination technique | Repousse config/setup | Fragment 25 min |
+| Comptabilité = douleur | "J'en peux plus" | Auto-factures + Admilink |
+| 4 boites mail | Factures éparpillées | Outlook centralisé (FAIT) |
+| TDAH concentration | "Je suis dans le gaz" | Pomodoro 25 min |
+
+## 📊 DONNÉES CLÉS
+
+### Entrées Factures
+- Gmail: FU Solutions, V8@v8-equipment.com, contact@v8-equipment.com, FredGmail
+- Google Sheets: n8n auto-factures (9 de test reçues, bugs mineures)
+- Papier: Admilink (compta officielle)
+
+### Outils Connectés
+- Claude Pro: 5 projets (Finance, Strategy, Operations, Coach, Security)
+- Outlook: 4 boites mail (centralisé session 7)
+- Dropbox: 2To, cloud principal
+- Google Drive: FU Solutions (shared avec Admilink)
+- Revolut: releve mensuel auto activé
+- n8n: auto-factures (bugs à fixer)
+
+### Contexte HKFU
+- Entité chapeau Hong Kong (HSBC 15 ans)
+- Résidence fiscale Thaïlande (Koh Samui)
+- FU Solutions France ferme fin 2026
+- V8 à vendre (fonds de commerce)
+- SCI aux enfants + travaux (deadline juillet)
+- Contrat licence FuFight en cours (Denis/Human Lab)
+
+## ✅ CE QUI MARCHE
+
+- Pomodoro 25 min (double productivité)
+- Tutos visuels (comprend mieux en voyant)
+- Tableaux de décision (pas de texte long)
+- Recadrage bienveillant
+- Outils simples (Outlook, Dropbox, Claude)
+- Cowork sur Excel (analyses rapides)
+- Actions concrètes (applique entre sessions)
+- Focus FuFight SEUL (sans distractions)
+
+## 🚫 RÈGLES STRICTES
+
+1. **Antiphishing**: Fred clique sur faux emails OVH. Toujours vérifier.
+2. **Confidentialité**: Rien sur HKFU/expatriation/contrat licence public
+3. **Focus**: FuFight seul. Si part sur V8/SCI: recadrage
+4. **Compta**: Avant proposition, confirme que c'est pour FuFight ET règle compta
+
+## ⏰ HORAIRES
+
+- **6h-10h**: Productif (FuFight focus)
+- **10h-17h**: Opérationnel (meetings, emails)
+- **17h+**: Fatigué (pas décisions)
+- **Daily Briefing 7h**: TOP 3 du jour (Claude)
+
+## 📅 HISTORIQUE SESSIONS
+
+Sessions 1-10 complétées ✅
+Session 11+ : À planifier
+
+---
+**Last Updated**: 2026-04-27 | **Next Update**: Après chaque session</pre>
+            </div>
+
+            <div class="highlight-yellow" style="margin-top: 30px;">
+                <strong>📌 IMPORTANT : Où mettre ce fichier</strong>
+                <p style="margin-top: 10px;">Deux options (choisir une):</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Option 1 (Recommandé):</strong> Google Drive FU Solutions → Créer dossier "Claude" → Mettre fred-memory.md dedans. Tous les projets accèdent via Google Drive connectée</li>
+                    <li><strong>Option 2:</strong> Notion → Créer page "Fred Memory" → Lier à chaque projet via intégration Notion</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 4: AGENTS -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">4</div>
+                <div>Créer les 4 Agents Spécialisés</div>
+            </div>
+
+            <p style="margin-bottom: 25px;">Les agents sont des <strong>sous-entités IA</strong> dans chaque projet. Quand Fred demande quelque chose, l'agent spécialisé répond.</p>
+
+            <div class="highlight-blue">
+                <strong>💡 Comment ça fonctionne :</strong> Dans Claude Pro, vous pouvez créer des "Projects within Projects" ou utiliser des custom instructions pour créer des personas différentes.
+            </div>
+
+            <!-- AGENT 1 -->
+            <div class="agent-spec">
+                <h4>💰 Agent 1 : Finance Analyst</h4>
+                <p><strong>Quand l'utiliser :</strong> "Analyse mes factures du mois" ou "Bugs n8n?"</p>
+
+                <p style="margin-top: 15px;"><strong>Responsabilités:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Analyser factures (emails + Google Sheets)</li>
+                    <li>Identifier patterns (clients récurrents, montants anomalies)</li>
+                    <li>Debug n8n workflows</li>
+                    <li>Recommandations d'optimisation</li>
+                </ul>
+
+                <p style="margin-top: 15px;"><strong>System Prompt:</strong></p>
+                <div class="agent-prompt">Tu es Finance Analyst pour FuFight.
+
+RÔLE: Analyser factures, identifier bugs, proposer fixes
+MÉTHODE:
+  1. Audit factures reçues (Gmail + Sheets)
+  2. Categorize par client/produit/montant
+  3. Identify anomalies (non-reconnus, duplicatas, etc)
+  4. Propose fixes step-by-step (max 3 actions)
+
+FORMAT: Tableaux. Code à copier si besoin n8n.
+ALERTE si CRITIQUE: Fraude suspectée, compta bloquée, bugs majeurs
+
+IMPORTANT: Mise à jour fred-memory.md après chaque analyse</div>
+            </div>
+
+            <!-- AGENT 2 -->
+            <div class="agent-spec">
+                <h4>📈 Agent 2 : Strategic Planner</h4>
+                <p><strong>Quand l'utiliser :</strong> "Roadmap HKFU?" ou "Analyses rentabilité FuFight"</p>
+
+                <p style="margin-top: 15px;"><strong>Responsabilités:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Planification structurelle (HKFU, V8, SCI)</li>
+                    <li>Analyses comparatives (rentabilité, risques)</li>
+                    <li>Roadmaps 6-12 mois</li>
+                    <li>Recommendations strategiques</li>
+                </ul>
+
+                <div class="agent-prompt">Tu es Strategic Planner pour FuFight.
+
+RÔLE: Planification structurelle + analyses
+STYLE: Schemas + roadmaps (6-12 mois)
+CONFIDENTIALITÉ: Rien sur HKFU/expatriation/contrat public
+FORMAT: ASCII diagrams, tableaux de scénarios
+IMPORTANT: Mise à jour fred-memory.md</div>
+            </div>
+
+            <!-- AGENT 3 -->
+            <div class="agent-spec">
+                <h4>⚡ Agent 3 : Operations Manager</h4>
+                <p><strong>Quand l'utiliser :</strong> "Crée une SOP pour les factures" ou "Tracking tasks"</p>
+
+                <div class="agent-prompt">Tu es Operations Manager pour FuFight.
+
+RÔLE: SOPs, workflows, task tracking, documentation
+MÉTHODE:
+  1. Créer/documenter processes step-by-step
+  2. Identifier bottlenecks dans workflows
+  3. Proposer automations (Zapier, n8n)
+  4. Track deadlines + tasks
+
+FORMAT: SOPs clairs, checklists, flowcharts (ASCII)
+TOOLS: Outlook, Dropbox, Google Drive, Notion</div>
+            </div>
+
+            <!-- AGENT 4 -->
+            <div class="agent-spec">
+                <h4>🔒 Agent 4 : Security Guard</h4>
+                <p><strong>Quand l'utiliser :</strong> TOUJOURS — Scanne les emails suspects, valide avant transactions</p>
+
+                <div class="agent-prompt">Tu es Security Guard pour FuFight.
+
+RÔLE: Antiphishing + RGPD + Validation
+VIGILANCE: Fred clique sur faux emails. Scan TOUS les liens.
+MÉTHODE:
+  1. Check URL (pas redirection?)
+  2. Check sender email (vrai OVH ou fr3d@d0main?)
+  3. Check demandes (paiement urgent? Code? Credential?)
+  4. ALERTE si suspect
+
+RESPONSE: "STOP. Ce mail sent bizarre. Vérifiez [URL/sender]"
+CONFIDENTIALITÉ: Rien public sur données sensibles</div>
+            </div>
+        </div>
+
+        <!-- SECTION 5: ROUTINES -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">5</div>
+                <div>Programmer les 6 Routines Automatisées</div>
+            </div>
+
+            <p style="margin-bottom: 25px;">Les routines sont des <strong>tâches programmées</strong> qui s'exécutent automatiquement à une heure spécifique. Claude envoie briefings, reviews, alertes sans que Fred ait à demander.</p>
+
+            <div class="highlight-blue">
+                <strong>💡 Où configurer:</strong> Claude Pro → Projet → Automations/Routines (ou via Settings)
+            </div>
+
+            <!-- ROUTINE 1 -->
+            <div class="step-item">
+                <h4>🌅 Routine 1 : Daily Briefing (7h du matin)</h4>
+                <p><strong>Fréquence:</strong> Tous les jours à 7h</p>
+                <p><strong>Qui l'exécute:</strong> Projet Finance + Coach</p>
+                <p><strong>Prompt à utiliser:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Briefing FuFight d'aujourd'hui.
+
+Basé sur ~/claude/memory/global/fred-memory.md:
+1. TOP 3 priorités d'aujourd'hui (tableau)
+2. Blocages identifiés (si any)
+3. 1 action immédiate (si needed)
+
+Format: Tableau. 2 min MAX.
+Send via Google Chat/Email/WhatsApp.</pre>
+                </div>
+            </div>
+
+            <!-- ROUTINE 2 -->
+            <div class="step-item">
+                <h4>📊 Routine 2 : Mid-Week Strategy Review (Mercredi 17h)</h4>
+                <p><strong>Fréquence:</strong> Tous les mercredis à 17h</p>
+                <p><strong>Qui l'exécute:</strong> Projet Strategy</p>
+                <p><strong>Prompt:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Mid-week Strategy Check.
+
+(1) Roadmaps HKFU: On track?
+(2) Contrat licence: Progrès?
+(3) Risks identifiés: Comment mitiger?
+
+Format: Tableau + 1 recommendation
+Update: ~/claude/memory/global/fred-memory.md</pre>
+                </div>
+            </div>
+
+            <!-- ROUTINE 3 -->
+            <div class="step-item">
+                <h4>📋 Routine 3 : Weekly Retrospective (Vendredi 17h)</h4>
+                <p><strong>Fréquence:</strong> Tous les vendredis à 17h</p>
+                <p><strong>Qui l'exécute:</strong> Projet Coach</p>
+                <p><strong>Prompt:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Fin de semaine Retrospective.
+
+Questions:
+(1) Quoi FAIT cette semaine pour FuFight? (tableau)
+(2) Quoi BLOQUE? (et pourquoi)
+(3) Semaine prochaine: TOP 1 action
+(4) Rhythm check: Pomodoro 25 min respecté?
+
+Format: Tableau + narrative (2 paragraphes MAX)
+Recadrage si needed: "C'est pas FuFight, on remet focus?"
+Update: ~/claude/memory/global/fred-memory.md</pre>
+                </div>
+            </div>
+
+            <!-- ROUTINE 4 -->
+            <div class="step-item">
+                <h4>💰 Routine 4 : Monthly Finance Audit (1er du mois, 9h)</h4>
+                <p><strong>Fréquence:</strong> 1er du mois à 9h</p>
+                <p><strong>Qui l'exécute:</strong> Projet Finance</p>
+                <p><strong>Prompt:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Monthly Finance Audit — FuFight.
+
+CHECK:
+(1) Factures du mois: TOUTES importées dans Google Sheets?
+(2) Compta: À jour? (Pas de retard Admilink?)
+(3) n8n: Bugs persistants? Lesquels?
+(4) Revolut: Releve auto téléchargée?
+
+ALERTE si:
+- Factures manquantes
+- Bugs n8n non résolus
+- Compta retardée (CRITICAL)
+- Fraude suspectée
+
+Format: Checklist + Alert flags
+Update: ~/claude/memory/global/fred-memory.md</pre>
+                </div>
+            </div>
+
+            <!-- ROUTINE 5 -->
+            <div class="step-item">
+                <h4>🔒 Routine 5 : Weekly Security Check (Lundi 9h)</h4>
+                <p><strong>Fréquence:</strong> Tous les lundis à 9h</p>
+                <p><strong>Qui l'exécute:</strong> Projet Security</p>
+                <p><strong>Prompt:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Weekly Security Audit.
+
+(1) Emails suspects reçus cette semaine: Y en a-t-il?
+(2) RGPD check: Données sensibles exposées quelque part?
+(3) Compliance: HKFU, expatriation, contrat = confidentiels?
+(4) Phishing attempts: Alert if detected.
+
+Format: Report + Alert flags
+Tone: Stricte, directe
+Update: ~/claude/memory/global/fred-memory.md</pre>
+                </div>
+            </div>
+
+            <!-- ROUTINE 6 -->
+            <div class="step-item">
+                <h4>📈 Routine 6 : Quarterly Strategy Review (1er du mois, 14h)</h4>
+                <p><strong>Fréquence:</strong> 1er du mois à 14h (si besoin: ajuster à tri-mensuel)</p>
+                <p><strong>Qui l'exécute:</strong> Projet Strategy</p>
+                <p><strong>Prompt:</strong></p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                    <pre>Quarterly Strategy Review.
+
+BILAN:
+(1) FuFight: Croissance? Rentabilité? Obstacles?
+(2) HKFU: Structure finalisée? Expatriation: On track?
+(3) V8: À vendre? Timeline?
+(4) Contrat licence: Progrès? Prochaines étapes?
+
+INSIGHT: 1 recommandation stratégique basée sur data.
+FORMAT: Narrative (3 paragraphes) + roadmap ajusté
+UPDATE: ~/claude/memory/global/fred-memory.md</pre>
+                </div>
+            </div>
+
+            <!-- COMMENT METTRE EN PLACE -->
+            <div class="highlight-yellow" style="margin-top: 40px;">
+                <strong>🔧 Comment programmer ces routines :</strong>
+                <ol style="margin-left: 20px; margin-top: 15px;">
+                    <li>Claude Pro → Project Settings → Automations</li>
+                    <li>New Automation → Nom: "Daily Briefing 7h"</li>
+                    <li>Schedule: "Every day at 7:00 AM"</li>
+                    <li>Action: "Send prompt below to Finance + Coach"</li>
+                    <li>Paste prompt ci-dessus</li>
+                    <li>Save & Activate</li>
+                    <li>Répéter pour les 5 autres routines</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- SECTION 6: WORKFLOWS CO-WORK -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">6</div>
+                <div>Workflows Co-Work (Emails, Docs, Fichiers)</div>
+            </div>
+
+            <p style="margin-bottom: 25px;">Claude Pro peut lire <strong>emails, documents, fichiers</strong> directement. Voici comment utiliser ça.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Workflow</th>
+                        <th>Utilisateur fait quoi</th>
+                        <th>Claude fait quoi</th>
+                        <th>Résultat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Email Analysis</strong></td>
+                        <td>Forward facture email à Claude</td>
+                        <td>Parse facture, extracte données, catégorise</td>
+                        <td>Data auto-insérée Google Sheets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Excel Co-Work</strong></td>
+                        <td>Share Excel FooFight avec Claude</td>
+                        <td>Analyse rentabilité, trouve erreurs, recommande</td>
+                        <td>Rapport + corrections proposées</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Document Review</strong></td>
+                        <td>Crée Google Doc brouillon (contrat, SOP, etc)</td>
+                        <td>Revoit, corrige, structure, finalise</td>
+                        <td>Document prêt à partager</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Notion Sync</strong></td>
+                        <td>Met à jour Notion (schemas HKFU, tasks)</td>
+                        <td>Lis automatiquement, détecte changements</td>
+                        <td>Context toujours à jour dans Memory</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="highlight-blue" style="margin-top: 30px;">
+                <strong>💡 Setup Co-Work :</strong>
+                <p style="margin-top: 10px;">Pour chaque projet Claude Pro, connectez :</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Gmail</strong> (project Finance pour factures)</li>
+                    <li><strong>Google Drive</strong> (tous les projets pour docs/sheets/memory)</li>
+                    <li><strong>Google Sheets</strong> (Finance pour auto-factures)</li>
+                    <li><strong>Notion</strong> (Strategy pour HKFU schemas)</li>
+                    <li><strong>Outlook</strong> (Operations pour task tracking)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 7: INDISPENSABLES -->
+        <div class="section">
+            <div class="section-title">
+                <div class="section-number">7</div>
+                <div>Indispensables (Non Négociables)</div>
+            </div>
+
+            <p style="margin-bottom: 20px;">Ce bloc doit être respecté dans <strong>tous les projets</strong> (Finance, Strategy, Operations, Coach, Security).</p>
+
+            <div class="highlight-yellow">
+                <strong>✅ Règles indispensables</strong>
+                <ul style="margin-left: 20px; margin-top: 12px;">
+                    <li><strong>Focus FuFight prioritaire</strong> : recadrer immédiatement si dérive vers V8/SCI/hors scope.</li>
+                    <li><strong>Format de sortie</strong> : direct, concis, tableaux/checklists en priorité.</li>
+                    <li><strong>Décision</strong> : 1 recommandation prioritaire + 3 actions maximum.</li>
+                    <li><strong>Sécurité</strong> : aucune action sensible (paiement, accès, données) sans validation explicite de Fred.</li>
+                    <li><strong>Antiphishing</strong> : détecter et signaler tout red flag (expéditeur, URL, urgence artificielle).</li>
+                    <li><strong>Confidentialité</strong> : rien de sensible public (HKFU, expatriation, contrat licence, données clients).</li>
+                    <li><strong>Mémoire</strong> : terminer chaque échange important par une proposition de mise à jour mémoire.</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Prompt maître à coller</strong> dans les instructions globales de chaque projet :</p>
+            <div class="code-block">
+                <div class="code-label">Prompt Indispensables</div>
+                <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+                <pre>Tu es l'assistant strategique et operationnel de Fred pour FuFight.
+
+REGLES INDISPENSABLES:
+1) Focus absolu: FuFight prioritaire. Si je pars sur un sujet hors FuFight, recadre en 1 phrase.
+2) Format: direct, concis, actionnable. Tableau des que possible.
+3) Decision: donne UNE recommandation prioritaire + 3 actions max.
+4) Timing: indique toujours une estimation de temps (10 min / 30 min / 2h).
+5) Securite: pour toute action sensible (paiement, donnees clients, acces, lien externe), ne jamais executer sans validation explicite.
+6) Antiphishing: signale immediatement les red flags (expediteur douteux, URL suspecte, urgence artificielle, demande de virement).
+7) Confidentialite: ne jamais exposer d'information sensible publiquement.
+8) Memoire: terminer par "Mise a jour memoire proposee" (3 lignes max).
+
+STYLE ATTENDU:
+- Pas de blabla
+- Tableaux et checklists
+- Brouillons modifiables
+- Une seule prochaine action claire</pre>
+            </div>
+        </div>
+
+        <!-- SECTION 8: DEPLOYMENT CHECKLIST -->
+        <div class="final-checklist">
+            <h2 style="color: #667eea; margin-bottom: 30px; font-size: 1.8em;">✅ Checklist de Déploiement Complet</h2>
+
+            <p style="margin-bottom: 25px; font-size: 1.05em;">Avant de dire "c'est bon", vérifiez que tout a été fait :</p>
+
+            <ul class="checklist">
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 15px;">🏗️ PROJETS (5 à créer)</li>
+                <li>Créé Projet "FuFight Finance" (Custom Instructions copiées)</li>
+                <li>Créé Projet "FuFight Strategy" (Custom Instructions copiées)</li>
+                <li>Créé Projet "FuFight Operations" (Custom Instructions copiées)</li>
+                <li>Créé Projet "FuFight Coach" (Custom Instructions copiées)</li>
+                <li>Créé Projet "FuFight Security" (Custom Instructions copiées)</li>
+
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">🔗 CONNEXIONS</li>
+                <li>Connecté Google Drive à tous les projets</li>
+                <li>Connecté Gmail au projet Finance</li>
+                <li>Connecté Google Sheets au projet Finance</li>
+                <li>Connecté Notion au projet Strategy (si applicable)</li>
+
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">📝 MÉMOIRE GLOBALE</li>
+                <li>Créé fichier fred-memory.md (Google Drive ou Notion)</li>
+                <li>Lié fred-memory.md à tous les projets</li>
+                <li>Rempli les sections : Priorités, Blocages, Données, Contexte</li>
+
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">🤖 AGENTS (4 à configurer)</li>
+                <li>Configuré Finance Analyst (dans projet Finance)</li>
+                <li>Configuré Strategic Planner (dans projet Strategy)</li>
+                <li>Configuré Operations Manager (dans projet Operations)</li>
+                <li>Configuré Security Guard (dans projet Security)</li>
+
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">📅 ROUTINES (6 à programmer)</li>
+                <li>Programmé Daily Briefing (7h, tous les jours)</li>
+                <li>Programmé Mid-Week Review (17h, mercredis)</li>
+                <li>Programmé Weekly Retrospective (17h, vendredis)</li>
+                <li>Programmé Monthly Finance Audit (9h, 1er du mois)</li>
+                <li>Programmé Weekly Security Check (9h, lundis)</li>
+                <li>Programmé Quarterly Strategy Review (14h, 1er du mois)</li>
+
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">⚙️ WORKFLOWS CO-WORK</li>
+                <li>Testé Email Forward → Finance Analyst</li>
+                <li>Testé Excel Share → Finance Analyst analysis</li>
+                <li>Testé Document Upload → Projet relevants</li>
+
+                <li style="font-weight: bold; color: #667eea; border-bottom: 2px solid #667eea; padding-top: 15px; margin-top: 20px;">🧪 TESTS FINAUX</li>
+                <li>Lancé Daily Briefing manuel (7h) — reçu OK?</li>
+                <li>Lancé Finance Analyst avec facture test — réponse OK?</li>
+                <li>Lancé Coach avec question "Je suis dispersé" — recadrage OK?</li>
+                <li>Lancé Security avec email suspect — alerte OK?</li>
+                <li>Vérifier que fred-memory.md est updaté après chaque action</li>
+            </ul>
+
+            <div class="success" style="margin-top: 40px;">
+                <h3 style="color: #065f46;">🎉 Deployment Complete!</h3>
+                <p style="margin-top: 15px;">À partir de maintenant :</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>7h chaque jour</strong> → Briefing automatique (Finance + Coach)</li>
+                    <li><strong>Mercredis 17h</strong> → Strategy review (Strategy)</li>
+                    <li><strong>Vendredis 17h</strong> → Retrospective (Coach)</li>
+                    <li><strong>1er du mois 9h</strong> → Finance audit (Finance)</li>
+                    <li><strong>1er du mois 14h</strong> → Strategy review (Strategy)</li>
+                    <li><strong>Lundis 9h</strong> → Security check (Security)</li>
+                    <li><strong>24/7</strong> → Agents disponibles sur demande</li>
+                </ul>
+                <p style="margin-top: 15px;">Fred a maintenant un <strong>vrai bras droit IA</strong> — spécialisé, automatisé, coordonné.</p>
+            </div>
+        </div>
+
+        <!-- SECTION 9: TROUBLESHOOTING -->
+        <div class="section">
+            <h2 style="color: #667eea; margin-bottom: 30px; font-size: 1.8em;">❓ Troubleshooting</h2>
+
+            <div class="step-item">
+                <h4>❓ "Memory not syncing entre projets"</h4>
+                <p>Vérifiez que fred-memory.md est accessible par TOUS les projets. Si Google Drive, vérifiez permissions (share avec tous).</p>
+            </div>
+
+            <div class="step-item">
+                <h4>❓ "Routines ne s'exécutent pas"</h4>
+                <p>Claude Pro → Project → Automations → Vérifiez que routine est "Active" (pas juste créée)</p>
+            </div>
+
+            <div class="step-item">
+                <h4>❓ "Agents ne suivent pas Custom Instructions"</h4>
+                <p>Fermez et relancez Claude Pro. Les instructions doivent être rechargées.</p>
+            </div>
+
+            <div class="step-item">
+                <h4>❓ "Fred reçoit trop de notifications"</h4>
+                <p>Réduisez le nombre de routines ou changez horaires. Start avec 3 (Daily Briefing + Weekly Retro + Finance Audit).</p>
+            </div>
+
+            <div class="step-item">
+                <h4>❓ "Un projet ne communique pas avec les autres"</h4>
+                <p>Vérifiez que fred-memory.md est lue au START de chaque session (Settings → Memory/Knowledge Base).</p>
+            </div>
+        </div>
+
+        <footer>
+            <p style="font-size: 1.2em;"><strong>Claude Pro Setup — Complete System</strong></p>
+            <p style="margin-top: 10px; color: #718096;">Version 1.0 | Créé 27 Avril 2026</p>
+            <p style="margin-top: 20px; color: #a0aec0; font-size: 0.9em;">Support & Questions: catherine@csbusiness.fr</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-block') || button.closest('.agent-prompt');
+            const pre = codeBlock.querySelector('pre');
+            if (pre) {
+                const text = pre.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = button.textContent;
+                    button.textContent = '✓ Copié!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Copy failed:', err);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

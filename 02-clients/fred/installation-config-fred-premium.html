@@ -230,29 +230,21 @@
           <p>Briefing quotidien, revue hebdo et controle mensuel.</p>
         </div>
       </div>
-      <div class="alert warn">Important: ce guide est technique et execute une installation locale Claude Code via fichiers.</div>
+      <div class="alert warn">Important: ce guide est 100% dans l'application Claude (sans terminal).</div>
     </section>
 
     <section class="card step">
-      <h3><span class="badge">Etape 1</span>Creer la structure de dossiers</h3>
-      <p>Ouvrir un terminal et executer:</p>
-      <div class="code">
-        <div class="head">
-          <span>Terminal</span>
-          <button class="copy" data-copy="mkdir -p .claude && mkdir -p ~/.claude/memory/client">Copier</button>
-        </div>
-        <pre>mkdir -p .claude
-mkdir -p ~/.claude/memory/client</pre>
-      </div>
-      <div class="alert ok">Resultat attendu: les dossiers `.claude` (projet) et `~/.claude/memory/client` (home) existent.</div>
+      <h3><span class="badge">Etape 1</span>Creer le projet dans l'application Claude</h3>
+      <p>Dans Claude: <strong>Projects</strong> -> <strong>New project</strong> -> nommer le projet <strong>FuFight - Fred</strong>.</p>
+      <div class="alert ok">Resultat attendu: un projet dedie FuFight est cree dans l'application.</div>
     </section>
 
     <section class="card step">
-      <h3><span class="badge">Etape 2</span>Installer `CLAUDE.md` (comportement principal)</h3>
-      <div class="path">Chemin: .claude/CLAUDE.md</div>
+      <h3><span class="badge">Etape 2</span>Configurer les Instructions du projet</h3>
+      <div class="path">Emplacement: Project settings -> Instructions</div>
       <div class="code">
         <div class="head">
-          <span>Contenu recommande</span>
+          <span>Instructions projet (a coller)</span>
           <button class="copy" data-target="claude-md">Copier</button>
         </div>
         <pre id="claude-md"># Configuration Fred - FuFight
@@ -282,42 +274,15 @@ mkdir -p ~/.claude/memory/client</pre>
 - Tableaux pour comparaison/decision
 - Brouillons modifiables plutot que textes figes</pre>
       </div>
-      <div class="alert ok">Ce fichier donne a Claude sa "ligne editoriale" et son niveau d'exigence.</div>
+      <div class="alert ok">Ces instructions donnent a Claude la ligne editoriale et les regles de travail de Fred.</div>
     </section>
 
     <section class="card step">
-      <h3><span class="badge">Etape 3</span>Installer `settings.json` (hooks et base technique)</h3>
-      <div class="path">Chemin: .claude/settings.json</div>
+      <h3><span class="badge">Etape 3</span>Ajouter la base de connaissance (memoire)</h3>
+      <div class="path">Emplacement: Project settings -> Knowledge / Project knowledge</div>
       <div class="code">
         <div class="head">
-          <span>JSON pret a coller</span>
-          <button class="copy" data-target="settings-json">Copier</button>
-        </div>
-        <pre id="settings-json">{
-  "model": "claude-sonnet-4-6",
-  "hooks": {
-    "sessionStart": "Load ~/.claude/memory/client/fred.md",
-    "sessionEnd": "/memory-saver"
-  },
-  "permissions": {
-    "security": [
-      "read-only on sensitive files"
-    ],
-    "automation": [
-      "schedule"
-    ]
-  }
-}</pre>
-      </div>
-      <div class="alert warn">Si un hook n'existe pas dans son environnement, garder le fichier et retirer seulement la ligne du hook qui pose probleme.</div>
-    </section>
-
-    <section class="card step">
-      <h3><span class="badge">Etape 4</span>Installer la memoire Fred</h3>
-      <div class="path">Chemin: ~/.claude/memory/client/fred.md</div>
-      <div class="code">
-        <div class="head">
-          <span>Template memoire</span>
+          <span>Memoire Fred (a coller)</span>
           <button class="copy" data-target="memory-md">Copier</button>
         </div>
         <pre id="memory-md"># Fred - Memoire Operatoire
@@ -349,47 +314,58 @@ mkdir -p ~/.claude/memory/client</pre>
 - Ajouts:
 - Prochaine action prioritaire:</pre>
       </div>
-      <div class="alert ok">Objectif: Claude retrouve le contexte en debut de session sans tout reexpliquer.</div>
+      <div class="alert ok">Resultat attendu: Claude dispose du contexte Fred a chaque nouvelle conversation du projet.</div>
+    </section>
+
+    <section class="card step">
+      <h3><span class="badge">Etape 4</span>Regler le modele et le comportement de sortie</h3>
+      <div class="path">Emplacement: Project settings -> Model + Response style</div>
+      <ul class="checklist">
+        <li><span class="checkbox"></span><span>Modele recommande: <strong>claude-sonnet-4-6</strong></span></li>
+        <li><span class="checkbox"></span><span>Format prefere: concis, tableau en priorite</span></li>
+        <li><span class="checkbox"></span><span>Regle de decision: 1 recommandation prioritaire + 3 actions max</span></li>
+      </ul>
+      <div class="alert ok">Resultat attendu: la sortie est directe, actionnable et conforme au style Fred.</div>
     </section>
 
     <section class="card step">
       <h3><span class="badge">Etape 5</span>Programmer les 3 routines</h3>
-      <p>Dans Claude, utiliser les commandes de planning (ou l'equivalent UI si disponible).</p>
+      <p>Dans l'application Claude: <strong>Project -> Automations</strong>, puis creer 3 automatisations.</p>
 
       <div class="mini">
         <h4>Routine A - Daily briefing (7h)</h4>
         <div class="code">
-          <div class="head"><span>Commande</span><button class="copy" data-copy="claude /schedule &quot;daily 7h&quot;">Copier</button></div>
-          <pre>claude /schedule "daily 7h"</pre>
+          <div class="head"><span>Horaire</span><button class="copy" data-copy="Tous les jours, 07:00">Copier</button></div>
+          <pre>Tous les jours, 07:00</pre>
         </div>
       </div>
 
       <div class="mini">
         <h4>Routine B - Revue hebdo (vendredi 17h)</h4>
         <div class="code">
-          <div class="head"><span>Commande</span><button class="copy" data-copy="claude /schedule &quot;weekly friday 17h&quot;">Copier</button></div>
-          <pre>claude /schedule "weekly friday 17h"</pre>
+          <div class="head"><span>Horaire</span><button class="copy" data-copy="Chaque vendredi, 17:00">Copier</button></div>
+          <pre>Chaque vendredi, 17:00</pre>
         </div>
       </div>
 
       <div class="mini">
         <h4>Routine C - Controle mensuel (1er du mois 9h)</h4>
         <div class="code">
-          <div class="head"><span>Commande</span><button class="copy" data-copy="claude /schedule &quot;monthly 1st 9h&quot;">Copier</button></div>
-          <pre>claude /schedule "monthly 1st 9h"</pre>
+          <div class="head"><span>Horaire</span><button class="copy" data-copy="Le 1er de chaque mois, 09:00">Copier</button></div>
+          <pre>Le 1er de chaque mois, 09:00</pre>
         </div>
       </div>
 
-      <div class="alert warn">Si l'automatisation n'est pas active, ces prompts peuvent etre executes manuellement aux memes horaires.</div>
+      <div class="alert warn">Si Automations n'est pas disponible, utiliser les memes prompts en manuel aux memes horaires.</div>
     </section>
 
     <section class="card">
       <h2>6) Validation finale (obligatoire)</h2>
       <ul class="checklist">
-        <li><span class="checkbox"></span><span>Le fichier `.claude/CLAUDE.md` est cree et rempli.</span></li>
-        <li><span class="checkbox"></span><span>Le fichier `.claude/settings.json` est valide (JSON correct).</span></li>
-        <li><span class="checkbox"></span><span>Le fichier `~/.claude/memory/client/fred.md` existe.</span></li>
-        <li><span class="checkbox"></span><span>Une nouvelle session Claude charge bien la memoire Fred.</span></li>
+        <li><span class="checkbox"></span><span>Le projet Claude "FuFight - Fred" existe.</span></li>
+        <li><span class="checkbox"></span><span>Les Instructions du projet sont collees.</span></li>
+        <li><span class="checkbox"></span><span>La base Knowledge contient la memoire Fred.</span></li>
+        <li><span class="checkbox"></span><span>Une nouvelle conversation du projet reprend bien ce contexte.</span></li>
         <li><span class="checkbox"></span><span>Au moins une routine est active et testee.</span></li>
       </ul>
       <div class="alert ok">Definition du "setup reussi": Fred peut lancer une session et obtenir immediatement une reponse contextualisee + une prochaine action claire.</div>
@@ -400,15 +376,15 @@ mkdir -p ~/.claude/memory/client</pre>
       <div class="grid">
         <div class="mini">
           <h4>Memoire non chargee</h4>
-          <p>Verifier le chemin exact `~/.claude/memory/client/fred.md` et relancer Claude.</p>
+          <p>Verifier que la memoire est bien dans Project Knowledge, puis ouvrir une nouvelle conversation.</p>
         </div>
         <div class="mini">
-          <h4>JSON invalide</h4>
-          <p>Verifier virgules/quotes dans `settings.json`.</p>
+          <h4>Instructions non appliquees</h4>
+          <p>Verifier qu'elles sont collees dans le bon projet et non dans un autre.</p>
         </div>
         <div class="mini">
           <h4>Routines inactives</h4>
-          <p>Verifier la planification ou executer les prompts en manuel aux memes horaires.</p>
+          <p>Verifier l'etat "Active" dans Automations, sinon executer les prompts manuellement.</p>
         </div>
       </div>
       <div class="alert danger">Regle securite: si un email externe demande paiement/acces urgent, ne rien executer sans validation explicite de Fred.</div>
